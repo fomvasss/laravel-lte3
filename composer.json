@@ -1,0 +1,41 @@
+{
+    "name": "fomvasss/laravel-lte3",
+    "description": "LTE3 Control Panel for Laravel Framework",
+    "keywords": [
+        "admin", "lte", "dashboard", "fields", "control", "panel", "components", "html-form", "form-builder", "fomvasss"
+    ],
+    "authors": [
+        {
+            "name": "Vasyl Fomin",
+            "email": "fomvasss@gmail.com",
+            "role": "Architect & Developer",
+            "homepage": "https://github.com/fomvasss"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0.2",
+        "illuminate/support": "^9.0|^10.0"
+    },
+    "require-dev": {
+        "almasaeed2010/adminlte": "~3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fomvasss\\Lte3\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fomvasss\\Lte3\\ServiceProvider"
+            ],
+            "aliases": {
+                "Lte3": "Fomvasss\\Lte3\\Facades\\Lte"
+            }
+        }
+    }
+}

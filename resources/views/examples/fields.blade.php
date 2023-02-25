@@ -1,0 +1,868 @@
+@extends('lte3::layouts.app')
+
+@section('content')
+    @include('lte3::parts.content-header', ['pageTitle' => 'Fields Examples'])
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="card">
+            <div class="card-header">
+            <h3 class="card-title"><a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
+
+            <div class="card-tools">
+                <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
+                <a href="#" class="btn btn-default btn-xs"><i class="fas fa-download"></i> Import</a>
+
+                <div class="btn-group">
+                    <a href="#" class="btn btn-default btn-xs">UK</a>
+                    <a href="#" class="btn btn-primary btn-xs">EN</a>
+                    <a href="#" class="btn btn-default btn-xs">FR</a>
+                </div>
+
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                <i class="fas fa-times"></i>
+                </button>
+            </div>
+            </div>
+            <div class="card-body p-0">
+
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">
+                            #
+                        </th>
+                        <th style="width: 20%">
+                           Project Name
+                        </th>
+                        <th style="width: 30%">
+                            Team Members
+                        </th>
+                        <th>
+                            Project Progress
+                        </th>
+                        <th style="width: 8%" class="text-center">
+                            Status
+                        </th>
+                        <th></th>
+                        <th style="width: 20%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="sortable-y" data-url="/">
+                    <tr id="1">
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            <a class="hover-edit" href="#">
+                                AdminLTE v3
+                            </a>
+                            <br/>
+                            <small>
+                                Created 01.01.2019
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar4.png">
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project_progress">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                                </div>
+                            </div>
+                            <small>
+                                57% Complete
+                            </small>
+                        </td>
+                        <td class="project-state">
+                            <span class="badge badge-success">Success</span>
+                        </td>
+                        <td class="project-actions text-right">
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
+                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                        </td>
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="#">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="btn btn-info btn-sm" href="#">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    <tr id="2">
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            <a>
+                                AdminLTE v3
+                            </a>
+                            <br/>
+                            <small>
+                                Created 01.01.2019
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project_progress">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" style="width: 47%">
+                                </div>
+                            </div>
+                            <small>
+                                47% Complete
+                            </small>
+                        </td>
+                        <td class="project-state">
+                            <span class="badge badge-success">Success</span>
+                        </td>
+                        <td class="project-actions text-right">
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
+                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                        </td>
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="#">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="btn btn-info btn-sm" href="#">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    <tr id="3">
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            <a>
+                                AdminLTE v3
+                            </a>
+                            <br/>
+                            <small>
+                                Created 01.01.2019
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project_progress">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">
+                                </div>
+                            </div>
+                            <small>
+                                77% Complete
+                            </small>
+                        </td>
+                        <td class="project-state">
+                            <span class="badge badge-success">Success</span>
+                        </td>
+                        <td class="project-actions text-right">
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
+                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                        </td>
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="#">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="btn btn-info btn-sm" href="#">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    <tr id="4">
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            <a>
+                                AdminLTE v3
+                            </a>
+                            <br/>
+                            <small>
+                                Created 01.01.2019
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
+                                </li>
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar4.png">
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project_progress">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                </div>
+                            </div>
+                            <small>
+                                60% Complete
+                            </small>
+                        </td>
+                        <td class="project-state">
+                            <span class="badge badge-success">Success</span>
+                        </td>
+                        <td class="project-actions text-right">
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
+                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                        </td>
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="#">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="btn btn-info btn-sm" href="#">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                <ul class="pagination float-right"><li class="paginate_button page-item previous disabled"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul>
+                <!--
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+                -->
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- BASE -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Base</h3>
+                        </div>
+                        {!! Lte3::formOpen(['action' => '/test', 'files' => true, 'method' => 'DELETE']) !!}
+                        <div class="card-body">
+
+                            {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
+                            {!! Lte3::text('name', 'Tom', ['label' => 'Full name', 'title' => 123]) !!}
+                            {!! Lte3::text('url', null, [
+                                    'type' => 'url',
+                                    'prepend' => '<i class="fas fa-link"></i>',
+                            ]) !!}
+                            {!! Lte3::text('email', 'fom@app.com', [
+                                    'type' => 'email',
+                                    'max' => '30',
+                                    'readonly' => 1,
+                                    'label' => 'Your Email',
+                                    'help' => '* Enter Email',
+                                    'prepend' => '<i class="fas fa-envelope"></i>',
+                                    'append' => '<i class="fas fa-check"></i>',
+                                    'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
+                            ]) !!}
+
+                            {!! Lte3::slug('slug', 'asd', ['label' => 'Your Slug']) !!}
+                            {!! Lte3::colorpicker('colorpicker', '#3C42B0', ['label' => 'Color']) !!}
+                            {!! Lte3::checkbox('status', 1, ['label' => '']) !!}
+                            {!! Lte3::checkbox('statusAjax', 1, [
+                                'label' => 'AJAX',
+                                'url_save' => route('lte3.data.save'),
+                                'method_save' => 'POST',
+                            ]) !!}
+
+                            {!! Lte3::checkbox('accept', true, [
+                                    'label' => 'Accept <a href="#">Terms</a>',
+                                    'checked_value' => 2,
+                                    'unchecked_value' => 0,
+                                    'wrap_class' => 'custom-switch'
+                            ]) !!}
+
+                            {!! Lte3::radiogroup('cc', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
+
+                            {!! Lte3::radiogroup('cc', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], [
+                                'label' => 'Size:',
+                                'map' => [
+                                    'smtp' => ['.js-block-period'],
+                                    'max_clicks' => ['.js-block-clicks'],
+                                    'max_views' => ['.js-block-views'],
+                                ],
+                            ]) !!}
+
+                            {!! Lte3::textarea('message', 'Hello World!', [
+                                    'label' => 'Message',
+                                    'rows' => 3,
+                            ]) !!}
+
+                            <a href="" class="js-copy-to-clipboard" data-text="Hello!" data-toggle="tooltip" title="Copy">Click to copy text "Hello!"</a>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        {!! Lte3::formClose() !!}
+                    </div>
+
+                    <!-- SELECT2 -->
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">SELECT2</h3>
+                        </div>
+                        <div class="card-body">
+                            {!! Lte3::select2('status', null, ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
+                                'label' => 'Status',
+                                'empty_value' => '--',
+                            ]) !!}
+
+                            {!! Lte3::select2('status', 'green', ['Green', 'Red', 'White'], [
+                                'label' => 'Color',
+                                'empty_value' => '--',
+                            ]) !!}
+
+                            {!! Lte3::select2('tag', 'auto', ['auto' => 'Auto', 'news' => 'News'], [
+                                'label' => 'Tag',
+                                'url_save' => route('lte3.data.save'),
+                                //'url_suggest' => route('lte3.data.tags'),
+                                'help' => '* AJAX save'
+                            ]) !!}
+
+                            {!! Lte3::select2('status', 'canceled', ['canceled' => 'Canceled'], [
+                                'label' => 'Statuses',
+                                'multiple' => 1,
+                                'url_save' => route('lte3.data.save'),
+                                'url_suggest' => route('lte3.data.status'),
+                            ]) !!}
+
+                            {!! Lte3::select2('status', null, ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
+                                'label' => 'Show blocks',
+                                'empty_value' => '--',
+                                'map' => [
+                                    'smtp' => ['.block-smtp'],
+                                    'log' => ['.block-log'],
+                                    'sendmail' => ['.block-sendmail'],
+                                ],
+                            ]) !!}
+                            <div class="block-smtp" style="display:none"><h2>SMTP Block</h2></div>
+                            <div class="block-sendmail" style="display: none;"><h2>SENDMAIL Block</h2></div>
+                            <div class="block-log" style="display: none;"><h2>LOG Block</h2></div>
+
+                            {!! Lte3::select2('tags', '5', ['5' => 'Weather'], [
+                                'label' => 'Tags (added)',
+                                'multiple' => 1,
+                                'url_tags' => route('lte.data.tags'),
+                                'separators' => "[';']",
+                                'new_tag_label' => ' [NEW]',
+                                'max' => 4,
+                            ]) !!}
+
+                        </div>
+                    </div>
+
+                    <!-- TREE & NESTEDSET -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Tree & Nestedsets</h3>
+                        </div>
+                        <div class="card-body">
+                            {!! Lte3::select2Tree('category_id', [
+                                'label' => 'Tree Categories',
+                                'multiple' => 1,
+                                'required' => 1,
+                                'help' => '* Some text',
+                                'method_get' => 'POST',
+                                'url_tree' => route('lte3.data.treeselect', ['vocabulary' => 'products', 'selected' => [1,3]]),
+                            ]) !!}
+
+                            {!!
+                                Lte3::treeview('models', [
+                                    'label' => 'Ajax data',
+                                    'method_get' => 'GET',
+                                    'url_tree' => route('lte3.data.treeview', ['selected' => [2,4]]),
+                                ])
+                            !!}
+
+                            {!!
+                                Lte3::treeview('models', [
+                                    'label' => 'Static data',
+                                    'data' => $treeviewArray,
+                                ])
+                            !!}
+                        </div>
+                    </div>
+
+                    <!-- SORTABLE NESTED -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Nestedset</h3>
+                        </div>
+                        <div class="card-body">
+
+                            {!!
+                                Lte3::nestedset($terms, [
+                                    'label' => 'Car Models',
+                                    'has_nested' => true,
+                                    'routes' => [
+                                        'edit' => 'lte3.data.save',
+                                        'create' => 'lte3.data.save',
+                                        'delete' => 'lte3.data.save',
+                                        'order' => 'lte3.data.save',
+                                        'show' => 'lte3.data.save',
+                                        'params' => [],
+                                    ],
+                                ])
+                            !!}
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <!-- X-EDITABLE -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">X-Editable</h3>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                Text:
+                                {!! Lte3::xEditable('name', 'Space Odyssey 2001', [
+                                    'type' => 'text',
+                                    'pk' => 1,
+                                    'url_save' => route('lte3.data.save'),
+                                ]) !!}
+                            </div>
+                            <div>
+                                Textarea:
+                                {!! Lte3::xEditable('comment', 'Interstellar', [
+                                    'type' => 'textarea',
+                                    'field_name' => 'data[comment]',
+                                    'pk' => 2,
+                                    'url_save' => route('lte3.data.save'),
+                                ]) !!}
+                            </div>
+                            <div>
+                                Showed:
+                                {!! Lte3::xEditable('visible', 0, [
+                                    'value_title' => 'Hide',
+                                    'type' => 'select',
+                                    'field_name' => 'data[is_show]',
+                                    'source' => [["value" => "1", "text" => "Show"], ["value" => "0", "text" => "Hide"]],
+                                    'pk' => 3,
+                                    'url_save' => route('lte3.data.save'),
+                                ]) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LISTS -->
+                    <div class="card card-success card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Inline</h3>
+                        </div>
+                        <div class="card-body">
+
+                            {!! Lte3::lists('countries', ['Ukraine', 'Poland', 'France', 'England', 'USA', 'Spanish'], [
+                                'label' => 'Countries:',
+                                'field_name' => 'countries',
+                                'placeholder_value' => 'Title',
+                            ]) !!}
+
+                            {!! Lte3::links('links', [['key' => 'liqpay', 'value' => 'LiqPay', 'safe' => 1], ['key' => 'paypal', 'value' => 'PayPal']], [
+                                'label' => 'Payment methods:',
+                                'field_name' => 'pay_methods',
+                                'key_key' => 'key',
+                                'key_value' => 'value',
+                                'placeholder_key' => 'Key',
+                                'placeholder_value' => 'Title',
+                            ]) !!}
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </div>
+
+                    <!-- MODALS -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Modals</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="{{route('lte3.data.modal-content')}}" data-source-selector="#card-refresh-content" data-load-on-init="false">
+                                <i class="fas fa-sync-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <span class="text-danger"></span>
+
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-sm" data-url="{{route('lte3.data.modal-content')}}">
+                            AJAX Small Modal
+                            </button>
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content')}}">
+                            AJAX Large Modal
+                            </button>
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl" data-url="{{route('lte3.data.modal-content')}}">
+                            AJAX Xl Modal
+                            </button>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#my-modal-lg" >
+                                Small Modal
+                            </button>
+
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </div>
+
+                    <!-- DATE & TIME -->
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Dete & Time</h3>
+                        </div>
+                        <div class="card-body">
+
+                            {!! Lte3::timepicker('time', now(), [
+                                'label' => 'Time',
+                                'format' => 'H:i:s',
+                            ]) !!}
+
+                            {!! Lte3::datepicker('date', now(), [
+                                'label' => 'Date',
+                                'format' => 'Y-m-d',
+                            ]) !!}
+
+                            {!! Lte3::datetimepicker('datetime', now(), [
+                                'label' => 'Datetime',
+                                'format' => 'Y-m-d H:i:s',
+                                'help' => 'Now datetime',
+                            ]) !!}
+
+                        </div>
+                    </div>
+
+                    <!-- FILES -->
+                    <div class="card card-success" style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
+                        <div class="card-header">
+                            <h3 class="card-title">Files</h3>
+                        </div>
+                        <div class="card-body">
+                            <span class="text-danger"></span>
+
+                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed']) !!}
+                                <label><input type="file" hidden><strong>Select & Upload file</strong></label>
+                            {!! Lte3::formClose() !!}
+                            <!-- Or simple: -->
+                            {!!
+                                Lte3::fileForm('avatar', [
+                                    'html' => '<div><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></div>',
+                                    'url_save' => route('lte3.data.save'),
+                                ])
+                            !!}
+
+                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                                {!! Lte3::file('document', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    'label' => 'Document',
+                                    'help' => 'Single File',
+                                ]) !!}
+
+                                {!! Lte3::file('favicons', [
+                                    '/vendor/lte3/img/favicons/android-chrome-512x512.png',
+                                    '/vendor/lte3/img/favicons/android-chrome-192x192.png',
+                                ], ['label' => '']) !!}
+
+                                {!! Lte3::submit('Submit', 'action', 'save') !!}
+
+                            {!! Lte3::formClose() !!}
+
+                        </div>
+                    </div>
+
+                    <!-- SPATIE MEDIALIBRARY -->
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Spatie Medialibrary & Extension</h3>
+                        </div>
+                        <div class="card-body">
+
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+
+                            {!!
+                                Lte3::mediaFile('images', $model, [
+                                    'label' => 'Images',
+                                    'multiple' => true,
+                                    'is_image' => true,
+                                ])
+                            !!}
+
+                            {!!
+                                Lte3::mediaFile('image', $model, [
+                                    'label' => 'Image',
+                                    'is_image' => true,
+                                ])
+                            !!}
+                            {!! Lte3::submit('Submit', 'action', 'save') !!}
+                        {!! Lte3::formClose() !!}
+
+                        </div>
+                        <div class="card-footer">
+                            @if(!app()->environment('production'))
+                            Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension" target="_blank"> documentation</a> for more examples and information about the plugin.
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Text Editors -->
+
+
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Summernote</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <textarea class="f-summernote"></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <!-- Visit <a href="https://github.com/summernote/summernote/">Summernote</a> documentation for more examples and information about the plugin. -->
+                        </div>
+                    </div>
+
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Codemirror</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <textarea class="f-codeMirror" class="p-3"></textarea>
+
+                        </div>
+                        <div class="card-footer">
+                            <!-- Visit <a href="https://codemirror.net/">CodeMirror</a> documentation for more examples and information about the plugin. -->
+                        </div>
+                    </div>
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">CKEditor 4</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="">CKE Mini</label>
+                                <textarea class="form-control f-cke-mini"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">CKE Small</label>
+                                <textarea class="form-control f-cke-small"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">CKE Full</label>
+                                <textarea class="form-control f-cke-full"></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <!-- Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html">CKEditor 4</a> documentation for more examples and information about the plugin. -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+@endsection
+
+@push('styles')
+<!-- Bootstrap Color Picker -->
+<link rel="stylesheet" href="/vendor/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="/vendor/adminlte/plugins/select2/css/select2.min.css">
+<!-- summernote -->
+<link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
+<!-- CodeMirror -->
+<link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/codemirror.css">
+<link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/theme/monokai.css">
+
+<!-- Datetimepicker -->
+<link rel="stylesheet" href="/vendor/lte3/plugins/datepicker/datetimepicker.min.css">
+<!-- X-Editable -->
+<link rel="stylesheet" href="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.css">
+<!-- Select2ToTree -->
+<link rel="stylesheet" href="/vendor/lte3/plugins/select2-to-tree/src/select2totree.css">
+<!-- Bootstrap Tree View -->
+<link rel="stylesheet" href="/vendor/lte3/plugins/bootstrap-treeview/bootstrap-treeview.min.css">
+@endpush
+
+@push('scripts')
+<!-- Bootstrap Color Picker -->
+<script src="/vendor/adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Select2 -->
+<script src="/vendor/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<!-- Summernote -->
+<script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- CodeMirror -->
+<script src="/vendor/adminlte/plugins/codemirror/codemirror.js"></script>
+<script src="/vendor/adminlte/plugins/codemirror/mode/css/css.js"></script>
+<script src="/vendor/adminlte/plugins/codemirror/mode/xml/xml.js"></script>
+<script src="/vendor/adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<!-- jQuery Sortable (Nested) -->
+<script src="/vendor/lte3/plugins/jquery-sortable/jquery-sortable.js"></script>
+<!-- Datetimepicker -->
+<script src="/vendor/lte3/plugins/datepicker/datetimepicker.full.js"></script>
+<!-- X-Editable -->
+<script src="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.js"></script>
+<!-- Select2ToTree -->
+<script src="/vendor/lte3/plugins/select2-to-tree/src/select2totree.js"></script>
+<!-- Bootstrap Tree View -->
+<script src="/vendor/lte3/plugins/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+@endpush
+
+@push('modals')
+<div class="modal fade" id="my-modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Large Modal</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>One fine body&hellip;</p></div><div class="modal-footer justify-content-between"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div><!-- /.modal-content --></div><!-- /.modal-dialog --></div>
+@endpush

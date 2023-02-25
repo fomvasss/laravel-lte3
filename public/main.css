@@ -1,0 +1,41 @@
+.hover-edit:after {
+	position: absolute;
+}
+.hover-edit:hover:after {
+	padding-left: 5px;
+	content: '✎';
+}
+
+.js-copy-to-clipboard:after {
+	position: absolute;
+}
+.js-copy-to-clipboard:hover:after {
+	padding-left: 5px;
+	content: '✔';
+}
+
+/* jQuery Sortable Nested */
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+ul.js-sortable-nested li.placeholder {
+    position: relative;
+    border-bottom: 1px solid black;
+    /** More li styles **/
+}
+ul.js-sortable-nested li.placeholder:before {
+    position: absolute;
+    /** Define arrowhead **/
+}
+.todo-list.js-sortable-nested ul li {
+    list-style-type: none;
+    margin-top: 5px;
+}
+.todo-list.js-sortable-nested li .tools a {
+    padding-right: 5px;
+}
