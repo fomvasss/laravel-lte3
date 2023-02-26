@@ -327,7 +327,7 @@
                             <h3 class="js-block-sms">SMS!</h3>
 
                             {!! Lte3::radiogroup('brand', 'samsung', [
-                                    'apple' => ['label' => 'Apple', 'url' => route('lte3.components', ['brand' => 'apple'])],
+                                    'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
                                     'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
                                     'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
                                 ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
