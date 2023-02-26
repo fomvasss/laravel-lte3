@@ -131,7 +131,6 @@ $(function () {
         if (strConfirm && ($this.data('url') || $this.attr('value'))) {
             var $form = $('#js-action-form');
             console.log($this.data('url') || $this.attr('value'))
-            return
             $form.attr('action', $this.data('url') || $this.attr('value')).submit();
         }
         return false;
@@ -421,9 +420,15 @@ $(function () {
         });
 
         // Displaying blocks depending on the selection in the selection
-        $('.js-map-blocks').each(function () {
+        $('.f-select2-wrap .js-map-blocks').each(function () {
             if ($(this).find(':selected')) {
                 toggleSelectableBlocks($(this).find(':selected').val(), $(this).data('map'))
+            }
+        })
+        $('.f-radiogroup .js-map-blocks').each(function () {
+            if ($(this).is(':checked')) {
+                console.log($(this).val(), $(this).data('map'));
+                toggleSelectableBlocks($(this).val(), $(this).data('map'))
             }
         })
     }
@@ -438,6 +443,7 @@ $(function () {
             var id = 0;
             if ($val === key) {
                 for (id in selectBlocksMap[key]) {
+                    //console.log(selectBlocksMap[key][id])
                     $(selectBlocksMap[key][id]).show()
                 }
             } else {

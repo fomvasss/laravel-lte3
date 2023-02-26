@@ -381,7 +381,7 @@
                                 'url_suggest' => route('lte3.data.status'),
                             ]) !!}
 
-                            {!! Lte3::select2('status', null, ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
+                            {!! Lte3::select2('status', 'smtp', ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
                                 'label' => 'Show blocks',
                                 'empty_value' => '--',
                                 'map' => [
