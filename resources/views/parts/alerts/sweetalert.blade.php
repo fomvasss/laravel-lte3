@@ -1,10 +1,10 @@
 <script>
     @php
         $flashKeys = [
-            'warning' => trans('lte3::alerts.warning'),
-            'success' => trans('lte3::alerts.excellent'),
-            'info' => trans('lte3::alerts.information'),
-            'error' => trans('lte3::alerts.failure'),
+            'warning' => 'Warting!',
+            'success' => 'Excelent!',
+            'info' => 'Information!',
+            'error' => 'Failure!',
         ];
     @endphp
 
@@ -16,7 +16,7 @@
 
     @if (isset($errors) && $errors->any())
         @foreach ($errors->all() as $error)
-            swal('{{ trans('lte3::alerts.failure') }}', '{{ $error }}', 'error');
+            swal('Failure!', '{{ $error }}', 'error');
         @endforeach
     @endif
 </script>

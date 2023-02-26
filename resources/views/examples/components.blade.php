@@ -2,7 +2,7 @@
 
 @section('content')
     @include('lte3::parts.content-header', [
-        'page_title' => 'Fields Examples',
+        'page_title' => 'Components',
         'url_back' => '#' ,
         'url_create' => '#'
     ])
@@ -10,30 +10,69 @@
     <!-- Main content -->
     <section class="content">
 
+        <!-- FILTER -->
+        {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
+        <div class="card card-outline card-primary collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-filter mr-1"></i>Filter</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {!! Lte3::text('name', null, ['label' => 'Name']) !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! Lte3::select2('status', 'new', ['Success', 'Paused', 'Canceled', 'New', 'Old'], [
+                            'label' => 'Status',
+                            'multiple' => 1,
+                            'id' => 'status2'
+                        ]) !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! Lte3::datetimepicker('datetime', now(), [
+                           'label' => 'Datetime',
+                       ]) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                {!! Lte3::submit('Submit') !!}
+                {!! Lte3::reset('Reset') !!}
+            </div>
+        </div>
+        {!! Lte3::hidden('type', 'projects') !!}
+        {!! Lte3::formClose() !!}
+
         <div class="card">
             <div class="card-header">
-            <h3 class="card-title"><a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
+                <h3 class="card-title"><a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
 
-            <div class="card-tools">
-                <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
-                <a href="#" class="btn btn-default btn-xs"><i class="fas fa-download"></i> Import</a>
+                <div class="card-tools">
+                    <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
+                    <a href="#" class="btn btn-default btn-xs"><i class="fas fa-download"></i> Import</a>
 
-                <div class="btn-group">
-                    <a href="#" class="btn btn-default btn-xs">UK</a>
-                    <a href="#" class="btn btn-primary btn-xs">EN</a>
-                    <a href="#" class="btn btn-default btn-xs">FR</a>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-default btn-xs">UK</a>
+                        <a href="#" class="btn btn-primary btn-xs">EN</a>
+                        <a href="#" class="btn btn-default btn-xs">FR</a>
+                    </div>
+
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                <i class="fas fa-times"></i>
-                </button>
-            </div>
             </div>
             <div class="card-body p-0">
-
                 <table class="table table-striped projects">
                     <thead>
                     <tr>
@@ -57,7 +96,7 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody class="sortable-y" data-url="/">
+                    <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     <tr id="1">
                         <td>#</td>
                         <td>
@@ -226,16 +265,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-                <ul class="pagination float-right"><li class="paginate_button page-item previous disabled"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul>
-                <!--
-                <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-                -->
+                {!! Lte3::pagination($terms ?? null) !!}
             </div>
         </div>
 
@@ -249,7 +279,6 @@
                         </div>
                         {!! Lte3::formOpen(['action' => '/test', 'files' => true, 'method' => 'DELETE']) !!}
                         <div class="card-body">
-
                             {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
                             {!! Lte3::text('name', 'Tom', ['label' => 'Full name', 'title' => 123]) !!}
                             {!! Lte3::text('url', null, [
@@ -276,7 +305,7 @@
                                 'method_save' => 'POST',
                             ]) !!}
 
-                            {!! Lte3::checkbox('accept', true, [
+                            {!! Lte3::checkbox('accept', 0, [
                                     'label' => 'Accept <a href="#">Terms</a>',
                                     'checked_value' => 2,
                                     'unchecked_value' => 0,
@@ -309,8 +338,10 @@
                                     'rows' => 3,
                             ]) !!}
 
-                            <a href="#" class="js-clipboard btn btn-outline-success btn-sm" data-text="Hello!" data-toggle="tooltip" title="Copy">Copy text</a>
-                            <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm" data-method="GET" data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
+                            <a href="#" class="js-clipboard btn btn-outline-success btn-sm" data-text="Hello!"
+                               data-toggle="tooltip" title="Copy">Copy text</a>
+                            <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm" data-method="GET"
+                               data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
 
                         </div>
                         <div class="card-footer">
@@ -324,6 +355,7 @@
                         <div class="card-header">
                             <h3 class="card-title">SELECT2</h3>
                         </div>
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                         <div class="card-body">
                             {!! Lte3::select2('status', null, ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
                                 'label' => 'Status',
@@ -372,6 +404,7 @@
                             ]) !!}
 
                         </div>
+                        {!! Lte3::formClose() !!}
                     </div>
 
                     <!-- TREE & NESTEDSET -->
@@ -412,10 +445,10 @@
                             <h3 class="card-title">Nestedset</h3>
                         </div>
                         <div class="card-body">
-
+                            @isset($terms)
                             {!!
                                 Lte3::nestedset($terms, [
-                                    'label' => 'Car Models',
+                                    'label' => 'Models',
                                     'has_nested' => true,
                                     'routes' => [
                                         'edit' => 'lte3.data.save',
@@ -428,6 +461,8 @@
                                 ])
                             !!}
 
+                            {!! Lte3::pagination($terms) !!}
+                            @endisset
                         </div>
                     </div>
 
@@ -476,8 +511,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Inline</h3>
                         </div>
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                         <div class="card-body">
-
                             {!! Lte3::lists('countries', ['Ukraine', 'Poland', 'France', 'England', 'USA', 'Spanish'], [
                                 'label' => 'Countries:',
                                 'field_name' => 'countries',
@@ -495,9 +530,9 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            {!! Lte3::submit('Submit') !!}
                         </div>
-
+                        {!! Lte3::formClose() !!}
                     </div>
 
                     <!-- MODALS -->
@@ -505,17 +540,19 @@
                         <div class="card-header">
                             <h3 class="card-title">Modals</h3>
                             <div class="card-tools">
-                                <button data-source="{{route('lte3.data.modal-content')}}" type="button" class="btn btn-tool" data-card-widget="card-refresh" data-load-on-init="false">
-                                <i class="fas fa-sync-alt"></i>
+                                <button data-source="{{route('lte3.data.modal-content')}}" type="button"
+                                        class="btn btn-tool" data-card-widget="card-refresh" data-load-on-init="false">
+                                    <i class="fas fa-sync-alt"></i>
                                 </button>
-                                <button type="button" class="btn btn-tool" data-source-selector="#card-refresh-content" data-card-widget="maximize">
-                                <i class="fas fa-expand"></i>
+                                <button type="button" class="btn btn-tool" data-source-selector="#card-refresh-content"
+                                        data-card-widget="maximize">
+                                    <i class="fas fa-expand"></i>
                                 </button>
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
+                                    <i class="fas fa-minus"></i>
                                 </button>
                                 <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
+                                    <i class="fas fa-times"></i>
                                 </button>
                             </div>
                         </div>
@@ -523,16 +560,21 @@
                         <div class="card-body">
                             <span class="text-danger"></span>
 
-                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-sm" data-url="{{route('lte3.data.modal-content', ['modal' => 'sm'])}}"  data-fn-inits="initJsVerificationSlugField,initSortableY">
-                            AJAX Small Modal with Init functions
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-sm"
+                                    data-url="{{route('lte3.data.modal-content', ['modal' => 'sm'])}}"
+                                    data-fn-inits="initJsVerificationSlugField,initSortableY">
+                                AJAX Small Modal with Init functions
                             </button>
-                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}">
-                            AJAX Large Modal
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-lg"
+                                    data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}">
+                                AJAX Large Modal
                             </button>
-                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl" data-url="{{route('lte3.data.modal-content')}}">
-                            AJAX Xl Modal
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl"
+                                    data-url="{{route('lte3.data.modal-content')}}">
+                                AJAX Xl Modal
                             </button>
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#my-modal-lg" >
+                            <button type="button" class="btn btn-default" data-toggle="modal"
+                                    data-target="#my-modal-lg">
                                 Small Modal
                             </button>
 
@@ -571,7 +613,8 @@
                     </div>
 
                     <!-- FILES -->
-                    <div class="card card-success" style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
+                    <div class="card card-success"
+                         style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
                         <div class="card-header">
                             <h3 class="card-title">Files</h3>
                         </div>
@@ -579,9 +622,9 @@
                             <span class="text-danger"></span>
 
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed']) !!}
-                                <label><input type="file" hidden><strong>Select & Upload file</strong></label>
+                            <label><input type="file" hidden><strong>Select & Upload file</strong></label>
                             {!! Lte3::formClose() !!}
-                            <!-- Or simple: -->
+                        <!-- Or simple: -->
                             {!!
                                 Lte3::fileForm('avatar', [
                                     'html' => '<div><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></div>',
@@ -590,17 +633,17 @@
                             !!}
 
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
-                                {!! Lte3::file('document', '/vendor/lte3/img/favicons/favicon-32x32.png', [
-                                    'label' => 'Document',
-                                    'help' => 'Single File',
-                                ]) !!}
+                            {!! Lte3::file('document', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                'label' => 'Document',
+                                'help' => 'Single File',
+                            ]) !!}
 
-                                {!! Lte3::file('favicons', [
-                                    '/vendor/lte3/img/favicons/android-chrome-512x512.png',
-                                    '/vendor/lte3/img/favicons/android-chrome-192x192.png',
-                                ], ['label' => '']) !!}
+                            {!! Lte3::file('favicons', [
+                                '/vendor/lte3/img/favicons/android-chrome-512x512.png',
+                                '/vendor/lte3/img/favicons/android-chrome-192x192.png',
+                            ], ['label' => '']) !!}
 
-                                {!! Lte3::submit('Submit', 'action', 'save') !!}
+                            {!! Lte3::submit('Submit', 'action', 'save') !!}
 
                             {!! Lte3::formClose() !!}
 
@@ -614,7 +657,7 @@
                         </div>
                         <div class="card-body">
 
-                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
 
                             {!!
                                 Lte3::mediaFile('images', $model, [
@@ -631,12 +674,14 @@
                                 ])
                             !!}
                             {!! Lte3::submit('Submit', 'action', 'save') !!}
-                        {!! Lte3::formClose() !!}
+                            {!! Lte3::formClose() !!}
 
                         </div>
                         <div class="card-footer">
                             @if(!app()->environment('production'))
-                            Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension" target="_blank"> documentation</a> for more examples and information about the plugin.
+                                Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension"
+                                         target="_blank"> documentation</a> for more examples and information about the
+                                plugin.
                             @endif
                         </div>
                     </div>
@@ -730,5 +775,17 @@
 @endpush
 
 @push('modals')
-<div class="modal fade" id="my-modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Large Modal</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>One fine body&hellip;</p></div><div class="modal-footer justify-content-between"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div><!-- /.modal-content --></div><!-- /.modal-dialog --></div>
+    <div class="modal fade" id="my-modal-lg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"><h4 class="modal-title">Large Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"><p>One fine body&hellip;</p></div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content --></div><!-- /.modal-dialog --></div>
 @endpush

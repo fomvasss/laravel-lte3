@@ -3,25 +3,24 @@
 namespace Fomvasss\Lte3;
 
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 
 class Lte
 {
     protected $model = null;
-    protected array $componentsViews;
-    protected array $fieldAttrs;
-
-    public function __construct()
-    {
-        $this->componentsViews = config('lte3.view.components', []);
-        $this->fieldAttrs = config('lte3.view.field_attrs', []);
-    }
 
     public function __call($name, $attrs)
     {
-        if (isset($this->componentsViews[$name]['blade'])) {
+        $componentParams = config("lte3.view.components.{$name}");
+        $fieldAttrs = config('lte3.view.field_attrs', []);
+
+        if ($componentParams['blade'] ?? '') {
             $res['attrs'] = [];
             $i = 0;
-            foreach($this->componentsViews[$name]['vars'] as $key) {
+            foreach($componentParams['vars'] ?? [] as $key) {
                 $res[$key] = $attrs[$i++] ?? null;
             }
 
@@ -29,12 +28,12 @@ class Lte
                 $res['model'] = $this->model;
             }
 
-            $defaultAttrs = $this->componentsViews[$name]['default'] ?? [];
+            $defaultAttrs = $componentParams['default'] ?? [];
             $res['attrs'] = array_merge($defaultAttrs, $res['attrs'] ?? []);
 
-            $res['field_attrs'] = $this->fieldAttrs;
+            $res['field_attrs'] = $fieldAttrs;
 
-            return view($this->componentsViews[$name]['blade'], $res)->render();
+            return view($componentParams['blade'], $res)->render();
         }
 
         throw new Exception("Lte3 method or component '{$name}' not found!");
@@ -42,12 +41,14 @@ class Lte
 
     public function formOpen(array $attrs = [])
     {
+        $form = config('lte3.view.components.form', []);
+
         $this->model = $attrs['model'] ?? null;
 
-        $defaultAttrs = $this->componentsViews['form']['default'] ?? [];
+        $defaultAttrs = $form['default'] ?? [];
         $attrs = array_merge($defaultAttrs, $attrs);
 
-        return view($this->componentsViews['form']['blade'], ['attrs' => $attrs])->render();
+        return view($form['blade'], ['attrs' => $attrs])->render();
     }
 
     public function formClose()
@@ -55,6 +56,22 @@ class Lte
         $this->model =  null;
 
         return '</form>';
+    }
+
+    public function pagination($models)
+    {
+        if ($models instanceof LengthAwarePaginator) {
+            $params = config("lte3.view.pagination");
+
+            Paginator::defaultView($params['view']);
+            Paginator::defaultSimpleView($params['simple_view']);
+
+            return $models->appends(\Request::except('page'))->render();
+        }
+
+        Log::error(__METHOD__ . "Argument #1 must be of type Illuminate\Contracts\Pagination\LengthAwarePaginator");
+
+        return '';
     }
 
     public function user($column = null)

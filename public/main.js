@@ -235,15 +235,19 @@ $(function () {
     // Component: File
     $(document).on('click', '.f-file .f-file-item .js-btn-delete', function(e) {
         e.preventDefault();
-        var $this = $(this);
-        $this.siblings('.js-input-delete').val($this.data('id'));
-        $this.closest('.f-file-item').hide()
+        if (confirm('Confirm?')) {
+            var $this = $(this);
+            $this.siblings('.js-input-delete').val($this.data('id'));
+            $this.closest('.f-file-item').hide()
+        }
     })
     $(document).on('click', '.f-media-file .f-file-item .js-btn-delete', function(e) {
         e.preventDefault();
-        var $this = $(this);
-        $this.siblings('.js-input-delete').val($this.data('id'));
-        $this.closest('.f-file-item').hide()
+        if (confirm('Confirm?')) {
+            var $this = $(this);
+            $this.siblings('.js-input-delete').val($this.data('id'));
+            $this.closest('.f-file-item').hide()
+        }
     })
 
     // Show info about input chuse file

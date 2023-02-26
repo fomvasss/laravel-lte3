@@ -56,7 +56,7 @@
                         <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $media->id }}"><i class="fas fa-times"></i></a>
 
                         <input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden" >
-                        <input name="{{ $input_weight_name }}[{{ $media->id }}]" class="js-input-weight" value="{{ $loop->index }}" type="hidden" >
+                        <input name="{{ $input_weight_name }}[{{ $media->id }}]" class="js-input-weight" value="{{ $loop->index }}" type="hidden">
                     </td>
                 </tr>
                 @endforeach

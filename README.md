@@ -6,7 +6,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://packagist.org/packages/fomvasss/laravel-lte3)
 [![Quality Score](https://img.shields.io/scrutinizer/g/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://scrutinizer-ci.com/g/fomvasss/laravel-lte3)
 
-
 Create easily and quickly a convenient and functional dashboard for web-site, blogs, shops, crm, apps with the help of a template and a powerful system for building fields and forms.
 
 ![screenshot](public/img/screen.gif)
@@ -25,31 +24,26 @@ composer require fomvasss/laravel-lte3
 php artisan lte3:install
 ```
 
-That's all. You can usage ITS LTE in your project :) 
+That's all. You can usage LTE in your project :) 
 
-Visit the path `http://site.test/lte3/fields` 
+Visit the example LTE page: `http://site.test/lte3/exsmples` 
 
 ## Configuration
 
-After publishing assets, its primary configuration file will be located at `config/lte3.php`
+In file: `config/lte3.php`
 
-In dashboard used Bootstrap styles and for correct show pagination links, set next in service provider
+For correct work navigation in dashboard, apply middleware. Add this to 'App\Http\Kernel.php'
 ```
-    public function boot()
-    {
-        //...
-        Paginator::useBootstrap();
-        //...
-    }
-```
-
-For correct work navigation in dashboard, apply next middleware for routes to dashboard:
-```
-\Fomvasss\ItsLte\Http\Middleware\LteRequestOptions::class,
+$middlewareGroups = [
+  'web' => [
+    //...
+    \Fomvasss\ItsLte\Http\Middleware\LteRequestOptions::class,
+  ],
+];
 ```
 
 ## Publishing (optional)
-Of course, you can publish only the necessary system components:
+Of course, you can publish partial:
 - views:
 `lte-view-components`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
 - other:
@@ -58,25 +52,17 @@ Of course, you can publish only the necessary system components:
 ```bash
 php artisan lte3:publish --tag=lte-view-components --force
 ```
-or all components
-```bash
-php artisan lte3:publish
-```
 
 ### Updating 
-When updating this package, you should re-publish the assets (css, js, images):
-```bash
-php artisan lte3:publish --tag=lte-assets --force
-```
+
 
 ## Structure
 
 After installation, you can work with the following files:
 
 - `config/lte3.php` - package config
-- `public/vendor/adminlte` - original AdminLte assets
+- `public/vendor/adminlte` - original AdminLte assets ([ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/))
 - `public/vendor/lte3` - assets
-- `resources/lang/vendor/lte3` - localization
 - `resources/views/vendor/lte3`
     - `layouts`
     - `parts`
@@ -87,14 +73,9 @@ After installation, you can work with the following files:
 
 ## Usage & Development
 
-In dir `resources/views/vendor/lte3` you can edit, create, delete blade-files.
-
 For file manage use [laravel-medialibrary-extension](https://github.com/fomvasss/laravel-medialibrary-extension)
 For manage taxonomy use [laravel-simple-taxonomy](https://github.com/fomvasss/laravel-simple-taxonomy)
 For save vars, configs use [laravel-variables](https://github.com/fomvasss/laravel-variables)
-
-
-## Addition
 
 ### Laravel CKEditor (v4)
 

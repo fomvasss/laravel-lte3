@@ -39,7 +39,7 @@
             @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
             @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
             @if(!empty($attrs['separators'])) data-separators={{$attrs['separators']}} @endif
-            @if($field_name_input) id="{{ $field_name_input }}" @endif
+            id="{{ $attrs['id'] ?? $field_name_input }}"
             style="width: 100%;"
             @if(count($options) < 6) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
             @if(isset($attrs['map']) && is_array($attrs['map']))
@@ -49,7 +49,6 @@
                 {{$key}}="{{$val}}"
             @endforeach
     >
-
         @if(empty($attrs['multiple']) && empty($attrs['empty_value']) && count($options) > 6)
             <option value="" disabled selected> ---</option>
         @endif
@@ -69,6 +68,7 @@
         @endif
 
     </select>
+
     @error($name) <div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

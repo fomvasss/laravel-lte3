@@ -27,12 +27,3 @@
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
-
-{{--
-    @include('lte3::layouts.parts.content-header', [
-       'page_title' => 'Blogs',
-       'small_page_title' => 'List',
-       'url_back' => '',
-       'url_create' => ''
-   ])
---}}

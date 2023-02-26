@@ -2,7 +2,6 @@
 
 namespace Fomvasss\Lte3\Http\Controllers;
 
-use App\Models\User;
 use Exception;
 use Fomvasss\MediaLibraryExtension\HasMedia\HasMedia;
 use Illuminate\Http\Request;
@@ -10,37 +9,50 @@ use Illuminate\Routing\Controller;
 
 class ExampleController extends Controller
 {
-
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function components()
     {
         \Session::flash('info', 'Welcome to Admin LTE Components!');
 
         return view('lte3::examples.components', [
-            'treeviewArray' => $this->treeviewStaticArray(),
-            'model' => $this->getModel(),
-            'terms' => \App\Models\Term::whereIn('vocabulary', ['brands', 'models'])->get(),
+            'treeviewArray' => $this->treeviewStaticData(),
+            'model' => $this->modelData(),
+            //'terms' => \App\Models\Term::whereIn('vocabulary', ['brands', 'models'])->paginate(8),
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function treeselect(Request $request)
     {
         return response()->json([
-            'data' => $this->getNested(),
+            'data' => $this->nestedData(),
             'selected' => $request->get('selected', []),
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function treeview(Request $request)
     {
         return response()->json([
-            'data' => treeview($this->getNested(), $request->get('selected', []))
+            'data' => treeview($this->nestedData(), $request->get('selected', []))
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
-
-        if (($model = $this->getModel()) && $model instanceof HasMedia) {
+        if (($model = $this->modelData()) && $model instanceof HasMedia) {
             $model->mediaManage($request);
         }
 
@@ -56,6 +68,9 @@ class ExampleController extends Controller
         return redirect()->back()->with('success', 'Form data saved!');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function statuses()
     {
         return response()->json(['results' => [
@@ -66,6 +81,10 @@ class ExampleController extends Controller
         ]]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function tags(Request $request)
     {
         return response()->json([
@@ -102,6 +121,10 @@ class ExampleController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function modalContent(Request $request)
     {
         return response()->json([
@@ -109,7 +132,10 @@ class ExampleController extends Controller
         ]);
     }
 
-    protected function getNested()
+    /**
+     * @return array[]
+     */
+    protected function nestedData()
     {
         return [
             [
@@ -141,7 +167,7 @@ class ExampleController extends Controller
         ];
     }
 
-    protected function treeviewStaticArray()
+    protected function treeviewStaticData()
     {
         return $ar = [
             [
@@ -206,10 +232,10 @@ class ExampleController extends Controller
           ];
     }
 
-    public function getModel()
+    protected function modelData()
     {
         try {
-            return $user = User::first();
+            return $user = \App\Models\User::first();
         } catch (Exception $e) {
 
         }

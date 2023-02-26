@@ -33,6 +33,8 @@ return [
         'components' => [
             'form' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'submit' => ['blade' => 'lte3::components.submit', 'vars' => ['title', 'name', 'value', 'attrs']],
+            'reset' => ['blade' => 'lte3::components.reset', 'vars' => ['title', 'name', 'value', 'attrs']],
+            //'pagination' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'hidden' => ['blade' => 'lte3::components.hidden', 'vars' => ['name', 'value', 'attrs']],
             'text' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs']],
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],
@@ -60,7 +62,13 @@ return [
 
         'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt'],
 
-        'next_destination_key' => '_destination'
+        'next_destination_key' => '_destination',
+
+
+        'pagination' => [
+            'simple_view' => 'pagination::simple-bootstrap-5',
+            'view' => 'pagination::bootstrap-5',
+        ],
     ],
 
 

@@ -3,7 +3,7 @@
 
 use Fomvasss\Lte3\Http\Controllers\ExampleController;
 
-Route::view('/', 'lte3::examples.home');
+Route::view('/', 'lte3::examples.home')->name('home');
 Route::view('home2', 'lte3::examples.home2');
 Route::view('home3', 'lte3::examples.home3');
 Route::view('blank', 'lte3::examples.blank');

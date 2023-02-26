@@ -24,7 +24,7 @@
                 <a href="{{ route($attrs['routes']['show'], array_merge([$item], $attrs['routes']['params'])) }}" target="_blank" class="text-info"><i class="fas fa-eye"></i></a>
             @endif
             @isset($attrs['routes']['create'])
-                <a href="{{ route($attrs['routes']['create'], array_merge($attrs['routes']['params'], ['parent_id' => $item->id])) }}" class="text-success"><i class="fas fa-plus"></i></a>
+                <a href="{{ route($attrs['routes']['create'], array_merge($attrs['routes']['params'], ['parent_id' => $item->id])) }}" class="text-success"><i class="fas fa-plus-circle"></i></a>
             @endif
             @isset($attrs['routes']['edit'])
                 <a href="{{ route($attrs['routes']['edit'], array_merge([$item], $attrs['routes']['params'])) }}" class="text-warning"><i class="fas fa-edit"></i></a>

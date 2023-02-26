@@ -22,7 +22,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // );
 
         $this->loadViewsFrom(
-            __DIR__.'/../resources/views', 'lte3'
+            __DIR__ . '/../resources/views', 'lte3'
         );
 
         $this->registerPublishing();
@@ -35,7 +35,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             ->prefix('lte3')
             ->middleware(config('lte3.middleware', []))
             ->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+                $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
             });
     }
 
@@ -48,7 +48,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/lte3.php' => config_path('lte3.php'),
+                __DIR__ . '/../config/lte3.php' => config_path('lte3.php'),
             ], 'lte3-config');
 
             $this->publishes([
@@ -57,22 +57,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             ], 'lte3-adminlte-assets');
 
             $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/lte3'),
+                __DIR__ . '/../public' => public_path('vendor/lte3'),
             ], 'lte3-assets');
 
-            // $this->publishes([
-            //     __DIR__.'/../resources/lang' => resource_path('lang/vendor/lte3'),
-            // ], 'lte-lang');
-
-            // $this->publishes([
-            //     __DIR__.'/../resources/views' => resource_path('views/vendor/lte3'),
-            // ], 'lte-views');
-
-            // foreach (['auth', 'examples', 'fields', 'layouts', 'parts',] as $key) {
-            //     $this->publishes([
-            //         __DIR__.'/../resources/views/'.$key => resource_path('views/vendor/lte/'.$key),
-            //     ], 'lte-view-'.$key);
-            // }
+            // Partial views
+            foreach (['auth', 'examples', 'components', 'layouts', 'parts',] as $key) {
+                $this->publishes([
+                    __DIR__ . '/../resources/views/' . $key => resource_path('views/vendor/lte/' . $key),
+                ], 'lte-view-' . $key);
+            }
+            
+            // All views
+            $this->publishes([
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/lte3'),
+            ], 'lte3-views');
         }
     }
 
@@ -83,9 +81,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/lte3.php', 'lte3');
+        $this->mergeConfigFrom(__DIR__ . '/../config/lte3.php', 'lte3');
 
-        $this->app->singleton(\Fomvasss\Lte3\Lte::class, function() {
+        $this->app->singleton(\Fomvasss\Lte3\Lte::class, function () {
             return new \Fomvasss\Lte3\Lte;
         });
 

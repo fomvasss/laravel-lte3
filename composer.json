@@ -10,6 +10,11 @@
             "email": "fomvasss@gmail.com",
             "role": "Architect & Developer",
             "homepage": "https://github.com/fomvasss"
+        },
+        {
+            "name": "Klimovych Juriy",
+            "email": "web-west@i.ua",
+            "role": "Developer"
         }
     ],
     "license": "MIT",

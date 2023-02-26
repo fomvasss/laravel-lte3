@@ -9,7 +9,6 @@
     } else {
         $value = old($name, $value) ?? 'FFF';
     }
-
 @endphp
 
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
