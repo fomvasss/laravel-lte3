@@ -63,7 +63,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             // Partial views
             foreach (['auth', 'examples', 'components', 'layouts', 'parts',] as $key) {
                 $this->publishes([
-                    __DIR__ . '/../resources/views/' . $key => resource_path('views/vendor/lte/' . $key),
+                    __DIR__ . '/../resources/views/' . $key => resource_path('views/vendor/lte3/' . $key),
                 ], 'lte-view-' . $key);
             }
             
