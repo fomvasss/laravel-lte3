@@ -1,19 +1,3 @@
-<script2>
-    xEditable = {mode:"inline", inputclass:"form-control-sm"},
-    colorpickerOptions = {},
-    datetimepickerOptions = {
-        format: 'Y-m-d H:i:s'
-    },
-    datepickerOptions = {
-        timepicker:false,
-        format:'Y-m-d'
-    },
-    timepickerOptions = {
-        datepicker:false,
-        format: 'H:i:s',
-    }
-</script2>
-
 <script>
     const LANGUAGE = $('html').attr('lang') || 'en';
 
@@ -40,7 +24,9 @@
 
     initEditors = function() {
         // Summernote
-        $('.f-summernote').summernote()
+        if ($('.f-summernote').length) {
+            $('.f-summernote').summernote()
+        }
 
         // CodeMirror
         $('.f-codeMirror').each(function(index, elem){
@@ -57,14 +43,16 @@
     // Component: xEditable
     // https://vitalets.github.io/x-editable/docs.html
     // https://coderthemes.com/moltran/layouts/red-vertical/form-xeditable.html
-    $(".f-x-editable").editable({
-        mode:"inline",inputclass:"form-control-sm",
-        success: function(response, newValue) {
-            if (response.message) toastr.success(response.message);
-        }
-    })
-    $.fn.editableform.buttons =
-        '<button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="fa fa-check"></i></button><button type="button" class="btn btn-danger editable-cancel btn-sm waves-effect"><i class="fa fa-times"></i></button>';
+    if ($(".f-x-editable").length) {
+        $(".f-x-editable").editable({
+            mode:"inline",inputclass:"form-control-sm",
+            success: function(response, newValue) {
+                if (response.message) toastr.success(response.message);
+            }
+        })
+        $.fn.editableform.buttons =
+            '<button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="fa fa-check"></i></button><button type="button" class="btn btn-danger editable-cancel btn-sm waves-effect"><i class="fa fa-times"></i></button>';
+    }
 
 </script>
 
@@ -118,7 +106,6 @@
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     };
 
-    // CKEditor
     if ($('textarea.f-cke-mini').length) {
         $('textarea.f-cke-mini').ckeditor(ckMini || {})
     }
@@ -134,8 +121,8 @@
 @endif
 
 
-<form action="" hidden class="hidden" method="POST" id="js-action-form">
-    @csrf
+<form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="{{ config('lte3.view.next_destination_key', '_destination') }}" value="{{ Request::fullUrl() }}" class="f-dest">
 </form>

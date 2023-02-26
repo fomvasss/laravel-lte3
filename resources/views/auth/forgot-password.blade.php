@@ -23,13 +23,13 @@
     </div>
     <div class="row">
         <div class="col-12">
-        <button type="submit" class="btn btn-primary btn-block">{{ trans('lte3::main.Request new password') }}</button>
+        <button type="submit" class="btn btn-primary btn-block">Request new password</button>
         </div>
         <!-- /.col -->
     </div>
     </form>
     <p class="mt-3 mb-1">
-    <a href="/login">{{ trans('lte3::main.Login') }}</a>
+    <a href="/login">Login</a>
     </p>
 </div>
 @endsection

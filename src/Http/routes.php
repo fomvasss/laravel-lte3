@@ -3,10 +3,9 @@
 
 use Fomvasss\Lte3\Http\Controllers\ExampleController;
 
-Route::redirect('/', '/lte3/home-1');
-Route::view('home-1', 'lte3::examples.home');
-Route::view('home-2', 'lte3::examples.home2');
-Route::view('home-3', 'lte3::examples.home3');
+Route::view('/', 'lte3::examples.home');
+Route::view('home2', 'lte3::examples.home2');
+Route::view('home3', 'lte3::examples.home3');
 Route::view('blank', 'lte3::examples.blank');
 Route::view('forms', 'lte3::examples.forms');
 Route::view('login', 'lte3::auth.login');
@@ -14,7 +13,7 @@ Route::view('register', 'lte3::auth.register');
 Route::view('forgot-password', 'lte3::auth.forgot-password');
 Route::view('reset-password', 'lte3::auth.reset-password');
 
-Route::get('fields', [ExampleController::class, 'fields']);
+Route::get('components', [ExampleController::class, 'components'])->name('components');
 Route::any('data/save', 'ExampleController@save')->name('data.save');
 Route::get('data/statuses', 'ExampleController@statuses')->name('data.statuses');
 Route::get('data/modal-content', 'ExampleController@modalContent')->name('data.modal-content');

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card-body">
-      <p class="login-box-msg">{{ trans('lte3::main.Register a new membership') }}</p>
+      <p class="login-box-msg">Register a new membership</p>
         @if(session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -11,7 +11,7 @@
       <form action="{{ url('register') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input name="name" value="{{ old('name') }}" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="{{ trans('lte3::main.Name') }}">
+          <input name="name" value="{{ old('name') }}" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -33,7 +33,7 @@
             @enderror
         </div>
         <div class="form-group has-feedback @error('password') has-error @enderror">
-            <input name="password" type="password" class="form-control" id="password" required placeholder="{{ trans('lte3::main.Password') }}">
+            <input name="password" type="password" class="form-control" id="password" required placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             @error('password')
                 <span class="help-block">
@@ -42,7 +42,7 @@
             @enderror
         </div>
         <div class="input-group mb-3 @error('password') has-error @enderror">
-          <input name="password_confirmation" type="password" class="form-control" placeholder="{{ trans('lte3::main.Retype password') }}">
+          <input name="password_confirmation" type="password" class="form-control" placeholder="Retype password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -61,7 +61,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">{{ trans('lte3::main.Register') }}</button>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
         </div>
@@ -78,7 +78,7 @@
         </a>
       </div>
 
-      <a href="/login" class="text-center">{{ trans('lte3::main.I already have a membership') }}</a>
+      <a href="/login" class="text-center">I already have a membership</a>
 
     </div>
 @endsection

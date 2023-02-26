@@ -21,7 +21,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">
+
 
 <div class="login-box">
   <!-- /.login-logo -->

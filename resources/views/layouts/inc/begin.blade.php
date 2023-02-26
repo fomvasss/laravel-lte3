@@ -20,12 +20,24 @@
     <link rel="stylesheet" href="/vendor/adminlte/plugins/flag-icon-css/css/flag-icon.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/toastr/toastr.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/select2/css/select2.min.css">
 
-    <link rel="stylesheet" href="/vendor/lte3/main.css">
-    @stack('styles')
+    <!-- Datetimepicker -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/datepicker/datetimepicker.min.css">
+    <!-- X-Editable -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.css">
+    <!-- Select2ToTree -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/select2-to-tree/src/select2totree.css">
+    <!-- Bootstrap Tree View -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/bootstrap-treeview/bootstrap-treeview.min.css">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="/vendor/lte3/main.css">
+    @stack('styles')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<!-- <body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed" style="height: auto;"> -->
+<body class="hold-transition sidebar-mini layout-fixed {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">

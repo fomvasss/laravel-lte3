@@ -1,7 +1,7 @@
 @extends('lte3::layouts.app')
 
 @section('content')
-    @include('lte3::parts.content-header', ['pageTitle' => 'Dashboard v1'])
+    @include('lte3::parts.content-header', ['page_title' => 'Dashboard v1'])
 
     <!-- Main content -->
     <section class="content">
@@ -625,7 +625,6 @@
 <!-- overlayScrollbars -->
 <script src="/vendor/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/vendor/adminlte/dist/js/demo.js"></script>')
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/vendor/adminlte/dist/js/pages/dashboard.js"></script>
 @endpush

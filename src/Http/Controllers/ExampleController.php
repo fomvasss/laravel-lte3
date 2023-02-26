@@ -2,7 +2,6 @@
 
 namespace Fomvasss\Lte3\Http\Controllers;
 
-use App\Models\Term;
 use App\Models\User;
 use Exception;
 use Fomvasss\MediaLibraryExtension\HasMedia\HasMedia;
@@ -12,14 +11,14 @@ use Illuminate\Routing\Controller;
 class ExampleController extends Controller
 {
 
-    public function fields()
+    public function components()
     {
-        \Session::flash('info', 'Welcome to Laravel Admin LTE!');
+        \Session::flash('info', 'Welcome to Admin LTE Components!');
 
-        return view('lte3::examples.fields', [
+        return view('lte3::examples.components', [
             'treeviewArray' => $this->treeviewStaticArray(),
             'model' => $this->getModel(),
-            'terms' => Term::get(),
+            'terms' => \App\Models\Term::whereIn('vocabulary', ['brands', 'models'])->get(),
         ]);
     }
 

@@ -11,6 +11,9 @@ return [
     'middleware' => ['web'],
 
     'view' => [
+        
+        'dark_mode' => true,
+        
         /**
          * Show next type alerts in dashboard
          * Example alert: \Session::flash('success', 'Welcome to LTE!');

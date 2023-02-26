@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card-body">
-    <p class="login-box-msg">{{ trans('lte3::main.Sign in to start your session') }}</p>
+    <p class="login-box-msg">Sign in to start your session</p>
     @if(session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -37,13 +37,13 @@
         <div class="icheck-primary">
             <input name="remember" {{ old('remember') ? 'checked' : null }} value="1"  type="checkbox" id="remember">
             <label for="remember">
-            {{ trans('lte3::main.Remember Me') }}
+            Remember Me
             </label>
         </div>
         </div>
         <!-- /.col -->
         <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">{{ trans('lte3::main.Sign In') }}</button>
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
         </div>
         <!-- /.col -->
     </div>
@@ -60,10 +60,10 @@
     <!-- /.social-auth-links -->
 
     <p class="mb-1">
-        <a href="/forgot-password">{{ trans('lte3::main.Restore password') }}</a>
+        <a href="/forgot-password">Restore password</a>
     </p>
     <p class="mb-0">
-        <a href="/register" class="text-center">{{ trans('lte3::main.Register') }}</a>
+        <a href="/register" class="text-center">Register</a>
     </p>
 </div>
 @endsection

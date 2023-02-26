@@ -1,15 +1,18 @@
 @foreach($items as $item)
     <li data-id="{{ $item->id }}">
         <span class="handle">
-            <i class="fas fa-ellipsis-v"></i>
-            <i class="fas fa-ellipsis-v"></i>
+            @isset($attrs['handle_icon'])
+            {!! $attrs['handle_icon'] !!}
+            @else
+            <i class="fa fa-arrows-alt"></i>
+            @endisset
         </span>
 
         <span>
             @isset($attrs['routes']['edit'])
                 <a href="{{ route($attrs['routes']['edit'], array_merge([$item], $attrs['routes']['params'])) }}"
-                   style="color: rgb(68, 68, 68)" class="hierarchy-item-title">
-                    <span class="text hover-edit">{{ $item->name }}</span>
+                    class="text hover-edit">
+                    {{ $item->name }}
                 </a>
             @else
                 <span class="text hover-edit">{{ $item->name }}</span>
@@ -27,15 +30,15 @@
                 <a href="{{ route($attrs['routes']['edit'], array_merge([$item], $attrs['routes']['params'])) }}" class="text-warning"><i class="fas fa-edit"></i></a>
             @endisset
             @isset($attrs['routes']['delete'])
-                <a href="#" class="text-danger js-action-send" data-method="DELETE" data-url="{{ route($attrs['routes']['delete'], array_merge([$item], $attrs['routes']['params'])) }}" data-confirm="Delete?"><i class="fas fa-trash"></i></a>
+                <a href="#" class="text-danger js-click-submit" data-method="DELETE" data-url="{{ route($attrs['routes']['delete'], array_merge([$item], $attrs['routes']['params'])) }}" data-confirm="Delete?"><i class="fas fa-trash"></i></a>
             @endisset
         </div>
         @if(!empty($item->children) && $item->children->count())
-            <ul class="">
+            <ul>
                 @include($attrs['item'], ['items' => $item->children, 'attrs' => $attrs])
             </ul>
-        @elseif($attrs['has_nested'] ?? true)
-            <ul class=""></ul>
+        @elseif($attrs['has_nested'])
+            <ul></ul>
         @endif
     </li>
 @endforeach

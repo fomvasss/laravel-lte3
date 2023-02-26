@@ -1,7 +1,7 @@
 @extends('lte3::layouts.app')
 
 @section('content')
-    @include('lte3::parts.content-header', ['pageTitle' => 'Blank Page'])
+    @include('lte3::parts.content-header', ['page_title' => 'Blank Page'])
 
     <!-- Main content -->
     <section class="content">

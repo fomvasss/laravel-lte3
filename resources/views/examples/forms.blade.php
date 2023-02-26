@@ -1,7 +1,7 @@
 @extends('lte3::layouts.app')
 
 @section('content')
-    @include('lte3::parts.content-header', ['pageTitle' => 'Advanced Form'])
+    @include('lte3::parts.content-header', ['page_title' => 'Advanced Form'])
 
     <!-- Main content -->
     <section class="content">

@@ -26,10 +26,10 @@ $(function () {
     }
 
     // Copy text to clipboard
-    $(document).on('click', '.js-copy-to-clipboard', function (e) {
+    $(document).on('click', '.js-clipboard', function (e) {
         e.preventDefault()
         var $tmp = $("<textarea>"),
-            $text = $(this).data('text');
+            $text = $(this).data('text') || $(this).text();
         $("body").append($tmp);
         $tmp.val($text).select();
         document.execCommand("copy");
@@ -70,20 +70,23 @@ $(function () {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
-    // AJAX fill modal
+    // Modal show with get AJAX content
     $(document).on('click', '.js-modal-fill-html', function (e) {
         e.preventDefault();
         var url = $(this).data('url'),
-            target = $(this).data('target')
+            target = $(this).data('target'),
+            initFunctionsStr = $(this).data('fn-inits'); // "fn1,fn2,..."
         $.get(url, function (data) {
             $(`${target} .modal-content`).html(data.html)
             $(`${target}`).modal();
 
-            initFieldMoreItemsSortable();
-            initFieldSelect2Static();
-            initJsVerificationSlugField();
-            initFieldSelect2Ajax();
-            initCKEditors();
+            if (initFunctionsStr) {
+                console.log(initFunctionsStr)
+                initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
+                    console.log('Init function: ' + str);
+                    window[str]();
+                });
+            }
         });
     })
 
@@ -116,23 +119,25 @@ $(function () {
     });
 
     // Change select
-    $(document).on('change', 'select.js-change-url', function () {
+    $(document).on('change', '.js-change-url-submit', function () {
         window.location = $(this).val();
     })
 
     // Change radio
-    $(document).on('change', '.js-change-radio', function (e) {
+    $(document).on('change', '.js-radio-submit', function (e) {
         e.preventDefault();
         var $this = $(this),
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true;
-        if (strConfirm && $this.data('url')) {
+        if (strConfirm && ($this.data('url') || $this.attr('value'))) {
             var $form = $('#js-action-form');
-            $form.attr('action', $this.data('url')).submit();
+            console.log($this.data('url') || $this.attr('value'))
+            return
+            $form.attr('action', $this.data('url') || $this.attr('value')).submit();
         }
         return false;
     })
 
-    $(document).on('click', '.js-action-send', function (e) {
+    $(document).on('click', '.js-click-submit', function (e) {
         e.preventDefault()
         var $form = $('#js-action-form'),
             $this = $(this),
@@ -153,36 +158,37 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     var sortableNestedVar = $('.js-sortable-nested').sortableNested({
-        //group: 'serialization',
-        delay: 500,
-        handle: '.handle',
-        onDrop: function ($item, container, _super) {
-            container.el.removeClass("active");
-            _super($item, container);
+            //group: 'serialization',
+            delay: 500,
+            handle: '.handle',
+            onDrop: function ($item, container, _super) {
+                container.el.removeClass("active");
+                _super($item, container);
 
-            var
-                $wrap = $item.closest('.f-sortable-nested-wrap'),
-                data = sortableNestedVar.sortableNested("serialize").get(),
-                url = $wrap.data('url'),
-                method = $wrap.data('method') || 'POST';
+                var
+                    $wrap = $item.closest('.f-sortable-nested-wrap'),
+                    data = sortableNestedVar.sortableNested("serialize").get(),
+                    url = $wrap.data('url'),
+                    method = $wrap.data('method') || 'POST';
                 console.log(data, url, method)
 
-            if (url) {
-                $.ajax({
-                    method: method,
-                    url: url,
-                    dataType: 'json',
-                    data: {'data': data[0]},
-                    success: function (data) {
-                        lteAlert('success', data.message);
-                    },
-                    error: function () {
-                        lteAlert('error', 'Error SortableNested Ajax!')
-                    }
-                })
+                if (url) {
+                    $.ajax({
+                        method: method,
+                        url: url,
+                        dataType: 'json',
+                        data: {'data': data[0]},
+                        success: function (data) {
+                            lteAlert('success', data.message);
+                        },
+                        error: function () {
+                            lteAlert('error', 'Error SortableNested Ajax!')
+                        }
+                    })
+                }
             }
-        }
-    })
+        })
+
 
     // jQuery UI sortable
     initSortableY = function() {
@@ -439,6 +445,8 @@ $(function () {
     }
     initSelect2();
 
+    //$(document).on('change', '.f-radiogroup')
+
     // Component: checkbox
     initCheckbox = function() {
         $('.f-checkbox-ajax').each(function(){
@@ -600,30 +608,25 @@ $(function () {
     initTreeview();
 
    // Component: Links
-    $(document).on('click', '.field-links .btn-info', function (e) {
+    $(document).on('click', '.field-links .js-btn-add', function (e) {
         e.preventDefault()
-        var n = $(this).parents('.field-links').find('.btn-info').index(this),
-            length = $(this).parents('.field-links').find('.btn-info').length,
+        var n = $(this).parents('.field-links').find('.js-btn-add').index(this),
+            length = $(this).parents('.field-links').find('.js-btn-add').length,
             fieldName = $(this).parents('.field-links').data('field-name'),
             keyKey = $(this).parents('.field-links').data('key'),
             keyValue = $(this).parents('.field-links').data('value'),
             placeholderKey = $(this).parents('.field-links').data('placeholder-key'),
             placeholderValue = $(this).parents('.field-links').data('placeholder-value'),
             item = '<tr class="item">'
-                + '<td><span><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i></span></td>'
+                + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
                 + '<td>'
-                + '<div class="input-group input-group-md">'
-                + '<input type="text" name="' + fieldName + '[' + (length) + '][' + keyKey + ']" class="form-control" placeholder="' + placeholderKey + '">'
-                + '<span class="input-group-btn" style="width: 40%">'
-                + '<input type="text" name="' + fieldName + '[' + (length) + '][' + keyValue + ']" class="form-control" placeholder="' + placeholderValue + '">'
-                + '</span>'
-                + '<span class="input-group-btn">'
-                + '<button type="button" class="btn btn-info btn-flat">'
-                + '<i class="fas fa-plus"></i>'
-                + '</button>'
-                + '<button type="button" class="btn btn-danger btn-flat">'
-                + '<i class="fas fa-minus"></i>'
-                + '</button>'
+                + '<div class="input-group input-group-sm">'
+                + '<input name="' + fieldName + '[' + (length) + '][' + keyKey + ']" class="form-control" placeholder="' + placeholderKey + '" type="text">'
+                + '<input name="' + fieldName + '[' + (length) + '][' + keyValue + ']" class="form-control" placeholder="' + placeholderValue + '" type="text">'
+                + '<input type="hidden" name="" value="0">'
+                + '<span class="input-group-append">'
+                + '<button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>'
+                + '<button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>'
                 + '</span>'
                 + '</div>'
                 + '</td>'
@@ -631,44 +634,46 @@ $(function () {
 
         $(this).parents('.field-links').find('.item').eq(n).after(item)
     })
-    $(document).on('click', '.field-links .btn-danger', function (e) {
+    $(document).on('click', '.field-links .js-btn-remove', function (e) {
         e.preventDefault()
-        var n = $(this).parents('.field-links').find('.btn-danger:not(.first)').index(this)
 
-        $(this).parents('.field-links').find('.item').eq(n).remove()
+        var length = $(this).parents('.field-links').find('.js-btn-remove').length;
+        if (length > 1) {
+            var n = $(this).parents('.field-links').find('.js-btn-remove:not(.first)').index(this)
+
+            $(this).parents('.field-links').find('.item').eq(n).remove()
+        }
     })
 
     // Component: Lists
-    $(document).on('click', '.field-linear-list .btn-info', function (e) {
+    $(document).on('click', '.field-linear-list .js-btn-add', function (e) {
         e.preventDefault()
-        var n = $(this).parents('.field-linear-list').find('.btn-info').index(this),
-            length = $(this).parents('.field-linear-list').find('.btn-info').length,
+        console.log(1)
+        var n = $(this).parents('.field-linear-list').find('.js-btn-add').index(this),
+            length = $(this).parents('.field-linear-list').find('.js-btn-add').length,
             fieldName = $(this).parents('.field-linear-list').data('field-name'),
             placeholderValue = $(this).parents('.field-linear-list').data('placeholder-value'),
             item = '<tr class="item">'
-                + '<td><span><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i></span></td>'
+                + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
                 + '<td>'
-                + '<div class="input-group">'
-                + '<span class="input-group-btn" style="width: 88%">'
-                + '<input type="text" name="' + fieldName + '[' + (length) + ']" class="form-control" placeholder="' + placeholderValue + ' ' + (parseInt(length) + 1) + '">'
-                + '</span>'
-                + '<span class="input-group-btn">'
-                + '<button type="button" class="btn btn-info btn-flat">'
-                + '<i class="fas fa-plus"></i>'
-                + '</button>'
-                + '<button type="button" class="btn btn-danger btn-flat">'
-                + '<i class="fas fa-minus"></i>'
-                + '</button>'
-                + '</span>'
+                + '<div class="input-group input-group-sm">'
+                + '<input name="' + fieldName + '[' + (length) + ']" placeholder="' + placeholderValue + ' ' + (parseInt(length) + 1) + '" class="form-control" type="text">'
+                + '<span class="input-group-append">'
+                + '<button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>'
+                + '<button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button></span>'
                 + '</div>'
                 + '</td>'
                 + '</tr>"'
         $(this).parents('.field-linear-list').find('.item').eq(n).after(item)
     })
-    $(document).on('click', '.field-linear-list .btn-danger', function (e) {
+    $(document).on('click', '.field-linear-list .js-btn-remove', function (e) {
         e.preventDefault()
-        var n = $(this).parents('.field-linear-list').find('.btn-danger:not(.first)').index(this)
 
-        $(this).parents('.field-linear-list').find('.item').eq(n).remove()
+        var length = $(this).parents('.field-linear-list').find('.js-btn-remove').length;
+        if (length > 1) {
+            var n = $(this).parents('.field-linear-list').find('.js-btn-remove:not(.first)').index(this)
+
+            $(this).parents('.field-linear-list').find('.item').eq(n).remove()
+        }
     })
 });

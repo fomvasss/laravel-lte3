@@ -51,12 +51,12 @@ For correct work navigation in dashboard, apply next middleware for routes to da
 ## Publishing (optional)
 Of course, you can publish only the necessary system components:
 - views:
-`lte-view-fields`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
+`lte-view-components`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
 - other:
 `lte-config`, `lte-assets`, `lte-lang`
 
 ```bash
-php artisan lte3:publish --tag=lte-view-fields --force
+php artisan lte3:publish --tag=lte-view-components --force
 ```
 or all components
 ```bash

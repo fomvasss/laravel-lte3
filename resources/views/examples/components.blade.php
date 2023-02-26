@@ -1,7 +1,11 @@
 @extends('lte3::layouts.app')
 
 @section('content')
-    @include('lte3::parts.content-header', ['pageTitle' => 'Fields Examples'])
+    @include('lte3::parts.content-header', [
+        'page_title' => 'Fields Examples',
+        'url_back' => '#' ,
+        'url_create' => '#'
+    ])
 
     <!-- Main content -->
     <section class="content">
@@ -30,14 +34,14 @@
             </div>
             <div class="card-body p-0">
 
-            <table class="table table-striped projects">
-                <thead>
+                <table class="table table-striped projects">
+                    <thead>
                     <tr>
                         <th style="width: 1%">
                             #
                         </th>
                         <th style="width: 20%">
-                           Project Name
+                            Project Name
                         </th>
                         <th style="width: 30%">
                             Team Members
@@ -52,20 +56,14 @@
                         <th style="width: 20%">
                         </th>
                     </tr>
-                </thead>
-                <tbody class="sortable-y" data-url="/">
+                    </thead>
+                    <tbody class="sortable-y" data-url="/">
                     <tr id="1">
+                        <td>#</td>
                         <td>
-                            #
-                        </td>
-                        <td>
-                            <a class="hover-edit" href="#">
-                                AdminLTE v3
-                            </a>
+                            <a class="hover-edit" href="#">AdminLTE v3</a>
                             <br/>
-                            <small>
-                                Created 01.01.2019
-                            </small>
+                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
                         </td>
                         <td>
                             <ul class="list-inline">
@@ -85,61 +83,43 @@
                         </td>
                         <td class="project_progress">
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 57%">
                                 </div>
                             </div>
-                            <small>
-                                57% Complete
-                            </small>
+                            <small> 57% Complete </small>
                         </td>
                         <td class="project-state">
                             <span class="badge badge-success">Success</span>
                         </td>
                         <td class="project-actions text-right">
                             <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
-                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
+                                <button type="button" class="btn btn-sm btn-default">Action</button>
+                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a href="#" class="dropdown-item">Clone</a>
+                                    <a href="#" class="dropdown-item">Notify</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Delete</a>
                                 </div>
+                            </div>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
+                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
+                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
                         </td>
                     </tr>
                     <tr id="2">
+                        <td>#</td>
                         <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
+                            <a class="hover-edit" href="#">AdminLTE v3</a>
                             <br/>
-                            <small>
-                                Created 01.01.2019
-                            </small>
+                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
                         </td>
                         <td>
                             <ul class="list-inline">
@@ -153,7 +133,8 @@
                         </td>
                         <td class="project_progress">
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" style="width: 47%">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="47"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 47%">
                                 </div>
                             </div>
                             <small>
@@ -165,48 +146,32 @@
                         </td>
                         <td class="project-actions text-right">
                             <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
-                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
+                                <button type="button" class="btn btn-sm btn-default">Action</button>
+                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a href="#" class="dropdown-item">Clone</a>
+                                    <a href="#" class="dropdown-item">Notify</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Delete</a>
                                 </div>
+                            </div>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
+                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
+                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
                         </td>
                     </tr>
                     <tr id="3">
+                        <td>#</td>
                         <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
+                            <a class="hover-edit" href="#">AdminLTE v3</a>
                             <br/>
-                            <small>
-                                Created 01.01.2019
-                            </small>
+                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
                         </td>
                         <td>
                             <ul class="list-inline">
@@ -223,7 +188,8 @@
                         </td>
                         <td class="project_progress">
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 77%">
                                 </div>
                             </div>
                             <small>
@@ -235,111 +201,28 @@
                         </td>
                         <td class="project-actions text-right">
                             <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
-                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </div>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-                    <tr id="4">
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
-                            <br/>
-                            <small>
-                                Created 01.01.2019
-                            </small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar4.png">
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="project_progress">
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <button type="button" class="btn btn-sm btn-default">Action</button>
+                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a href="#" class="dropdown-item">Clone</a>
+                                    <a href="#" class="dropdown-item">Notify</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Delete</a>
                                 </div>
                             </div>
-                            <small>
-                                60% Complete
-                            </small>
-                        </td>
-                        <td class="project-state">
-                            <span class="badge badge-success">Success</span>
                         </td>
                         <td class="project-actions text-right">
-                            <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-warning">Action</button>
-                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </div>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm js-action-send" href="{{ route('lte3.data.save') }}" data-confirm="Delete?">                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
+                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
+                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
@@ -400,23 +283,34 @@
                                     'wrap_class' => 'custom-switch'
                             ]) !!}
 
-                            {!! Lte3::radiogroup('cc', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
+                            {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
 
-                            {!! Lte3::radiogroup('cc', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], [
-                                'label' => 'Size:',
+                            {!! Lte3::radiogroup('chanel', 'tg', ['tg' => 'Telegram', 'email' => 'Email', 'sms' => 'SMS',], [
+                                'label' => 'Toggle Block:',
                                 'map' => [
-                                    'smtp' => ['.js-block-period'],
-                                    'max_clicks' => ['.js-block-clicks'],
-                                    'max_views' => ['.js-block-views'],
+                                    'tg' => ['.js-block-tg'],
+                                    'email' => ['.js-block-email'],
+                                    'sms' => ['.js-block-sms'],
                                 ],
                             ]) !!}
+                            <h3 class="js-block-tg">Telegram!</h3>
+                            <h3 class="js-block-email">Email!</h3>
+                            <h3 class="js-block-sms">SMS!</h3>
+
+                            {!! Lte3::radiogroup('brand', 'samsung', [
+                                    'apple' => ['label' => 'Apple', 'url' => route('lte3.components', ['brand' => 'apple'])],
+                                    'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
+                                    'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
+                                ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
+                            !!}
 
                             {!! Lte3::textarea('message', 'Hello World!', [
                                     'label' => 'Message',
                                     'rows' => 3,
                             ]) !!}
 
-                            <a href="" class="js-copy-to-clipboard" data-text="Hello!" data-toggle="tooltip" title="Copy">Click to copy text "Hello!"</a>
+                            <a href="#" class="js-clipboard btn btn-outline-success btn-sm" data-text="Hello!" data-toggle="tooltip" title="Copy">Copy text</a>
+                            <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm" data-method="GET" data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
 
                         </div>
                         <div class="card-footer">
@@ -611,10 +505,10 @@
                         <div class="card-header">
                             <h3 class="card-title">Modals</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="{{route('lte3.data.modal-content')}}" data-source-selector="#card-refresh-content" data-load-on-init="false">
+                                <button data-source="{{route('lte3.data.modal-content')}}" type="button" class="btn btn-tool" data-card-widget="card-refresh" data-load-on-init="false">
                                 <i class="fas fa-sync-alt"></i>
                                 </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <button type="button" class="btn btn-tool" data-source-selector="#card-refresh-content" data-card-widget="maximize">
                                 <i class="fas fa-expand"></i>
                                 </button>
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -629,10 +523,10 @@
                         <div class="card-body">
                             <span class="text-danger"></span>
 
-                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-sm" data-url="{{route('lte3.data.modal-content')}}">
-                            AJAX Small Modal
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-sm" data-url="{{route('lte3.data.modal-content', ['modal' => 'sm'])}}"  data-fn-inits="initJsVerificationSlugField,initSortableY">
+                            AJAX Small Modal with Init functions
                             </button>
-                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content')}}">
+                            <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}">
                             AJAX Large Modal
                             </button>
                             <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl" data-url="{{route('lte3.data.modal-content')}}">
@@ -818,49 +712,21 @@
 @endsection
 
 @push('styles')
-<!-- Bootstrap Color Picker -->
-<link rel="stylesheet" href="/vendor/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-<!-- Select2 -->
-<link rel="stylesheet" href="/vendor/adminlte/plugins/select2/css/select2.min.css">
-<!-- summernote -->
-<link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
-<!-- CodeMirror -->
-<link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/codemirror.css">
-<link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/theme/monokai.css">
-
-<!-- Datetimepicker -->
-<link rel="stylesheet" href="/vendor/lte3/plugins/datepicker/datetimepicker.min.css">
-<!-- X-Editable -->
-<link rel="stylesheet" href="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.css">
-<!-- Select2ToTree -->
-<link rel="stylesheet" href="/vendor/lte3/plugins/select2-to-tree/src/select2totree.css">
-<!-- Bootstrap Tree View -->
-<link rel="stylesheet" href="/vendor/lte3/plugins/bootstrap-treeview/bootstrap-treeview.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/codemirror.css">
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/theme/monokai.css">
 @endpush
 
 @push('scripts')
-<!-- Bootstrap Color Picker -->
-<script src="/vendor/adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Select2 -->
-<script src="/vendor/adminlte/plugins/select2/js/select2.full.min.js"></script>
-<!-- Summernote -->
-<script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- CodeMirror -->
-<script src="/vendor/adminlte/plugins/codemirror/codemirror.js"></script>
-<script src="/vendor/adminlte/plugins/codemirror/mode/css/css.js"></script>
-<script src="/vendor/adminlte/plugins/codemirror/mode/xml/xml.js"></script>
-<script src="/vendor/adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-
-<!-- jQuery Sortable (Nested) -->
-<script src="/vendor/lte3/plugins/jquery-sortable/jquery-sortable.js"></script>
-<!-- Datetimepicker -->
-<script src="/vendor/lte3/plugins/datepicker/datetimepicker.full.js"></script>
-<!-- X-Editable -->
-<script src="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.js"></script>
-<!-- Select2ToTree -->
-<script src="/vendor/lte3/plugins/select2-to-tree/src/select2totree.js"></script>
-<!-- Bootstrap Tree View -->
-<script src="/vendor/lte3/plugins/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <!-- Summernote -->
+    <script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- CodeMirror -->
+    <script src="/vendor/adminlte/plugins/codemirror/codemirror.js"></script>
+    <script src="/vendor/adminlte/plugins/codemirror/mode/css/css.js"></script>
+    <script src="/vendor/adminlte/plugins/codemirror/mode/xml/xml.js"></script>
+    <script src="/vendor/adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 @endpush
 
 @push('modals')

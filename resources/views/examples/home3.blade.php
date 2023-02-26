@@ -1,7 +1,7 @@
 @extends('lte3::layouts.app')
 
 @section('content')
-    @include('lte3::parts.content-header', ['pageTitle' => 'Dashboard v3'])
+    @include('lte3::parts.content-header', ['page_title' => 'Dashboard v3'])
 
     <!-- Main content -->
     <div class="content">

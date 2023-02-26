@@ -13,19 +13,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/lte3/home-1" class="nav-link">
+                <a href="/lte3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/lte3/home-2" class="nav-link">
+                <a href="/lte3/home2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/lte3/home-3" class="nav-link">
+                <a href="/lte3/home3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
                 </a>
@@ -37,16 +37,16 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Forms
-                <span class="right badge badge-danger">New</span>
+                <span class="right badge badge-danger">Example</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/lte3/fields" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
+            <a href="/lte3/components" class="nav-link">
+              <i class="nav-icon fas fa-cubes"></i>
               <p>
-                Fields
-                <span class="right badge badge-success">25</span>
+                Components
+                <span class="right badge badge-success">22</span>
               </p>
             </a>
           </li>
