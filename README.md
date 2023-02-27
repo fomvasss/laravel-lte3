@@ -26,14 +26,14 @@ php artisan lte3:install
 
 That's all. You can usage LTE3 in your project :)
 
-All the fields & form components are in the `.../examples/components.vlade.php`
+All examples the fields & form components are in the `.../examples/components.vlade.php`
 
-Visit the page: `http://site.test/lte3/exsmples`
+After installation, you can see it: `http://site.test/lte3/exsmples`
 
 
 ## Configuration
 
-In file: `config/lte3.php`
+Configuration file: `config/lte3.php`
 
 For correct work navigation in dashboard, apply middleware. Add this to `App\Http\Kernel.php`:
 
@@ -48,7 +48,7 @@ $middlewareGroups = [
 
 ## Publishing (optional)
 
-Of course, you can published partial:
+Of course, you can published partial for customize:
 
 - views:
 `lte-view-components`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
@@ -61,21 +61,19 @@ php artisan lte3:publish --tag=lte-view-components
 ```
 ## Structure
 
-After installation, you can work with the following files:
-
 - `config/lte3.php` - package config
 - `public/vendor/adminlte` - original AdminLte assets ([ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/))
 - `public/vendor/lte3` - custom assets (you can change this)
 - `resources/views/vendor/lte3` - options publishing
-    - `layouts`
-    - `parts`
-    - `components` - Lte3 fields & components
-    - `auth`
-    - `examples`
-
-
+  - `auth`
+  - `layouts`
+  - `parts`
+  - `components`
+  - `examples`
+  
 ## Usage & Development
 
+See [examples.blade.php](https://github.com/fomvasss/laravel-lte3/blob/master/resources/views/examples/components.blade.php)
 
 ## Recommended
 
