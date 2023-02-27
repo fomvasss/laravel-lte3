@@ -50,12 +50,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/lte3.php' => config_path('lte3.php'),
             ], 'lte3-config');
-
-            $this->publishes([
-                base_path('vendor/almasaeed2010/adminlte/dist') => public_path('vendor/adminlte/dist'),
-                base_path('vendor/almasaeed2010/adminlte/plugins') => public_path('vendor/adminlte/plugins'),
-            ], 'lte3-adminlte-assets');
-
+            
             $this->publishes([
                 __DIR__ . '/../public' => public_path('vendor/lte3'),
             ], 'lte3-assets');

@@ -15,41 +15,48 @@
 
     <div class="table-responsive">
         <table class="table table-sm" style="position:relative;">
-            <tbody class="sortable-y" >
-                @forelse($items as $item)
+            <tbody class="sortable-y">
+            @forelse($items as $item)
                 <tr class="item first">
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input name="{{ $name }}[]" value="{!! $item ?? '' !!}" class="form-control" placeholder="{{ $placeholder_value .' '. $loop->iteration }}" type="text">
+                            <input name="{{ $name }}[]" value="{!! $item ?? '' !!}" class="form-control"
+                                   placeholder="{{ $placeholder_value .' '. $loop->iteration }}" type="text">
                             <span class="input-group-append">
-                            <button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button></span>
+                            <button type="button" class="btn btn-success btn-flat js-btn-add"><i
+                                        class="fas fa-plus"></i></button>
+                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i
+                                        class="fas fa-minus"></i></button></span>
                         </div>
                     </td>
                 </tr>
-                @empty
+            @empty
                 <tr class="item first">
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input name="{{ $name }}[]" value="" class="form-control" placeholder="{{ $placeholder_value }}" type="text">
+                            <input name="{{ $name }}[]" value="" class="form-control"
+                                   placeholder="{{ $placeholder_value }}" type="text">
                             <span class="input-group-append">
-                            <button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button></span>
+                            <button type="button" class="btn btn-success btn-flat js-btn-add"><i
+                                        class="fas fa-plus"></i></button>
+                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i
+                                        class="fas fa-minus"></i></button></span>
                         </div>
                     </td>
                 </tr>
-                @endforelse
+            @endforelse
             </tbody>
         </table>
 
     </div>
-    @error($field_laravel_name) <div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    @error($field_laravel_name)
+    <div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>
 

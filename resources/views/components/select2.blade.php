@@ -28,47 +28,49 @@
             style="width: 100%;"
             autocomplete="off"
             data-toggle="tooltip"
-            @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-                {{$key}}="{{$val}}"
-            @endforeach
-            @if(isset($attrs['multiple']) && $attrs['multiple'] && (empty($attrs['max']) || $attrs['max'] > 1)) multiple @endif
-            @if(!empty($attrs['url_suggest'])) data-url-suggest={{$attrs['url_suggest']}} @endif
-            @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
-            @if(!empty($attrs['method_save'])) data-method-save={{$attrs['method_save']}} @endif
-            @if(!empty($attrs['max'])) data-max={{$attrs['max']}} @endif
-            @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
-            @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
-            @if(!empty($attrs['separators'])) data-separators={{$attrs['separators']}} @endif
-            id="{{ $attrs['id'] ?? $field_name_input }}"
-            style="width: 100%;"
-            @if(count($options) < 6) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
-            @if(isset($attrs['map']) && is_array($attrs['map']))
-                data-map='@json($attrs['map'])'
-            @endif
-            @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-                {{$key}}="{{$val}}"
-            @endforeach
+    @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+        {{$key}}="{{$val}}"
+    @endforeach
+    @if(isset($attrs['multiple']) && $attrs['multiple'] && (empty($attrs['max']) || $attrs['max'] > 1)) multiple @endif
+    @if(!empty($attrs['url_suggest'])) data-url-suggest={{$attrs['url_suggest']}} @endif
+    @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
+    @if(!empty($attrs['method_save'])) data-method-save={{$attrs['method_save']}} @endif
+    @if(!empty($attrs['max'])) data-max={{$attrs['max']}} @endif
+    @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
+    @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
+    @if(!empty($attrs['separators'])) data-separators={{$attrs['separators']}} @endif
+    id="{{ $attrs['id'] ?? $field_name_input }}"
+    style="width: 100%
+    ;"
+    @if(count($options) < 6) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
+    @if(isset($attrs['map']) && is_array($attrs['map']))
+        data-map='@json($attrs['map'])'
+    @endif
+    @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+        {{$key}}="{{$val}}"
+    @endforeach
     >
-        @if(empty($attrs['multiple']) && empty($attrs['empty_value']) && count($options) > 6)
-            <option value="" disabled selected> ---</option>
-        @endif
+    @if(empty($attrs['multiple']) && empty($attrs['empty_value']) && count($options) > 6)
+        <option value="" disabled selected> ---</option>
+    @endif
 
-        @if(isset($attrs['empty_value']) && empty($attrs['multiple']))
-            <option value="" selected> {{ $attrs['empty_value'] }} </option>
-        @endisset
+    @if(isset($attrs['empty_value']) && empty($attrs['multiple']))
+        <option value="" selected> {{ $attrs['empty_value'] }} </option>
+    @endisset
 
-        @if($options)
-            @foreach($options as $value => $title)
-                <option value="{{ $value }}" @if(in_array($value, $selected)) selected @endif>{{ $title }}</option>
+    @if($options)
+        @foreach($options as $value => $title)
+            <option value="{{ $value }}" @if(in_array($value, $selected)) selected @endif>{{ $title }}</option>
+        @endforeach
+    @else
+        @foreach($selected as $value => $title)
+            <option value="{{ $value }}" selected>{{ $title }}</option>
             @endforeach
-        @else
-            @foreach($selected as $value => $title)
-                <option value="{{ $value }}" selected>{{ $title }}</option>
-            @endforeach
-        @endif
+            @endif
 
-    </select>
+            </select>
 
-    @error($name) <div class="error invalid-feedback"> {{ $message }} </div>@enderror
-    @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
+            @error($name)
+            <div class="error invalid-feedback"> {{ $message }} </div>@enderror
+            @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

@@ -1,12 +1,15 @@
 <?php
 
 return [
+    /*
+     * HTML Logo
+     */
     'logo' => '<b>Admin</b>LTE',
 
     /*
-     * Dashboard Home, example: /admin
+     * Dashboard Home: admin
      */
-    'dashboard_url' => '/lte3',
+    'dashboard_slug' => 'lte3',
 
     'middleware' => ['web'],
 
@@ -34,9 +37,8 @@ return [
             'form' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'submit' => ['blade' => 'lte3::components.submit', 'vars' => ['title', 'name', 'value', 'attrs']],
             'reset' => ['blade' => 'lte3::components.reset', 'vars' => ['title', 'name', 'value', 'attrs']],
-            //'pagination' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'hidden' => ['blade' => 'lte3::components.hidden', 'vars' => ['name', 'value', 'attrs']],
-            'text' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs']],
+            'text' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'text']],
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],
             'textarea' => ['blade' => 'lte3::components.textarea', 'vars' => ['name', 'value', 'attrs']],
             'checkbox' => ['blade' => 'lte3::components.checkbox', 'vars' => ['name', 'value', 'attrs']],
@@ -70,6 +72,4 @@ return [
             'view' => 'pagination::bootstrap-5',
         ],
     ],
-
-
 ];

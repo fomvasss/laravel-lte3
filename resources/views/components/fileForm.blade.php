@@ -12,12 +12,12 @@
     @isset($attrs['html']){!! $attrs['html'] !!} @endisset
     @isset($attrs['label']) <strong>{!! $attrs['label'] !!}</strong> @endisset
     <input type="file" class="{{ $attrs['class'] ?? '' }}"
-        style="display: none;"
-        name="{{ $input_name }}"
-        @if(!empty($attrs['multiple'])) multiple @endif
-        @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-            {{$key}}="{{$val}}"
-        @endforeach
+           style="display: none;"
+           name="{{ $input_name }}"
+           @if(!empty($attrs['multiple'])) multiple @endif
+           @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+           {{$key}}="{{$val}}"
+            @endforeach
     >
 </label>
 

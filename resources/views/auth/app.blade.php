@@ -28,7 +28,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{ config('lte3.dashboard_url') }}" class="h1">{!! config('lte3.logo') !!}</a>
+      <a href="{{ url(config('lte3.dashboard_slug'), '/lte3') }}" class="h1">{!! config('lte3.logo') !!}</a>
     </div>
     @yield('content')
     <!-- /.card-body -->

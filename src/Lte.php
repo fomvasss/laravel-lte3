@@ -5,6 +5,7 @@ namespace Fomvasss\Lte3;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
 
@@ -22,6 +23,10 @@ class Lte
             $i = 0;
             foreach($componentParams['vars'] ?? [] as $key) {
                 $res[$key] = $attrs[$i++] ?? null;
+            }
+
+            if (isset($res['name']) && array_key_exists('value', $res)) {
+                $res['value'] = $this->getValueAttribute($res['name'], $res['value']);
             }
 
             if (empty($res['model'])) {
@@ -86,5 +91,62 @@ class Lte
         }
 
         return null;
+    }
+
+    public function getValueAttribute($name, $value = null)
+    {
+        if (is_null($name)) {
+            return $value;
+        }
+
+        $old = old($this->transformKey($name));
+
+        if (! is_null($old) && $name !== '_method') {
+            return $old;
+        }
+
+        if (function_exists('app')) {
+            $hasNullMiddleware = app("Illuminate\Contracts\Http\Kernel")
+                ->hasMiddleware(ConvertEmptyStringsToNull::class);
+
+            if ($hasNullMiddleware
+                && is_null($old)
+                && is_null($value)
+                && !is_null(view()->shared('errors'))
+                && count(is_countable(view()->shared('errors')) ? view()->shared('errors') : []) > 0
+            ) {
+                return null;
+            }
+        }
+
+        $request = request($this->transformKey($name));
+
+        if (! is_null($request) && $name != '_method') {
+            return $request;
+        }
+
+        if (! is_null($value)) {
+            return $value;
+        }
+
+        if (isset($this->model)) {
+            return $this->getModelValueAttribute($name);
+        }
+    }
+
+    protected function getModelValueAttribute($name)
+    {
+        $key = $this->transformKey($name);
+
+        if ((is_string($this->model) || is_object($this->model)) && method_exists($this->model, 'getFormValue')) {
+            return $this->model->getFormValue($key);
+        }
+
+        return data_get($this->model, $key);
+    }
+
+    protected function transformKey($key)
+    {
+        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
     }
 }

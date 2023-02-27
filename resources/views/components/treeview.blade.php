@@ -1,11 +1,10 @@
-
 <div
-     class="card card-default f-treeview-wrap {{ $attrs['class_wrap'] ?? null }}"
-     data-url="{{ $attrs['url_tree'] ?? '' }}"
-     data-field-name="{{ $name }}"
-     @if(!empty($attrs['data']))
-     data-data='@json($attrs["data"], JSON_PRETTY_PRINT)'
-     @endif
+        class="card card-default f-treeview-wrap {{ $attrs['class_wrap'] ?? null }}"
+        data-url="{{ $attrs['url_tree'] ?? '' }}"
+        data-field-name="{{ $name }}"
+        @if(!empty($attrs['data']))
+        data-data='@json($attrs["data"], JSON_PRETTY_PRINT)'
+        @endif
 >
 
     @isset($attrs['label'])

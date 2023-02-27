@@ -1,10 +1,17 @@
-var initJsVerificationSlugField = function () {},
-    initColorpicker = function () {},
-    initSortableY =  function () {},
-    initSelect2 = function () {},
-    initCheckbox = function () {},
-    initSelect2Tree = function () {},
-    initTreeview = function () {}
+var initJsVerificationSlugField = function () {
+    },
+    initColorpicker = function () {
+    },
+    initSortableY = function () {
+    },
+    initSelect2 = function () {
+    },
+    initCheckbox = function () {
+    },
+    initSelect2Tree = function () {
+    },
+    initTreeview = function () {
+    }
 
 $(function () {
     'use strict';
@@ -57,7 +64,7 @@ $(function () {
 
     // Component: formOpen
     // Autosabmit form after change file
-    $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function() {
+    $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function () {
         $(this).closest('form').submit();
     });
 
@@ -66,6 +73,7 @@ $(function () {
         var number = parseFloat(value.textContent);
         value.textContent = numberWithSpaces(number);
     });
+
     function numberWithSpaces(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
@@ -99,7 +107,7 @@ $(function () {
             type: $form.attr('method'),
             url: $form.attr('action'),
             data: $form.serialize() + '&prevalidate=1',
-            success: function(data) {
+            success: function (data) {
                 console.log(data)
                 $form.submit()
             },
@@ -123,19 +131,19 @@ $(function () {
         window.location = $(this).val();
     })
 
-    // Change radio
+    // Radio submit
     $(document).on('change', '.js-radio-submit', function (e) {
         e.preventDefault();
         var $this = $(this),
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true;
         if (strConfirm && ($this.data('url') || $this.attr('value'))) {
             var $form = $('#js-action-form');
-            console.log($this.data('url') || $this.attr('value'))
             $form.attr('action', $this.data('url') || $this.attr('value')).submit();
         }
         return false;
     })
 
+    // Click submit
     $(document).on('click', '.js-click-submit', function (e) {
         e.preventDefault()
         var $form = $('#js-action-form'),
@@ -157,41 +165,40 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     var sortableNestedVar = $('.js-sortable-nested').sortableNested({
-            //group: 'serialization',
-            delay: 500,
-            handle: '.handle',
-            onDrop: function ($item, container, _super) {
-                container.el.removeClass("active");
-                _super($item, container);
+        delay: 500,
+        handle: '.handle',
+        onDrop: function ($item, container, _super) {
+            container.el.removeClass("active");
+            _super($item, container);
 
-                var
-                    $wrap = $item.closest('.f-sortable-nested-wrap'),
-                    data = sortableNestedVar.sortableNested("serialize").get(),
-                    url = $wrap.data('url'),
-                    method = $wrap.data('method') || 'POST';
-                console.log(data, url, method)
+            var
+                $wrap = $item.closest('.f-sortable-nested-wrap'),
+                data = sortableNestedVar.sortableNested("serialize").get(),
+                url = $wrap.data('url'),
+                method = $wrap.data('method') || 'POST';
+            console.log(data, url, method)
 
-                if (url) {
-                    $.ajax({
-                        method: method,
-                        url: url,
-                        dataType: 'json',
-                        data: {'data': data[0]},
-                        success: function (data) {
-                            lteAlert('success', data.message);
-                        },
-                        error: function () {
-                            lteAlert('error', 'Error SortableNested Ajax!')
-                        }
-                    })
-                }
+            if (url) {
+                $.ajax({
+                    method: method,
+                    url: url,
+                    dataType: 'json',
+                    data: {'data': data[0]},
+                    success: function (data) {
+                        lteAlert('success', data.message);
+                    },
+                    error: function () {
+                        lteAlert('error', 'Error SortableNested Ajax!')
+                    }
+                })
             }
-        })
+        }
+    })
 
 
     // jQuery UI sortable
-    initSortableY = function() {
-        $( ".sortable-y" ).sortable({
+    initSortableY = function () {
+        $(".sortable-y").sortable({
             distance: 5,
             placeholder: "sortable-placeholder",
             axis: 'y',
@@ -205,7 +212,7 @@ $(function () {
                 console.log(order);
 
                 if (inputWeightClass) {
-                    $this.find('.'+inputWeightClass).each(function(i) {
+                    $this.find('.' + inputWeightClass).each(function (i) {
                         $(this).val(i)
                     })
                 }
@@ -232,7 +239,7 @@ $(function () {
     initSortableY();
 
     // Component: File
-    $(document).on('click', '.f-file .f-file-item .js-btn-delete', function(e) {
+    $(document).on('click', '.f-file .f-file-item .js-btn-delete', function (e) {
         e.preventDefault();
         if (confirm('Confirm?')) {
             var $this = $(this);
@@ -240,7 +247,7 @@ $(function () {
             $this.closest('.f-file-item').hide()
         }
     })
-    $(document).on('click', '.f-media-file .f-file-item .js-btn-delete', function(e) {
+    $(document).on('click', '.f-media-file .f-file-item .js-btn-delete', function (e) {
         e.preventDefault();
         if (confirm('Confirm?')) {
             var $this = $(this);
@@ -257,28 +264,29 @@ $(function () {
         if ($info.length) {
             var text = '';
             $info.text(text);
-            $.each(this.files, function(index, value) {
+            $.each(this.files, function (index, value) {
                 text = text + `${value.name} (${humanFileSize(value.size)}), `;
             });
             $info = $info.text('Selected: ' + text.slice(0, -2))
         }
     });
-    function humanFileSize(bytes, si=false, dp=1) {
+
+    function humanFileSize(bytes, si = false, dp = 1) {
         const thresh = si ? 1000 : 1024;
 
         if (Math.abs(bytes) < thresh) {
-          return bytes + ' B';
+            return bytes + ' B';
         }
 
         const units = si
-          ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-          : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+            ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
         let u = -1;
-        const r = 10**dp;
+        const r = 10 ** dp;
 
         do {
-          bytes /= thresh;
-          ++u;
+            bytes /= thresh;
+            ++u;
         } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
 
         return bytes.toFixed(dp) + ' ' + units[u];
@@ -294,7 +302,7 @@ $(function () {
             }
             $(document).on('change', '.js-verification-slug-field [type="checkbox"]', function () {
                 var $wrap = $(this).closest('.js-verification-slug-field');
-                if(this.checked) {
+                if (this.checked) {
                     $wrap.find('input.js-slug-field-input')
                         .prop('readonly', false)
                         .prop('disabled', false)
@@ -309,10 +317,10 @@ $(function () {
     initJsVerificationSlugField();
 
     // Component: Colorpicker
-    initColorpicker = function() {
+    initColorpicker = function () {
         $('.f-colorpicker').colorpicker()
-        $(document).on('colorpickerChange', '.f-colorpicker', function(event) {
-          $('.f-colorpicker .fa-square').css('color', event.color.toString());
+        $(document).on('colorpickerChange', '.f-colorpicker', function (event) {
+            $('.f-colorpicker .fa-square').css('color', event.color.toString());
         })
     }
     initColorpicker();
@@ -336,7 +344,7 @@ $(function () {
                         tags: false
                     });
 
-                    $this.on('change', function (e) {
+                $this.on('change', function (e) {
                     var values = $this.first(':selected').val();
 
                     $.ajax({
@@ -362,8 +370,8 @@ $(function () {
 
             if (urlTags) {
                 var maximumSelection = $(this).data('max') || -1,
-                tokenSeparators = $(this).data('separators') || [',', ';'],
-                newTagLabel = $(this).data('new-tag-label') || ' (new)';
+                    tokenSeparators = $(this).data('separators') || [',', ';'],
+                    newTagLabel = $(this).data('new-tag-label') || ' (new)';
 
                 $this.select2({
                     language: LANGUAGE,
@@ -374,7 +382,7 @@ $(function () {
                         delay: 250,
                         url: urlTags,
                         dataType: 'json',
-                        processResults: function(data) {
+                        processResults: function (data) {
                             return {
                                 results: data.results
                             }
@@ -400,8 +408,7 @@ $(function () {
                         };
                     },
                 });
-            }
-            else if (urlSuggest) {
+            } else if (urlSuggest) {
                 $this.select2({
                     language: LANGUAGE,
                     tags: false,
@@ -427,7 +434,6 @@ $(function () {
         })
         $('.f-radiogroup .js-map-blocks').each(function () {
             if ($(this).is(':checked')) {
-                console.log($(this).val(), $(this).data('map'));
                 toggleSelectableBlocks($(this).val(), $(this).data('map'))
             }
         })
@@ -437,6 +443,7 @@ $(function () {
             toggleSelectableBlocks($(this).val(), $(this).data('map'))
         }
     });
+
     function toggleSelectableBlocks($val, selectBlocksMap) {
         for (var key in selectBlocksMap) {
             //Pace.restart()
@@ -453,13 +460,14 @@ $(function () {
             }
         }
     }
+
     initSelect2();
 
     //$(document).on('change', '.f-radiogroup')
 
     // Component: checkbox
-    initCheckbox = function() {
-        $('.f-checkbox-ajax').each(function(){
+    initCheckbox = function () {
+        $('.f-checkbox-ajax').each(function () {
             var $this = $(this),
                 url = $this.data('url-save'),
                 method = $this.data('method-save') || 'POST',
@@ -471,7 +479,7 @@ $(function () {
             if (url) {
                 $this.on('change', function () {
                     var value = this.checked ? 1 : 0,
-                        data = format === 'name,value' ? {name: rawFieldName, value: value} : {[rawFieldName] : value};
+                        data = format === 'name,value' ? {name: rawFieldName, value: value} : {[rawFieldName]: value};
                     $.ajax({
                         method: method,
                         url: url,
@@ -496,7 +504,7 @@ $(function () {
 
     // Component: Select2Tree
     // https://github.com/clivezhg/select2-to-tree
-    initSelect2Tree = function() {
+    initSelect2Tree = function () {
         $('.f-select2-tree-wrap').each(function () {
             var $this = $(this),
                 $input = $this.find('.f-select2-tree-input'),
@@ -535,7 +543,7 @@ $(function () {
 
     // Component: Treeview
     // https://github.com/jonmiles/bootstrap-treeview
-    initTreeview = function() {
+    initTreeview = function () {
         $('.f-treeview-wrap').each(function () {
             var $base = $(this),
                 $tree = $base.find('.f-treeview-data'),
@@ -566,10 +574,10 @@ $(function () {
                             data: data.data,
                             showIcon: showIcon,
                             showCheckbox: showCheckbox,
-                            collapseIcon:'fas fa-minus',
-                            expandIcon:'fas fa-plus',
-                            checkedIcon:'far fa-check-square',
-                            uncheckedIcon:'far fa-square'
+                            collapseIcon: 'fas fa-minus',
+                            expandIcon: 'fas fa-plus',
+                            checkedIcon: 'far fa-check-square',
+                            uncheckedIcon: 'far fa-square'
                         })
 
                         getCheckedIds($tree.treeview('getChecked'))
@@ -593,10 +601,10 @@ $(function () {
                     data: staticData,
                     showIcon: showIcon,
                     showCheckbox: showCheckbox,
-                    collapseIcon:'fas fa-minus',
-                    expandIcon:'fas fa-plus',
-                    checkedIcon:'far fa-check-square',
-                    uncheckedIcon:'far fa-square'
+                    collapseIcon: 'fas fa-minus',
+                    expandIcon: 'fas fa-plus',
+                    checkedIcon: 'far fa-check-square',
+                    uncheckedIcon: 'far fa-square'
                 })
 
                 getCheckedIds($tree.treeview('getChecked'))
@@ -612,12 +620,14 @@ $(function () {
 
         });
     }
+
     function makeTreeview($wrap, data) {
         // TODO
     }
+
     initTreeview();
 
-   // Component: Links
+    // Component: Links
     $(document).on('click', '.field-links .js-btn-add', function (e) {
         e.preventDefault()
         var n = $(this).parents('.field-links').find('.js-btn-add').index(this),

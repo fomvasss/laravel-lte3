@@ -10,6 +10,7 @@
     <!-- Main content -->
     <section class="content">
 
+
         <!-- FILTER -->
         {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
         <div class="card card-outline card-primary collapsed-card">
@@ -277,14 +278,20 @@
                         <div class="card-header">
                             <h3 class="card-title">Base</h3>
                         </div>
-                        {!! Lte3::formOpen(['action' => '/test', 'files' => true, 'method' => 'DELETE']) !!}
+
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST']) !!}
+
                         <div class="card-body">
+
                             {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
-                            {!! Lte3::text('name', 'Tom', ['label' => 'Full name', 'title' => 123]) !!}
+
+                            {!! Lte3::text('firstname') !!}
+
                             {!! Lte3::text('url', null, [
                                     'type' => 'url',
                                     'prepend' => '<i class="fas fa-link"></i>',
                             ]) !!}
+
                             {!! Lte3::text('email', 'fom@app.com', [
                                     'type' => 'email',
                                     'max' => '30',
@@ -296,11 +303,14 @@
                                     'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
                             ]) !!}
 
-                            {!! Lte3::slug('slug', 'asd', ['label' => 'Your Slug']) !!}
-                            {!! Lte3::colorpicker('colorpicker', '#3C42B0', ['label' => 'Color']) !!}
-                            {!! Lte3::checkbox('status', 1, ['label' => '']) !!}
+                            {!! Lte3::slug('slug', 'qwert', ['label' => 'Your Slug']) !!}
+
+                            {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color']) !!}
+
+                            {!! Lte3::checkbox('publish', null, ['label' => 'Publish']) !!}
+
                             {!! Lte3::checkbox('statusAjax', 1, [
-                                'label' => 'AJAX',
+                                'label' => 'Save AJAX',
                                 'url_save' => route('lte3.data.save'),
                                 'method_save' => 'POST',
                             ]) !!}
@@ -357,7 +367,8 @@
                         </div>
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                         <div class="card-body">
-                            {!! Lte3::select2('status', null, ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
+
+                            {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
                                 'label' => 'Status',
                                 'empty_value' => '--',
                             ]) !!}
@@ -413,6 +424,7 @@
                             <h3 class="card-title">Tree & Nestedsets</h3>
                         </div>
                         <div class="card-body">
+
                             {!! Lte3::select2Tree('category_id', [
                                 'label' => 'Tree Categories',
                                 'multiple' => 1,
@@ -422,20 +434,20 @@
                                 'url_tree' => route('lte3.data.treeselect', ['vocabulary' => 'products', 'selected' => [1,3]]),
                             ]) !!}
 
-                            {!!
-                                Lte3::treeview('models', [
+                            {!! Lte3::treeview('models', [
                                     'label' => 'Ajax data',
                                     'method_get' => 'GET',
                                     'url_tree' => route('lte3.data.treeview', ['selected' => [2,4]]),
-                                ])
-                            !!}
+                            ]) !!}
 
-                            {!!
-                                Lte3::treeview('models', [
+                            {!! Lte3::treeview('models', [
                                     'label' => 'Static data',
                                     'data' => $treeviewArray,
-                                ])
-                            !!}
+                            ]) !!}
+
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://github.com/fomvasss/laravel-simple-taxonomy" target="_blank">documentation</a> for more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -446,22 +458,21 @@
                         </div>
                         <div class="card-body">
                             @isset($terms)
-                            {!!
-                                Lte3::nestedset($terms, [
-                                    'label' => 'Models',
-                                    'has_nested' => true,
-                                    'routes' => [
-                                        'edit' => 'lte3.data.save',
-                                        'create' => 'lte3.data.save',
-                                        'delete' => 'lte3.data.save',
-                                        'order' => 'lte3.data.save',
-                                        'show' => 'lte3.data.save',
-                                        'params' => [],
-                                    ],
-                                ])
-                            !!}
+                                {!! Lte3::nestedset($terms, [
+                                        'label' => 'Models',
+                                        'has_nested' => true,
+                                        'routes' => [
+                                            'edit' => 'lte3.data.save',
+                                            'create' => 'lte3.data.save',
+                                            'delete' => 'lte3.data.save',
+                                            'order' => 'lte3.data.save',
+                                            'show' => 'lte3.data.save',
+                                            'params' => [],
+                                        ],
+                                ]) !!}
 
-                            {!! Lte3::pagination($terms) !!}
+                                {!! Lte3::pagination($terms) !!}
+
                             @endisset
                         </div>
                     </div>
@@ -513,6 +524,7 @@
                         </div>
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                         <div class="card-body">
+
                             {!! Lte3::lists('countries', ['Ukraine', 'Poland', 'France', 'England', 'USA', 'Spanish'], [
                                 'label' => 'Countries:',
                                 'field_name' => 'countries',
@@ -531,6 +543,10 @@
                         </div>
                         <div class="card-footer">
                             {!! Lte3::submit('Submit') !!}
+
+                            <div class="mt-2">
+                                Visit <a href="https://github.com/fomvasss/laravel-variables" target="_blank">documentation</a> for more examples and information about the plugin.
+                            </div>
                         </div>
                         {!! Lte3::formClose() !!}
                     </div>
@@ -625,14 +641,13 @@
                             <label><input type="file" hidden><strong>Select & Upload file</strong></label>
                             {!! Lte3::formClose() !!}
                         <!-- Or simple: -->
-                            {!!
-                                Lte3::fileForm('avatar', [
+                            {!! Lte3::fileForm('avatar', [
                                     'html' => '<div><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></div>',
                                     'url_save' => route('lte3.data.save'),
-                                ])
-                            !!}
+                            ]) !!}
 
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+
                             {!! Lte3::file('document', '/vendor/lte3/img/favicons/favicon-32x32.png', [
                                 'label' => 'Document',
                                 'help' => 'Single File',
@@ -659,30 +674,26 @@
 
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
 
-                            {!!
-                                Lte3::mediaFile('images', $model, [
+                            {!! Lte3::mediaFile('images', $model, [
                                     'label' => 'Images',
                                     'multiple' => true,
                                     'is_image' => true,
-                                ])
-                            !!}
+                            ]) !!}
 
-                            {!!
-                                Lte3::mediaFile('image', $model, [
+                            {!! Lte3::mediaFile('image', $model, [
                                     'label' => 'Image',
                                     'is_image' => true,
-                                ])
-                            !!}
+                            ]) !!}
+
                             {!! Lte3::submit('Submit', 'action', 'save') !!}
+
                             {!! Lte3::formClose() !!}
 
                         </div>
                         <div class="card-footer">
-                            @if(!app()->environment('production'))
                                 Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension"
                                          target="_blank"> documentation</a> for more examples and information about the
                                 plugin.
-                            @endif
                         </div>
                     </div>
 
@@ -707,7 +718,7 @@
                             <textarea class="f-summernote"></textarea>
                         </div>
                         <div class="card-footer">
-                            <!-- Visit <a href="https://github.com/summernote/summernote/">Summernote</a> documentation for more examples and information about the plugin. -->
+                            Visit <a href="https://github.com/summernote/summernote/"  target="_blank">Summernote</a> documentation for more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -722,7 +733,7 @@
 
                         </div>
                         <div class="card-footer">
-                            <!-- Visit <a href="https://codemirror.net/">CodeMirror</a> documentation for more examples and information about the plugin. -->
+                            Visit <a href="https://codemirror.net/"  target="_blank">CodeMirror</a> documentation for more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -746,7 +757,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <!-- Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html">CKEditor 4</a> documentation for more examples and information about the plugin. -->
+                            Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor 4</a> documentation for more examples and information about the plugin.
                         </div>
                     </div>
                 </div>

@@ -14,25 +14,29 @@ Create easily and quickly a convenient and functional dashboard for web-site, bl
 
 ## Installation
 
-Run from the command line:
+Run:
 
 ```bash
 composer require fomvasss/laravel-lte3
-```
 
-```bash
+php artisan lte3:publish --tag=lte3-config
+
 php artisan lte3:install
 ```
 
-That's all. You can usage LTE in your project :) 
+That's all. You can usage LTE3 in your project :)
 
-Visit the example LTE page: `http://site.test/lte3/exsmples` 
+All the fields & form components are in the `.../examples/components.vlade.php`
+
+Visit the page: `http://site.test/lte3/exsmples`
+
 
 ## Configuration
 
 In file: `config/lte3.php`
 
-For correct work navigation in dashboard, apply middleware. Add this to 'App\Http\Kernel.php'
+For correct work navigation in dashboard, apply middleware. Add this to `App\Http\Kernel.php`:
+
 ```
 $middlewareGroups = [
   'web' => [
@@ -43,78 +47,48 @@ $middlewareGroups = [
 ```
 
 ## Publishing (optional)
-Of course, you can publish partial:
+
+Of course, you can published partial:
+
 - views:
 `lte-view-components`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
+
 - other:
 `lte-config`, `lte-assets`, `lte-lang`
 
 ```bash
-php artisan lte3:publish --tag=lte-view-components --force
+php artisan lte3:publish --tag=lte-view-components
 ```
-
-### Updating 
-
-
 ## Structure
 
 After installation, you can work with the following files:
 
 - `config/lte3.php` - package config
 - `public/vendor/adminlte` - original AdminLte assets ([ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/))
-- `public/vendor/lte3` - assets
-- `resources/views/vendor/lte3`
+- `public/vendor/lte3` - custom assets (you can change this)
+- `resources/views/vendor/lte3` - options publishing
     - `layouts`
     - `parts`
-    - `components`
+    - `components` - Lte3 fields & components
     - `auth`
     - `examples`
 
 
 ## Usage & Development
 
-For file manage use [laravel-medialibrary-extension](https://github.com/fomvasss/laravel-medialibrary-extension)
-For manage taxonomy use [laravel-simple-taxonomy](https://github.com/fomvasss/laravel-simple-taxonomy)
-For save vars, configs use [laravel-variables](https://github.com/fomvasss/laravel-variables)
 
-### Laravel CKEditor (v4)
+## Recommended
 
-See: [CKEditor](https://github.com/UniSharp/laravel-ckeditor)
+- For file manage use [laravel-medialibrary-extension](https://github.com/fomvasss/laravel-medialibrary-extension)
+- For manage taxonomy use [laravel-simple-taxonomy](https://github.com/fomvasss/laravel-simple-taxonomy)
+- For save vars, configs use [laravel-variables](https://github.com/fomvasss/laravel-variables)
+- Text Editor: [CKEditor](https://github.com/UniSharp/laravel-ckeditor)
+- File manager: [LFM](https://github.com/UniSharp/laravel-filemanager):
 
-### Laravel File Manager (v2)   
-
-See: [LFM](https://github.com/UniSharp/laravel-filemanager):
-
-```bash
-composer require unisharp/laravel-filemanager
-```
-
-Publish LFM files: `config/lfm.php`, `public/vendor/laravel-filemanager`:
-
-```bash
-php artisan vendor:publish --tag=lfm_config
-php artisan vendor:publish --tag=lfm_public
-```
-Recommend set LFM paths `config/lfm.php`:
-
-```php
-    'shared_folder_name' => 'shares',
-    //...
-    'folder_categories' => [
-        'file' => [
-            'folder_name' => 'lfm-files',
-            //...
-        ],
-        'image' => [
-            'folder_name' => 'lfm-photos',
-            //...
-        ],      
-    ],
-```
 
 ## Credits
 - [ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/)
 - [ColorlibHQ/AdminLTE3](https://adminlte.io/themes/v3/)
 - [fomvasss/laravel-lte3](https://github.com/fomvasss/laravel-lte3)
 - [web-west/itslte](https://github.com/web-west/itslte)
-- [laravel-filemanager](https://unisharp.github.io/laravel-filemanager/)
+- [laravelcollective](https://laravelcollective.com/docs/6.x/html)
