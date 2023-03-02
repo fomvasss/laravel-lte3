@@ -4,7 +4,6 @@
 [![Build Status](https://img.shields.io/github/stars/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://github.com/fomvasss/laravel-lte3)
 [![Latest Stable Version](https://img.shields.io/packagist/v/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://packagist.org/packages/fomvasss/laravel-lte3)
 [![Total Downloads](https://img.shields.io/packagist/dt/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://packagist.org/packages/fomvasss/laravel-lte3)
-[![Quality Score](https://img.shields.io/scrutinizer/g/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://scrutinizer-ci.com/g/fomvasss/laravel-lte3)
 
 Create easily and quickly a convenient and functional dashboard for web-site, blogs, shops, crm, apps with the help of a template and a powerful system for building fields and forms.
 
@@ -26,10 +25,7 @@ php artisan lte3:install
 
 That's all. You can usage LTE3 in your project :)
 
-All examples the fields & form components are in the `.../examples/components.vlade.php`
-
-After installation, you can see it: `http://site.test/lte3/exsmples`
-
+All examples of fields and components can be viewed: `http://site.test/lte3/exsmples` (`.../examples/components.vlade.php`)
 
 ## Configuration
 
@@ -48,6 +44,18 @@ $middlewareGroups = [
 
 ## Publishing (optional)
 
+This package require dev `almasaeed2010/adminlte` package.
+If you chose the option to create a symbolic link (when installing) to `adminlte` resources,
+then the `almasaeed2010/adminlte` dependency must be included in your composer:
+
+```bash
+composer require almasaeed2010/adminlte
+```
+If you publish all `almasaeed2010/adminlte` resources to the public,
+then the unused packages (`public/vendor/adminlte/plugins/...`) can be
+manually cleaned so as not to take up disk space.
+
+
 Of course, you can published partial for customize:
 
 - views:
@@ -59,12 +67,13 @@ Of course, you can published partial for customize:
 ```bash
 php artisan lte3:publish --tag=lte-view-components
 ```
+
 ## Structure
 
 - `config/lte3.php` - package config
-- `public/vendor/adminlte` - original AdminLte assets ([ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/))
+- `public/vendor/adminlte` - original AdminLte assets (css, js, plugins) [ColorlibHQ/AdminLTE3](https://adminlte.io/themes/v3/)
 - `public/vendor/lte3` - custom assets (you can change this)
-- `resources/views/vendor/lte3` - options publishing
+- `resources/views/vendor/lte3` - optional publishing
   - `auth`
   - `layouts`
   - `parts`
@@ -83,10 +92,9 @@ See [examples.blade.php](https://github.com/fomvasss/laravel-lte3/blob/master/re
 - Text Editor: [CKEditor](https://github.com/UniSharp/laravel-ckeditor)
 - File manager: [LFM](https://github.com/UniSharp/laravel-filemanager):
 
-
 ## Credits
 - [ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/)
 - [ColorlibHQ/AdminLTE3](https://adminlte.io/themes/v3/)
-- [fomvasss/laravel-lte3](https://github.com/fomvasss/laravel-lte3)
+- [fomvasss/laravel-its-lte](https://github.com/fomvasss/laravel-its-lte)
 - [web-west/itslte](https://github.com/web-west/itslte)
 - [laravelcollective](https://laravelcollective.com/docs/6.x/html)

@@ -8,9 +8,9 @@
 @endphp
 
 <div class="form-group f-wrap f-file {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label for="{{ $input_name }}">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label for="{{ $input_name }}">{!! $label !!}</label>
+    @endif
     <div class="custom-file">
         <input
             class="custom-file-input js-files-input @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"

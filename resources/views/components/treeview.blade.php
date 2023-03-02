@@ -7,11 +7,11 @@
         @endif
 >
 
-    @isset($attrs['label'])
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div class="card-header">
-            <h3 class="card-title">{!! $attrs['label'] ?: Str::studly($name) !!}</h3>
+            <h3 class="card-title">{!! $label !!}</h3>
         </div>
-    @endisset
+    @endif
     <div class="card-body">
         <div class="f-treeview-data"></div>
         <div class="f-treeview-inputs"></div>

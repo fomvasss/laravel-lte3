@@ -6,6 +6,7 @@ use Exception;
 use Fomvasss\MediaLibraryExtension\HasMedia\HasMedia;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Collection;
 
 class ExampleController extends Controller
 {
@@ -19,6 +20,7 @@ class ExampleController extends Controller
         return view('lte3::examples.components', [
             'treeviewArray' => $this->treeviewStaticData(),
             'model' => $this->modelData(),
+            'progects' => $this->projectsData(),
             //'terms' => \App\Models\Term::whereIn('vocabulary', ['brands', 'models'])->paginate(8),
         ]);
     }
@@ -169,7 +171,7 @@ class ExampleController extends Controller
 
     protected function treeviewStaticData()
     {
-        return $ar = [
+        return [
             [
               'id' => 1,
               'text' => 'Parent 1',
@@ -243,4 +245,12 @@ class ExampleController extends Controller
         return null;
     }
 
+    protected function projectsData()
+    {
+        return [
+            ['name' => 'Admin LTE v3', 'status' => 'Success', 'created_at' => now()->toDateString(), 'progress' => 57, 'images' => ['vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png', 'vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar4.png'],],
+            ['name' => 'Laravel 10.0', 'status' => 'Wait', 'created_at' => now()->subDays(8)->toDateString(), 'progress' => 35, 'images' => ['vendor/adminlte/dist/img/avatar4.png', 'vendor/adminlte/dist/img/avatar3.png'],],
+            ['name' => 'PHP v8.3', 'status' => 'Completed', 'created_at' => now()->subDay(15)->toDateString(), 'progress' => 95, 'images' => ['vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png',],],
+        ];
+    }
 }

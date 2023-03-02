@@ -9,9 +9,9 @@
      data-field-name="{{ $name }}"
      data-placeholder-value="{{ $placeholder_value }}"
 >
-    @isset($attrs['label'])
-        <label class="form-label" for="{{ $name }}">{!! $attrs['label'] !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label class="form-label" for="{{ $name }}">{!! $label !!}</label>
+    @endif
 
     <div class="table-responsive">
         <table class="table table-sm" style="position:relative;">
@@ -21,7 +21,7 @@
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>
-                    <td>
+                    <td class="w-100">
                         <div class="input-group input-group-sm">
                             <input name="{{ $name }}[]" value="{!! $item ?? '' !!}" class="form-control"
                                    placeholder="{{ $placeholder_value .' '. $loop->iteration }}" type="text">
@@ -38,7 +38,7 @@
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>
-                    <td>
+                    <td class="w-100">
                         <div class="input-group input-group-sm">
                             <input name="{{ $name }}[]" value="" class="form-control"
                                    placeholder="{{ $placeholder_value }}" type="text">

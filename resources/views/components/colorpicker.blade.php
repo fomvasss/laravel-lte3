@@ -1,7 +1,7 @@
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label>{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label>{!! $label !!}</label>
+    @endif
     <div class="input-group f-colorpicker colorpicker-element">
         <input type="text" class="form-control {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"

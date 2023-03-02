@@ -9,11 +9,11 @@
 @endphp
 
 <div class="card card-default f-wrap f-media-file {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div class="card-header">
-            <h3 class="card-title">{!! $attrs['label'] ?: Str::studly($name) !!}</h3>
+            <h3 class="card-title">{!! $label !!}</h3>
         </div>
-    @endisset
+    @endif
     <div class="card-body">
         <div class="btn-group w-100">
             <label class="btn btn-success col">

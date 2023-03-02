@@ -1,10 +1,9 @@
 <div class="input-group form-group js-verification-slug-field {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <div style="width: 100%;"><label for="{{ $name }}">{!! $attrs['label'] ?: Str::studly($name) !!}</label></div>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
+    @endif
 
     @if($model || $value)
-
         <input type="text"
                class="form-control js-slug-field-input @error($name) is-invalid @enderror @isset($attrs['class']) {{ $attrs['class'] }} @endisset"
                name="{{ $name }}"

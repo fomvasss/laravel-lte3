@@ -10,7 +10,9 @@
 
 <label class="js-form-submit-file-changed">
     @isset($attrs['html']){!! $attrs['html'] !!} @endisset
-    @isset($attrs['label']) <strong>{!! $attrs['label'] !!}</strong> @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <strong>{!! $label !!}</strong>
+    @endif
     <input type="file" class="{{ $attrs['class'] ?? '' }}"
            style="display: none;"
            name="{{ $input_name }}"

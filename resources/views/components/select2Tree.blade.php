@@ -3,9 +3,9 @@
 @endphp
 
 <div class="form-group f-select2-tree-wrap {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label for="{{ $input_name}}">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label for="{{ $input_name}}">{!! $label !!}</label>
+    @endif
     <select name="{{ $input_name }}"
             class="form-control f-select2-tree-input is-invalid {{ $attrs['class'] ?? null }} @error($name) is-invalid @enderror"
             @if(!empty($attrs['multiple'])) multiple @endif

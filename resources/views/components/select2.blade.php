@@ -17,9 +17,9 @@
 @endphp
 
 <div class="form-group f-select2-wrap {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label for="{{ $field_name_input }}">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label for="{{ $field_name_input }}">{!! $label !!}</label>
+    @endif
 
     <select
             name="{{ $field_name_input }}"

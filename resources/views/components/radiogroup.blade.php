@@ -10,9 +10,9 @@
 
 <div class="form-group f-radiogroup {{ $attrs['class_wrap'] ?? null }}">
 
-    @isset($attrs['label'])
-        <label>{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label>{!! $label !!}</label>
+    @endif
 
     @foreach($options ?: [] as $value => $val)
         @php

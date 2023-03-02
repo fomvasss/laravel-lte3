@@ -1,7 +1,7 @@
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label for="{{ $name }}">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <label for="{{ $name }}">{!! $label !!}</label>
+    @endif
 
     <textarea class="form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
               id="{{ $name }}"

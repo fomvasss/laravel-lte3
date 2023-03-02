@@ -6,9 +6,10 @@
 
 
 <div class="@if(isset($attrs['prepend']) || isset($attrs['append'])) input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <div style="width: 100%;"><label for="{{ $name }}">{!! $attrs['label'] ?: Str::studly($name) !!}</label></div>
-    @endisset
+   {{-- @isset($attrs['label'])--}}
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+        <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
+    @endif
 
     @isset($attrs['prepend'])
         <div class="input-group-prepend"><span class="input-group-text">{!!$attrs['prepend']!!}</span></div>

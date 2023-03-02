@@ -41,7 +41,7 @@ $(function () {
         $tmp.val($text).select();
         document.execCommand("copy");
         $tmp.remove();
-        $(this).hide().show(100);
+        lteAlert('success', 'Copied!');
     });
 
     // LTE: Set active item in Sidebar menu
@@ -639,7 +639,7 @@ $(function () {
             placeholderValue = $(this).parents('.field-links').data('placeholder-value'),
             item = '<tr class="item">'
                 + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
-                + '<td>'
+                + '<td class="w-100">'
                 + '<div class="input-group input-group-sm">'
                 + '<input name="' + fieldName + '[' + (length) + '][' + keyKey + ']" class="form-control" placeholder="' + placeholderKey + '" type="text">'
                 + '<input name="' + fieldName + '[' + (length) + '][' + keyValue + ']" class="form-control" placeholder="' + placeholderValue + '" type="text">'
@@ -675,7 +675,7 @@ $(function () {
             placeholderValue = $(this).parents('.field-linear-list').data('placeholder-value'),
             item = '<tr class="item">'
                 + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
-                + '<td>'
+                + '<td class="w-100">'
                 + '<div class="input-group input-group-sm">'
                 + '<input name="' + fieldName + '[' + (length) + ']" placeholder="' + placeholderValue + ' ' + (parseInt(length) + 1) + '" class="form-control" type="text">'
                 + '<span class="input-group-append">'

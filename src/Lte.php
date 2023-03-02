@@ -13,6 +13,12 @@ class Lte
 {
     protected $model = null;
 
+    /**
+     * @param $name
+     * @param $attrs
+     * @return string
+     * @throws Exception
+     */
     public function __call($name, $attrs)
     {
         $componentParams = config("lte3.view.components.{$name}");
@@ -44,6 +50,10 @@ class Lte
         throw new Exception("Lte3 method or component '{$name}' not found!");
     }
 
+    /**
+     * @param array $attrs
+     * @return string
+     */
     public function formOpen(array $attrs = [])
     {
         $form = config('lte3.view.components.form', []);
@@ -56,6 +66,9 @@ class Lte
         return view($form['blade'], ['attrs' => $attrs])->render();
     }
 
+    /**
+     * @return string
+     */
     public function formClose()
     {
         $this->model =  null;
@@ -63,6 +76,10 @@ class Lte
         return '</form>';
     }
 
+    /**
+     * @param $models
+     * @return string
+     */
     public function pagination($models)
     {
         if ($models instanceof LengthAwarePaginator) {
@@ -79,6 +96,10 @@ class Lte
         return '';
     }
 
+    /**
+     * @param null $column
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public function user($column = null)
     {
         if ($user = auth()->user()) {
@@ -93,6 +114,11 @@ class Lte
         return null;
     }
 
+    /**
+     * @param $name
+     * @param null $value
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Request|mixed|string|void|null
+     */
     public function getValueAttribute($name, $value = null)
     {
         if (is_null($name)) {
@@ -134,6 +160,10 @@ class Lte
         }
     }
 
+    /**
+     * @param $name
+     * @return array|mixed
+     */
     protected function getModelValueAttribute($name)
     {
         $key = $this->transformKey($name);
@@ -145,6 +175,10 @@ class Lte
         return data_get($this->model, $key);
     }
 
+    /**
+     * @param $key
+     * @return array|string|string[]
+     */
     protected function transformKey($key)
     {
         return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);

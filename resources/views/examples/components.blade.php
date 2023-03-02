@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                {!! Lte3::submit('Submit') !!}
-                {!! Lte3::reset('Reset') !!}
+                {!! Lte3::btnSubmit('Submit') !!}
+                {!! Lte3::btnReset('Reset') !!}
             </div>
         </div>
         {!! Lte3::hidden('type', 'projects') !!}
@@ -98,39 +98,33 @@
                     </tr>
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
-                    <tr id="1">
+                    @foreach($progects as $progect)
+                    <tr id="{{ $loop->index }}">
                         <td>#</td>
                         <td>
-                            <a class="hover-edit" href="#">AdminLTE v3</a>
+                            <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
                             <br/>
-                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
+                            <small class="js-clipboard with-mark">Created {{ $progect['created_at'] }}</small>
                         </td>
                         <td>
                             <ul class="list-inline">
+                                @foreach($progect['images'] as $img)
                                 <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
+                                    <img src="{{ url($img) }}" class="table-avatar" alt="Avatar">
                                 </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar4.png">
-                                </li>
+                                @endforeach
                             </ul>
                         </td>
                         <td class="project_progress">
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$progect['progress']}}"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: {{$progect['progress']}}%">
                                 </div>
                             </div>
-                            <small> 57% Complete </small>
+                            <small> {{$progect['progress']}}% Complete </small>
                         </td>
                         <td class="project-state">
-                            <span class="badge badge-success">Success</span>
+                            <span class="badge badge-success">{{ $progect['status'] }}</span>
                         </td>
                         <td class="project-actions text-right">
                             <div class="btn-group">
@@ -154,113 +148,7 @@
                                data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
                         </td>
                     </tr>
-                    <tr id="2">
-                        <td>#</td>
-                        <td>
-                            <a class="hover-edit" href="#">AdminLTE v3</a>
-                            <br/>
-                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="project_progress">
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="47"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 47%">
-                                </div>
-                            </div>
-                            <small>
-                                47% Complete
-                            </small>
-                        </td>
-                        <td class="project-state">
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                        <td class="project-actions text-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-default">Action</button>
-                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
-                                        data-toggle="dropdown" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <a href="#" class="dropdown-item">Clone</a>
-                                    <a href="#" class="dropdown-item">Notify</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Delete</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
-                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
-                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
-                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
-                        </td>
-                    </tr>
-                    <tr id="3">
-                        <td>#</td>
-                        <td>
-                            <a class="hover-edit" href="#">AdminLTE v3</a>
-                            <br/>
-                            <small class="js-clipboard with-mark">Created 01.01.2019</small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar2.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/vendor/adminlte/dist/img/avatar3.png">
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="project_progress">
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 77%">
-                                </div>
-                            </div>
-                            <small>
-                                77% Complete
-                            </small>
-                        </td>
-                        <td class="project-state">
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                        <td class="project-actions text-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-default">Action</button>
-                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
-                                        data-toggle="dropdown" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <a href="#" class="dropdown-item">Clone</a>
-                                    <a href="#" class="dropdown-item">Notify</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Delete</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
-                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
-                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
-                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
-                        </td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -285,7 +173,7 @@
 
                             {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
 
-                            {!! Lte3::text('firstname') !!}
+                            {!! Lte3::text('firstname', 'Tomas') !!}
 
                             {!! Lte3::text('url', null, [
                                     'type' => 'url',
@@ -389,7 +277,7 @@
                                 'label' => 'Statuses',
                                 'multiple' => 1,
                                 'url_save' => route('lte3.data.save'),
-                                'url_suggest' => route('lte3.data.status'),
+                                'url_suggest' => route('lte3.data.statuses'),
                             ]) !!}
 
                             {!! Lte3::select2('status', 'smtp', ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
@@ -542,7 +430,7 @@
 
                         </div>
                         <div class="card-footer">
-                            {!! Lte3::submit('Submit') !!}
+                            {!! Lte3::btnSubmit('Submit') !!}
 
                             <div class="mt-2">
                                 Visit <a href="https://github.com/fomvasss/laravel-variables" target="_blank">documentation</a> for more examples and information about the plugin.
@@ -658,7 +546,7 @@
                                 '/vendor/lte3/img/favicons/android-chrome-192x192.png',
                             ], ['label' => '']) !!}
 
-                            {!! Lte3::submit('Submit', 'action', 'save') !!}
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
 
                             {!! Lte3::formClose() !!}
 
@@ -685,7 +573,7 @@
                                     'is_image' => true,
                             ]) !!}
 
-                            {!! Lte3::submit('Submit', 'action', 'save') !!}
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
 
                             {!! Lte3::formClose() !!}
 

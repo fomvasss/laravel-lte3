@@ -21,9 +21,9 @@
         @endforeach
         type="checkbox"
         >
-        @isset($attrs['label'])
-            <label for="{{ $name }}" class="custom-control-label">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-        @endisset
+        @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+            <label for="{{ $name }}" class="custom-control-label">{!! $label !!}</label>
+        @endif
     </div>
     @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset

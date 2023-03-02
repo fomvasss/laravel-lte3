@@ -5,9 +5,9 @@
 @endphp
 
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
-    @isset($attrs['label'])
-        <label>{!! $attrs['label'] ?: Str::studly($name) !!}</label>
-    @endisset
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+    <label>{!! $label !!}</label>
+    @endif
     <input
             name="{{ $name }}"
             value="{{ $value }}"

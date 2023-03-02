@@ -1,9 +1,9 @@
 @isset($attrs['class_wrap']) <div class="{{$attrs['class_wrap']}}">@endisset
-    @isset($attrs['label'])
+    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div class="form-group">
-            <label for="{{ $name }}" data-toggle="tooltip">{!! $attrs['label'] ?: Str::studly($name) !!}</label>
+            <label for="{{ $name }}" data-toggle="tooltip">{!! $label !!}</label>
         </div>
-    @endisset
+    @endif
 
     <input type="hidden" name="{{ $name }}" value="{{ $value }}" class="{{ $attrs['class'] ?? '' }}"
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
