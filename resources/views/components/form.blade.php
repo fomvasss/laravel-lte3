@@ -3,6 +3,7 @@
         action="{{ $attrs['action'] ?? '#' }}"
         method="{{ (strtoupper($attrs['method'] ?? 'POST')) === 'GET' ? 'GET' : 'POST' }}"
         @if(!empty($attrs['files'])) enctype="multipart/form-data" @endif
+        @if(!empty($attrs['style'])) style="{{$attrs['style']}}" @endif
         accept-charset="UTF-8"
 >
     <input name="_method" value="{{ $attrs['method'] ?? 'POST' }}" type="hidden">

@@ -55,11 +55,11 @@ class InstallCommand extends Command
             return false;
         }
         
-        $adminlteDir = public_path('/vendor/adminlte');
+        $adminlteDir = public_path('vendor/adminlte');
         if (File::exists($adminlteDir)) {
             $this->warn("Derectory [{$adminlteDir}] already exists!");
         } else {
-            File::makeDirectory(public_path('vendor/adminlte'));
+            File::makeDirectory($adminlteDir, 0755, true);
         }
 
         $t = $this->choice('Copy files or make symbolic links?', ['Copy', 'Symbilic'], 0);

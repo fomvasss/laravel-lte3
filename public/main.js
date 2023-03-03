@@ -81,9 +81,10 @@ $(function () {
     // Modal show with get AJAX content
     $(document).on('click', '.js-modal-fill-html', function (e) {
         e.preventDefault();
-        var url = $(this).data('url'),
-            target = $(this).data('target'),
-            initFunctionsStr = $(this).data('fn-inits'); // "fn1,fn2,..."
+        var $this = $(this),
+            url = $this.data('url') || $this.attr('href'),
+            target = $this.data('target'),
+            initFunctionsStr = $this.data('fn-inits'); // "fn1,fn2,..."
         $.get(url, function (data) {
             $(`${target} .modal-content`).html(data.html)
             $(`${target}`).modal();
@@ -95,7 +96,9 @@ $(function () {
                     window[str]();
                 });
             }
+            return true;
         });
+        console.log('Error: Url not set.')
     })
 
     // Validate form before Save

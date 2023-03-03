@@ -15,7 +15,7 @@ return [
 
     'view' => [
         
-        'dark_mode' => true,
+        'dark_mode' => false,
         
         /**
          * Show next type alerts in dashboard
@@ -62,7 +62,7 @@ return [
             'mediaFile' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs']],
         ],
 
-        'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt'],
+        'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt', 'style'],
 
         'next_destination_key' => '_destination',
 

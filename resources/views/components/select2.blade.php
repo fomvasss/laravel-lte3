@@ -10,7 +10,7 @@
     $selected = !is_null($selected) ? \Arr::wrap($selected) : [];
     $old = old($name) ? Arr::wrap($old) : [];
 
-    $field_name_input = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
+    $field_name_input = !empty($attrs['multiple']) && (empty($attrs['max']) || $attrs['max'] > 1) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
     $selected = $old + $selected;
     $options = isset($options) ? \Arr::wrap($options) : []; // OR url_suggest
     $options = is_array_assoc($options) ? $options : array_combine(array_map(fn($o) => Str::lower($o), $options), $options);
@@ -31,7 +31,7 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
-    @if(isset($attrs['multiple']) && $attrs['multiple'] && (empty($attrs['max']) || $attrs['max'] > 1)) multiple @endif
+    @if(isset($attrs['multiple']) && $attrs['multiple'] && (empty($attrs['max']) || $attrs['max'] > 0)) multiple @endif
     @if(!empty($attrs['url_suggest'])) data-url-suggest={{$attrs['url_suggest']}} @endif
     @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
     @if(!empty($attrs['method_save'])) data-method-save={{$attrs['method_save']}} @endif

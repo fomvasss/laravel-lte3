@@ -68,3 +68,8 @@ ul.js-sortable-nested li.placeholder:before {
 .dark-mode .node-:not(.node-disabled):hover {
     background-color: #3f6791;
 }
+
+.content-header h1>small {
+    font-size: 1rem;
+    opacity: 0.6;
+}

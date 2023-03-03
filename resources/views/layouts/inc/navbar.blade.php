@@ -193,7 +193,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="/vendor/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2"
                          alt="User Image">
-                    <span class="d-none d-md-inline">Alexander Pierce</span>
+                    <span class="d-none d-md-inline">{{ Lte3::user('name') }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
@@ -202,8 +202,8 @@
                              alt="User Image">
 
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            {{ Lte3::user('name') }}
+                            <small>Created {{ Lte3::user('created_at') }}</small>
                         </p>
                     </li>
                     <!-- Menu Body -->

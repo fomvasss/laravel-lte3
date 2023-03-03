@@ -4,9 +4,10 @@
 
 {!! Lte3::formOpen([
     'files' => true,
-    'action' => $attrs['url_save'] ?? '',
-    'method' => $attrs['method'] ?? 'POST'])
-!!}
+    'action' => $attrs['url_save'] ?? $attrs['action'] ?? '',
+    'method' => $attrs['method'] ?? 'POST',
+    'style' => 'display: inline-block;',
+]) !!}
 
 <label class="js-form-submit-file-changed">
     @isset($attrs['html']){!! $attrs['html'] !!} @endisset

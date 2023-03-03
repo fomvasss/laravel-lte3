@@ -10,7 +10,7 @@
     <!-- Main content -->
     <section class="content">
 
-
+        
         <!-- FILTER -->
         {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
         <div class="card card-outline card-primary collapsed-card">
@@ -170,6 +170,8 @@
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST']) !!}
 
                         <div class="card-body">
+                            <a href="http://linkgen.test/links/random?limit=5">links</a>
+{{--                            @php($s = file_get_contents('http://linkgen.test:8080/links/random?limit=5'))--}}
 
                             {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
 

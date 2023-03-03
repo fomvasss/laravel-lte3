@@ -15,7 +15,7 @@
                 <img src="/vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="/admin/profile" class="d-block"> {{ auth()->user()->name }} </a>
+                <a href="/admin/profile" class="d-block"> {{ Lte3::user('name') }} </a>
             </div>
         </div>
         @endauth
