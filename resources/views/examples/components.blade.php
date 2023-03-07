@@ -10,7 +10,7 @@
     <!-- Main content -->
     <section class="content">
 
-        
+
         <!-- FILTER -->
         {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
         <div class="card card-outline card-primary collapsed-card">
@@ -99,55 +99,56 @@
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     @foreach($progects as $progect)
-                    <tr id="{{ $loop->index }}">
-                        <td>#</td>
-                        <td>
-                            <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
-                            <br/>
-                            <small class="js-clipboard with-mark">Created {{ $progect['created_at'] }}</small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                @foreach($progect['images'] as $img)
-                                <li class="list-inline-item">
-                                    <img src="{{ url($img) }}" class="table-avatar" alt="Avatar">
-                                </li>
-                                @endforeach
-                            </ul>
-                        </td>
-                        <td class="project_progress">
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$progect['progress']}}"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: {{$progect['progress']}}%">
+                        <tr id="{{ $loop->index }}">
+                            <td>#</td>
+                            <td>
+                                <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
+                                <br/>
+                                <small class="js-clipboard with-mark">Created {{ $progect['created_at'] }}</small>
+                            </td>
+                            <td>
+                                <ul class="list-inline">
+                                    @foreach($progect['images'] as $img)
+                                    <li class="list-inline-item">
+                                        <img src="{{ url($img) }}" class="table-avatar" alt="Avatar">
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td class="project_progress">
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-green" role="progressbar"
+                                         aria-valuenow="{{$progect['progress']}}"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: {{$progect['progress']}}%">
+                                    </div>
                                 </div>
-                            </div>
-                            <small> {{$progect['progress']}}% Complete </small>
-                        </td>
-                        <td class="project-state">
-                            <span class="badge badge-success">{{ $progect['status'] }}</span>
-                        </td>
-                        <td class="project-actions text-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-default">Action</button>
-                                <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
-                                        data-toggle="dropdown" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <a href="#" class="dropdown-item">Clone</a>
-                                    <a href="#" class="dropdown-item">Notify</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Delete</a>
+                                <small> {{$progect['progress']}}% Complete </small>
+                            </td>
+                            <td class="project-state">
+                                <span class="badge badge-success">{{ $progect['status'] }}</span>
+                            </td>
+                            <td class="project-actions text-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default">Action</button>
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a href="#" class="dropdown-item">Clone</a>
+                                        <a href="#" class="dropdown-item">Notify</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">Delete</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
-                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
-                            <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
-                               data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="project-actions text-right">
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
+                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
+                                   data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -170,37 +171,38 @@
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST']) !!}
 
                         <div class="card-body">
-                            <a href="http://linkgen.test/links/random?limit=5">links</a>
-{{--                            @php($s = file_get_contents('http://linkgen.test:8080/links/random?limit=5'))--}}
 
-                            {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
+                            {!! Lte3::text('firstname', 'Thomas') !!}
 
-                            {!! Lte3::text('firstname', 'Tomas') !!}
-
-                            {!! Lte3::text('url', null, [
-                                    'type' => 'url',
-                                    'prepend' => '<i class="fas fa-link"></i>',
+                            {!! Lte3::text('lastname', 'Mann', [
+                                'readonly' => 1,
                             ]) !!}
 
                             {!! Lte3::text('email', 'fom@app.com', [
-                                    'type' => 'email',
-                                    'max' => '30',
-                                    'readonly' => 1,
-                                    'label' => 'Your Email',
-                                    'help' => '* Enter Email',
-                                    'prepend' => '<i class="fas fa-envelope"></i>',
-                                    'append' => '<i class="fas fa-check"></i>',
-                                    'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
+                                'type' => 'email',
+                                'max' => '30',
+                                'label' => 'Your Email',
+                                'help' => '* Enter Email',
+                                'prepend' => '<i class="fas fa-envelope"></i>',
+                                'append' => '<i class="fas fa-check"></i>',
+                                'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
+                            ]) !!}
+                            {!! Lte3::text('Password', null, ['type' => 'password']) !!}
+
+                            {!! Lte3::text('url', null, [
+                                    'type' => 'url',
                             ]) !!}
 
-                            {!! Lte3::slug('slug', 'qwert', ['label' => 'Your Slug']) !!}
+                            {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
+
+                            {!! Lte3::slug('slug', 'qwerty', ['label' => 'Slug']) !!}
 
                             {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color']) !!}
 
                             {!! Lte3::checkbox('publish', null, ['label' => 'Publish']) !!}
 
-                            {!! Lte3::checkbox('statusAjax', 1, [
-                                'label' => 'Save AJAX',
+                            {!! Lte3::checkbox('allowed', 1, [
+                                'label' => 'Allowed',
                                 'url_save' => route('lte3.data.save'),
                                 'method_save' => 'POST',
                             ]) !!}
@@ -238,9 +240,11 @@
                                     'rows' => 3,
                             ]) !!}
 
-                            <a href="#" class="js-clipboard btn btn-outline-success btn-sm" data-text="Hello!"
+                            <a href="#" class="js-clipboard btn btn-outline-success btn-sm"
+                               data-text="Hello!"
                                data-toggle="tooltip" title="Copy">Copy text</a>
-                            <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm" data-method="GET"
+                            <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm"
+                               data-method="GET"
                                data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
 
                         </div>
@@ -260,10 +264,9 @@
 
                             {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
                                 'label' => 'Status',
-                                'empty_value' => '--',
                             ]) !!}
 
-                            {!! Lte3::select2('status', 'green', ['Green', 'Red', 'White'], [
+                            {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [
                                 'label' => 'Color',
                                 'empty_value' => '--',
                             ]) !!}
@@ -271,38 +274,47 @@
                             {!! Lte3::select2('tag', 'auto', ['auto' => 'Auto', 'news' => 'News'], [
                                 'label' => 'Tag',
                                 'url_save' => route('lte3.data.save'),
-                                //'url_suggest' => route('lte3.data.tags'),
                                 'help' => '* AJAX save'
                             ]) !!}
 
-                            {!! Lte3::select2('status', 'canceled', ['canceled' => 'Canceled'], [
-                                'label' => 'Statuses',
+                            {!! Lte3::select2('categories', 3, [3 => 'Sport'], [
+                                'label' => 'Categories',
                                 'multiple' => 1,
                                 'url_save' => route('lte3.data.save'),
-                                'url_suggest' => route('lte3.data.statuses'),
+                                'url_suggest' => route('lte3.data.tags'),
+                            ]) !!}
+
+                            {!! Lte3::select2('domain', 'canceled', ['canceled' => 'Canceled'], [
+                                'label' => 'Domain',
+                                'multiple' => true,
+                                'max' => 1,
+                                'url_tags' => route('lte.data.tags'),
+                                'help' => '* Select one or create ;'
+                            ]) !!}
+
+                            {!! Lte3::select2('tags', '4', ['4' => 'Auto'], [
+                                'label' => 'Tags',
+                                'multiple' => 1,
+                                'url_tags' => route('lte.data.tags'),
+                                'separators' => "[';']",
+                                'new_tag_label' => ' [NEW]',
+                                'max' => 4,
+                                'help' => '* Enter new end ;'
                             ]) !!}
 
                             {!! Lte3::select2('status', 'smtp', ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
-                                'label' => 'Show blocks',
+                                'label' => 'Mail Driver',
                                 'empty_value' => '--',
                                 'map' => [
                                     'smtp' => ['.block-smtp'],
                                     'log' => ['.block-log'],
                                     'sendmail' => ['.block-sendmail'],
                                 ],
+                                'help' => '* Change for show block'
                             ]) !!}
                             <div class="block-smtp" style="display:none"><h2>SMTP Block</h2></div>
                             <div class="block-sendmail" style="display: none;"><h2>SENDMAIL Block</h2></div>
                             <div class="block-log" style="display: none;"><h2>LOG Block</h2></div>
-
-                            {!! Lte3::select2('tags', '5', ['5' => 'Weather'], [
-                                'label' => 'Tags (added)',
-                                'multiple' => 1,
-                                'url_tags' => route('lte.data.tags'),
-                                'separators' => "[';']",
-                                'new_tag_label' => ' [NEW]',
-                                'max' => 4,
-                            ]) !!}
 
                         </div>
                         {!! Lte3::formClose() !!}
@@ -325,19 +337,20 @@
                             ]) !!}
 
                             {!! Lte3::treeview('models', [
-                                    'label' => 'Ajax data',
-                                    'method_get' => 'GET',
-                                    'url_tree' => route('lte3.data.treeview', ['selected' => [2,4]]),
+                                'label' => 'Ajax data',
+                                'method_get' => 'GET',
+                                'url_tree' => route('lte3.data.treeview', ['selected' => [2,4]]),
                             ]) !!}
 
                             {!! Lte3::treeview('models', [
-                                    'label' => 'Static data',
-                                    'data' => $treeviewArray,
+                                'label' => 'Static data',
+                                'data' => $treeviewArray,
                             ]) !!}
 
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://github.com/fomvasss/laravel-simple-taxonomy" target="_blank">documentation</a> for more examples and information about the plugin.
+                            Visit <a href="https://github.com/fomvasss/laravel-simple-taxonomy" target="_blank">documentation</a>
+                            for more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -435,7 +448,8 @@
                             {!! Lte3::btnSubmit('Submit') !!}
 
                             <div class="mt-2">
-                                Visit <a href="https://github.com/fomvasss/laravel-variables" target="_blank">documentation</a> for more examples and information about the plugin.
+                                Visit <a href="https://github.com/fomvasss/laravel-variables" target="_blank">documentation</a>
+                                for more examples and information about the plugin.
                             </div>
                         </div>
                         {!! Lte3::formClose() !!}
@@ -581,9 +595,9 @@
 
                         </div>
                         <div class="card-footer">
-                                Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension"
-                                         target="_blank"> documentation</a> for more examples and information about the
-                                plugin.
+                            Visit <a href="https://github.com/fomvasss/laravel-medialibrary-extension"
+                                     target="_blank"> documentation</a> for more examples and information about the
+                            plugin.
                         </div>
                     </div>
 
@@ -608,7 +622,8 @@
                             <textarea class="f-summernote"></textarea>
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://github.com/summernote/summernote/"  target="_blank">Summernote</a> documentation for more examples and information about the plugin.
+                            Visit <a href="https://github.com/summernote/summernote/" target="_blank">Summernote</a>
+                            documentation for more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -623,7 +638,8 @@
 
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://codemirror.net/"  target="_blank">CodeMirror</a> documentation for more examples and information about the plugin.
+                            Visit <a href="https://codemirror.net/" target="_blank">CodeMirror</a> documentation for
+                            more examples and information about the plugin.
                         </div>
                     </div>
 
@@ -647,7 +663,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor 4</a> documentation for more examples and information about the plugin.
+                            Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
+                                4</a> documentation for more examples and information about the plugin.
                         </div>
                     </div>
                 </div>

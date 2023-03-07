@@ -19,25 +19,13 @@
                         <p>Dashboard v1</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/lte3/home2" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Dashboard v2</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/lte3/home3" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Dashboard v3</p>
-                    </a>
-                </li>
             </ul>
         </li>
         <li class="nav-item">
-            <a href="/lte3/forms" class="nav-link">
+            <a href="/lte3/#" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                    Forms
+                    Example
                     <span class="right badge badge-danger">Example</span>
                 </p>
             </a>

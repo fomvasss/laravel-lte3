@@ -1,7 +1,7 @@
 @isset($attrs['class_wrap']) <div class="{{$attrs['class_wrap']}}">@endisset
-    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
+    @if($label = Arr::get($attrs, 'label'))
         <div class="form-group">
-            <label for="{{ $name }}" data-toggle="tooltip">{!! $label !!}</label>
+            <label data-toggle="tooltip">{!! $label !!}</label>
         </div>
     @endif
 
@@ -10,4 +10,6 @@
         {{$key}}="{{$val}}"
     @endforeach
     >
+    @error($name)<div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 @isset($attrs['class_wrap'])</div>@endisset

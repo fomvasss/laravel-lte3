@@ -48,8 +48,7 @@
         </span>
         </div>
     @endisset
-    @error($name)
-    <div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    @error($name)<div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>
 
