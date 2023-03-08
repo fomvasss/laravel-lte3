@@ -1,50 +1,41 @@
 @extends('lte3::auth.app')
 
 @section('content')
-<div class="card-body">
-      <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
-      <form action="{{ route('password.update') }}" method="POST">
-        @csrf
-        <input type="hidden" name="token" value="{{ request()->route('token') }}">
-        <div class="input-group mb-3">
-            <input name="email"  value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" type="email" placeholder="Email">
-            <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-            </div>
-            </div>
-            @error('email')
-            <span class="error invalid-feedback">{{ $message }}</span>
-            @enderror
-        </div>
-        <div class="form-group has-feedback @error('password') has-error @enderror">
-            <input name="password" type="password" class="form-control" id="password" required placeholder="Password">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            @error('password')
-                <span class="help-block">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="input-group mb-3 @error('password') has-error @enderror">
-          <input name="password_confirmation" type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
+    <div class="card-body">
+        <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+        {!! Lte3::formOpen(['action' => route('password.update'), 'method' => 'POST']) !!}
+            {!! Lte3::hidden('token', request()->route('token')) !!}
+            {!! Lte3::text('email', null, [
+                'type' => 'email',
+                'placeholder' => 'Email',
+                'label' => '',
+                'class_wrap' => 'mb-3',
+                'append' => '<span class="fas fa-envelope"></span>',
+            ]) !!}
+            {!! Lte3::text('password', null, [
+               'type' => 'password',
+               'placeholder' => 'Password',
+               'label' => '',
+               'class_wrap' => 'mb-3',
+               'append' => '<i class="fas fa-lock"></i>',
+            ]) !!}
+            {!! Lte3::text('password_confirmation', null, [
+                'type' => 'password',
+                'placeholder' => 'Password confirmation',
+                'label' => '',
+                'class_wrap' => 'mb-3',
+                'append' => '<i class="fas fa-lock"></i>',
+            ]) !!}
 
-        <div class="row">
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Restore</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block">Restore</button>
+                </div>
+            </div>
+        {!! Lte3::formClose() !!}
 
-      <p class="mt-3 mb-1">
-        <a href="login.html">Login</a>
-      </p>
+        <p class="mt-3 mb-1">
+            <a href="/login">Login</a>
+        </p>
     </div>
 @endsection

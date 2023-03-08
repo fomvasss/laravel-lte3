@@ -1,9 +1,10 @@
 @php
-    if($path && is_array($path)) $attrs['multiple'] = true;
+    if ($path && is_array($path)) $attrs['multiple'] = true;
     $multimpe = $attrs['multiple'] ?? false;
     $input_name = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
     $input_deleted = !empty($attrs['name_deleted']) ? $attrs['name_deleted'] : (Str::replaceLast('[]', '', $name) . '_deleted');
     $input_deleted = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $input_deleted) . '[]') : Str::replaceLast('[]', '', $input_deleted);
+    $input_weight_name = !empty($attrs['name_weight']) ? $attrs['name_weight'] : (Str::replaceLast('[]', '', $name) . '_weight');
     $paths = $path ? Arr::wrap($path) : [];
 @endphp
 
@@ -33,7 +34,7 @@
                 <th style="width: 40px">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
                 @foreach($paths as $path)
                 <tr class="f-file-item">
 
@@ -41,9 +42,10 @@
                     <td>
                         <a href="{{$path}}" class="btn btn-info btn-xs" target="_blank"><i class="fas fa-download"></i></a>
                         <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
-                        @isset($input_deleted)
-                        <input name="{{ $input_deleted }}" class="js-input-delete" value="" type="hidden" >
-                        @endisset
+
+                        <input name="{{ $input_deleted }}" class="js-input-delete" value="" type="hidden">
+                        <input name="{{ $input_weight_name }}[{{ $path }}]" class="js-input-weight"
+                               value="{{ $loop->index }}" type="hidden">
                     </td>
                 </tr>
                 @endforeach

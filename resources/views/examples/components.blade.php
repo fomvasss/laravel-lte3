@@ -544,7 +544,7 @@
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed']) !!}
                             <label><input type="file" hidden><strong>Select & Upload file</strong></label>
                             {!! Lte3::formClose() !!}
-                        <!-- Or simple: -->
+                                <!-- Or simple: -->
                             {!! Lte3::fileForm('avatar', [
                                     'html' => '<div><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></div>',
                                     'url_save' => route('lte3.data.save'),
@@ -557,7 +557,7 @@
                                 'help' => 'Single File',
                             ]) !!}
 
-                            {!! Lte3::file('favicons', [
+                            {!! Lte3::file('varfavicons', [
                                 '/vendor/lte3/img/favicons/android-chrome-512x512.png',
                                 '/vendor/lte3/img/favicons/android-chrome-192x192.png',
                             ], ['label' => '']) !!}

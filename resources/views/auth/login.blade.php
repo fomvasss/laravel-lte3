@@ -8,46 +8,30 @@
             {{ session('status') }}
         </div>
     @endif
-    <form action="{{ url('login') }}" method="post">
-    @csrf
-    <div class="input-group mb-3">
-        <input name="email"  value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" type="email" placeholder="Email">
-        <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-envelope"></span>
-        </div>
-        </div>
-        @error('email')
-        <span class="error invalid-feedback">{{ $message }}</span>
-        @enderror
-    </div>
-    <div class="input-group mb-3">
-        <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
-        <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-lock"></span>
-        </div>
-        </div>
-        @error('password')
-        <span class="error invalid-feedback">{{ $message }}</span>
-        @enderror
-    </div>
+    {!! Lte3::formOpen(['action' => '/login', 'method' => 'POST']) !!}
+    {!! Lte3::text('email', null, [
+        'type' => 'email',
+        'placeholder' => 'Email',
+        'label' => '',
+        'class_wrap' => 'mb-3',
+        'append' => '<i class="fas fa-envelope"></i>',
+    ]) !!}
+    {!! Lte3::text('password', null, [
+       'type' => 'password',
+       'placeholder' => 'Password',
+       'label' => '',
+       'class_wrap' => 'mb-3',
+       'append' => '<i class="fas fa-lock"></i>',
+   ]) !!}
     <div class="row">
         <div class="col-8">
-        <div class="icheck-primary">
-            <input name="remember" {{ old('remember') ? 'checked' : null }} value="1"  type="checkbox" id="remember">
-            <label for="remember">
-            Remember Me
-            </label>
+            {!! Lte3::checkbox('remember', null, ['label' => 'Remember Me', 'class_wrap' => 'icheck-primary']) !!}
         </div>
-        </div>
-        <!-- /.col -->
         <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
         </div>
-        <!-- /.col -->
     </div>
-    </form>
+    {!! Lte3::formClose() !!}
 
     <div class="social-auth-links text-center mt-2 mb-3">
     <a href="#" class="btn btn-block btn-primary">

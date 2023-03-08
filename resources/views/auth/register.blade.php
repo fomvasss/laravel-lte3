@@ -1,84 +1,69 @@
 @extends('lte3::auth.app')
 
 @section('content')
-<div class="card-body">
-      <p class="login-box-msg">Register a new membership</p>
+    <div class="card-body">
+        <p class="login-box-msg">Register a new membership</p>
         @if(session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-        @endif
-      <form action="{{ url('register') }}" method="post">
-        @csrf
-        <div class="input-group mb-3">
-          <input name="name" value="{{ old('name') }}" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
             </div>
-          </div>
-            @error('name')
-            <span class="error invalid-feedback">{{ $message }}</span>
-            @enderror
-        </div>
-        <div class="input-group mb-3">
-            <input name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" type="email" placeholder="Email">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
+        @endif
+        {!! Lte3::formOpen(['action' => url('register'), 'method' => 'POST']) !!}
+            {!! Lte3::text('name', null, [
+                'placeholder' => 'Name',
+                'label' => '',
+                'class_wrap' => 'mb-3',
+                'append' => '<span class="fas fa-user"></span>',
+            ]) !!}
+
+            {!! Lte3::text('email', null, [
+                'type' => 'email',
+                'placeholder' => 'Email',
+                'label' => '',
+                'class_wrap' => 'mb-3',
+                'append' => '<i class="fas fa-envelope"></i>',
+            ]) !!}
+            {!! Lte3::text('password', null, [
+               'type' => 'password',
+               'placeholder' => 'Password',
+               'label' => '',
+               'class_wrap' => 'mb-3',
+               'append' => '<i class="fas fa-lock"></i>',
+           ]) !!}
+
+            {!! Lte3::text('password_confirmation', null, [
+               'type' => 'password',
+               'placeholder' => 'Password confirmation',
+               'label' => '',
+               'class_wrap' => 'mb-3',
+               'append' => '<i class="fas fa-lock"></i>',
+           ]) !!}
+
+            <div class="row">
+                <div class="col-8">
+                    {!! Lte3::checkbox('accept', null, [
+                        'label' => 'I agree to the <a href="#">terms</a>',
+                        'class_wrap' => 'icheck-primary',
+                    ]) !!}
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </div>
             </div>
-            @error('email')
-            <span class="error invalid-feedback">{{ $message }}</span>
-            @enderror
-        </div>
-        <div class="form-group has-feedback @error('password') has-error @enderror">
-            <input name="password" type="password" class="form-control" id="password" required placeholder="Password">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            @error('password')
-                <span class="help-block">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="input-group mb-3 @error('password') has-error @enderror">
-          <input name="password_confirmation" type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="hidden" name="accept" value="0">
-              <input name="accept" value="1" {{ old('accept') ? 'checked' : '' }} type="checkbox" id="agreeTerms">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+        {!! Lte3::formClose() !!}
 
-      <div class="social-auth-links text-center">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div>
+        <div class="social-auth-links text-center">
+            <a href="#" class="btn btn-block btn-primary">
+                <i class="fab fa-facebook mr-2"></i>
+                Sign up using Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-danger">
+                <i class="fab fa-google-plus mr-2"></i>
+                Sign up using Google+
+            </a>
+        </div>
 
-      <a href="/login" class="text-center">I already have a membership</a>
+        <a href="/login" class="text-center">I already have a membership</a>
 
     </div>
 @endsection
