@@ -16,6 +16,8 @@ return [
     'view' => [
         
         'dark_mode' => false,
+
+        'preloader' => false,
         
         /**
          * Show next type alerts in dashboard

@@ -10,7 +10,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/vendor/lte3/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/vendor/lte3/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/vendor/lte3/img/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/vendor/lte3/img/favicons/site.webmanifest">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

@@ -1,6 +1,6 @@
 @include('lte3::layouts.inc.begin')
 <div class="wrapper">
-    @include('lte3::layouts.inc.preloader')
+    @includeWhen(config('lte3.view.preloader'), 'lte3::layouts.inc.preloader')
     @include('lte3::layouts.inc.navbar')
     @include('lte3::layouts.inc.sidebar')
     <div class="content-wrapper">

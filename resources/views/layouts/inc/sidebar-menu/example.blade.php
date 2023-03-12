@@ -19,6 +19,18 @@
                         <p>Dashboard v1</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/lte3/2" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v2</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/lte3/3" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v3</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item">
@@ -26,7 +38,7 @@
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Example
-                    <span class="right badge badge-danger">Example</span>
+                    <span class="right badge badge-danger">Ex.</span>
                 </p>
             </a>
         </li>

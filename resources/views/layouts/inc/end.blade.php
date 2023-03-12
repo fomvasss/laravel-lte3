@@ -17,6 +17,8 @@
 <!-- Select2 -->
 <script src="/vendor/adminlte/plugins/select2/js/select2.full.min.js"></script>
 
+<!-- PACE -->
+<script src="/vendor/lte3/plugins/pace/pace.min.js"></script>
 <!-- jQuery Sortable (Nested) -->
 <script src="/vendor/lte3/plugins/jquery-sortable/jquery-sortable.js"></script>
 <!-- Datetimepicker -->
@@ -31,7 +33,7 @@
 <!-- AdminLTE App -->
 <script src="/vendor/adminlte/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/vendor/adminlte/dist/js/demo.js"></script>')
+<script src="/vendor/adminlte/dist/js/demo.js"></script> {{--TODO: customize this--}}
 <script src="/vendor/lte3/main.js"></script>
 @stack('scripts')
 @include('lte3::layouts.inc.options')

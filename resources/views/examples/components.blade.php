@@ -249,7 +249,7 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
                         </div>
                         {!! Lte3::formClose() !!}
                     </div>
@@ -302,7 +302,7 @@
                                 'help' => '* Enter new end ;'
                             ]) !!}
 
-                            {!! Lte3::select2('status', 'smtp', ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
+                            {!! Lte3::select2('driver', 'smtp', ['log' => 'Log', 'smtp' => 'SMTP', 'sendmail' => 'Mail'], [
                                 'label' => 'Mail Driver',
                                 'empty_value' => '--',
                                 'map' => [
@@ -562,8 +562,8 @@
                                 '/vendor/lte3/img/favicons/android-chrome-192x192.png',
                             ], ['label' => '']) !!}
 
-                            {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
-
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="Submit files"><i class="fa fa-save"></i></button>
                             {!! Lte3::formClose() !!}
 
                         </div>

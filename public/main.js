@@ -19,6 +19,12 @@ $(function () {
     const USE_TOASTR = true;
     const LANGUAGE = $('html').attr('lang') || 'en';
 
+    localStorage.setItem('AdminLTE:Demo:MessageShowed', (Date.now()) + (15 * 60 * 1000));
+
+    $(document).ajaxStart(function () {
+        Pace.restart();
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -448,8 +454,8 @@ $(function () {
     });
 
     function toggleSelectableBlocks($val, selectBlocksMap) {
+        Pace.restart();
         for (var key in selectBlocksMap) {
-            //Pace.restart()
             var id = 0;
             if ($val === key) {
                 for (id in selectBlocksMap[key]) {

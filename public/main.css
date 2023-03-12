@@ -73,3 +73,15 @@ ul.js-sortable-nested li.placeholder:before {
     font-size: 1rem;
     opacity: 0.6;
 }
+
+.btn-lte-fixed {
+    position: fixed;
+    top: 95px;
+    right: 7px;
+    border-radius: 100%;
+    opacity: .4;
+    z-index: 2;
+}
+.btn-lte-fixed:hover {
+    opacity: .8;
+}
