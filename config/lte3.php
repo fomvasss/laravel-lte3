@@ -49,6 +49,7 @@ return [
             'lists' => ['blade' => 'lte3::components.lists', 'vars' => ['name', 'items', 'attrs']],
             'colorpicker' => ['blade' => 'lte3::components.colorpicker', 'vars' => ['name', 'value', 'attrs']],
             'select2' => ['blade' => 'lte3::components.select2', 'vars' => ['name', 'selected', 'options', 'attrs']],
+            'range' => ['blade' => 'lte3::components.range', 'vars' => ['name', 'value', 'attrs']],
 
             'select2Tree' => ['blade' => 'lte3::components.select2Tree', 'vars' => ['name', 'attrs']],
             'treeview' => ['blade' => 'lte3::components.treeview', 'vars' => ['name', 'attrs']],

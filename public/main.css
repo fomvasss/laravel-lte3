@@ -80,7 +80,7 @@ ul.js-sortable-nested li.placeholder:before {
     right: 7px;
     border-radius: 100%;
     opacity: .4;
-    z-index: 2;
+    z-index: 3;
 }
 .btn-lte-fixed:hover {
     opacity: .8;
