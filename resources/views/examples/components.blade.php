@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table table-hover projects">
+                <table class="table table-hover ">
                     <thead>
                     <tr>
                         <th style="width: 1%">
@@ -65,7 +65,7 @@
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     @foreach($progects as $progect)
-                        <tr id="{{ $loop->index }}">
+                        <tr id="{{ $loop->index }}" class="va-center">
                             <td>#</td>
                             <td>
                                 <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
@@ -73,7 +73,7 @@
                                 <small class="js-clipboard with-mark">Created {{ $progect['created_at'] }}</small>
                             </td>
                             <td>
-                                <ul class="list-inline">
+                                <ul class="list-inline m-0">
                                     @foreach($progect['images'] as $img)
                                     <li class="list-inline-item js-popup-images">
                                         <a href="{{ url($img) }}"><img src="{{ url($img) }}" class="table-avatar" alt="Avatar"></a>
@@ -81,7 +81,7 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td class="va-center">
+                            <td>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-green" role="progressbar"
                                          aria-valuenow="{{$progect['progress']}}"
@@ -90,7 +90,7 @@
                                 </div>
                                 <small> {{$progect['progress']}}% Complete </small>
                             </td>
-                            <td class="va-center">
+                            <td>
                                 <a href="#" class="hover-edit js-modal-fill-html"
                                     data-target="#modal-lg"
                                     data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}"
@@ -98,7 +98,7 @@
                                     <span class="btn btn-sm bg-gradient-warning btn-flat">{{ $progect['status'] }}</span>
                                 </a>
                             </td>
-                            <td class="va-center text-right">
+                            <td class="text-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-default">Action</button>
                                     <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="va-center text-right">
+                            <td class="text-right">
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
                                 <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
                                 <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
