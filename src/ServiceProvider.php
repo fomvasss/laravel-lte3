@@ -50,7 +50,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/lte3.php' => config_path('lte3.php'),
             ], 'lte3-config');
-            
+
             $this->publishes([
                 __DIR__ . '/../public' => public_path('vendor/lte3'),
             ], 'lte3-assets');
@@ -61,7 +61,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                     __DIR__ . '/../resources/views/' . $key => resource_path('views/vendor/lte3/' . $key),
                 ], 'lte-view-' . $key);
             }
-            
+
             // All views
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/lte3'),
@@ -87,6 +87,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->commands([
             Console\InstallCommand::class,
+            Console\LinkCommand::class,
             //Console\PublishCommand::class,
         ]);
     }

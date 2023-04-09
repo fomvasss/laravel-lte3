@@ -185,7 +185,8 @@ if (! function_exists('old_request')) {
      * @param $default
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Request|mixed|string|null
      */
-    function old_request($key, $default = null) {
+    function old_request($key, $default = null)
+    {
        return request($key, old($key, $default));
     }
 }

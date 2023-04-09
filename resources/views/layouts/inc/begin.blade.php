@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="/vendor/lte3/plugins/pace/flash.css">
     <!-- Datetimepicker -->
     <link rel="stylesheet" href="/vendor/lte3/plugins/datepicker/datetimepicker.min.css">
+    <!-- Magnific-popup -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/magnific-popup/dist/magnific-popup.css">
     <!-- X-Editable -->
     <link rel="stylesheet" href="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.css">
     <!-- Select2ToTree -->

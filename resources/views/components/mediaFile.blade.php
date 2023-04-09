@@ -32,19 +32,23 @@
             </label>
         </div>
         <div class="text-muted"><small class="js-files-info"></small></div>
-        @if(!empty($model) && $model->getMedia($collection_name)->count())
+        @if(!empty($model) && !($model instanceof \Spatie\MediaLibrary\HasMedia))
+            <div><code>Model {{ get_class($model) }} must implements \Spatie\MediaLibrary\HasMedia</code></div>
+        @elseif(!empty($model) && $model->getMedia($collection_name)->count())
             <table class="table table-sm" style="position: relative;">
                 <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
                 @foreach($model->getMedia($collection_name) as $media)
                     <tr class="f-file-item" id="{{ $media->id }}">
                         <td style="width: 20%;">
+                            @empty($attrs['is_image'])
                             <a href="{{ $media->getUrl() }}" target="_blank">
-                                @empty($attrs['is_image'])
-                                    {{ $media->mime_type }}
-                                @else
-                                    <img src="{{ $media->getUrl('thumb') }}" alt="{{ $media->name }}">
-                                @endempty
+                                {{ $media->mime_type }}
                             </a>
+                            @else
+                            <a href="{{ $media->getUrl() }}" target="_blank" class="js-popup-image">
+                                <img src="{{ $media->getUrl('thumb') }}" alt="{{ $media->name }}">
+                            </a>
+                            @endempty
                         </td>
 
                         <td class="align-middle">

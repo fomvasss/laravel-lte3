@@ -6,7 +6,6 @@ use Exception;
 use Fomvasss\MediaLibraryExtension\HasMedia\HasMedia;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
 
 class ExampleController extends Controller
 {

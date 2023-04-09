@@ -6,12 +6,12 @@
                 <h1 class="m-0">
                     @isset($url_back)
                         <a href="{{ $url_back }}" class="btn btn-xs btn-secondary"><i
-                                    class="fa fa-chevron-left"></i> {{ trans('lte::main.Back') }}</a>
+                                    class="fa fa-chevron-left"></i> Back</a>
                     @endif
                     @isset($page_title) {!! $page_title !!} @endisset
                     @isset($small_page_title)<small>{{ $small_page_title }}</small>@endisset
                     @if(!empty($url_create))
-                        <a href="{{ $url_create }}" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> {{ trans('lte::main.Create') }}</a>
+                        <a href="{{ $url_create }}" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Create</a>
                     @endif
                 </h1>
             </div><!-- /.col -->
@@ -22,8 +22,8 @@
                         <li class="breadcrumb-item active">{{ $page_title }}</li>
                     @endif
                 </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
-<!-- /.content-header -->
+

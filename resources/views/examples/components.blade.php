@@ -12,53 +12,18 @@
 
 
         <!-- FILTER -->
-        {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
-        <div class="card card-outline card-primary collapsed-card">
-            <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-filter mr-1"></i>Filter</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        {!! Lte3::text('name', null, ['label' => 'Name']) !!}
-                    </div>
-                    <div class="col-md-4">
-                        {!! Lte3::select2('status', 'new', ['Success', 'Paused', 'Canceled', 'New', 'Old'], [
-                            'label' => 'Status',
-                            'multiple' => 1,
-                            'id' => 'status2'
-                        ]) !!}
-                    </div>
-                    <div class="col-md-4">
-                        {!! Lte3::datetimepicker('datetime', now(), [
-                           'label' => 'Datetime',
-                       ]) !!}
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                {!! Lte3::btnSubmit('Submit') !!}
-                {!! Lte3::btnReset('Reset') !!}
-            </div>
-        </div>
-        {!! Lte3::hidden('type', 'projects') !!}
-        {!! Lte3::formClose() !!}
+        @include('lte3::examples.inc.filter')
 
         <!-- TABLE -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
+                <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
 
                 <div class="card-tools">
                     <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
-                    <a href="#" class="btn btn-default btn-xs"><i class="fas fa-download"></i> Import</a>
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed', 'style' => 'display: inline-flex']) !!}
+                        <label class="btn btn-default btn-xs"><input type="file" hidden><i class="fas fa-download"></i> Import</label>
+                    {!! Lte3::formClose() !!}
 
                     <div class="btn-group">
                         <a href="#" class="btn btn-default btn-xs">UK</a>
@@ -75,7 +40,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table table-striped projects">
+                <table class="table table-hover projects">
                     <thead>
                     <tr>
                         <th style="width: 1%">
@@ -110,13 +75,13 @@
                             <td>
                                 <ul class="list-inline">
                                     @foreach($progect['images'] as $img)
-                                    <li class="list-inline-item">
-                                        <img src="{{ url($img) }}" class="table-avatar" alt="Avatar">
+                                    <li class="list-inline-item js-popup-images">
+                                        <a href="{{ url($img) }}"><img src="{{ url($img) }}" class="table-avatar" alt="Avatar"></a>
                                     </li>
                                     @endforeach
                                 </ul>
                             </td>
-                            <td class="project_progress">
+                            <td class="va-center">
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-green" role="progressbar"
                                          aria-valuenow="{{$progect['progress']}}"
@@ -125,10 +90,15 @@
                                 </div>
                                 <small> {{$progect['progress']}}% Complete </small>
                             </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">{{ $progect['status'] }}</span>
+                            <td class="va-center">
+                                <a href="#" class="hover-edit js-modal-fill-html"
+                                    data-target="#modal-lg"
+                                    data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}"
+                                >
+                                    <span class="btn btn-sm bg-gradient-warning btn-flat">{{ $progect['status'] }}</span>
+                                </a>
                             </td>
-                            <td class="project-actions text-right">
+                            <td class="va-center text-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-default">Action</button>
                                     <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
@@ -143,7 +113,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="project-actions text-right">
+                            <td class="va-center text-right">
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
                                 <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
                                 <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
@@ -297,7 +267,7 @@
                         {!! Lte3::select2('tags', '4', ['4' => 'Auto'], [
                             'label' => 'Tags',
                             'multiple' => 1,
-                            'url_tags' => route('lte.data.tags'),
+                            'url_tags' => route('lte3.data.tags'),
                             'separators' => "[';']",
                             'new_tag_label' => ' [NEW]',
                             'max' => 4,
@@ -544,11 +514,12 @@
                         <span class="text-danger"></span>
 
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed']) !!}
-                        <label><input type="file" hidden><strong>Select & Upload file</strong></label>
+                        <label class="badge bg-primary"><input type="file" hidden><strong>Select & Upload file</strong></label>
                         {!! Lte3::formClose() !!}
+                        <hr>
                             <!-- Or simple: -->
                         {!! Lte3::fileForm('avatar', [
-                                'html' => '<div><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></div>',
+                                'html' => '<div><a href="/vendor/lte3/img/favicons/apple-touch-icon.png" class="js-popup-image"><img src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="width: 100px;"></a></div>',
                                 'url_save' => route('lte3.data.save'),
                         ]) !!}
 

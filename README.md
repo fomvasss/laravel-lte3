@@ -11,6 +11,7 @@ Create easily and quickly a convenient and functional dashboard for web-site, bl
 
 ----------
 
+
 ## Installation
 
 Run:
@@ -18,14 +19,16 @@ Run:
 ```bash
 composer require fomvasss/laravel-lte3
 
-php artisan lte3:publish --tag=lte3-config
+php artisan vendor:publish --tag=lte3-config
 
 php artisan lte3:install
 ```
 
 That's all. You can usage LTE3 in your project :)
 
+
 All examples of fields and components can be viewed: `http://site.test/lte3/exsmples` (`.../examples/components.vlade.php`)
+
 
 ## Configuration
 
@@ -41,6 +44,7 @@ $middlewareGroups = [
   ],
 ];
 ```
+
 
 ## Publishing (optional)
 
@@ -64,9 +68,12 @@ Of course, you can published partial for customize:
 - other:
 `lte-config`, `lte-assets`, `lte-lang`
 
+For Example:
+
 ```bash
-php artisan lte3:publish --tag=lte-view-components
+php artisan vendor:publish --tag=lte-view-components
 ```
+
 
 ## Structure
 
@@ -79,10 +86,12 @@ php artisan lte3:publish --tag=lte-view-components
   - `parts`
   - `components`
   - `examples`
-  
+
+
 ## Usage & Development
 
 See [examples.blade.php](https://github.com/fomvasss/laravel-lte3/blob/master/resources/views/examples/components.blade.php)
+
 
 ## Recommended
 
@@ -91,6 +100,7 @@ See [examples.blade.php](https://github.com/fomvasss/laravel-lte3/blob/master/re
 - For save vars, configs use [laravel-variables](https://github.com/fomvasss/laravel-variables)
 - Text Editor: [CKEditor](https://github.com/UniSharp/laravel-ckeditor)
 - File manager: [LFM](https://github.com/UniSharp/laravel-filemanager):
+
 
 ## Credits
 - [ColorlibHQ/AdminLTE2](https://adminlte.io/themes/AdminLTE/)

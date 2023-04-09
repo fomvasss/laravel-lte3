@@ -1,12 +1,21 @@
+.va-center, .table>tbody>tr>td.va-center, .table>tbody>tr.va-center>td {
+	vertical-align: middle;
+}
+.ha-center, .table>tbody>tr>td.ha-center, .table>tbody>tr.ha-center>td {
+	text-align: center;
+}
+.vha-center, .table>tbody>tr>td.vha-center, .table>tbody>tr.vha-center>td {
+	vertical-align: middle;
+	text-align: center;
+}
+
 a.hover-edit {
     color: inherit;
     text-decoration: none;
 }
-
 .hover-edit:after {
     position: absolute;
 }
-
 .hover-edit:hover:after {
     padding-left: 5px;
     content: '✎';
@@ -15,11 +24,9 @@ a.hover-edit {
 .js-clipboard {
     cursor: pointer;
 }
-
 .js-clipboard:after {
     position: absolute;
 }
-
 .js-clipboard.with-mark:hover:after {
     padding-left: 5px;
     content: '✔';

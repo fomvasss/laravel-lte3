@@ -531,8 +531,8 @@ $(function () {
                 success: function (data) {
                     $input.select2ToTree({
                         treeData: {
-                            dataArr: data.data,
-                            dftVal: data.selected,
+                            dataArr: data.result || data.data,
+                            dftVal: data.selected || data.default,
                             valFld: valFld,
                             labelFld: labelFld,
                             'incFld': incFld

@@ -23,6 +23,8 @@
 <script src="/vendor/lte3/plugins/jquery-sortable/jquery-sortable.js"></script>
 <!-- Datetimepicker -->
 <script src="/vendor/lte3/plugins/datepicker/datetimepicker.full.js"></script>
+<!-- Magnific-popup -->
+<script src="/vendor/lte3/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 <!-- X-Editable -->
 <script src="/vendor/lte3/plugins/x-editable/dist/bootstrap-editable.js"></script>
 <!-- Select2ToTree -->

@@ -1,8 +1,12 @@
 <script>
     const LANGUAGE = $('html').attr('lang') || 'en';
 
-    var initEditors = function () {},
-        initDatetimepickerOptions = function () {};
+    var initEditors = function () {
+        },
+        initDatetimepickerOptions = function () {
+        },
+        initPopupImage = function () {
+        }
 
     initDatetimepickerOptions = function() {
         // Component: datetimepicker
@@ -39,6 +43,22 @@
         });
     }
     initEditors();
+
+    // Popup Image
+    initPopupImage = function () {
+        $('.js-popup-image').magnificPopup({
+            type:'image',
+            zoom: {
+                enabled: true,
+                duration: 400,
+            }
+        });
+        $('.js-popup-images').magnificPopup({
+            delegate: 'a',
+            type: 'image'
+        });
+    }
+    initPopupImage();
 
     // Component: xEditable
     // https://vitalets.github.io/x-editable/docs.html
