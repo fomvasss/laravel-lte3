@@ -40,7 +40,7 @@ For correct work navigation in dashboard, apply middleware. Add this to `App\Htt
 $middlewareGroups = [
   'web' => [
     //...
-    \Fomvasss\ItsLte\Http\Middleware\LteRequestOptions::class,
+    \Fomvasss\Lte3\Http\Middleware\LteRequestOptions::class,
   ],
 ];
 ```

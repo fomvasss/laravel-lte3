@@ -45,7 +45,7 @@ if (! function_exists('build_linear_array_sort')) {
     {
         $result = [];
 
-        foreach ($tree_entities[0] ?? [] as $key => $entity) {
+        foreach ($tree_entities ?? [] as $key => $entity) {
             $data = [];
             if (! empty($entity['id'])) {
                 $data['id'] = $entity['id'];
