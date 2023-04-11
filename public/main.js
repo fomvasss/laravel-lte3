@@ -192,7 +192,7 @@ $(function () {
                     method: method,
                     url: url,
                     dataType: 'json',
-                    data: {'data': data[0]},
+                    data: {'data': data},
                     success: function (data) {
                         lteAlert('success', data.message);
                     },

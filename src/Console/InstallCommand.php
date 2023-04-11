@@ -51,7 +51,7 @@ class InstallCommand extends Command
     public function publishAdminlte()
     {
         if (!File::exists(base_path('/vendor/almasaeed2010'))) {
-            $this->warn("Packege in not installed. Please install the almasaeed2010/adminlte");
+            $this->warn("Packege in not installed. Please run: composer require almasaeed2010/adminlte");
             return false;
         }
 

@@ -29,8 +29,13 @@ class LinkCommand extends Command
     public function handle()
     {
         if (!File::exists(public_path('vendor/adminlte'))) {
-            File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
-            File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            if (File::exists(base_path('/vendor/almasaeed2010'))) {
+                File::makeDirectory(public_path('vendor/adminlte'), 0755, true);
+                File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
+                File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            } else {
+                $this->warn("Packege in not installed. Please run: composer require almasaeed2010/adminlte");
+            }
         }
         
         if (!File::exists(public_path('vendor/lte3'))) {
