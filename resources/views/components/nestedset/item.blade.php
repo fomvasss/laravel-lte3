@@ -26,11 +26,11 @@
             @endif
             @if(isset($attrs['routes']['create']) && $attrs['has_nested'])
                 <a href="{{ route($attrs['routes']['create'], array_merge($attrs['routes']['params'], ['parent_id' => $item->id])) }}"
-                   class="text-success"><i class="fas fa-plus-circle"></i></a>
+                   class="text-success"><i class="fas fa-plus-square"></i></a>
             @endif
             @isset($attrs['routes']['edit'])
                 <a href="{{ route($attrs['routes']['edit'], array_merge([$item], $attrs['routes']['params'])) }}"
-                   class="text-warning"><i class="fas fa-edit"></i></a>
+                   class="text-info"><i class="fas fa-edit"></i></a>
             @endisset
             @isset($attrs['routes']['delete'])
                 <a href="#" class="text-danger js-click-submit" data-method="DELETE"

@@ -219,9 +219,9 @@
                            data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
 
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="Submit"><i class="fa fa-save"></i></button>
-                        {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
+                    <div class="card-footer text-right">
+                        {!! Lte3::btnReset('Reset', ['url' => '/fixed']) !!}
+                        {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
                 </div>

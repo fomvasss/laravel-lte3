@@ -38,7 +38,7 @@ return [
         'components' => [
             'form' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'btnSubmit' => ['blade' => 'lte3::components.btnSubmit', 'vars' => ['title', 'name', 'value', 'attrs']],
-            'btnReset' => ['blade' => 'lte3::components.btnReset', 'vars' => ['title', 'name', 'value', 'attrs']],
+            'btnReset' => ['blade' => 'lte3::components.btnReset', 'vars' => ['title', 'attrs']],
             'hidden' => ['blade' => 'lte3::components.hidden', 'vars' => ['name', 'value', 'attrs']],
             'text' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'text']],
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],

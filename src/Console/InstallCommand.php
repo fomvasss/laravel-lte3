@@ -30,7 +30,7 @@ class InstallCommand extends Command
 
     public function handle()
     {
-        $slug = $this->ask('Dashboard slug:', config('lte3.dashboard_slug'));
+        $slug = $this->ask('Dashboard slug:', 'admin');
         $this->slug = trim(Str::snake($slug), '/');
 
         if (!$this->publishAdminlte()) {
