@@ -80,7 +80,7 @@
             '<button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="fa fa-check"></i></button><button type="button" class="btn btn-danger editable-cancel btn-sm waves-effect"><i class="fa fa-times"></i></button>';
     }
 
-    $('table tbody').sortable({
+    $('table tbody.sortable-y').sortable({
         helper: fixWidthHelper
     }).disableSelection();
     function fixWidthHelper(e, ui) {

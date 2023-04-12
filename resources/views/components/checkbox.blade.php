@@ -1,7 +1,7 @@
 @php
     $unchecked_value = isset($attrs['unchecked_value']) ? $attrs['unchecked_value'] : 0;
     $checked_value = isset($attrs['checked_value']) ? $attrs['checked_value'] : 1;
-    $raw_name = $raw_name ?? Str::replaceLast('[]', '', $name);
+    $raw_name = $attrs['raw_name'] ?? Str::replaceLast('[]', '', $name);
 @endphp
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
     <div class="custom-control {{ $attrs['wrap_class'] ?? '' }}">
@@ -12,7 +12,7 @@
                value="{{ $checked_value }}"
                data-raw-name="{{$raw_name}}"
                @if(!empty($attrs['method_save'])) data-method-save="{{$attrs['method_save']}}" @endif
-               data-format="{{ isset($format) && $format === 'name,value' ? 'name,value' : 'name=value' }}"
+               data-format="{{ isset($attrs['format']) && $attrs['format'] === 'name,value' ? 'name,value' : 'name=value' }}"
                @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
                @if($value) checked @endif
                data-toggle="tooltip"
