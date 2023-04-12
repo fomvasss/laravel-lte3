@@ -27,3 +27,5 @@
     </div>
 </div>
 
+@include('lte3::parts.alerts')
+@include('lte3::parts.callouts')
