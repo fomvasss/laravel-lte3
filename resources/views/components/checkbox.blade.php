@@ -5,7 +5,9 @@
 @endphp
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}">
     <div class="custom-control {{ $attrs['wrap_class'] ?? '' }}">
-        <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
+        @if($unchecked_value !== '')
+            <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
+        @endif
         <input class="custom-control-input @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"
                value="{{ $checked_value }}"
@@ -22,7 +24,7 @@
         type="checkbox"
         >
         @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
-            <label for="{{ $name }}" class="custom-control-label">{!! $label !!}</label>
+            <label for="{{ $attrs['id'] ?? $name }}" class="custom-control-label">{!! $label !!}</label>
         @endif
     </div>
     @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
