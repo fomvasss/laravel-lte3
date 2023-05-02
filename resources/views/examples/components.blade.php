@@ -12,7 +12,7 @@
 
 
         <!-- FILTER -->
-        @include('lte3::examples.inc.filter')
+        {{--@include('lte3::examples.inc.filter')--}}
 
         <!-- TABLE -->
         <div class="card">
@@ -137,10 +137,9 @@
                         <h3 class="card-title">Base</h3>
                     </div>
 
-                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST']) !!}
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST', 'id' => 'QQQ']) !!}
 
                     <div class="card-body">
-
                         {!! Lte3::text('firstname', 'Thomas') !!}
 
                         {!! Lte3::text('lastname', 'Mann', [

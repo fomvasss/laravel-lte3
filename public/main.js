@@ -154,7 +154,7 @@ $(function () {
 
     // Click submit
     $(document).on('click', '.js-click-submit', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         var $form = $('#js-action-form'),
             $this = $(this),
             method = $this.data('method') || 'POST',
@@ -162,12 +162,23 @@ $(function () {
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true,
             destination = $(this).data('destination')
 
-        if (url && $form && strConfirm) {
+        if (url && strConfirm && $form) {
             $form.find('input[name="_method"]').val(method)
             if (destination) {
                 $form.find('input.f-dest').val(destination)
             }
             $form.attr('action', url).submit()
+        }
+    });
+    $(document).on('click', '.js-click-url', function (e) {
+        e.preventDefault();
+        var $this = $(this),
+            method = $this.data('method') || 'GET',
+            url = $(this).data('url') || $(this).attr('href'),
+            strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true;
+
+        if (url && strConfirm) {
+            window.location = url;
         }
     });
 

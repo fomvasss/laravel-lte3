@@ -8,7 +8,6 @@
         <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
         <input class="custom-control-input @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"
-               id="{{ $name }}"
                value="{{ $checked_value }}"
                data-raw-name="{{$raw_name}}"
                @if(!empty($attrs['method_save'])) data-method-save="{{$attrs['method_save']}}" @endif

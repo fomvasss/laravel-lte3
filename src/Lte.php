@@ -41,6 +41,7 @@ class Lte
 
             $defaultAttrs = $componentParams['default'] ?? [];
             $res['attrs'] = array_merge($defaultAttrs, $res['attrs'] ?? []);
+            //$res['attrs']['id'] = $res['attrs']['id'] ?? $name;
 
             $res['field_attrs'] = $fieldAttrs;
 
@@ -62,8 +63,12 @@ class Lte
 
         $defaultAttrs = $form['default'] ?? [];
         $attrs = array_merge($defaultAttrs, $attrs);
+        $res['attrs'] = $attrs;
 
-        return view($form['blade'], ['attrs' => $attrs])->render();
+        $fieldAttrs = config('lte3.view.field_attrs', []);
+        $res['field_attrs'] = $fieldAttrs;
+
+        return view($form['blade'], $res)->render();
     }
 
     /**

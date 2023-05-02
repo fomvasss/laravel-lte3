@@ -39,9 +39,7 @@
     @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
     @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
     @if(!empty($attrs['separators'])) data-separators={{$attrs['separators']}} @endif
-    id="{{ $attrs['id'] ?? $field_name_input }}"
-    style="width: 100%
-    ;"
+    style="width: 100%;"
     @if(count($options) < 6) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
     @if(isset($attrs['map']) && is_array($attrs['map']))
         data-map='@json($attrs['map'])'
