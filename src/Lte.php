@@ -41,7 +41,6 @@ class Lte
 
             $defaultAttrs = $componentParams['default'] ?? [];
             $res['attrs'] = array_merge($defaultAttrs, $res['attrs'] ?? []);
-            //$res['attrs']['id'] = $res['attrs']['id'] ?? $name;
 
             $res['field_attrs'] = $fieldAttrs;
 

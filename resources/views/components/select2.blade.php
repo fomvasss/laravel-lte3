@@ -44,6 +44,7 @@
     @if(isset($attrs['map']) && is_array($attrs['map']))
         data-map='@json($attrs['map'])'
     @endif
+    @empty($attrs['id'])id="{{ $field_name_input }}"@endempty
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

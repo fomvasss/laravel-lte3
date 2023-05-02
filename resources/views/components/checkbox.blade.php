@@ -15,6 +15,7 @@
                @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
                @if($value) checked @endif
                data-toggle="tooltip"
+               @empty($attrs['id'])id="{{ $name }}"@endempty
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach
