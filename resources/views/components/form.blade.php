@@ -1,5 +1,5 @@
 <form
-        @if(!empty($attrs['class'])) {{ $attrs['class'] }} @endif
+        @if(!empty($attrs['class'])) class="{{ $attrs['class'] }}" @endif
         action="{{ $attrs['action'] ?? '#' }}"
         method="{{ (strtoupper($attrs['method'] ?? 'POST')) === 'GET' ? 'GET' : 'POST' }}"
         @if(!empty($attrs['files'])) enctype="multipart/form-data" @endif
