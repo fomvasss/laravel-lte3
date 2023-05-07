@@ -11,7 +11,10 @@ return [
      */
     'dashboard_slug' => 'lte3',
 
-    'middleware' => ['web'],
+    'middleware' => [
+        'web',
+        \Fomvasss\Lte3\Http\Middleware\LteRequestOptions::class,
+    ],
 
     'view' => [
         
@@ -68,7 +71,8 @@ return [
         'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt', 'style', 'id'],
 
         'next_destination_key' => '_destination',
-
+        
+        'modal_key' => '_modal',
 
         'pagination' => [
             'simple_view' => 'pagination::simple-bootstrap-5',

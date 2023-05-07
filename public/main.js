@@ -24,13 +24,7 @@ $(function () {
     $(document).ajaxStart(function () {
         Pace.restart();
     });
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
+    
     // Show message
     function lteAlert(status, msg) {
         if (USE_TOASTR) {

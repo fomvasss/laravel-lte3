@@ -3,8 +3,12 @@
         //
     } elseif (!empty($model)) {
         $selected = $model->{$name};
-    } else {
+    } elseif (old($name, $selected)) {
         $selected = old($name, $selected);
+    } elseif (isset($attrs['default'])) {
+        $selected = $attrs['default'];
+    } else {
+        $selected = array_key_first($options);
     }
 @endphp
 

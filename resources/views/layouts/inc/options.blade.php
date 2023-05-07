@@ -1,11 +1,12 @@
 <script>
     const LANGUAGE = $('html').attr('lang') || 'en';
 
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-Header': 'your-var'
-    //     }
-    // });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            //'X-EXAMPLE': 'your-var'
+        }
+    });
 
     var initEditors = function () {
         },
@@ -156,7 +157,6 @@
 </script>
 @endif
 
-
 <form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input type="hidden" name="_method" value="POST">
@@ -167,3 +167,11 @@
 <div class="modal fade" id="modal-sm"><div class="modal-dialog modal-sm"><div class="modal-content"></div></div></div>
 <div class="modal fade" id="modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
 <div class="modal fade" id="modal-xl"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
+
+@php($modalKey = config('lte3.view.modal_key', '_modal'))
+@if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))
+    <script>
+        console.log($('{{$modal}}').length)
+        $('{{$modal}}').modal()
+    </script>
+@endif

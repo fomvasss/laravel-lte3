@@ -8,7 +8,7 @@
     }
 
     $selected = !is_null($selected) ? \Arr::wrap($selected) : [];
-    $old = old($name) ? Arr::wrap($old) : [];
+    $old = old($name) ? Arr::wrap(old($name)) : [];
 
     $field_name_input = !empty($attrs['multiple']) && (empty($attrs['max']) || $attrs['max'] > 1) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
     $selected = $old + $selected;

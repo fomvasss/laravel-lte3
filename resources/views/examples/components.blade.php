@@ -39,8 +39,8 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body p-0">
-                <table class="table table-hover ">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th style="width: 1%">
@@ -114,10 +114,10 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
-                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a href="#" class="btn btn-default btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
-                                   data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
+                                   data-confirm="Delete?"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -183,27 +183,37 @@
                                 'unchecked_value' => 0,
                                 'wrap_class' => 'custom-switch'
                         ]) !!}
+                        <div class="row">
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], ['label' => 'Payment:', 'default' => 'liqpay']) !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('brand', 'samsung', [
+                                        'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
+                                        'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
+                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
+                                    ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
+                                !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('chanel', 'sms', ['push' => 'Push', 'email' => 'Email', 'sms' => 'SMS',], [
+                                    'label' => 'Toggle Block:',
+                                    'map' => [
+                                        'push' => ['.js-block-push'],
+                                        'email' => ['.js-block-email'],
+                                        'sms' => ['.js-block-sms'],
+                                    ],
+                                ]) !!}
+                                <h3 class="js-block-push">Push!</h3>
+                                <h3 class="js-block-email">Email!</h3>
+                                <h3 class="js-block-sms">SMS!</h3>
+                            </div>
+                        </div>
 
-                        {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
 
-                        {!! Lte3::radiogroup('chanel', 'tg', ['tg' => 'Telegram', 'email' => 'Email', 'sms' => 'SMS',], [
-                            'label' => 'Toggle Block:',
-                            'map' => [
-                                'tg' => ['.js-block-tg'],
-                                'email' => ['.js-block-email'],
-                                'sms' => ['.js-block-sms'],
-                            ],
-                        ]) !!}
-                        <h3 class="js-block-tg">Telegram!</h3>
-                        <h3 class="js-block-email">Email!</h3>
-                        <h3 class="js-block-sms">SMS!</h3>
-
-                        {!! Lte3::radiogroup('brand', 'samsung', [
-                                'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
-                                'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
-                                'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
-                            ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
-                        !!}
 
                         {!! Lte3::textarea('message', 'Hello World!', [
                                 'label' => 'Message',
@@ -428,6 +438,8 @@
 
                 <!-- MODALS -->
                 <div class="card card-danger">
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
+                    {!! Lte3::hidden('_modal', '#my-modal-lg') !!} {{-- Show this modal after submit form --}}
                     <div class="card-header">
                         <h3 class="card-title">Modals</h3>
                         <div class="card-tools">
@@ -469,12 +481,11 @@
                             Small Modal
                         </button>
 
-
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
+                    {!! Lte3::formClose() !!}
                 </div>
 
                 <!-- DATE & TIME -->

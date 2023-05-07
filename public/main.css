@@ -98,3 +98,7 @@ ul.js-sortable-nested li.placeholder:before {
 .btn-lte-fixed:hover {
     opacity: .8;
 }
+
+.lte-pointer:hover {
+    cursor: pointer;
+}
