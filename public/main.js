@@ -43,7 +43,7 @@ $(function () {
         $tmp.remove();
         lteAlert('success', 'Copied!');
     });
-
+    
     // LTE: Set active item in Sidebar menu
     if ($('.nav-sidebar.js-activeable').length) {
         var pathnameUrl = window.location.pathname,
@@ -54,12 +54,26 @@ $(function () {
             var aHref = $(this).attr("href"),
                 regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
 
-            if (path === aHref || pathnameUrl === aHref || regexp && regexp.test(url)) {
-                $(this).closest('.nav-pills>.nav-item').addClass('menu-open');
-                $(this).addClass('active');
-                $(this).closest('.menu-open').children('a').addClass('active');
+            if (regexp && regexp.test(url)) {
+                return setSidebarActiveable($(this));
+            }
+
+            if (pathnameUrl === aHref) {
+                return setSidebarActiveable($(this));
+            }
+
+            if (path === aHref) {
+                return setSidebarActiveable($(this));
             }
         });
+    }
+    function setSidebarActiveable($item) {
+        $('.nav-sidebar.js-activeable li>a').removeClass('active');
+        $item.closest('.nav-pills>.nav-item').addClass('menu-open');
+        $item.addClass('active');
+        $item.closest('.menu-open').children('a').addClass('active');
+
+        return true;
     }
 
     // Set active item to link: <ul class='js-activeable-url'><li><a href='#' data-pat='seo'></a></li></ul>
@@ -76,22 +90,24 @@ $(function () {
                 regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
 
             if (regexp && regexp.test(url)) {
-                $this.find(tag).removeClass(activeClass);
-                return $(this).addClass(activeClass)
+                return setActiveableUrl($this, $(this), tag, activeClass);
             }
 
             if (pathnameUrl === aHref) {
-                $this.find(tag).removeClass(activeClass);
-                return $(this).addClass(activeClass)
+                return setActiveableUrl($this, $(this), tag, activeClass);
             }
 
             if (path === aHref) {
-                $this.find(tag).removeClass(activeClass);
-                return $(this).addClass(activeClass)
+                return setActiveableUrl($this, $(this), tag, activeClass);
             }
         })
-    })
-
+    });
+    function setActiveableUrl($wrap, $item, tag, activeClass) {
+        $wrap.find(tag).removeClass(activeClass);
+        $item.addClass(activeClass);
+        return true;
+    }
+    
     // Component: formOpen
     // Autosabmit form after change file
     $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function () {
