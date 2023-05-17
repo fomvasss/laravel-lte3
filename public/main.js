@@ -62,6 +62,36 @@ $(function () {
         });
     }
 
+    // Set active item to link: <ul class='js-activeable-url'><li><a href='#' data-pat='seo'></a></li></ul>
+    $('.js-activeable-url').each(function () {
+        var $this = $(this),
+            tag = $this.data('tag') || 'a',
+            activeClass = $this.data('class') || 'active';
+        var pathnameUrl = window.location.pathname,
+            url = window.location.href,
+            path = url.split('?')[0];
+
+        $this.find(tag).each(function () {
+            var aHref = $(this).attr("href"),
+                regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
+
+            if (regexp && regexp.test(url)) {
+                $this.find(tag).removeClass(activeClass);
+                return $(this).addClass(activeClass)
+            }
+
+            if (pathnameUrl === aHref) {
+                $this.find(tag).removeClass(activeClass);
+                return $(this).addClass(activeClass)
+            }
+
+            if (path === aHref) {
+                $this.find(tag).removeClass(activeClass);
+                return $(this).addClass(activeClass)
+            }
+        })
+    })
+
     // Component: formOpen
     // Autosabmit form after change file
     $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function () {
