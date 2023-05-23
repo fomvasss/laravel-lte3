@@ -171,7 +171,6 @@
 @php($modalKey = config('lte3.view.modal_key', '_modal'))
 @if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))
     <script>
-        console.log($('{{$modal}}').length)
         $('{{$modal}}').modal()
     </script>
 @endif

@@ -43,32 +43,33 @@ $(function () {
         $tmp.remove();
         lteAlert('success', 'Copied!');
     });
-    
+
     // LTE: Set active item in Sidebar menu
-    if ($('.nav-sidebar.js-activeable').length) {
-        var pathnameUrl = window.location.pathname,
+    $('.nav-sidebar.js-activeable').each(function() {
+        var $naw = $(this),
+            pathnameUrl = window.location.pathname,
             url = window.location.href,
             path = url.split('?')[0];
 
-        $('.nav-sidebar.js-activeable li>a').each(function () {
+        $naw.find('li>a').each(function () {
             var aHref = $(this).attr("href"),
                 regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
 
             if (regexp && regexp.test(url)) {
-                return setSidebarActiveable($(this));
+                return setSidebarActiveable($naw, $(this));
             }
 
             if (pathnameUrl === aHref) {
-                return setSidebarActiveable($(this));
+                return setSidebarActiveable($naw, $(this));
             }
 
             if (path === aHref) {
-                return setSidebarActiveable($(this));
+                return setSidebarActiveable($naw, $(this));
             }
         });
-    }
-    function setSidebarActiveable($item) {
-        $('.nav-sidebar.js-activeable li>a').removeClass('active');
+    });
+    function setSidebarActiveable($naw, $item) {
+        $naw.find('li>a').removeClass('active');
         $item.closest('.nav-pills>.nav-item').addClass('menu-open');
         $item.addClass('active');
         $item.closest('.menu-open').children('a').addClass('active');
