@@ -7,9 +7,9 @@ return [
     'logo' => '<b>Admin</b>LTE',
 
     /*
-     * Dashboard Home: admin
+     * Dashboard Home
      */
-    'dashboard_slug' => 'lte3',
+    'dashboard_slug' => 'admin',
 
     'middleware' => [
         'web',
@@ -17,11 +17,11 @@ return [
     ],
 
     'view' => [
-        
+
         'dark_mode' => false,
 
         'preloader' => false,
-        
+
         /**
          * Show next type alerts in dashboard
          * Example alert: \Session::flash('success', 'Welcome to LTE!');
@@ -71,7 +71,7 @@ return [
         'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt', 'style', 'id'],
 
         'next_destination_key' => '_destination',
-        
+
         'modal_key' => '_modal',
 
         'pagination' => [

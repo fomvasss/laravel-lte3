@@ -12,9 +12,9 @@
 
 
         <!-- FILTER -->
-        {{--@include('lte3::examples.inc.filter')--}}
+        @include('lte3::examples.inc.filter')
 
-        <!-- TABLE -->
+        <!-- LIST -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
@@ -46,14 +46,15 @@
                         <th style="width: 1%">
                             #
                         </th>
+                        <th></th>
                         <th style="width: 20%">
-                            Project Name
+                            Name
                         </th>
                         <th style="width: 30%">
-                            Team Members
+                            Members
                         </th>
                         <th>
-                            Project Progress
+                            Progress
                         </th>
                         <th style="width: 8%" class="text-center">
                             Status
@@ -67,6 +68,11 @@
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
                             <td>#</td>
+                            <td>
+                                <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
+                                    <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
+                                </a>
+                            </td>
                             <td>
                                 <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
                                 <br/>
@@ -213,8 +219,6 @@
                             </div>
                         </div>
 
-
-
                         {!! Lte3::textarea('message', 'Hello World!', [
                                 'label' => 'Message',
                                 'rows' => 3,
@@ -269,7 +273,7 @@
                             'label' => 'Domain',
                             'multiple' => true,
                             'max' => 1,
-                            'url_tags' => route('lte.data.tags'),
+                            'url_tags' => route('lte3.data.tags'),
                             'help' => '* Select one or create ;'
                         ]) !!}
 
@@ -582,13 +586,7 @@
                         plugin.
                     </div>
                 </div>
-
             </div>
-
-
-            <!-- Text Editors -->
-
-
         </div>
 
         <!-- EDITORS -->
@@ -678,12 +676,14 @@
             <div class="modal-content">
                 <div class="modal-header"><h4 class="modal-title">Large Modal</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body"><p>One fine body&hellip;</p></div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
-            </div><!-- /.modal-content --></div><!-- /.modal-dialog --></div>
+            </div>
+        </div>
+    </div>
 @endpush
