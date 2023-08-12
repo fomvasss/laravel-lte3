@@ -152,26 +152,31 @@
                             'readonly' => 1,
                         ]) !!}
 
-                        {!! Lte3::text('email', 'fom@app.com', [
-                            'type' => 'email',
-                            'max' => '30',
+                        {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
+
+                        {!! Lte3::password('Password') !!}
+
+                        {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
+
+                        {!! Lte3::url('url', null, [
+                                'default' => 'https://stackoverflow.com/',
+                        ]) !!}
+
+                        {!! Lte3::email('email', 'fom@app.com', [
                             'label' => 'Your Email',
                             'help' => '* Enter Email',
                             'prepend' => '<i class="fas fa-envelope"></i>',
                             'append' => '<i class="fas fa-check"></i>',
                             'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
                         ]) !!}
-                        {!! Lte3::text('Password', null, ['type' => 'password']) !!}
-
-                        {!! Lte3::text('url', null, [
-                                'type' => 'url',
-                        ]) !!}
 
                         {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
 
                         {!! Lte3::slug('slug', 'qwerty', ['label' => 'Slug']) !!}
 
-                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color']) !!}
+                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color', 'default' => '#FFFFFF']) !!}
+
+                        {!! Lte3::colorpicker('colorpicker2', null, ['label' => 'Color2', 'transparent' => true]) !!}
 
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
 
@@ -233,7 +238,7 @@
 
                     </div>
                     <div class="card-footer text-right">
-                        {!! Lte3::btnReset('Reset', ['url' => '/fixed']) !!}
+                        {!! Lte3::btnReset('Reset', ['url' => '']) !!}
                         {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
