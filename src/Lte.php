@@ -4,7 +4,6 @@ namespace Fomvasss\Lte3;
 
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +31,7 @@ class Lte
             }
 
             if (isset($res['name']) && array_key_exists('value', $res)) {
-                $res['value'] = $this->getValueAttribute($res['name'], $res['value']);
+                $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $res['attrs']['default'] ?? null);
             }
 
             if (empty($res['model'])) {
@@ -62,8 +61,12 @@ class Lte
 
         $defaultAttrs = $form['default'] ?? [];
         $attrs = array_merge($defaultAttrs, $attrs);
+        $res['attrs'] = $attrs;
 
-        return view($form['blade'], ['attrs' => $attrs])->render();
+        $fieldAttrs = config('lte3.view.field_attrs', []);
+        $res['field_attrs'] = $fieldAttrs;
+
+        return view($form['blade'], $res)->render();
     }
 
     /**
@@ -119,7 +122,7 @@ class Lte
      * @param null $value
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Request|mixed|string|void|null
      */
-    public function getValueAttribute($name, $value = null)
+    public function getValueAttribute($name, $value = null, $default = null)
     {
         if (is_null($name)) {
             return $value;
@@ -157,6 +160,10 @@ class Lte
 
         if (isset($this->model)) {
             return $this->getModelValueAttribute($name);
+        }
+
+        if (! is_null($default)) {
+            return $default;
         }
     }
 

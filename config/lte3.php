@@ -7,18 +7,21 @@ return [
     'logo' => '<b>Admin</b>LTE',
 
     /*
-     * Dashboard Home: admin
+     * Dashboard Home
      */
-    'dashboard_slug' => 'lte3',
+    'dashboard_slug' => 'admin',
 
-    'middleware' => ['web'],
+    'middleware' => [
+        'web',
+        \Fomvasss\Lte3\Http\Middleware\LteRequestOptions::class,
+    ],
 
     'view' => [
-        
+
         'dark_mode' => false,
 
         'preloader' => false,
-        
+
         /**
          * Show next type alerts in dashboard
          * Example alert: \Session::flash('success', 'Welcome to LTE!');
@@ -38,9 +41,13 @@ return [
         'components' => [
             'form' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
             'btnSubmit' => ['blade' => 'lte3::components.btnSubmit', 'vars' => ['title', 'name', 'value', 'attrs']],
-            'btnReset' => ['blade' => 'lte3::components.btnReset', 'vars' => ['title', 'name', 'value', 'attrs']],
+            'btnReset' => ['blade' => 'lte3::components.btnReset', 'vars' => ['title', 'attrs']],
             'hidden' => ['blade' => 'lte3::components.hidden', 'vars' => ['name', 'value', 'attrs']],
             'text' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'text']],
+            'number' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'number']],
+            'email' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'email']],
+            'url' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'url']],
+            'password' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'password']],
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],
             'textarea' => ['blade' => 'lte3::components.textarea', 'vars' => ['name', 'value', 'attrs']],
             'checkbox' => ['blade' => 'lte3::components.checkbox', 'vars' => ['name', 'value', 'attrs']],
@@ -65,10 +72,11 @@ return [
             'mediaFile' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs']],
         ],
 
-        'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt', 'style'],
+        'field_attrs' => ['autocomplete', 'autofocus', 'placeholder', 'required', 'disabled', 'readonly', 'max', 'min', 'step', 'rows', 'title', 'alt', 'style', 'id'],
 
         'next_destination_key' => '_destination',
 
+        'modal_key' => '_modal',
 
         'pagination' => [
             'simple_view' => 'pagination::simple-bootstrap-5',

@@ -8,11 +8,11 @@
     }
 
     $selected = !is_null($selected) ? \Arr::wrap($selected) : [];
-    $old = old($name) ? Arr::wrap($old) : [];
+    $old = old($name) ? Arr::wrap(old($name)) : [];
 
     $field_name_input = !empty($attrs['multiple']) && (empty($attrs['max']) || $attrs['max'] > 1) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
     $selected = $old + $selected;
-    $options = isset($options) ? \Arr::wrap($options) : []; // OR url_suggest
+    $options = isset($options) ? \Arr::wrap($options) : []; // TODO: OR url_suggest
     $options = is_array_assoc($options) ? $options : array_combine(array_map(fn($o) => Str::lower($o), $options), $options);
 @endphp
 
@@ -39,13 +39,12 @@
     @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
     @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
     @if(!empty($attrs['separators'])) data-separators={{$attrs['separators']}} @endif
-    id="{{ $attrs['id'] ?? $field_name_input }}"
-    style="width: 100%
-    ;"
-    @if(count($options) < 6) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
+    style="width: 100%;"
+    @if(count($options) < 6 && empty($attrs['url_suggest'])) data-minimum-results-for-search="-1" @endif {{-- TODO --}}
     @if(isset($attrs['map']) && is_array($attrs['map']))
         data-map='@json($attrs['map'])'
     @endif
+    @empty($attrs['id'])id="{{ $field_name_input }}"@endempty
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

@@ -11,7 +11,6 @@
         @isset($attrs['min']) min="{{$attrs['min']}}" @endisset
         @isset($attrs['max']) max="{{$attrs['max']}}" @endisset
         @isset($attrs['step']) step="{{$attrs['step']}}" @endisset
-        id="{{ $name }}"
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
         @endforeach

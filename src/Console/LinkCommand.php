@@ -4,7 +4,6 @@ namespace Fomvasss\Lte3\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class LinkCommand extends Command
 {
@@ -29,10 +28,15 @@ class LinkCommand extends Command
     public function handle()
     {
         if (!File::exists(public_path('vendor/adminlte'))) {
-            File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
-            File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            if (File::exists(base_path('/vendor/almasaeed2010'))) {
+                File::makeDirectory(public_path('vendor/adminlte'), 0755, true);
+                File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
+                File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            } else {
+                $this->warn("Packege in not installed. Please run: composer require almasaeed2010/adminlte");
+            }
         }
-        
+
         if (!File::exists(public_path('vendor/lte3'))) {
             File::link(__DIR__.'/../../public', public_path('vendor/lte3'));
         }

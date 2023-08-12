@@ -19,6 +19,8 @@ Run:
 ```bash
 composer require fomvasss/laravel-lte3
 
+composer require almasaeed2010/adminlte --dev
+
 php artisan vendor:publish --tag=lte3-config
 
 php artisan lte3:install
@@ -40,7 +42,7 @@ For correct work navigation in dashboard, apply middleware. Add this to `App\Htt
 $middlewareGroups = [
   'web' => [
     //...
-    \Fomvasss\ItsLte\Http\Middleware\LteRequestOptions::class,
+    \Fomvasss\Lte3\Http\Middleware\LteRequestOptions::class,
   ],
 ];
 ```

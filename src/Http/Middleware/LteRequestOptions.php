@@ -58,6 +58,12 @@ class LteRequestOptions
             }
         }
 
+        // set next open modal
+        $modalKey = config('lte3.view.modal_key', '_modal');
+        if ($modal = $request->get($modalKey)) {
+            session()->flash('_modal', $modal);
+        }
+
         $response = $next($request);
 
         $this->afterHandle($response);

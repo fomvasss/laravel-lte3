@@ -14,7 +14,7 @@
         <!-- FILTER -->
         @include('lte3::examples.inc.filter')
 
-        <!-- TABLE -->
+        <!-- LIST -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
@@ -39,21 +39,22 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body p-0">
-                <table class="table table-hover ">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th style="width: 1%">
                             #
                         </th>
+                        <th></th>
                         <th style="width: 20%">
-                            Project Name
+                            Name
                         </th>
                         <th style="width: 30%">
-                            Team Members
+                            Members
                         </th>
                         <th>
-                            Project Progress
+                            Progress
                         </th>
                         <th style="width: 8%" class="text-center">
                             Status
@@ -67,6 +68,11 @@
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
                             <td>#</td>
+                            <td>
+                                <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
+                                    <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
+                                </a>
+                            </td>
                             <td>
                                 <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
                                 <br/>
@@ -114,10 +120,10 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i>View</a>
-                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a href="#" class="btn btn-default btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
-                                   data-confirm="Delete?"><i class="fas fa-trash"></i>Delete</a>
+                                   data-confirm="Delete?"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -137,36 +143,40 @@
                         <h3 class="card-title">Base</h3>
                     </div>
 
-                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST']) !!}
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'model' => null, 'files' => true, 'method' => 'POST', 'id' => 'QQQ']) !!}
 
                     <div class="card-body">
-
                         {!! Lte3::text('firstname', 'Thomas') !!}
 
                         {!! Lte3::text('lastname', 'Mann', [
                             'readonly' => 1,
                         ]) !!}
 
-                        {!! Lte3::text('email', 'fom@app.com', [
-                            'type' => 'email',
-                            'max' => '30',
+                        {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
+
+                        {!! Lte3::password('Password') !!}
+
+                        {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
+
+                        {!! Lte3::url('url', null, [
+                                'default' => 'https://stackoverflow.com/',
+                        ]) !!}
+
+                        {!! Lte3::email('email', 'fom@app.com', [
                             'label' => 'Your Email',
                             'help' => '* Enter Email',
                             'prepend' => '<i class="fas fa-envelope"></i>',
                             'append' => '<i class="fas fa-check"></i>',
                             'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
                         ]) !!}
-                        {!! Lte3::text('Password', null, ['type' => 'password']) !!}
-
-                        {!! Lte3::text('url', null, [
-                                'type' => 'url',
-                        ]) !!}
 
                         {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
 
                         {!! Lte3::slug('slug', 'qwerty', ['label' => 'Slug']) !!}
 
-                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color']) !!}
+                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color', 'default' => '#FFFFFF']) !!}
+
+                        {!! Lte3::colorpicker('colorpicker2', null, ['label' => 'Color2', 'transparent' => true]) !!}
 
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
 
@@ -184,27 +194,35 @@
                                 'unchecked_value' => 0,
                                 'wrap_class' => 'custom-switch'
                         ]) !!}
-
-                        {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
-
-                        {!! Lte3::radiogroup('chanel', 'tg', ['tg' => 'Telegram', 'email' => 'Email', 'sms' => 'SMS',], [
-                            'label' => 'Toggle Block:',
-                            'map' => [
-                                'tg' => ['.js-block-tg'],
-                                'email' => ['.js-block-email'],
-                                'sms' => ['.js-block-sms'],
-                            ],
-                        ]) !!}
-                        <h3 class="js-block-tg">Telegram!</h3>
-                        <h3 class="js-block-email">Email!</h3>
-                        <h3 class="js-block-sms">SMS!</h3>
-
-                        {!! Lte3::radiogroup('brand', 'samsung', [
-                                'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
-                                'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
-                                'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
-                            ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
-                        !!}
+                        <div class="row">
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], ['label' => 'Payment:', 'default' => 'liqpay']) !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('brand', 'samsung', [
+                                        'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
+                                        'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
+                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
+                                    ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
+                                !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! Lte3::radiogroup('chanel', 'sms', ['push' => 'Push', 'email' => 'Email', 'sms' => 'SMS',], [
+                                    'label' => 'Toggle Block:',
+                                    'map' => [
+                                        'push' => ['.js-block-push'],
+                                        'email' => ['.js-block-email'],
+                                        'sms' => ['.js-block-sms'],
+                                    ],
+                                ]) !!}
+                                <h3 class="js-block-push">Push!</h3>
+                                <h3 class="js-block-email">Email!</h3>
+                                <h3 class="js-block-sms">SMS!</h3>
+                            </div>
+                        </div>
 
                         {!! Lte3::textarea('message', 'Hello World!', [
                                 'label' => 'Message',
@@ -219,9 +237,9 @@
                            data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
 
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="Submit"><i class="fa fa-save"></i></button>
-                        {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
+                    <div class="card-footer text-right">
+                        {!! Lte3::btnReset('Reset', ['url' => '']) !!}
+                        {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
                 </div>
@@ -260,7 +278,7 @@
                             'label' => 'Domain',
                             'multiple' => true,
                             'max' => 1,
-                            'url_tags' => route('lte.data.tags'),
+                            'url_tags' => route('lte3.data.tags'),
                             'help' => '* Select one or create ;'
                         ]) !!}
 
@@ -429,6 +447,8 @@
 
                 <!-- MODALS -->
                 <div class="card card-danger">
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
+                    {!! Lte3::hidden('_modal', '#my-modal-lg') !!} {{-- Show this modal after submit form --}}
                     <div class="card-header">
                         <h3 class="card-title">Modals</h3>
                         <div class="card-tools">
@@ -470,12 +490,11 @@
                             Small Modal
                         </button>
 
-
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
+                    {!! Lte3::formClose() !!}
                 </div>
 
                 <!-- DATE & TIME -->
@@ -572,13 +591,7 @@
                         plugin.
                     </div>
                 </div>
-
             </div>
-
-
-            <!-- Text Editors -->
-
-
         </div>
 
         <!-- EDITORS -->
@@ -668,12 +681,14 @@
             <div class="modal-content">
                 <div class="modal-header"><h4 class="modal-title">Large Modal</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body"><p>One fine body&hellip;</p></div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
-            </div><!-- /.modal-content --></div><!-- /.modal-dialog --></div>
+            </div>
+        </div>
+    </div>
 @endpush

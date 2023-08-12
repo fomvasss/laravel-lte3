@@ -24,13 +24,7 @@ $(function () {
     $(document).ajaxStart(function () {
         Pace.restart();
     });
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
+    
     // Show message
     function lteAlert(status, msg) {
         if (USE_TOASTR) {
@@ -51,23 +45,70 @@ $(function () {
     });
 
     // LTE: Set active item in Sidebar menu
-    if ($('.nav-sidebar.js-activeable').length) {
+    $('.nav-sidebar.js-activeable').each(function() {
+        var $naw = $(this),
+            pathnameUrl = window.location.pathname,
+            url = window.location.href,
+            path = url.split('?')[0];
+
+        $naw.find('li>a').each(function () {
+            var aHref = $(this).attr("href"),
+                regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
+
+            if (regexp && regexp.test(url)) {
+                return setSidebarActiveable($naw, $(this));
+            }
+
+            if (pathnameUrl === aHref) {
+                return setSidebarActiveable($naw, $(this));
+            }
+
+            if (path === aHref) {
+                return setSidebarActiveable($naw, $(this));
+            }
+        });
+    });
+    function setSidebarActiveable($naw, $item) {
+        $naw.find('li>a').removeClass('active');
+        $item.closest('.nav-pills>.nav-item').addClass('menu-open');
+        $item.addClass('active');
+        $item.closest('.menu-open').children('a').addClass('active');
+
+        return true;
+    }
+
+    // Set active item to link: <ul class='js-activeable-url'><li><a href='#' data-pat='seo'></a></li></ul>
+    $('.js-activeable-url').each(function () {
+        var $this = $(this),
+            tag = $this.data('tag') || 'a',
+            activeClass = $this.data('class') || 'active';
         var pathnameUrl = window.location.pathname,
             url = window.location.href,
             path = url.split('?')[0];
 
-        $('.nav-sidebar.js-activeable li>a').each(function () {
+        $this.find(tag).each(function () {
             var aHref = $(this).attr("href"),
                 regexp = $(this).data('pat') ? new RegExp($(this).data('pat')) : false;
 
-            if (path === aHref || pathnameUrl === aHref || regexp && regexp.test(url)) {
-                $(this).closest('.nav-pills>.nav-item').addClass('menu-open');
-                $(this).addClass('active');
-                $(this).closest('.menu-open').children('a').addClass('active');
+            if (regexp && regexp.test(url)) {
+                return setActiveableUrl($this, $(this), tag, activeClass);
             }
-        });
-    }
 
+            if (pathnameUrl === aHref) {
+                return setActiveableUrl($this, $(this), tag, activeClass);
+            }
+
+            if (path === aHref) {
+                return setActiveableUrl($this, $(this), tag, activeClass);
+            }
+        })
+    });
+    function setActiveableUrl($wrap, $item, tag, activeClass) {
+        $wrap.find(tag).removeClass(activeClass);
+        $item.addClass(activeClass);
+        return true;
+    }
+    
     // Component: formOpen
     // Autosabmit form after change file
     $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function () {
@@ -154,7 +195,7 @@ $(function () {
 
     // Click submit
     $(document).on('click', '.js-click-submit', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         var $form = $('#js-action-form'),
             $this = $(this),
             method = $this.data('method') || 'POST',
@@ -162,12 +203,23 @@ $(function () {
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true,
             destination = $(this).data('destination')
 
-        if (url && $form && strConfirm) {
+        if (url && strConfirm && $form) {
             $form.find('input[name="_method"]').val(method)
             if (destination) {
                 $form.find('input.f-dest').val(destination)
             }
             $form.attr('action', url).submit()
+        }
+    });
+    $(document).on('click', '.js-click-url', function (e) {
+        e.preventDefault();
+        var $this = $(this),
+            method = $this.data('method') || 'GET',
+            url = $(this).data('url') || $(this).attr('href'),
+            strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true;
+
+        if (url && strConfirm) {
+            window.location = url;
         }
     });
 
@@ -192,7 +244,7 @@ $(function () {
                     method: method,
                     url: url,
                     dataType: 'json',
-                    data: {'data': data[0]},
+                    data: {'data': data},
                     success: function (data) {
                         lteAlert('success', data.message);
                     },

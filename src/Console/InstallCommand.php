@@ -30,7 +30,7 @@ class InstallCommand extends Command
 
     public function handle()
     {
-        $slug = $this->ask('Dashboard slug:', config('lte3.dashboard_slug'));
+        $slug = $this->ask('Dashboard slug:', 'admin');
         $this->slug = trim(Str::snake($slug), '/');
 
         if (!$this->publishAdminlte()) {
@@ -51,7 +51,7 @@ class InstallCommand extends Command
     public function publishAdminlte()
     {
         if (!File::exists(base_path('/vendor/almasaeed2010'))) {
-            $this->warn("Packege in not installed. Please install the almasaeed2010/adminlte");
+            $this->warn("Packege in not installed. Please run: composer require almasaeed2010/adminlte");
             return false;
         }
 
@@ -67,8 +67,12 @@ class InstallCommand extends Command
             File::copyDirectory(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
             File::copyDirectory(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
         } else {
-            File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
-            File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            if (!File::exists(public_path('vendor/adminlte/dist'))) {
+                File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
+            }
+            if (!File::exists(public_path('vendor/adminlte/plugins'))) {
+                File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            }
         }
 
         return true;

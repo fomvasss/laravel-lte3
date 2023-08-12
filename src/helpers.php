@@ -216,3 +216,33 @@ if (! function_exists('is_array_assoc')) {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }
+
+
+if (! function_exists('array_search_assoc')) {
+    /**
+     * Знайти асоціативний елемент в асоц. масиві.
+     *
+     * @param array $needle
+     * @param array $haystack
+     * @param bool $returnIndex
+     * @return false|int|mixed|string
+     */
+    function array_search_assoc(array $needle, array $haystack, $returnItem = false)
+    {
+        $keys = array_keys($needle);
+        foreach ($haystack as $n => $item) {
+            $break = false;
+            foreach ($keys as $key) {
+                if ($item[$key] !== $needle[$key]) {
+                    $break = true;
+                    break;
+                }
+            }
+            if (!$break) {
+                return $returnItem ? $item : $n;
+            }
+        }
+
+        return false;
+    }
+}

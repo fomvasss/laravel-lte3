@@ -1,6 +1,13 @@
 <script>
     const LANGUAGE = $('html').attr('lang') || 'en';
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            //'X-EXAMPLE': 'your-var'
+        }
+    });
+
     var initEditors = function () {
         },
         initDatetimepickerOptions = function () {
@@ -74,6 +81,16 @@
             '<button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="fa fa-check"></i></button><button type="button" class="btn btn-danger editable-cancel btn-sm waves-effect"><i class="fa fa-times"></i></button>';
     }
 
+    $('table tbody.sortable-y').sortable({
+        helper: fixWidthHelper
+    }).disableSelection();
+    function fixWidthHelper(e, ui) {
+        ui.children().each(function() {
+            $(this).width($(this).width());
+        });
+        return ui;
+    }
+
 </script>
 
 {{-- CKEditor --}}
@@ -140,7 +157,6 @@
 </script>
 @endif
 
-
 <form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input type="hidden" name="_method" value="POST">
@@ -151,3 +167,10 @@
 <div class="modal fade" id="modal-sm"><div class="modal-dialog modal-sm"><div class="modal-content"></div></div></div>
 <div class="modal fade" id="modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
 <div class="modal fade" id="modal-xl"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
+
+@php($modalKey = config('lte3.view.modal_key', '_modal'))
+@if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))
+    <script>
+        $('{{$modal}}').modal()
+    </script>
+@endif

@@ -4,7 +4,6 @@
     @include('lte3::layouts.inc.navbar')
     @include('lte3::layouts.inc.sidebar')
     <div class="content-wrapper">
-        @include('lte3::parts.alerts')
         @yield('content')
     </div>
     @include('lte3::layouts.inc.footer')

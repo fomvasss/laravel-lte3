@@ -7,3 +7,7 @@
             {{$key}}="{{$val}}"
         @endforeach
 >{!! $title !!}</button>
+
+@if(\Illuminate\Support\Arr::get($attrs, 'add') === 'fixed')
+    <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="{!! $title !!}"><i class="fa fa-save"></i></button>
+@endif

@@ -22,9 +22,6 @@
         "php": "^8.0.2",
         "illuminate/support": "^9.0|^10.0"
     },
-    "require-dev": {
-        "almasaeed2010/adminlte": "~3.1"
-    },
     "autoload": {
         "psr-4": {
             "Fomvasss\\Lte3\\": "src"

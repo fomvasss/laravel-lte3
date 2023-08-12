@@ -7,6 +7,7 @@
     'action' => $attrs['url_save'] ?? $attrs['action'] ?? '',
     'method' => $attrs['method'] ?? 'POST',
     'style' => 'display: inline-block;',
+    'class' => $attrs['class'] ?? null,
 ]) !!}
 
 <label class="js-form-submit-file-changed">

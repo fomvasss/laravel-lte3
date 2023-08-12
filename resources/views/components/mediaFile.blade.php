@@ -72,11 +72,11 @@
         @else
             <div><small>Files not loaded.</small></div>
         @endif
-    </div>
-    <div class="card-footer">
-        @error($name)
-        <div class="error invalid-feedback" style="display: inline;"> {{ $message }} </div>@enderror
-        @isset($attrs['help'])
-            <div><small>{!! $attrs['help'] !!}</small></div>@endisset
+        <div>
+            @error($name)
+            <div class="error invalid-feedback" style="display: inline;"> {{ $message }} </div>@enderror
+            @isset($attrs['help'])
+                <div><small>{!! $attrs['help'] !!}</small></div>@endisset
+        </div>
     </div>
 </div>
