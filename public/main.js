@@ -379,9 +379,11 @@ $(function () {
 
     // Component: Colorpicker
     initColorpicker = function () {
-        $('.f-colorpicker').colorpicker()
-        $(document).on('colorpickerChange', '.f-colorpicker', function (event) {
-            $('.f-colorpicker .fa-square').css('color', event.color.toString());
+        $('.f-colorpicker').colorpicker().each(function () {
+            var $this = $(this)
+            $this.colorpicker().on('colorpickerChange', function(event) {
+                $this.find('.fa-square').css('color', event.color.toString());
+            });
         })
     }
     initColorpicker();
