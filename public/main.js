@@ -145,7 +145,6 @@ $(function () {
             }
             return true;
         });
-        console.log('Error: Url not set.')
     })
 
     // Validate form before Save

@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ url(config('lte3.dashboard_slug'), '/lte3') }}" class="brand-link">
+    <a href="{{ url(config('lte3.dashboard_slug') . '/lte3') }}" class="brand-link">
       <img src="/vendor/adminlte/dist/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">{!! config('lte3.logo') !!}</span>
     </a>

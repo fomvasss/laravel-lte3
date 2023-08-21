@@ -102,3 +102,7 @@ ul.js-sortable-nested li.placeholder:before {
 .lte-pointer:hover {
     cursor: pointer;
 }
+
+.cursor-move {
+    cursor: move;
+}

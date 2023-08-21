@@ -36,7 +36,10 @@
     initEditors = function() {
         // Summernote
         if ($('.f-summernote').length) {
-            $('.f-summernote').summernote()
+            $('.f-summernote').summernote({
+                height: 300,
+                lang: 'uk-UA'
+            })
         }
 
         // CodeMirror
