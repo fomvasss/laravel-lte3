@@ -19,6 +19,8 @@ Run:
 ```bash
 composer require fomvasss/laravel-lte3
 
+composer require almasaeed2010/adminlte --dev
+
 php artisan vendor:publish --tag=lte3-config
 
 php artisan lte3:install

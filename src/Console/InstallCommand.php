@@ -67,8 +67,12 @@ class InstallCommand extends Command
             File::copyDirectory(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
             File::copyDirectory(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
         } else {
-            File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
-            File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            if (!File::exists(public_path('vendor/adminlte/dist'))) {
+                File::link(base_path('vendor/almasaeed2010/adminlte/dist'), public_path('vendor/adminlte/dist'));
+            }
+            if (!File::exists(public_path('vendor/adminlte/plugins'))) {
+                File::link(base_path('vendor/almasaeed2010/adminlte/plugins'), public_path('vendor/adminlte/plugins'));
+            }
         }
 
         return true;

@@ -10,7 +10,7 @@
         @endif
         <input class="custom-control-input @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"
-               value="{{ $checked_value }}"
+               @if($value && $value !== $unchecked_value) checked @endif
                data-raw-name="{{$raw_name}}"
                @if(!empty($attrs['method_save'])) data-method-save="{{$attrs['method_save']}}" @endif
                data-format="{{ isset($attrs['format']) && $attrs['format'] === 'name,value' ? 'name,value' : 'name=value' }}"

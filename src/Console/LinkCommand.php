@@ -4,7 +4,6 @@ namespace Fomvasss\Lte3\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class LinkCommand extends Command
 {
@@ -37,7 +36,7 @@ class LinkCommand extends Command
                 $this->warn("Packege in not installed. Please run: composer require almasaeed2010/adminlte");
             }
         }
-        
+
         if (!File::exists(public_path('vendor/lte3'))) {
             File::link(__DIR__.'/../../public', public_path('vendor/lte3'));
         }

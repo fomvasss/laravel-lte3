@@ -5,6 +5,9 @@
     <div class="input-group f-colorpicker colorpicker-element">
         <input type="text" class="form-control {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"
+               @if(Arr::get($attrs, 'transparent'))
+               data-color="transparent"
+               @endif
                value="{{ $value }}"
                data-original-title=""
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)

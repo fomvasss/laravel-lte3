@@ -12,9 +12,9 @@
 
 
         <!-- FILTER -->
-        {{--@include('lte3::examples.inc.filter')--}}
+        @include('lte3::examples.inc.filter')
 
-        <!-- TABLE -->
+        <!-- LIST -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
@@ -46,14 +46,15 @@
                         <th style="width: 1%">
                             #
                         </th>
+                        <th></th>
                         <th style="width: 20%">
-                            Project Name
+                            Name
                         </th>
                         <th style="width: 30%">
-                            Team Members
+                            Members
                         </th>
                         <th>
-                            Project Progress
+                            Progress
                         </th>
                         <th style="width: 8%" class="text-center">
                             Status
@@ -67,6 +68,11 @@
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
                             <td>#</td>
+                            <td>
+                                <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
+                                    <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
+                                </a>
+                            </td>
                             <td>
                                 <a class="hover-edit" href="#">{{ $progect['name'] }}</a>
                                 <br/>
@@ -146,26 +152,31 @@
                             'readonly' => 1,
                         ]) !!}
 
-                        {!! Lte3::text('email', 'fom@app.com', [
-                            'type' => 'email',
-                            'max' => '30',
+                        {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
+
+                        {!! Lte3::password('Password') !!}
+
+                        {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
+
+                        {!! Lte3::url('url', null, [
+                                'default' => 'https://stackoverflow.com/',
+                        ]) !!}
+
+                        {!! Lte3::email('email', 'fom@app.com', [
                             'label' => 'Your Email',
                             'help' => '* Enter Email',
                             'prepend' => '<i class="fas fa-envelope"></i>',
                             'append' => '<i class="fas fa-check"></i>',
                             'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
                         ]) !!}
-                        {!! Lte3::text('Password', null, ['type' => 'password']) !!}
-
-                        {!! Lte3::text('url', null, [
-                                'type' => 'url',
-                        ]) !!}
 
                         {!! Lte3::hidden('__tmp', '666', ['label' => 'Hidden field']) !!}
 
                         {!! Lte3::slug('slug', 'qwerty', ['label' => 'Slug']) !!}
 
-                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color']) !!}
+                        {!! Lte3::colorpicker('colorpicker', null, ['label' => 'Color', 'default' => '#FFFFFF']) !!}
+
+                        {!! Lte3::colorpicker('colorpicker2', null, ['label' => 'Color2', 'transparent' => true]) !!}
 
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
 
@@ -213,8 +224,6 @@
                             </div>
                         </div>
 
-
-
                         {!! Lte3::textarea('message', 'Hello World!', [
                                 'label' => 'Message',
                                 'rows' => 3,
@@ -229,7 +238,7 @@
 
                     </div>
                     <div class="card-footer text-right">
-                        {!! Lte3::btnReset('Reset', ['url' => '/fixed']) !!}
+                        {!! Lte3::btnReset('Reset', ['url' => '']) !!}
                         {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
@@ -269,7 +278,7 @@
                             'label' => 'Domain',
                             'multiple' => true,
                             'max' => 1,
-                            'url_tags' => route('lte.data.tags'),
+                            'url_tags' => route('lte3.data.tags'),
                             'help' => '* Select one or create ;'
                         ]) !!}
 
@@ -582,13 +591,7 @@
                         plugin.
                     </div>
                 </div>
-
             </div>
-
-
-            <!-- Text Editors -->
-
-
         </div>
 
         <!-- EDITORS -->
