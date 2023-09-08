@@ -9,7 +9,9 @@ return [
     /*
      * Dashboard Home
      */
-    'dashboard_slug' => 'admin',
+    'dashboard_slug' => 'lte3',
+    
+    'routes' => true,
 
     'middleware' => [
         'web',
@@ -29,7 +31,7 @@ return [
          *
          */
         'alerts' => [
-            'toastr',
+            //'toastr',
             //'sweetalert',
             //'bootstrap',
         ],

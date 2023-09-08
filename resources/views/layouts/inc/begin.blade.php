@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<body class="hold-transition sidebar-mini layout-fixed {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="/vendor/adminlte/plugins/flag-icon-css/css/flag-icon.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/toastr/toastr.min.css">
+    <!-- Sweetalert -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/sweetalert2/sweetalert2.min.css">
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Select2 -->
@@ -44,4 +47,3 @@
     <link rel="stylesheet" href="/vendor/lte3/main.css">
     @stack('styles')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">

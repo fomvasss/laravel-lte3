@@ -10,6 +10,18 @@
     <!-- Main content -->
     <section class="content">
 
+        <!-- TOP BUTTONS -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <a href="#" class="btn btn-flat btn-success mt-1"><i class="fa fa-plus"></i> Create</a>
+                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal</a>
+                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Ajax</a>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-upload"></i></a>
+            </div>
+        </div>
 
         <!-- FILTER -->
         @include('lte3::examples.inc.filter')
@@ -39,29 +51,19 @@
                     </button>
                 </div>
             </div>
+
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
+                        <th style="width: 1%">#</th>
                         <th></th>
-                        <th style="width: 20%">
-                            Name
-                        </th>
-                        <th style="width: 30%">
-                            Members
-                        </th>
-                        <th>
-                            Progress
-                        </th>
-                        <th style="width: 8%" class="text-center">
-                            Status
-                        </th>
+                        <th style="width: 20%">Name</th>
+                        <th style="width: 30%">Members</th>
+                        <th>Progress</th>
+                        <th style="width: 8%" class="text-center">Status</th>
                         <th></th>
-                        <th style="width: 20%">
-                        </th>
+                        <th style="width: 20%"></th>
                     </tr>
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
@@ -94,7 +96,7 @@
                                          aria-valuemin="0" aria-valuemax="100" style="width: {{$progect['progress']}}%">
                                     </div>
                                 </div>
-                                <small> {{$progect['progress']}}% Complete </small>
+                                <small class="text-nowrap"> {{$progect['progress']}}% Complete </small>
                             </td>
                             <td>
                                 <a href="#" class="hover-edit js-modal-fill-html"
@@ -205,7 +207,7 @@
                                 {!! Lte3::radiogroup('brand', 'samsung', [
                                         'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
                                         'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
-                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
+                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi']), 'disabled' => 1],
                                     ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
                                 !!}
                             </div>

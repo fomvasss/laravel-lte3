@@ -1,4 +1,4 @@
-<div class="container-fluid p-2">
+<div class="container-fluid">
     @if($message = Session::get('callout.error') || Session::get('callout.danger'))
     <div class="callout callout-danger">
         <h5>Danger!</h5>

@@ -16,6 +16,10 @@ class ExampleController extends Controller
     {
         \Session::flash('info', 'Welcome to Admin LTE Components!');
 
+        if (!rand(0, 5)) {
+            \Session::flash('callout.warning', 'This is random callout!');
+        }
+
         return view('lte3::examples.components', [
             'treeviewArray' => $this->treeviewStaticData(),
             'model' => $this->modelData(),

@@ -10,6 +10,6 @@
 
 @if(in_array('sweetalert', config('lte3.view.alerts', [])))
 @push('scripts')
-@include('lte3::parts.alerts.sweetalert')
+    @include('lte3::parts.alerts.sweetalert')
 @endpush
 @endif
