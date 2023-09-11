@@ -251,9 +251,9 @@ class ExampleController extends Controller
     protected function projectsData()
     {
         return [
-            ['name' => 'Admin LTE v3', 'status' => 'Success', 'created_at' => now()->toDateString(), 'progress' => 57, 'images' => ['vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png', 'vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar4.png'],],
-            ['name' => 'Laravel 10.0', 'status' => 'Wait', 'created_at' => now()->subDays(8)->toDateString(), 'progress' => 35, 'images' => ['vendor/adminlte/dist/img/avatar4.png', 'vendor/adminlte/dist/img/avatar3.png'],],
-            ['name' => 'PHP v8.3', 'status' => 'Completed', 'created_at' => now()->subDay(15)->toDateString(), 'progress' => 95, 'images' => ['vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png',],],
+            ['name' => 'Admin LTE v3', 'status' => 'Success', 'created_at' => now()->toDateString(), 'sum' => 12400, 'progress' => 57, 'images' => ['vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png', 'vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar4.png'],],
+            ['name' => 'Laravel 10.0', 'status' => 'Wait', 'created_at' => now()->subDays(8)->toDateString(), 'sum' => 530, 'progress' => 35, 'images' => ['vendor/adminlte/dist/img/avatar4.png', 'vendor/adminlte/dist/img/avatar3.png'],],
+            ['name' => 'PHP v8.3', 'status' => 'Completed', 'created_at' => now()->subDay(15)->toDateString(), 'sum' => 5640, 'progress' => 95, 'images' => ['vendor/adminlte/dist/img/avatar3.png', 'vendor/adminlte/dist/img/avatar.png', 'vendor/adminlte/dist/img/avatar2.png',],],
         ];
     }
 }

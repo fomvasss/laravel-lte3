@@ -23,10 +23,54 @@
             </div>
         </div>
 
+        <!-- STATISTIC CARDS -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">CPU Traffic</span>
+                        <span class="info-box-number">10<small>%</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Likes</span>
+                        <span class="info-box-number">41,410</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sales</span>
+                        <span class="info-box-number">760</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">New Members</span>
+                        <span class="info-box-number">2,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- FILTER -->
         @include('lte3::examples.inc.filter')
 
-        <!-- LIST -->
+        <!-- LIST/TABLE -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
@@ -46,8 +90,9 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
+                    <button type="button" class="btn btn-tool" data-source-selector="#card-refresh-content"
+                            data-card-widget="maximize">
+                        <i class="fas fa-expand"></i>
                     </button>
                 </div>
             </div>
@@ -58,10 +103,11 @@
                     <tr>
                         <th style="width: 1%">#</th>
                         <th></th>
-                        <th style="width: 20%">Name</th>
-                        <th style="width: 30%">Members</th>
+                        <th style="width: 15%">Name</th>
+                        <th style="width: 20%">Members</th>
+                        <th>Sum</th>
                         <th>Progress</th>
-                        <th style="width: 8%" class="text-center">Status</th>
+                        <th style="width: 8%">Status</th>
                         <th></th>
                         <th style="width: 20%"></th>
                     </tr>
@@ -69,7 +115,7 @@
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
-                            <td>#</td>
+                            <td><i class="fa fa-arrows-alt-v"></i></td>
                             <td>
                                 <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
                                     <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
@@ -89,6 +135,7 @@
                                     @endforeach
                                 </ul>
                             </td>
+                            <td>$<span class="js-num-format text-nowrap">{{ $progect['sum'] }}</span></td>
                             <td>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-green" role="progressbar"
@@ -137,6 +184,7 @@
             </div>
         </div>
 
+        <!-- COMPONENTS -->
         <div class="row">
             <div class="col-md-6">
                 <!-- BASE -->
