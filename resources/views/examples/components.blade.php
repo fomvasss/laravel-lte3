@@ -647,13 +647,89 @@
         <!-- EDITORS -->
         <div class="row">
                 <div class="col-md-12">
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Laravel File Manager</h3>
+                        </div>
+
+                        <div class="card-body">
+
+                            @if(is_dir(public_path('vendor/laravel-filemanager')))
+                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{-- IMAGE --}}
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a  data-input="thumbnail-img" data-preview="holder-img" class="btn btn-primary f-lfm-image">
+                                                <i class="fa fa-picture-o"></i> Choose Image
+                                            </a>
+                                        </span>
+                                        <input id="thumbnail-img" class="form-control" accept="image" type="text" name="image" value="/vendor/lte3/img/favicons/apple-touch-icon.png">
+                                    </div>
+                                    <img id="holder-img" src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="margin-top:15px;max-height:100px;">
+                                </div>
+                                <div class="col-md-6">
+                                    {{-- FILES --}}
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a  data-input="thumbnail-file" class="btn btn-primary f-lfm-file">
+                                                <i class="fa fa-picture-o"></i> Choose File
+                                            </a>
+                                        </span>
+                                        <input id="thumbnail-file" class="form-control" type="text" name="file" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save-lfm') !!}
+                            {!! Lte3::formClose() !!}
+
+                            <br>
+                            <iframe src="/filemanager?type=Images" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+                            @else
+                                LFM is not installed! See <a href="https://unisharp.github.io/laravel-filemanager/installation">docs</a>
+                            @endif
+
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://unisharp.github.io/laravel-filemanager/installation" target="_blank">LFM</a>
+                            documentation.
+                        </div>
+                    </div>
+
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">TinyMce</h3>
+                        </div>
+
+                        <div class="card-body">
+                            {!! Lte3::textarea('message_tinymce', 'f-tinymce - add class to textarea', [
+                                'label' => 'Message',
+                                'class' => 'f-tinymce',
+                            ]) !!}
+                            {{--<textarea class="f-tinymce"></textarea>--}}
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://www.tiny.cloud/docs/tinymce/6/php-projects/" target="_blank">TinyMce</a>
+                            documentation for more examples and information about the plugin.
+                        </div>
+                    </div>
+
+
                     <div class="card card-info card-outline">
                         <div class="card-header">
                             <h3 class="card-title">Summernote</h3>
                         </div>
 
                         <div class="card-body">
-                            <textarea class="f-summernote"></textarea>
+                            {!! Lte3::textarea('message_tinymce', 'f-summernote - add class to textarea', [
+                                 'label' => 'Message',
+                                 'class' => 'f-summernote',
+                             ]) !!}
+                            {{--<textarea class="f-summernote"></textarea>--}}
                         </div>
                         <div class="card-footer">
                             Visit <a href="https://github.com/summernote/summernote/" target="_blank">Summernote</a>
@@ -668,7 +744,11 @@
                         </div>
 
                         <div class="card-body">
-                            <textarea class="f-codeMirror" class="p-3"></textarea>
+                            {!! Lte3::textarea('message_tinymce', '<p><strong>f-codeMirror</strong> - add class to textarea</p>', [
+                                 'label' => 'HTML',
+                                 'class' => 'f-codeMirror',
+                             ]) !!}
+                            {{--<textarea class="f-codeMirror" class="p-3"></textarea>--}}
 
                         </div>
                         <div class="card-footer">
@@ -684,21 +764,27 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="">CKE Mini</label>
-                                <textarea class="form-control f-cke-mini"></textarea>
+                                <label for="">Message</label>
+                                <textarea class="form-control f-cke-mini">f-cke-mini - add class to textarea</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">CKE Small</label>
-                                <textarea class="form-control f-cke-small"></textarea>
+                                <label for="">Message</label>
+                                <textarea class="form-control f-cke-small">f-cke-small - add class to textarea</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">CKE Full</label>
-                                <textarea class="form-control f-cke-full"></textarea>
+                                {!! Lte3::textarea('message_cke_full', 'f-cke-full - add class to textarea', [
+                                     'label' => 'Message',
+                                     'class' => 'f-summernote',
+                                 ]) !!}
                             </div>
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
-                                4</a> documentation for more examples and information about the plugin.
+                            <ul>
+                                <li>Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
+                                        4</a> documentation for more examples and information about the plugin.</li>
+                                <li><a href="https://ckeditor.com/ckeditor-4/download/" target="_blank">Download</a> actual version CKEditor (in <code>public/vendor/ckeditor</code> directory)</li>
+                                <li>Install <a href="https://unisharp.github.io/laravel-filemanager/installation">Laravel Filemanager</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

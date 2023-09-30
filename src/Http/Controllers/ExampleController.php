@@ -57,6 +57,11 @@ class ExampleController extends Controller
      */
     public function save(Request $request)
     {
+
+        if ($request->action === 'save-lfm') {
+            dd($request->all());
+        }
+
         if (($model = $this->modelData()) && $model instanceof HasMedia) {
             $model->mediaManage($request);
         }

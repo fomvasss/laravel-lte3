@@ -96,7 +96,11 @@
 
 </script>
 
-{{-- CKEditor --}}
+{{--
+    CKEditor
+    See official repository https://github.com/ckeditor/ckeditor4
+    Download actual version https://ckeditor.com/ckeditor-4/download/
+--}}
 @if(is_dir(public_path('vendor/ckeditor')))
 <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('vendor/ckeditor/adapters/jquery.js') }}"></script>
@@ -138,6 +142,7 @@
     },
     ckFull = {
         language: LANGUAGE,
+        height: "25em",
         allowedContent: true,
         removePlugins: "exportpdf",
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
@@ -158,6 +163,68 @@
         $('textarea.f-cke-full').ckeditor(ckFull || {})
     }
 </script>
+@endif
+
+
+{{--
+    TinyMce
+    See official docs
+    Download actual version
+--}}
+@if(is_dir(public_path('vendor/tinymce')))
+    <script src="/vendor/tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        var pathAbsolute = "/",
+            tinymceSelector = '.f-tinymce'
+        tinymceOptions = {
+            selector: tinymceSelector,
+            // https://www.tiny.cloud/get-tiny/language-packages/
+            language: LANGUAGE,
+            // https://www.tiny.cloud/docs/tinymce/6/plugins/
+            plugins: 'anchor code table lists autolink emoticons image link visualblocks media preview fullscreen wordcount',
+            toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | link | image | media | preview | wordcount',
+            link_assume_external_targets: true,
+
+            relative_urls: false,
+            path_absolute : pathAbsolute,
+            file_picker_callback : function(callback, value, meta) {
+                var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+                var cmsURL = pathAbsolute + 'filemanager?editor=' + meta.fieldname;
+                if (meta.filetype == 'image') {
+                    cmsURL = cmsURL + "&type=Images";
+                } else {
+                    cmsURL = cmsURL + "&type=Files";
+                }
+
+                tinyMCE.activeEditor.windowManager.openUrl({
+                    url : cmsURL,
+                    title : 'Filemanager',
+                    width : x * 0.8,
+                    height : y * 0.8,
+                    resizable : "yes",
+                    close_previous : "no",
+                    onMessage: (api, message) => {
+                        callback(message.content);
+                    }
+                });
+            }
+
+        };
+        if ($(tinymceSelector).length) {
+            tinymce.init(tinymceOptions);
+        }
+    </script>
+@endif
+
+@if(is_dir(public_path('vendor/laravel-filemanager')))
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" referrerpolicy="origin"></script>
+    <script>
+        $('.f-lfm-image').filemanager('image');
+        $('.f-lfm-file').filemanager('file');
+    </script>
 @endif
 
 <form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
