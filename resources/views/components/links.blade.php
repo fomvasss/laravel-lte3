@@ -9,12 +9,13 @@
     $input_type_value = $input_type_value ?? 'text';
 @endphp
 
-<div class="form-group field-links {{$attrs['class'] ?? null}}"
+<div class="form-group f-wrap f-links {{$attrs['class'] ?? null}}"
      data-field-name="{{ $name }}"
      data-key="{{ $key_key }}"
      data-value="{{ $key_value }}"
      data-placeholder-key="{{ $placeholder_key }}"
      data-placeholder-value="{{ $placeholder_value }}"
+     @if(!empty($attrs['hidden_wrap'])) hidden @endif
 >
 
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
@@ -44,7 +45,7 @@
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
                             <button type="button" @isset ($item['safe']) disabled
-                                    @endisset class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>
+                                    @endisset class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button>
                             </span>
                         </div>
                     </td>
@@ -65,7 +66,7 @@
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
                             <button type="button" @isset ($item['safe']) disabled
-                                    @endisset class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>
+                                    @endisset class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button>
                             </span>
                         </div>
                     </td>

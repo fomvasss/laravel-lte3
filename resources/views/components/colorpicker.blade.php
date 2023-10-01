@@ -2,7 +2,7 @@
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label>{!! $label !!}</label>
     @endif
-    <div class="input-group f-colorpicker colorpicker-element">
+    <div class="input-group f-colorpicker colorpicker-element" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
         <input type="text" class="form-control {{ $attrs['class'] ?? '' }}"
                name="{{ $name }}"
                @if(Arr::get($attrs, 'transparent'))

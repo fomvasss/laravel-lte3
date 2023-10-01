@@ -16,7 +16,7 @@
     $options = is_array_assoc($options) ? $options : array_combine(array_map(fn($o) => Str::lower($o), $options), $options);
 @endphp
 
-<div class="form-group f-select2-wrap {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group f-select2-wrap {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $field_name_input }}">{!! $label !!}</label>
     @endif

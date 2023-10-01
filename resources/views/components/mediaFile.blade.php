@@ -21,7 +21,7 @@
                 <span>Choose file</span>
                 <input
                         type="file"
-                        name="{{ $input_name }}"
+                        name="{{$input_name}}"
                         class="js-files-input @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                         style="display: none;"
                         @if($multimpe) multiple @endif
@@ -52,7 +52,7 @@
                         </td>
 
                         <td class="align-middle">
-                            {{ Str::limit($media->name, 50) }}
+                            {{ Str::substr($media->name, -50) }}
                             [{{ human_filesize($media->size, 1) }}]
                         </td>
                         <td class="align-middle" style="width: 10%;">

@@ -8,7 +8,7 @@
     $paths = $path ? Arr::wrap($path) : [];
 @endphp
 
-<div class="form-group f-wrap f-file {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group f-wrap f-file {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $input_name }}">{!! $label !!}</label>
     @endif

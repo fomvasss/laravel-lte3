@@ -3,7 +3,7 @@
     $checked_value = isset($attrs['checked_value']) ? $attrs['checked_value'] : 1;
     $raw_name = $attrs['raw_name'] ?? Str::replaceLast('[]', '', $name);
 @endphp
-<div class="form-group {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     <div class="custom-control {{ $attrs['wrap_class'] ?? '' }}">
         @if($unchecked_value !== '')
             <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">

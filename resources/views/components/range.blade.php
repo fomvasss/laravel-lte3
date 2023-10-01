@@ -1,4 +1,4 @@
-<div class="form-group f-wrap f-range {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group f-wrap f-range {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif

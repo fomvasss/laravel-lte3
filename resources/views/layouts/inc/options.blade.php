@@ -220,10 +220,13 @@
 @endif
 
 @if(is_dir(public_path('vendor/laravel-filemanager')))
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" referrerpolicy="origin"></script>
+    <script src="/vendor/lte3/plugins/laravel-filemanager/js/stand-alone-button.js" referrerpolicy="origin"></script>
     <script>
-        $('.f-lfm-image').filemanager('image');
-        $('.f-lfm-file').filemanager('file');
+        var initLfmBtn = function() {
+            $('.f-lfm-btn').filemanager();
+        }
+
+        initLfmBtn();
     </script>
 @endif
 

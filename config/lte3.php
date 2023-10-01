@@ -10,7 +10,7 @@ return [
      * Dashboard Home
      */
     'dashboard_slug' => 'lte3',
-    
+
     'routes' => true,
 
     'middleware' => [
@@ -70,25 +70,26 @@ return [
             'datetimepicker' => ['blade' => 'lte3::components.datetimepicker', 'vars' => ['name', 'value', 'attrs']],
 
             'file' => ['blade' => 'lte3::components.file', 'vars' => ['name', 'path', 'attrs']],
+            'lfmFile' => ['blade' => 'lte3::components.lfmFile', 'vars' => ['name', 'path', 'attrs']],
             'fileForm' => ['blade' => 'lte3::components.fileForm', 'vars' => ['name', 'attrs']],
             'mediaFile' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs']],
         ],
 
         'field_attrs' => [
-            'autocomplete', 
-            'autofocus', 
-            'accept', 
-            'placeholder', 
-            'required', 
-            'disabled', 
-            'readonly', 
-            'max', 
-            'min', 
-            'step', 
-            'rows', 
-            'title', 
-            'alt', 
-            'style', 
+            'autocomplete',
+            'autofocus',
+            'accept',
+            'placeholder',
+            'required',
+            'disabled',
+            'readonly',
+            'max',
+            'min',
+            'step',
+            'rows',
+            'title',
+            'alt',
+            'style',
             'id',
         ],
 

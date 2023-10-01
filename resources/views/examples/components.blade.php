@@ -202,6 +202,8 @@
                             'readonly' => 1,
                         ]) !!}
 
+                        {!! Lte3::text('city', 'Lutsk', ['hidden_wrap' => 1]) !!}
+
                         {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
 
                         {!! Lte3::password('Password') !!}
@@ -659,27 +661,19 @@
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
                             <div class="row">
                                 <div class="col-md-6">
-                                    {{-- IMAGE --}}
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <a  data-input="thumbnail-img" data-preview="holder-img" class="btn btn-primary f-lfm-image">
-                                                <i class="fa fa-picture-o"></i> Choose Image
-                                            </a>
-                                        </span>
-                                        <input id="thumbnail-img" class="form-control" accept="image" type="text" name="image" value="/vendor/lte3/img/favicons/apple-touch-icon.png">
-                                    </div>
-                                    <img id="holder-img" src="/vendor/lte3/img/favicons/apple-touch-icon.png" style="margin-top:15px;max-height:100px;">
+                                    {!! Lte3::lfmFile('Poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                        'is_image' => true,
+                                        'lfm_category' => 'image',
+                                    ]) !!}
+
                                 </div>
                                 <div class="col-md-6">
-                                    {{-- FILES --}}
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <a  data-input="thumbnail-file" class="btn btn-primary f-lfm-file">
-                                                <i class="fa fa-picture-o"></i> Choose File
-                                            </a>
-                                        </span>
-                                        <input id="thumbnail-file" class="form-control" type="text" name="file" value="">
-                                    </div>
+                                    {!! Lte3::lfmFile('instruction', null, [
+                                          'label' => 'Instruction',
+                                          'is_image' => false,
+                                          'lfm_category' => 'file',
+                                          'multiple' => 1
+                                      ]) !!}
                                 </div>
                             </div>
                             <br>
