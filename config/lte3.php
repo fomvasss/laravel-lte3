@@ -91,6 +91,7 @@ return [
             'alt',
             'style',
             'id',
+            'data-name',
         ],
 
         'next_destination_key' => '_destination',

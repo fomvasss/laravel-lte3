@@ -175,7 +175,7 @@
     <script src="/vendor/tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
-        var pathAbsolute = "/",
+        var pathAbsolute = "{{url('/')}}/",
             tinymceSelector = '.f-tinymce'
         tinymceOptions = {
             selector: tinymceSelector,
@@ -183,8 +183,12 @@
             language: LANGUAGE,
             // https://www.tiny.cloud/docs/tinymce/6/plugins/
             plugins: 'anchor code table lists autolink emoticons image link visualblocks media preview fullscreen wordcount',
-            toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | link | image | media | preview | wordcount',
+            toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | blockquote | bullist numlist | code | table | link | image | media | preview | wordcount',
             link_assume_external_targets: true,
+
+            document_base_url: pathAbsolute,
+            remove_script_host : false,
+            relative_urls: false,
 
             relative_urls: false,
             path_absolute : pathAbsolute,

@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6 text-right">
                 <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-search"></i></a>
-                <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-upload"></i></a>
+                <a href="{{ \Illuminate\Support\Facades\Request::fullUrlWithQuery(['_export' => 'csv']) }}" class="btn btn-flat btn-default mt-1"><i class="fa fa-upload"></i></a>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
 
                 <div class="card-tools">
-                    <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
+                    <a href="{{ \Illuminate\Support\Facades\Request::fullUrlWithQuery(['_export' => 'csv']) }}" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
                     {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed', 'style' => 'display: inline-flex']) !!}
                         <label class="btn btn-default btn-xs"><input type="file" hidden><i class="fas fa-download"></i> Import</label>
                     {!! Lte3::formClose() !!}
@@ -661,7 +661,7 @@
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
                             <div class="row">
                                 <div class="col-md-6">
-                                    {!! Lte3::lfmFile('Poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    {!! Lte3::lfmFile('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
                                         'is_image' => true,
                                         'lfm_category' => 'image',
                                     ]) !!}

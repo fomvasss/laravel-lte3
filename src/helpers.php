@@ -64,7 +64,7 @@ if (! function_exists('build_linear_array_sort')) {
 
 if (! function_exists('human_filesize')) {
     /**
-     * Показать обьем информации в удобном для человека виде.
+     * Показати обєм інформації в зручному вигляді.
      *
      * @param int $bytes
      * @param int $precision
@@ -84,6 +84,20 @@ if (! function_exists('human_filesize')) {
         // $bytes /= (1 << (10 * $pow));
 
         return round($bytes, $precision).' '.$units[$pow];
+    }
+}
+
+if (! function_exists('human_duration')) {
+    /**
+     * Показать тривалість в зручному вигляді.
+     *
+     * @param int $seconds
+     * @param string $format
+     * @return string
+     */
+    function human_duration(int $seconds, string $format = 'H:i:s')
+    {
+        return date('H:i:s', $seconds);
     }
 }
 

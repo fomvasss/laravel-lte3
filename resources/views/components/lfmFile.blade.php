@@ -29,6 +29,9 @@
                                name="{{$input_name}}"
                                type="text"
                                value="{{$path}}"
+                                @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+                                {{$key}}="{{$val}}"
+                                @endforeach
                         >
                         <div class="input-group-append">
                             <span class="input-group-text f-lfm-btn">Browse</span>
@@ -60,7 +63,13 @@
             <tr class="f-wrap-item">
                 <td class="align-middle">
                     <div class="input-group">
-                        <input class="form-control js-lfm-input" name="{{$input_name}}" type="text">
+                        <input class="form-control js-lfm-input"
+                               name="{{$input_name}}"
+                               type="text"
+                                @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+                                {{$key}}="{{$val}}"
+                                @endforeach
+                        >
                         <div class="input-group-append">
                             <span class="input-group-text f-lfm-btn">Browse</span>
                         </div>
