@@ -113,3 +113,11 @@ ul.js-sortable-nested li.placeholder:before {
 .lte-all-scroll:hover {
     cursor: all-scroll;
 }
+
+.form-group.row .custom-control-label {
+    margin-right: 10px;
+}
+
+.mfp-wrap {
+    z-index: 1051;
+}

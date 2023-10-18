@@ -247,8 +247,12 @@
                                 'wrap_class' => 'custom-switch'
                         ]) !!}
                         <div class="row">
-                            <div class="col-md-3">
-                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], ['label' => 'Payment:', 'default' => 'liqpay']) !!}
+                            <div class="col-md-12">
+                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
+                                    'label' => '',
+                                    'default' => 'liqpay',
+                                    'class_wrap' => 'row',
+                                ]) !!}
                             </div>
                             <div class="col-md-3">
                                 {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
