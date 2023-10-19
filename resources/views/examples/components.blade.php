@@ -3,7 +3,7 @@
 @section('content')
     @include('lte3::parts.content-header', [
         'page_title' => 'Components',
-        'url_back' => '#' ,
+        'url_back' => '#',
         'url_create' => '#'
     ])
 
@@ -285,12 +285,15 @@
                                 'rows' => 3,
                         ]) !!}
 
-                        <a href="#" class="js-clipboard btn btn-outline-success btn-sm"
-                           data-text="Hello!"
-                           data-toggle="tooltip" title="Copy">Copy text</a>
                         <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm"
                            data-method="GET"
                            data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
+                        <a href="#" class="js-clipboard btn btn-outline-success btn-sm"
+                           data-text="Hello!"
+                           data-toggle="tooltip" title="Copy">Copy text</a>
+                        <a href="#" class="js-clipboard with-mark"
+                           data-text="Hello!"
+                           data-toggle="tooltip" title="Copy">Copy text</a>
 
                     </div>
                     <div class="card-footer text-right">
@@ -676,7 +679,8 @@
                                           'label' => 'Instruction',
                                           'is_image' => false,
                                           'lfm_category' => 'file',
-                                          'multiple' => 1
+                                          'trim_host' => true,
+                                          'multiple' => 1,
                                       ]) !!}
                                 </div>
                             </div>

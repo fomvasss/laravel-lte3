@@ -10,6 +10,7 @@
                 previewBlock = $wrapItem.find('.preview-block'),
                 category = $wrap.data('lfm-category') || 'file',
                 isImage = $wrap.data('is-image') || false,
+                trimHost = $wrap.data('trim-host') || false,
                 host = window.location.protocol + '//' + window.location.host
             ;
 
@@ -17,7 +18,10 @@
             window.SetUrl = function (items) {
                 console.log(items)
                 var file_path = items.map(function (item) {
-                    return item.url.replace(host, '');
+                    if (trimHost) {
+                        return item.url.replace(host, '');
+                    }
+                    return item.url;
                 }).join(',');
 
                 // set the value of the desired input to image url

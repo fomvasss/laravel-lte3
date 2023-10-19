@@ -6,6 +6,7 @@
     $input_deleted_name = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $input_deleted_name) . '[]') : Str::replaceLast('[]', '', $input_deleted_name);
     $input_weight_name = !empty($attrs['name_weight']) ? $attrs['name_weight'] : (Str::replaceLast('[]', '', $name) . '_weight');
     $paths = $path ? Arr::wrap($path) : [];
+    $readonly = !isset($attrs['readonly']) || !empty($attrs['readonly']);
 @endphp
 
 <div class="form-group f-wrap f-lfm {{ $attrs['class_wrap'] ?? null }}"
@@ -13,6 +14,7 @@
      data-lfm-category="{{ $attrs['lfm_category'] ?? 'image' }}"
      data-is-image="{{ $attrs['is_image'] ?? 1 }}"
      data-field-name="{{$name}}"
+     data-trim-host="{{ $attrs['trim_host'] ?? 0 }}"
 >
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $input_name }}">{!! $label !!}</label>
@@ -29,12 +31,13 @@
                                name="{{$input_name}}"
                                type="text"
                                value="{{$path}}"
+                               @if($readonly) readonly @endif
                                 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                                 {{$key}}="{{$val}}"
                                 @endforeach
                         >
                         <div class="input-group-append">
-                            <span class="input-group-text f-lfm-btn">Browse</span>
+                            <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
                         </div>
                     </div>
                 </td>
@@ -66,12 +69,13 @@
                         <input class="form-control js-lfm-input"
                                name="{{$input_name}}"
                                type="text"
+                               @if($readonly) readonly @endif
                                 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                                 {{$key}}="{{$val}}"
                                 @endforeach
                         >
                         <div class="input-group-append">
-                            <span class="input-group-text f-lfm-btn">Browse</span>
+                            <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
                         </div>
                     </div>
                 </td>

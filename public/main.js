@@ -349,7 +349,7 @@ $(function () {
                 +'<div class="input-group">'
                 +'<input class="form-control js-lfm-input" name="' + fieldName + '[' + (length) + ']" type="text">'
                 +'<div class="input-group-append">'
-                +'<span class="input-group-text f-lfm-btn">Browse</span>'
+                + '<span class="btn btn-info btn-flat f-lfm-btn">Browse</span>'
                 +'</div>'
                 +'</div>'
                 +'</td>'
