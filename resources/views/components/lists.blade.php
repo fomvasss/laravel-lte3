@@ -2,7 +2,7 @@
     $field_laravel_name = trim(preg_replace('/[\]\[]/', '.', $name), '.');
     $items = $items ?? [];
     //$items = array_merge(old($field_laravel_name, []), ['qq' => 'Qq', 'ww' => 'Ww']); // TODO
-    $placeholder_value = isset($placeholder_value) ? $placeholder_value : 'Value';
+    $placeholder_value = $attrs['placeholder_value'] ?? 'Value';
 @endphp
 
 <div class="form-group f-wrap f-lists {{ $attrs['class'] ?? null }}"
