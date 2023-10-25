@@ -632,11 +632,17 @@
                                 'label' => 'Images',
                                 'multiple' => true,
                                 'is_image' => true,
+
                         ]) !!}
 
                         {!! Lte3::mediaFile('image', $model, [
-                                'label' => 'Image',
                                 'is_image' => true,
+                                'custom_properties' => ['alt']
+                        ]) !!}
+
+                        {!! Lte3::mediaFile('documents', $model, [
+                                'label' => 'Documents',
+                                'multiple' => true,
                         ]) !!}
 
                         {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
