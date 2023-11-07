@@ -382,6 +382,7 @@
                             'required' => 1,
                             'help' => '* Some text',
                             'method_get' => 'POST',
+                            'expand_all' => true,
                             'url_tree' => route('lte3.data.treeselect', ['vocabulary' => 'products', 'selected' => [1,3]]),
                         ]) !!}
 

@@ -619,9 +619,10 @@ $(function () {
                 $input = $this.find('.f-select2-tree-input'),
                 url = $input.data('url'),
                 methodGet = $input.data('method-get') || 'GET',
-                valFld = $input.data('valFld') || 'id',
-                labelFld = $input.data('labelFld') || 'name',
-                incFld = $input.data('incFld') || 'children';
+                valFld = $input.data('valfld') || 'id',
+                labelFld = $input.data('labelfld') || 'name',
+                incFld = $input.data('incfld') || 'children',
+                expandAll = $input.data('expandall');
 
             $.ajax({
                 method: methodGet,
@@ -635,7 +636,8 @@ $(function () {
                             dftVal: data.selected || data.default,
                             valFld: valFld,
                             labelFld: labelFld,
-                            'incFld': incFld
+                            incFld: incFld,
+                            expandAll: expandAll
                         }
                     })
                 },

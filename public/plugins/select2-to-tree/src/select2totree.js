@@ -93,6 +93,9 @@
 			for (var i = 0; i < dataArr.length; i++) {
 				var data = dataArr[i] || {};
 				var $opt = $("<option></option>");
+                if (treeData['expandAll'] == true) {
+                    $opt.addClass('showme');
+                }
 				if (labelPath) {
 					$opt.text(readPath(data, labelPath));
 				} else {
@@ -116,6 +119,9 @@
 				var inc = data[treeData.incFld || "inc"];
 				if (inc && inc.length > 0) {
 					$opt.addClass("non-leaf");
+                    if (treeData['expandAll'] == true) {
+                        $opt.addClass("opened");
+                    }
 					buildOptions(inc, curLevel+1, $opt.val());
 				}
 			} // end 'for'

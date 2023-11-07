@@ -14,6 +14,7 @@
             data-valFld="id"
             data-labelFld="name"
             data-incFld="children"
+            data-expandAll="{{ $attrs['expand_all'] ?? true }}"
             autocomplete="off"
             style="width: 100%;"
             data-toggle="tooltip"
