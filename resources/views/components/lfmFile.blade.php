@@ -11,8 +11,8 @@
 
 <div class="form-group f-wrap f-lfm {{ $attrs['class_wrap'] ?? null }}"
      @if(!empty($attrs['hidden_wrap'])) hidden @endif
-     data-lfm-category="{{ $attrs['lfm_category'] ?? 'image' }}"
-     data-is-image="{{ $attrs['is_image'] ?? 1 }}"
+     data-lfm-category="{{ $attrs['lfm_category'] ?? 'file' }}"
+     data-is-image="{{ $attrs['is_image'] ?? 0 }}"
      data-field-name="{{$name}}"
      data-trim-host="{{ $attrs['trim_host'] ?? 0 }}"
 >

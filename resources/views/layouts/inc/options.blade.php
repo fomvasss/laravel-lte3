@@ -1,3 +1,22 @@
+<form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    <input type="hidden" name="_method" value="POST">
+    <input type="hidden" name="{{ config('lte3.view.next_destination_key', '_destination') }}" value="{{ Request::fullUrl() }}" class="f-dest">
+</form>
+
+@stack('modals')
+
+<div class="modal fade" id="modal-sm"><div class="modal-dialog modal-sm"><div class="modal-content"></div></div></div>
+<div class="modal fade" id="modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
+<div class="modal fade" id="modal-xl"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
+
+@php($modalKey = config('lte3.view.modal_key', '_modal'))
+@if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))
+    <script>
+        $('{{$modal}}').modal()
+    </script>
+@endif
+
 <script>
     const LANGUAGE = $('html').attr('lang') || 'en';
 
@@ -35,12 +54,10 @@
 
     initEditors = function() {
         // Summernote
-        if ($('.f-summernote').length) {
-            $('.f-summernote').summernote({
-                height: 300,
-                lang: 'uk-UA'
-            })
-        }
+        $('.f-summernote').summernote({
+            height: 300,
+            lang: 'uk-UA'
+        })
 
         // CodeMirror
         $('.f-codeMirror').each(function(index, elem){
@@ -217,9 +234,12 @@
             }
 
         };
-        if ($(tinymceSelector).length) {
-            tinymce.init(tinymceOptions);
+        var initTinyMce = function () {
+            if ($(tinymceSelector).length) {
+                tinymce.init(tinymceOptions);
+            }
         }
+        initTinyMce();
     </script>
 @endif
 
@@ -229,25 +249,6 @@
         var initLfmBtn = function() {
             $('.f-lfm-btn').filemanager();
         }
-
         initLfmBtn();
-    </script>
-@endif
-
-<form action="" class="hidden" method="POST" id="js-action-form" style="display: none">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-    <input type="hidden" name="_method" value="POST">
-    <input type="hidden" name="{{ config('lte3.view.next_destination_key', '_destination') }}" value="{{ Request::fullUrl() }}" class="f-dest">
-</form>
-
-@stack('modals')
-<div class="modal fade" id="modal-sm"><div class="modal-dialog modal-sm"><div class="modal-content"></div></div></div>
-<div class="modal fade" id="modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
-<div class="modal fade" id="modal-xl"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
-
-@php($modalKey = config('lte3.view.modal_key', '_modal'))
-@if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))
-    <script>
-        $('{{$modal}}').modal()
     </script>
 @endif

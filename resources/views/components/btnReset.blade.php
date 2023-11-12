@@ -8,6 +8,9 @@
 <a href="{{ $url }}"
    class="btn btn-default {{ $attrs['class'] ?? '' }}"
    data-toggle="tooltip"
+@isset($attrs['confirm'])
+   onclick="return confirm('{{ $attrs['confirm'] }}')"
+@endisset
 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
     {{$key}}="{{$val}}"
 @endforeach

@@ -14,8 +14,8 @@
 
 <div class="form-group f-radiogroup {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
 
-    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
-        <label>{!! $label !!}</label>
+    @if($label = Arr::get($attrs, 'label'))
+        <label>{!! $label !!}</label>&nbsp;
     @endif
 
     @foreach($options ?: [] as $value => $val)

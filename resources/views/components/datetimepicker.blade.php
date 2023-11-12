@@ -1,6 +1,11 @@
 @php
-    if ($value instanceof \DateTime && !empty($attrs['format'])) {
-        $value = $value->format($attrs['format']);
+    if ($value instanceof \DateTime) {
+        if (!empty($attrs['timezone'])) {
+            $value = $value->setTimezone($attrs['timezone']);
+        }
+        if (!empty($attrs['format'])) {
+            $value = $value->format($attrs['format']);
+        }
     }
 @endphp
 

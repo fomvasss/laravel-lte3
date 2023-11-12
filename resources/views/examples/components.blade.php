@@ -248,8 +248,7 @@
                         ]) !!}
                         <div class="row">
                             <div class="col-md-12">
-                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
-                                    'label' => '',
+                                {!! Lte3::radiogroup('payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
                                     'default' => 'liqpay',
                                     'class_wrap' => 'row',
                                 ]) !!}
