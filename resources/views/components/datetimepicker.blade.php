@@ -1,10 +1,15 @@
 @php
-    if ($value instanceof \DateTime && !empty($attrs['format'])) {
-        $value = $value->format($attrs['format']);
+    if ($value instanceof \DateTime) {
+        if (!empty($attrs['timezone'])) {
+            $value = $value->setTimezone($attrs['timezone']);
+        }
+        if (!empty($attrs['format'])) {
+            $value = $value->format($attrs['format']);
+        }
     }
 @endphp
 
-<div class="form-group {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group {{ $attrs['class_wrap'] ?? null }}"  @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
     <label>{!! $label !!}</label>
     @endif

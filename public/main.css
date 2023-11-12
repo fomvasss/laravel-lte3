@@ -103,11 +103,42 @@ ul.js-sortable-nested li.placeholder:before {
     cursor: pointer;
 }
 
+.cursor-move {
+    cursor: move;
+}
 .lte-n-resize:hover {
     cursor: n-resize;
 }
-
-
 .lte-all-scroll:hover {
     cursor: all-scroll;
+}
+
+.form-group.row .custom-control-label {
+    margin-right: 10px;
+}
+
+.mfp-wrap {
+    z-index: 1051;
+}
+
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+}
+
+summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+details[open] {
+    padding: 0.5em;
+}
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+}
+.lte-modal-show img {
+    max-width: 100%;
 }

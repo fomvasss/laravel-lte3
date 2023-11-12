@@ -2,7 +2,7 @@
     $input_name = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
 @endphp
 
-<div class="form-group f-select2-tree-wrap {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group f-select2-tree-wrap {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $input_name}}">{!! $label !!}</label>
     @endif
@@ -14,6 +14,7 @@
             data-valFld="id"
             data-labelFld="name"
             data-incFld="children"
+            data-expandAll="{{ $attrs['expand_all'] ?? true }}"
             autocomplete="off"
             style="width: 100%;"
             data-toggle="tooltip"

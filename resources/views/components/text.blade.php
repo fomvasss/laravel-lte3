@@ -4,9 +4,7 @@
     }
 @endphp
 
-
-<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}">
-   {{-- @isset($attrs['label'])--}}
+<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif

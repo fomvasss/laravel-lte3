@@ -31,7 +31,7 @@ class Lte
             }
 
             if (isset($res['name']) && array_key_exists('value', $res)) {
-                $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $res['attrs']['default'] ?? null);
+                $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $res['attrs']['default'] ?? $componentParams['default']['default'] ?? null);
             }
 
             if (empty($res['model'])) {

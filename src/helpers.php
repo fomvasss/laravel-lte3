@@ -64,7 +64,7 @@ if (! function_exists('build_linear_array_sort')) {
 
 if (! function_exists('human_filesize')) {
     /**
-     * Показать обьем информации в удобном для человека виде.
+     * Показати обєм інформації в зручному вигляді.
      *
      * @param int $bytes
      * @param int $precision
@@ -84,6 +84,20 @@ if (! function_exists('human_filesize')) {
         // $bytes /= (1 << (10 * $pow));
 
         return round($bytes, $precision).' '.$units[$pow];
+    }
+}
+
+if (! function_exists('human_duration')) {
+    /**
+     * Показать тривалість в зручному вигляді.
+     *
+     * @param int $seconds
+     * @param string $format
+     * @return string
+     */
+    function human_duration(int $seconds, string $format = 'H:i:s')
+    {
+        return date('H:i:s', $seconds);
     }
 }
 
@@ -244,5 +258,57 @@ if (! function_exists('array_search_assoc')) {
         }
 
         return false;
+    }
+}
+
+if(!function_exists('rand_color'))
+{
+    /**
+     * @return string
+     */
+    function rand_color(): string
+    {
+        return '#' . substr(md5(mt_rand()), 0, 6);
+    }
+}
+
+
+if (! function_exists('url_add_params')) {
+    /**
+     * @param string $url
+     * @param array $paramsToAdd
+     * @return string
+     */
+    function url_add_params(string $url, array $paramsToAdd = [])
+    {
+        if ($paramsToAdd === []) {
+            return $url;
+        }
+
+        // Розділяємо URL на шлях та GET-параметри
+        $urlParts = parse_url($url);
+
+        // Визначаємо протокол (якщо відсутній)
+        $protocol = isset($urlParts['scheme']) ? $urlParts['scheme'] . '://' : 'https://';
+
+        // Визначаємо шлях
+        $path = isset($urlParts['path']) ? $urlParts['path'] : '';
+
+        // Визначаємо GET-параметри
+        $query = isset($urlParts['query']) ? $urlParts['query'] : '';
+
+        // Розбиваємо наявні GET-параметри на масив
+        parse_str($query, $existingParams);
+
+        // Об'єднуємо наявні та додаткові GET-параметри
+        $combinedParams = array_merge($existingParams, $paramsToAdd);
+
+        // Перетворюємо масив параметрів в рядок
+        $newQuery = http_build_query($combinedParams);
+
+        // Збираємо оновлений URL
+        $newUrl = $protocol . $urlParts['host'] . $path . '?' . $newQuery;
+
+        return $newUrl;
     }
 }

@@ -4,8 +4,9 @@
     $input_deleted_name = !empty($attrs['name_deleted']) ? $attrs['name_deleted'] : (Str::replaceLast('[]', '', $name) . '_deleted');
     $input_deleted_name = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $input_deleted_name) . '[]') : Str::replaceLast('[]', '', $input_deleted_name);
     $input_weight_name = !empty($attrs['name_weight']) ? $attrs['name_weight'] : (Str::replaceLast('[]', '', $name) . '_weight');
-    //$input_weight_name = !empty($attrs['multiple']) ? (Str::replaceLast('[]', '', $input_weight_name) . '[]') : Str::replaceLast('[]', '', $input_weight_name);
+    $input_custom_name = !empty($attrs['name_custom']) ? $attrs['name_custom'] : (Str::replaceLast('[]', '', $name) . '_custom');
     $collection_name = !empty($attrs['collection']) ? $attrs['collection'] : $name;
+    $custom_properties = !empty($attrs['custom_properties']) ? \Illuminate\Support\Arr::wrap($attrs['custom_properties']) : [];
 @endphp
 
 <div class="card card-default f-wrap f-media-file {{ $attrs['class_wrap'] ?? null }}">
@@ -21,7 +22,7 @@
                 <span>Choose file</span>
                 <input
                         type="file"
-                        name="{{ $input_name }}"
+                        name="{{$input_name}}"
                         class="js-files-input @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                         style="display: none;"
                         @if($multimpe) multiple @endif
@@ -52,8 +53,18 @@
                         </td>
 
                         <td class="align-middle">
-                            {{ Str::limit($media->name, 50) }}
-                            [{{ human_filesize($media->size, 1) }}]
+                            {{ Str::substr($media->name, -50) }}
+                            [{{ human_filesize($media->size, 1) }}]<br>
+                            @foreach($custom_properties as $prop)
+                            <input class="form-control form-control-sm"
+                                   type="text"
+                                   placeholder="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                                   title="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                                   data-toggle="tooltip"
+                                   name="{{$input_custom_name}}[{{ $media->id }}][{{$prop}}]" value="{{ $media->getCustomProperty($prop) }}"
+                            >
+                            @endforeach
+
                         </td>
                         <td class="align-middle" style="width: 10%;">
                             <a href="{{ $media->getUrl() }}" class="btn btn-info btn-xs" target="_blank"><i
@@ -71,6 +82,17 @@
             </table>
         @else
             <div><small>Files not loaded.</small></div>
+            @if(!$multimpe)
+            @foreach($custom_properties as $prop)
+                <input class="form-control form-control-sm"
+                       type="text"
+                       placeholder="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                       title="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                       data-toggle="tooltip"
+                       name="{{$input_custom_name}}[][{{$prop}}]"
+                >
+            @endforeach
+            @endif
         @endif
         <div>
             @error($name)

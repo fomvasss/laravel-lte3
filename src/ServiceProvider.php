@@ -13,7 +13,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot()
     {
-        if (!$this->app->environment('production')) {
+        if (!$this->app->environment('production') && config('lte3.routes')) {
             $this->registerRoutes();
         }
 

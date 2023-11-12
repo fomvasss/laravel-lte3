@@ -10,13 +10,13 @@
 
     @foreach ($flashKeys as $key => $title)
         @if (Session::has($key))
-            swal('{{ $title }}', '{{ Session::get($key) }}', '{{ $key }}');
+            Swal.fire('{{ $title }}', '{{ Session::get($key) }}', '{{ $key }}');
         @endif
     @endforeach
 
     @if (isset($errors) && $errors->any())
         @foreach ($errors->all() as $error)
-            swal('Failure!', '{{ $error }}', 'error');
+            Swal.fire('Failure!', '{{ $error }}', 'error');
         @endforeach
     @endif
 </script>

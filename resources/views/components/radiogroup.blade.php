@@ -12,10 +12,10 @@
     }
 @endphp
 
-<div class="form-group f-radiogroup {{ $attrs['class_wrap'] ?? null }}">
+<div class="form-group f-radiogroup {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
 
-    @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
-        <label>{!! $label !!}</label>
+    @if($label = Arr::get($attrs, 'label'))
+        <label>{!! $label !!}</label>&nbsp;
     @endif
 
     @foreach($options ?: [] as $value => $val)
@@ -24,11 +24,12 @@
             $url = is_array($val) ? $val['url'] ?? '' : '';
         @endphp
         <div class="custom-control custom-radio">
-            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @isset($attrs['submit_methor']) js-radio-submit @endisset @error($name) is-invalid @enderror"
+            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_methor']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
                    name="{{ $name }}"
                    value="{{$value}}"
                    id="{{ $name.$loop->index }}"
                    @isset($attrs['submit_methor'])data-method={{$attrs['submit_methor']}}@endisset
+                   @if($val['disabled'] ?? 0) disabled @endisset
                    @if($url)data-url={{$url}}@endif
                    @if($selected == $value) checked @endif
                    @if(isset($attrs['map']) && is_array($attrs['map']))

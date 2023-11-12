@@ -10,6 +10,8 @@
 <script src="/vendor/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Toastr -->
 <script src="/vendor/adminlte/plugins/toastr/toastr.min.js"></script>
+<!-- Sweetalert -->
+<script src="/vendor/adminlte/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Moment -->
 <script src="/vendor/adminlte/plugins/moment/moment.min.js"></script>
 <!-- Bootstrap Color Picker -->

@@ -1,20 +1,22 @@
 @php
     $field_laravel_name = trim(preg_replace('/[\]\[]/', '.', $name), '.');
     $items = $items ?? [];
-    $key_key = $key_key ?? 'key';
-    $key_value = $key_value ?? 'value';
-    $placeholder_key = $placeholder_key ?? 'Key';
-    $placeholder_value = isset($placeholder_value) ? $placeholder_value : 'Value';
-    $input_type_key = $input_type_key ?? 'text';
-    $input_type_value = $input_type_value ?? 'text';
+
+    $key_key = $attrs['key_key'] ?? 'key';
+    $key_value = $attrs['key_value'] ?? 'value';
+    $placeholder_key = $attrs['placeholder_key'] ?? 'Key';
+    $placeholder_value = $attrs['placeholder_value'] ?? 'Value';
+    $input_type_key = $attrs['input_type_key'] ?? 'text';
+    $input_type_value = $attrs['input_type_value'] ?? 'text';
 @endphp
 
-<div class="form-group field-links {{$attrs['class'] ?? null}}"
+<div class="form-group f-wrap f-links {{$attrs['class_wrap'] ?? null}}"
      data-field-name="{{ $name }}"
      data-key="{{ $key_key }}"
      data-value="{{ $key_value }}"
      data-placeholder-key="{{ $placeholder_key }}"
      data-placeholder-value="{{ $placeholder_value }}"
+     @if(!empty($attrs['hidden_wrap'])) hidden @endif
 >
 
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
@@ -44,7 +46,7 @@
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
                             <button type="button" @isset ($item['safe']) disabled
-                                    @endisset class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>
+                                    @endisset class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button>
                             </span>
                         </div>
                     </td>
@@ -60,12 +62,12 @@
                                    type="{{ $input_type_key }}" class="form-control">
                             <input name="{{ $name }}[0][{{ $key_value }}]" class="form-control"
                                    placeholder="{{ $placeholder_value }}" type="{{ $input_type_value }}">
-                            <input type="hidden" name="{{ $name }}[{{ $loop->index }}][safe]" value="0">
+                            <input type="hidden" name="{{ $name }}[0][safe]" value="0">
                             <span class="input-group-append">
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
                             <button type="button" @isset ($item['safe']) disabled
-                                    @endisset class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>
+                                    @endisset class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button>
                             </span>
                         </div>
                     </td>

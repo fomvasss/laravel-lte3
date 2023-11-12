@@ -2,12 +2,13 @@
     $field_laravel_name = trim(preg_replace('/[\]\[]/', '.', $name), '.');
     $items = $items ?? [];
     //$items = array_merge(old($field_laravel_name, []), ['qq' => 'Qq', 'ww' => 'Ww']); // TODO
-    $placeholder_value = isset($placeholder_value) ? $placeholder_value : 'Value';
+    $placeholder_value = $attrs['placeholder_value'] ?? 'Value';
 @endphp
 
-<div class="form-group field-linear-list {{ $attrs['class'] ?? null }}"
+<div class="form-group f-wrap f-lists {{ $attrs['class'] ?? null }}"
      data-field-name="{{ $name }}"
      data-placeholder-value="{{ $placeholder_value }}"
+     @if(!empty($attrs['hidden_wrap'])) hidden @endif
 >
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label class="form-label" for="{{ $name }}">{!! $label !!}</label>
@@ -28,7 +29,7 @@
                             <span class="input-group-append">
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i
+                            <button type="button" class="btn btn-danger btn-flat js-btn-delete"><i
                                         class="fas fa-minus"></i></button></span>
                         </div>
                     </td>
@@ -45,7 +46,7 @@
                             <span class="input-group-append">
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-danger btn-flat js-btn-remove"><i
+                            <button type="button" class="btn btn-danger btn-flat js-btn-delete"><i
                                         class="fas fa-minus"></i></button></span>
                         </div>
                     </td>

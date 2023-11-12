@@ -3,24 +3,80 @@
 @section('content')
     @include('lte3::parts.content-header', [
         'page_title' => 'Components',
-        'url_back' => '#' ,
+        'url_back' => '#',
         'url_create' => '#'
     ])
 
     <!-- Main content -->
     <section class="content">
 
+        <!-- TOP BUTTONS -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <a href="#" class="btn btn-flat btn-success mt-1"><i class="fa fa-plus"></i> Create</a>
+                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal</a>
+                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Ajax</a>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-search"></i></a>
+                <a href="{{ \Illuminate\Support\Facades\Request::fullUrlWithQuery(['_export' => 'csv']) }}" class="btn btn-flat btn-default mt-1"><i class="fa fa-upload"></i></a>
+            </div>
+        </div>
+
+        <!-- STATISTIC CARDS -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">CPU Traffic</span>
+                        <span class="info-box-number">10<small>%</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Likes</span>
+                        <span class="info-box-number">41,410</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sales</span>
+                        <span class="info-box-number">760</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">New Members</span>
+                        <span class="info-box-number">2,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- FILTER -->
         @include('lte3::examples.inc.filter')
 
-        <!-- LIST -->
+        <!-- LIST/TABLE -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Total: 3 <a class="btn btn-success btn-xs"><i class="fas fa-plus"></i> Create</a></h3>
 
                 <div class="card-tools">
-                    <a href="#" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
+                    <a href="{{ \Illuminate\Support\Facades\Request::fullUrlWithQuery(['_export' => 'csv']) }}" class="btn btn-default btn-xs"><i class="fas fa-upload"></i> Export</a>
                     {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true, 'method' => 'POST', 'class' => 'js-form-submit-file-changed', 'style' => 'display: inline-flex']) !!}
                         <label class="btn btn-default btn-xs"><input type="file" hidden><i class="fas fa-download"></i> Import</label>
                     {!! Lte3::formClose() !!}
@@ -34,40 +90,32 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
+                    <button type="button" class="btn btn-tool" data-source-selector="#card-refresh-content"
+                            data-card-widget="maximize">
+                        <i class="fas fa-expand"></i>
                     </button>
                 </div>
             </div>
+
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
+                        <th style="width: 1%">#</th>
                         <th></th>
-                        <th style="width: 20%">
-                            Name
-                        </th>
-                        <th style="width: 30%">
-                            Members
-                        </th>
-                        <th>
-                            Progress
-                        </th>
-                        <th style="width: 8%" class="text-center">
-                            Status
-                        </th>
+                        <th style="width: 15%">Name</th>
+                        <th style="width: 20%">Members</th>
+                        <th>Sum</th>
+                        <th>Progress</th>
+                        <th style="width: 8%">Status</th>
                         <th></th>
-                        <th style="width: 20%">
-                        </th>
+                        <th style="width: 20%"></th>
                     </tr>
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
-                            <td>#</td>
+                            <td><i class="fa fa-arrows-alt-v"></i></td>
                             <td>
                                 <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
                                     <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
@@ -87,6 +135,7 @@
                                     @endforeach
                                 </ul>
                             </td>
+                            <td>$<span class="js-num-format text-nowrap">{{ $progect['sum'] }}</span></td>
                             <td>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-green" role="progressbar"
@@ -94,7 +143,7 @@
                                          aria-valuemin="0" aria-valuemax="100" style="width: {{$progect['progress']}}%">
                                     </div>
                                 </div>
-                                <small> {{$progect['progress']}}% Complete </small>
+                                <small class="text-nowrap"> {{$progect['progress']}}% Complete </small>
                             </td>
                             <td>
                                 <a href="#" class="hover-edit js-modal-fill-html"
@@ -135,6 +184,7 @@
             </div>
         </div>
 
+        <!-- COMPONENTS -->
         <div class="row">
             <div class="col-md-6">
                 <!-- BASE -->
@@ -151,6 +201,8 @@
                         {!! Lte3::text('lastname', 'Mann', [
                             'readonly' => 1,
                         ]) !!}
+
+                        {!! Lte3::text('city', 'Lutsk', ['hidden_wrap' => 1]) !!}
 
                         {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
 
@@ -195,8 +247,11 @@
                                 'wrap_class' => 'custom-switch'
                         ]) !!}
                         <div class="row">
-                            <div class="col-md-3">
-                                {!! Lte3::radiogroup('Payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], ['label' => 'Payment:', 'default' => 'liqpay']) !!}
+                            <div class="col-md-12">
+                                {!! Lte3::radiogroup('payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
+                                    'default' => 'liqpay',
+                                    'class_wrap' => 'row',
+                                ]) !!}
                             </div>
                             <div class="col-md-3">
                                 {!! Lte3::radiogroup('size', 'm', ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large',], ['label' => 'Size:']) !!}
@@ -205,7 +260,7 @@
                                 {!! Lte3::radiogroup('brand', 'samsung', [
                                         'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
                                         'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
-                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi'])],
+                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi']), 'disabled' => 1],
                                     ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
                                 !!}
                             </div>
@@ -229,12 +284,15 @@
                                 'rows' => 3,
                         ]) !!}
 
-                        <a href="#" class="js-clipboard btn btn-outline-success btn-sm"
-                           data-text="Hello!"
-                           data-toggle="tooltip" title="Copy">Copy text</a>
                         <a href="#" class="js-click-submit btn btn-outline-secondary btn-sm"
                            data-method="GET"
                            data-confirm="Submit?" data-url="#" data-toggle="tooltip" title="Submit">Reload</a>
+                        <a href="#" class="js-clipboard btn btn-outline-success btn-sm"
+                           data-text="Hello!"
+                           data-toggle="tooltip" title="Copy">Copy text</a>
+                        <a href="#" class="js-clipboard with-mark"
+                           data-text="Hello!"
+                           data-toggle="tooltip" title="Copy">Copy text</a>
 
                     </div>
                     <div class="card-footer text-right">
@@ -323,6 +381,7 @@
                             'required' => 1,
                             'help' => '* Some text',
                             'method_get' => 'POST',
+                            'expand_all' => true,
                             'url_tree' => route('lte3.data.treeselect', ['vocabulary' => 'products', 'selected' => [1,3]]),
                         ]) !!}
 
@@ -573,11 +632,17 @@
                                 'label' => 'Images',
                                 'multiple' => true,
                                 'is_image' => true,
+
                         ]) !!}
 
                         {!! Lte3::mediaFile('image', $model, [
-                                'label' => 'Image',
                                 'is_image' => true,
+                                'custom_properties' => ['alt']
+                        ]) !!}
+
+                        {!! Lte3::mediaFile('documents', $model, [
+                                'label' => 'Documents',
+                                'multiple' => true,
                         ]) !!}
 
                         {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}
@@ -597,13 +662,82 @@
         <!-- EDITORS -->
         <div class="row">
                 <div class="col-md-12">
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Laravel File Manager</h3>
+                        </div>
+
+                        <div class="card-body">
+
+                            @if(is_dir(public_path('vendor/laravel-filemanager')))
+                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {!! Lte3::lfmFile('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                        'is_image' => true,
+                                        'lfm_category' => 'image',
+                                    ]) !!}
+
+                                </div>
+                                <div class="col-md-6">
+                                    {!! Lte3::lfmFile('instruction', null, [
+                                          'label' => 'Instruction',
+                                          'is_image' => false,
+                                          'lfm_category' => 'file',
+                                          'trim_host' => true,
+                                          'multiple' => 1,
+                                      ]) !!}
+                                </div>
+                            </div>
+                            <br>
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save-lfm') !!}
+                            {!! Lte3::formClose() !!}
+
+                            <br>
+                            <iframe src="/filemanager?type=Images" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+                            @else
+                                LFM is not installed! See <a href="https://unisharp.github.io/laravel-filemanager/installation">docs</a>
+                            @endif
+
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://unisharp.github.io/laravel-filemanager/installation" target="_blank">LFM</a>
+                            documentation.
+                        </div>
+                    </div>
+
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">TinyMce</h3>
+                        </div>
+
+                        <div class="card-body">
+                            {!! Lte3::textarea('message_tinymce', 'f-tinymce - add class to textarea', [
+                                'label' => 'Message',
+                                'class' => 'f-tinymce',
+                            ]) !!}
+                            {{--<textarea class="f-tinymce"></textarea>--}}
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://www.tiny.cloud/docs/tinymce/6/php-projects/" target="_blank">TinyMce</a>
+                            documentation for more examples and information about the plugin.
+                        </div>
+                    </div>
+
+
                     <div class="card card-info card-outline">
                         <div class="card-header">
                             <h3 class="card-title">Summernote</h3>
                         </div>
 
                         <div class="card-body">
-                            <textarea class="f-summernote"></textarea>
+                            {!! Lte3::textarea('message_tinymce', 'f-summernote - add class to textarea', [
+                                 'label' => 'Message',
+                                 'class' => 'f-summernote',
+                             ]) !!}
+                            {{--<textarea class="f-summernote"></textarea>--}}
                         </div>
                         <div class="card-footer">
                             Visit <a href="https://github.com/summernote/summernote/" target="_blank">Summernote</a>
@@ -618,7 +752,11 @@
                         </div>
 
                         <div class="card-body">
-                            <textarea class="f-codeMirror" class="p-3"></textarea>
+                            {!! Lte3::textarea('message_tinymce', '<p><strong>f-codeMirror</strong> - add class to textarea</p>', [
+                                 'label' => 'HTML',
+                                 'class' => 'f-codeMirror',
+                             ]) !!}
+                            {{--<textarea class="f-codeMirror" class="p-3"></textarea>--}}
 
                         </div>
                         <div class="card-footer">
@@ -634,21 +772,27 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="">CKE Mini</label>
-                                <textarea class="form-control f-cke-mini"></textarea>
+                                <label for="">Message</label>
+                                <textarea class="form-control f-cke-mini">f-cke-mini - add class to textarea</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">CKE Small</label>
-                                <textarea class="form-control f-cke-small"></textarea>
+                                <label for="">Message</label>
+                                <textarea class="form-control f-cke-small">f-cke-small - add class to textarea</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">CKE Full</label>
-                                <textarea class="form-control f-cke-full"></textarea>
+                                {!! Lte3::textarea('message_cke_full', 'f-cke-full - add class to textarea', [
+                                     'label' => 'Message',
+                                     'class' => 'f-summernote',
+                                 ]) !!}
                             </div>
                         </div>
                         <div class="card-footer">
-                            Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
-                                4</a> documentation for more examples and information about the plugin.
+                            <ul>
+                                <li>Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
+                                        4</a> documentation for more examples and information about the plugin.</li>
+                                <li><a href="https://ckeditor.com/ckeditor-4/download/" target="_blank">Download</a> actual version CKEditor (in <code>public/vendor/ckeditor</code> directory)</li>
+                                <li>Install <a href="https://unisharp.github.io/laravel-filemanager/installation">Laravel Filemanager</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -679,9 +823,13 @@
     <div class="modal fade" id="my-modal-lg">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header"><h4 class="modal-title">Large Modal</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <div class="modal-header">
+                    <h4 class="modal-title">Large Modal</h4>
+                    <button type="button" class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body"><p>One fine body&hellip;</p></div>
                 <div class="modal-footer justify-content-between">

@@ -1,6 +1,6 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
-    <div class="container-fluid">
+    <div class="container-fluid pl-0">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">
@@ -17,7 +17,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url(config('lte3.dashboard_slug')) }}">Home</a></li>
                     @if(isset($page_title))
                         <li class="breadcrumb-item active">{{ $page_title }}</li>
                     @endif
@@ -27,5 +27,5 @@
     </div>
 </div>
 
-@include('lte3::parts.alerts')
 @include('lte3::parts.callouts')
+@include('lte3::parts.alerts')

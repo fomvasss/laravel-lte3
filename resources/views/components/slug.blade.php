@@ -1,4 +1,4 @@
-<div class="input-group form-group js-verification-slug-field {{ $attrs['class_wrap'] ?? null }}">
+<div class="input-group form-group js-verification-slug-field {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif

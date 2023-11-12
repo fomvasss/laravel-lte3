@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/vendor/adminlte/plugins/flag-icon-css/css/flag-icon.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/toastr/toastr.min.css">
+    <!-- Sweetalert -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/sweetalert2/sweetalert2.min.css">
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Select2 -->

@@ -24,7 +24,7 @@ $(function () {
     $(document).ajaxStart(function () {
         Pace.restart();
     });
-    
+
     // Show message
     function lteAlert(status, msg) {
         if (USE_TOASTR) {
@@ -108,7 +108,7 @@ $(function () {
         $item.addClass(activeClass);
         return true;
     }
-    
+
     // Component: formOpen
     // Autosabmit form after change file
     $(document).on('change', '.js-form-submit-file-changed input[type="file"]', function () {
@@ -145,7 +145,6 @@ $(function () {
             }
             return true;
         });
-        console.log('Error: Url not set.')
     })
 
     // Validate form before Save
@@ -317,6 +316,53 @@ $(function () {
         }
     })
 
+    // LFM
+    $(document).on('click', '.f-lfm .f-wrap-item .js-btn-clear', function (e) {
+        e.preventDefault();
+        if (confirm('Confirm?')) {
+            var $this = $(this),
+                $wrapItem = $this.closest('.f-wrap-item');
+            $wrapItem.find('.js-lfm-input').val('')
+            $wrapItem.find('.preview-block').html('')
+        }
+    })
+    $(document).on('click', '.f-lfm .f-wrap-item .js-btn-delete', function (e) {
+        e.preventDefault();
+        if (confirm('Confirm?')) {
+            var $this = $(this),
+                $wrapItem = $this.closest('.f-wrap-item');
+            if ($this.data('id')) {
+                $wrapItem.closest('.js-input-delete').val($this.data('id'));
+            }
+            $wrapItem.find('.js-lfm-input').remove()
+            $wrapItem.hide()
+        }
+    })
+    $(document).on('click', '.f-lfm .js-btn-add', function (e) {
+        e.preventDefault()
+        var $wrap = $(this).closest('.f-wrap'),
+            length = $wrap.find('.f-wrap-item').length,
+            fieldName = $wrap.data('field-name'),
+
+            item = '<tr class="f-wrap-item">'
+                +'<td class="align-middle">'
+                +'<div class="input-group">'
+                +'<input class="form-control js-lfm-input" name="' + fieldName + '[' + (length) + ']" type="text">'
+                +'<div class="input-group-append">'
+                + '<span class="btn btn-info btn-flat f-lfm-btn">Browse</span>'
+                +'</div>'
+                +'</div>'
+                +'</td>'
+                +'<td style="width: 15%;" class="preview-block"></td>'
+                +'<td class="align-middle" style="width: 5%;">'
+                +'<a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>'
+                +'</td>'
+                +'</tr>'
+
+        $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item)
+        $wrap.find('.f-lfm-btn').filemanager();
+    })
+
     // Show info about input chuse file
     $(document).on('change', '.js-files-input', function () {
         var $this = $(this),
@@ -379,9 +425,11 @@ $(function () {
 
     // Component: Colorpicker
     initColorpicker = function () {
-        $('.f-colorpicker').colorpicker()
-        $(document).on('colorpickerChange', '.f-colorpicker', function (event) {
-            $('.f-colorpicker .fa-square').css('color', event.color.toString());
+        $('.f-colorpicker').colorpicker().each(function () {
+            var $this = $(this)
+            $this.colorpicker().on('colorpickerChange', function(event) {
+                $this.find('.fa-square').css('color', event.color.toString());
+            });
         })
     }
     initColorpicker();
@@ -571,9 +619,10 @@ $(function () {
                 $input = $this.find('.f-select2-tree-input'),
                 url = $input.data('url'),
                 methodGet = $input.data('method-get') || 'GET',
-                valFld = $input.data('valFld') || 'id',
-                labelFld = $input.data('labelFld') || 'name',
-                incFld = $input.data('incFld') || 'children';
+                valFld = $input.data('valfld') || 'id',
+                labelFld = $input.data('labelfld') || 'name',
+                incFld = $input.data('incfld') || 'children',
+                expandAll = $input.data('expandall');
 
             $.ajax({
                 method: methodGet,
@@ -587,7 +636,8 @@ $(function () {
                             dftVal: data.selected || data.default,
                             valFld: valFld,
                             labelFld: labelFld,
-                            'incFld': incFld
+                            incFld: incFld,
+                            expandAll: expandAll
                         }
                     })
                 },
@@ -689,15 +739,16 @@ $(function () {
     initTreeview();
 
     // Component: Links
-    $(document).on('click', '.field-links .js-btn-add', function (e) {
+    $(document).on('click', '.f-links .js-btn-add', function (e) {
         e.preventDefault()
-        var n = $(this).parents('.field-links').find('.js-btn-add').index(this),
-            length = $(this).parents('.field-links').find('.js-btn-add').length,
-            fieldName = $(this).parents('.field-links').data('field-name'),
-            keyKey = $(this).parents('.field-links').data('key'),
-            keyValue = $(this).parents('.field-links').data('value'),
-            placeholderKey = $(this).parents('.field-links').data('placeholder-key'),
-            placeholderValue = $(this).parents('.field-links').data('placeholder-value'),
+        var $parent = $(this).parents('.f-links'),
+            n = $parent.find('.js-btn-add').index(this),
+            length = $parent.find('.js-btn-add').length,
+            fieldName = $parent.data('field-name'),
+            keyKey = $parent.data('key'),
+            keyValue = $parent.data('value'),
+            placeholderKey = $parent.data('placeholder-key'),
+            placeholderValue = $parent.data('placeholder-value'),
             item = '<tr class="item">'
                 + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
                 + '<td class="w-100">'
@@ -707,33 +758,35 @@ $(function () {
                 + '<input type="hidden" name="" value="0">'
                 + '<span class="input-group-append">'
                 + '<button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>'
-                + '<button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button>'
+                + '<button type="button" class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button>'
                 + '</span>'
                 + '</div>'
                 + '</td>'
                 + '</tr>"'
 
-        $(this).parents('.field-links').find('.item').eq(n).after(item)
+        $parent.find('.item').eq(n).after(item)
     })
-    $(document).on('click', '.field-links .js-btn-remove', function (e) {
+    $(document).on('click', '.f-links .js-btn-delete', function (e) {
         e.preventDefault()
 
-        var length = $(this).parents('.field-links').find('.js-btn-remove').length;
+        var $parent = $(this).parents('.f-links'),
+            length = $parent.find('.js-btn-delete').length;
         if (length > 1) {
-            var n = $(this).parents('.field-links').find('.js-btn-remove:not(.first)').index(this)
+            var n = $parent.find('.js-btn-delete:not(.first)').index(this)
 
-            $(this).parents('.field-links').find('.item').eq(n).remove()
+            $parent.find('.item').eq(n).remove()
         }
     })
 
     // Component: Lists
-    $(document).on('click', '.field-linear-list .js-btn-add', function (e) {
+    $(document).on('click', '.f-lists .js-btn-add', function (e) {
         e.preventDefault()
         console.log(1)
-        var n = $(this).parents('.field-linear-list').find('.js-btn-add').index(this),
-            length = $(this).parents('.field-linear-list').find('.js-btn-add').length,
-            fieldName = $(this).parents('.field-linear-list').data('field-name'),
-            placeholderValue = $(this).parents('.field-linear-list').data('placeholder-value'),
+        var $parent = $(this).parents('.f-lists'),
+            n = $parent.find('.js-btn-add').index(this),
+            length = $parent.find('.js-btn-add').length,
+            fieldName = $parent.data('field-name'),
+            placeholderValue = $parent.data('placeholder-value'),
             item = '<tr class="item">'
                 + '<td class="align-middle text-center"><i class="fa fa-arrows-alt-v"></i></td>'
                 + '<td class="w-100">'
@@ -741,20 +794,21 @@ $(function () {
                 + '<input name="' + fieldName + '[' + (length) + ']" placeholder="' + placeholderValue + ' ' + (parseInt(length) + 1) + '" class="form-control" type="text">'
                 + '<span class="input-group-append">'
                 + '<button type="button" class="btn btn-success btn-flat js-btn-add"><i class="fas fa-plus"></i></button>'
-                + '<button type="button" class="btn btn-danger btn-flat js-btn-remove"><i class="fas fa-minus"></i></button></span>'
+                + '<button type="button" class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button></span>'
                 + '</div>'
                 + '</td>'
                 + '</tr>"'
-        $(this).parents('.field-linear-list').find('.item').eq(n).after(item)
+        $parent.find('.item').eq(n).after(item)
     })
-    $(document).on('click', '.field-linear-list .js-btn-remove', function (e) {
+    $(document).on('click', '.f-lists .js-btn-delete', function (e) {
         e.preventDefault()
 
-        var length = $(this).parents('.field-linear-list').find('.js-btn-remove').length;
+        var $parent = $(this).parents('.f-lists'),
+            length = $parent.find('.js-btn-delete').length;
         if (length > 1) {
-            var n = $(this).parents('.field-linear-list').find('.js-btn-remove:not(.first)').index(this)
+            var n = $parent.find('.js-btn-delete:not(.first)').index(this)
 
-            $(this).parents('.field-linear-list').find('.item').eq(n).remove()
+            $parent.find('.item').eq(n).remove()
         }
     })
 });
