@@ -3,6 +3,7 @@
     $items = $items ?? [];
     //$items = array_merge(old($field_laravel_name, []), ['qq' => 'Qq', 'ww' => 'Ww']); // TODO
     $placeholder_value = $attrs['placeholder_value'] ?? 'Value';
+    $input_type_value = $attrs['input_type_value'] ?? 'text';
 @endphp
 
 <div class="form-group f-wrap f-lists {{ $attrs['class'] ?? null }}"
@@ -25,7 +26,7 @@
                     <td class="w-100">
                         <div class="input-group input-group-sm">
                             <input name="{{ $name }}[]" value="{!! $item ?? '' !!}" class="form-control"
-                                   placeholder="{{ $placeholder_value .' '. $loop->iteration }}" type="text">
+                                   placeholder="{{ $placeholder_value .' '. $loop->iteration }}" type="{{ $input_type_value }}">
                             <span class="input-group-append">
                             <button type="button" class="btn btn-success btn-flat js-btn-add"><i
                                         class="fas fa-plus"></i></button>

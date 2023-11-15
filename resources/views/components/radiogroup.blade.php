@@ -28,7 +28,7 @@
                    name="{{ $name }}"
                    value="{{$value}}"
                    id="{{ $name.$loop->index }}"
-                   @isset($attrs['submit_methor'])data-method={{$attrs['submit_methor']}}@endisset
+                   @isset($attrs['submit_method'])data-method={{$attrs['submit_method']}}@endisset
                    @if($val['disabled'] ?? 0) disabled @endisset
                    @if($url)data-url={{$url}}@endif
                    @if($selected == $value) checked @endif
