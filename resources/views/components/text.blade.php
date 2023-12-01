@@ -10,7 +10,11 @@
     @endif
 
     @isset($attrs['prepend'])
-        <div class="input-group-prepend"><span class="input-group-text">{!!$attrs['prepend']!!}</span></div>
+        <div class="input-group-prepend">
+            @foreach(\Illuminate\Support\Arr::wrap($attrs['prepend']) as $val)
+            <span class="input-group-text">{!!$val!!}</span>
+            @endforeach
+        </div>
     @endisset
 
     @if($attrs['type'] === 'url')
@@ -32,7 +36,11 @@
     @endforeach
     >
     @isset($attrs['append'])
-        <div class="input-group-append"><span class="input-group-text">{!!$attrs['append']!!}</span></div>
+        <div class="input-group-append">
+            @foreach(\Illuminate\Support\Arr::wrap($attrs['append']) as $val)
+            <span class="input-group-text">{!!$val!!}</span>
+            @endforeach
+        </div>
     @endisset
 
     @isset($attrs['checkbox'])

@@ -204,7 +204,10 @@
 
                         {!! Lte3::text('city', 'Lutsk', ['hidden_wrap' => 1]) !!}
 
-                        {!! Lte3::text('default', null, ['default' => 'Default value']) !!}
+                        {!! Lte3::text('default', null, [
+                            'default' => 'Default value',
+                            'append' => ['<i class="fas fa-fingerprint"></i>', '<a href="#"><i class="fas fa-qrcode"></i></a>']
+                        ]) !!}
 
                         {!! Lte3::password('Password') !!}
 
