@@ -102,6 +102,7 @@
                     <thead>
                     <tr>
                         <th style="width: 1%">#</th>
+                        <th style="width: 10px;"></th>
                         <th></th>
                         <th style="width: 15%">Name</th>
                         <th style="width: 20%">Members</th>
@@ -116,6 +117,20 @@
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
                             <td><i class="fa fa-arrows-alt-v"></i></td>
+                            <td>
+                                <div class="btn-actions dropdown">
+                                    <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a href="#" class="dropdown-item">Edit</a>
+                                        <a href="#" class="dropdown-item"
+                                           data-confirm="Clone?">Clone</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#"
+                                           class="dropdown-item js-click-submit" data-method="delete"
+                                           data-confirm="Remove?">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
                                 <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
                                     <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
@@ -694,7 +709,7 @@
                                 </div>
                             </div>
                             <br>
-                            {!! Lte3::btnSubmit('Submit', 'action', 'save-lfm') !!}
+                            {!! Lte3::btnSubmit('Submit', 'action', 'save-dd') !!}
                             {!! Lte3::formClose() !!}
 
                             <br>
@@ -800,6 +815,75 @@
                     </div>
                 </div>
             </div>
+
+
+        <!-- Dynamic blocks -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Dynamic blocks</h3>
+                    </div>
+                    <div class="card-body">
+                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+
+                        {{-- STATIC: --}}
+                        {!! Lte3::text('block[title]', null, ['label' => 'Title']) !!}
+                        {!! Lte3::textarea('block[desc]', null, ['label' => 'Desc']) !!}
+                        {!! Lte3::lfmImage('block[photo]', isset($block) ? $block->getContent('photo') : null, ['label' => 'Photo']) !!}
+
+                        {{-- MULTYPLE: --}}
+                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initEditors">
+                            <div class="card-body">
+                                <div class="f-items sortable-y">
+
+                                    {{-- TEMPLATE FIELDS --}}
+                                    <template class="f-item-template">
+                                        <div class="f-item">
+                                            <a href="#" class="btn btn-xs btn-danger float-right js-btn-delete"><i
+                                                    class="fa fa-trash"></i></a>
+                                            <i class="fa fa-arrows-alt-v cursor-move"></i>
+                                            {!! Lte3::text('block[items][$i][question]', null, [
+                                                'label' => 'Question',
+                                            ]) !!}
+                                            {!! Lte3::textarea('block[items][$i][answer]', null, [
+                                                'label' => 'Answer',
+                                            ]) !!}
+                                            {!! Lte3::lfmImage('block[items][$i][img]', null, [
+                                                'label' => 'Img',
+                                            ]) !!}
+                                            {!! Lte3::hidden('block[items][$i][weight]', null, ['class' => 'js-input-weight']) !!}
+                                        </div>
+                                    </template>
+
+                                    {{-- ALREADY SAVED MULTIPLE FIELDS --}}
+                                    @if (isset($block) && ($items = $block->getContentSort('items', [])))
+                                        @foreach ($items as $item)
+                                            <div class="f-item">
+                                                <a href="#" class="btn btn-xs btn-danger float-right js-btn-delete"><i
+                                                        class="fa fa-trash"></i></a>
+                                                <i class="fa fa-arrows-alt-v cursor-move"></i>
+                                                {!! Lte3::text("block[items][{$loop->index}][question]", Arr::get($item, 'question'), ['label' => 'Question']) !!}
+                                                {!! Lte3::textarea("block[items][{$loop->index}][answer]", Arr::get($item, 'answer'), ['label' => 'Answer',]) !!}
+                                                {!! Lte3::lfmImage("block[items][{$loop->index}][img]", Arr::get($item, 'img'), ['label' => 'Img'] ) !!}
+                                                {!! Lte3::hidden("block[items][{$loop->index}][weight]", Arr::get($item, 'weight'), ['class' => 'js-input-weight']) !!}
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="js-msg-empty">Elements not created 😢</p>
+                                    @endisset
+                                </div>
+                                <a href="" class="btn btn-info btn-xs float-right js-btn-add"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+
+                    {!! Lte3::btnSubmit('Submit', 'action', 'save-dd') !!}
+                    {!! Lte3::formClose() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 @endsection
