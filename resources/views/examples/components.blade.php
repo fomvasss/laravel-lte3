@@ -844,15 +844,9 @@
                                             <a href="#" class="btn btn-xs btn-danger float-right js-btn-delete"><i
                                                     class="fa fa-trash"></i></a>
                                             <i class="fa fa-arrows-alt-v cursor-move"></i>
-                                            {!! Lte3::text('block[items][$i][question]', null, [
-                                                'label' => 'Question',
-                                            ]) !!}
-                                            {!! Lte3::textarea('block[items][$i][answer]', null, [
-                                                'label' => 'Answer',
-                                            ]) !!}
-                                            {!! Lte3::lfmImage('block[items][$i][img]', null, [
-                                                'label' => 'Img',
-                                            ]) !!}
+                                            {!! Lte3::text('block[items][$i][question]', null, ['label' => 'Question',]) !!}
+                                            {!! Lte3::textarea('block[items][$i][answer]', null, ['label' => 'Answer',]) !!}
+                                            {!! Lte3::lfmImage('block[items][$i][img]', null, ['label' => 'Img',]) !!}
                                             {!! Lte3::hidden('block[items][$i][weight]', null, ['class' => 'js-input-weight']) !!}
                                         </div>
                                     </template>

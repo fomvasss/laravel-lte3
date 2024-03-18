@@ -781,7 +781,6 @@ $(function () {
     // Component: Lists
     $(document).on('click', '.f-lists .js-btn-add', function (e) {
         e.preventDefault()
-        console.log(1)
         var $parent = $(this).parents('.f-lists'),
             n = $parent.find('.js-btn-add').index(this),
             length = $parent.find('.js-btn-add').length,
@@ -836,7 +835,7 @@ $(function () {
             $wrap.find('.f-items').append($html);
         }
 
-        var $newItem = $wrap.find('.f-items').last('f-item');
+        var $newItem = $wrap.find('.f-items>.f-item').last();
         $.each($newItem.find('[name]'), function () {
             var name = ($(this).attr('name')).replace('$i', length);
             $(this).attr('name', name);

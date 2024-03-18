@@ -19,7 +19,7 @@
         <table class="table table-sm" style="position:relative;">
             <tbody class="sortable-y">
             @forelse($items as $item)
-                <tr class="item first">
+                <tr class="item first f-item">
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>
@@ -36,7 +36,7 @@
                     </td>
                 </tr>
             @empty
-                <tr class="item first">
+                <tr class="item first f-item">
                     <td class="align-middle text-center">
                         <i class="fa fa-arrows-alt-v"></i>
                     </td>

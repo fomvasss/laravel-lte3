@@ -49,6 +49,9 @@
             datepicker:false,
             format: 'H:i:s'
         });
+
+        https://xdsoft.net/jqplugins/datetimepicker/#lang
+        $.datetimepicker.setLocale('uk');
     }
     initDatetimepickerOptions();
 
