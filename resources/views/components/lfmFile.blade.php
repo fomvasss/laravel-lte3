@@ -63,31 +63,35 @@
                 </td>
             </tr>
         @empty
-            <tr class="f-wrap-item">
-                <td class="align-middle">
-                    <div class="input-group">
-                        <input class="form-control js-lfm-input"
-                               name="{{$input_name}}"
-                               type="text"
-                               @if($readonly) readonly @endif
+            @if($multimpe)
+                <tr class="f-wrap-item"></tr>
+            @else
+                <tr class="f-wrap-item">
+                    <td class="align-middle">
+                        <div class="input-group">
+                            <input class="form-control js-lfm-input"
+                                name="{{$input_name}}"
+                                type="text"
+                                @if($readonly) readonly @endif
                                 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                                 {{$key}}="{{$val}}"
                                 @endforeach
-                        >
-                        <div class="input-group-append">
-                            <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
+                            >
+                            <div class="input-group-append">
+                                <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="width: 15%;" class="preview-block"></td>
-                <td class="align-middle" style="width: 5%;">
-                    @if($multimpe)
-                        <a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>
-                    @else
-                        <a href="#" class="btn btn-warning btn-xs js-btn-clear"><i class="fas fa-broom"></i></a>
-                    @endif
-                </td>
-            </tr>
+                    </td>
+                    <td style="width: 15%;" class="preview-block"></td>
+                    <td class="align-middle" style="width: 5%;">
+                        @if($multimpe)
+                            <a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>
+                        @else
+                            <a href="#" class="btn btn-warning btn-xs js-btn-clear"><i class="fas fa-broom"></i></a>
+                        @endif
+                    </td>
+                </tr>
+            @endif
         @endforelse
         </tbody>
     </table>
