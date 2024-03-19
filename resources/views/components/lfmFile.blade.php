@@ -56,7 +56,7 @@
                 <td class="align-middle" style="width: 5%;">
                     @if($multimpe)
                         <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
-                        <input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">
+                        {{--<input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">--}} {{--TODO--}}
                     @else
                         <a href="#" class="btn btn-warning btn-xs js-btn-clear"><i class="fas fa-broom"></i></a>
                     @endif
