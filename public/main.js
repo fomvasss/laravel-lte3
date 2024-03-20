@@ -781,7 +781,6 @@ $(function () {
     // Component: Lists
     $(document).on('click', '.f-lists .js-btn-add', function (e) {
         e.preventDefault()
-        console.log(1)
         var $parent = $(this).parents('.f-lists'),
             n = $parent.find('.js-btn-add').index(this),
             length = $parent.find('.js-btn-add').length,
@@ -810,5 +809,60 @@ $(function () {
 
             $parent.find('.item').eq(n).remove()
         }
+    })
+
+    $('.dropdown').hover(
+        function(){
+            $(this).closest('.table-responsive').css('overflow-x', 'clip');
+        }
+    )
+
+    // Dynamic blocks
+    $(document).on('click', '.f-multyblocks .js-btn-add', function (e) {
+        e.preventDefault();
+        var $this = $(this),
+            $wrap = $this.closest('.f-wrap'),
+            $template = $wrap.find('.f-item-template'),
+            $wrapItemTag = $template.data('wrap-tag'),
+            initFunctionsStr = $wrap.data('fn-inits'),
+            length = $wrap.find('.f-item').length;
+
+        var $html = $wrap.find('.f-item-template').html();
+
+        if ($wrapItemTag) {
+            $wrap.find('.f-items').append(`<${$wrapItemTag} class="f-item">${$html}</${$wrapItemTag}>`);
+        } else {
+            $wrap.find('.f-items').append($html);
+        }
+
+        var $newItem = $wrap.find('.f-items>.f-item').last();
+        $.each($newItem.find('[name]'), function () {
+            var name = ($(this).attr('name')).replace('$i', length);
+            $(this).attr('name', name);
+            if ($(this).data('class')) {
+                $(this).addClass($(this).data('class'));
+            }
+            if ($(this).hasClass('js-input-weight')) {
+                $(this).val(length)
+            }
+        });
+
+        $wrap.find('.js-msg-empty').remove()
+
+        if (initFunctionsStr) {
+            console.log(initFunctionsStr)
+            initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
+                console.log('Init function: ' + str);
+                window[str]();
+            });
+        }
+
+        //initLfmBtn();
+        //initCKEditors()
+    });
+
+    $(document).on('click', '.f-wrap .js-btn-delete', function (e) {
+        e.preventDefault();
+        $(this).closest('.f-item').remove()
     })
 });

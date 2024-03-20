@@ -24,11 +24,11 @@
             $url = is_array($val) ? $val['url'] ?? '' : '';
         @endphp
         <div class="custom-control custom-radio">
-            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_methor']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
+            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_method']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
                    name="{{ $name }}"
                    value="{{$value}}"
                    id="{{ $name.$loop->index }}"
-                   @isset($attrs['submit_methor'])data-method={{$attrs['submit_methor']}}@endisset
+                   @isset($attrs['submit_method'])data-method={{$attrs['submit_method']}}@endisset
                    @if($val['disabled'] ?? 0) disabled @endisset
                    @if($url)data-url={{$url}}@endif
                    @if($selected == $value) checked @endif

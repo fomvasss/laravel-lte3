@@ -272,7 +272,6 @@ if(!function_exists('rand_color'))
     }
 }
 
-
 if (! function_exists('url_add_params')) {
     /**
      * @param string $url

@@ -58,7 +58,7 @@ class ExampleController extends Controller
     public function save(Request $request)
     {
 
-        if ($request->action === 'save-lfm') {
+        if ($request->action === 'save-dd') {
             dd($request->all());
         }
 

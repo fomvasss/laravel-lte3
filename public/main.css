@@ -142,3 +142,14 @@ details[open] summary {
 .lte-modal-show img {
     max-width: 100%;
 }
+
+.f-multyitems .f-item {
+    border: 1px solid #b5b6b7;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-actions.dropdown:hover .dropdown-menu {
+    display: block;
+}

@@ -148,10 +148,10 @@ class Lte
             }
         }
 
-        $request = request($this->transformKey($name));
+        $requestValue = request($this->transformKey($name));
 
-        if (! is_null($request) && $name != '_method') {
-            return $request;
+        if (! is_null($requestValue) && $name !== '_method') {
+            return $requestValue;
         }
 
         if (! is_null($value)) {
