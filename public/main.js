@@ -11,7 +11,7 @@ var initJsVerificationSlugField = function () {
     initSelect2Tree = function () {
     },
     initTreeview = function () {
-    }
+    };
 
 $(function () {
     'use strict';
@@ -28,7 +28,7 @@ $(function () {
     // Show message
     function lteAlert(status, msg) {
         if (USE_TOASTR) {
-            toastr[status](msg)
+            toastr[status](msg);
         }
     }
 
@@ -44,6 +44,14 @@ $(function () {
         lteAlert('success', 'Copied!');
     });
 
+    function setSidebarActiveable($naw, $item) {
+        $naw.find('li>a').removeClass('active');
+        $item.closest('.nav-pills>.nav-item').addClass('menu-open');
+        $item.addClass('active');
+        $item.closest('.menu-open').children('a').addClass('active');
+
+        return true;
+    }
     // LTE: Set active item in Sidebar menu
     $('.nav-sidebar.js-activeable').each(function() {
         var $naw = $(this),
@@ -68,15 +76,12 @@ $(function () {
             }
         });
     });
-    function setSidebarActiveable($naw, $item) {
-        $naw.find('li>a').removeClass('active');
-        $item.closest('.nav-pills>.nav-item').addClass('menu-open');
-        $item.addClass('active');
-        $item.closest('.menu-open').children('a').addClass('active');
 
+    function setActiveableUrl($wrap, $item, tag, activeClass) {
+        $wrap.find(tag).removeClass(activeClass);
+        $item.addClass(activeClass);
         return true;
     }
-
     // Set active item to link: <ul class='js-activeable-url'><li><a href='#' data-pat='seo'></a></li></ul>
     $('.js-activeable-url').each(function () {
         var $this = $(this),
@@ -103,11 +108,6 @@ $(function () {
             }
         })
     });
-    function setActiveableUrl($wrap, $item, tag, activeClass) {
-        $wrap.find(tag).removeClass(activeClass);
-        $item.addClass(activeClass);
-        return true;
-    }
 
     // Component: formOpen
     // Autosabmit form after change file
@@ -133,7 +133,7 @@ $(function () {
             target = $this.data('target'),
             initFunctionsStr = $this.data('fn-inits'); // "fn1,fn2,..."
         $.get(url, function (data) {
-            $(`${target} .modal-content`).html(data.html)
+            $(`${target} .modal-content`).html(data.html);
             $(`${target}`).modal();
 
             if (initFunctionsStr) {
@@ -145,7 +145,7 @@ $(function () {
             }
             return true;
         });
-    })
+    });
 
     // Validate form before Save
     // Add in php controller after validation: if($request->prevalidate) {return 'ok';}
@@ -157,19 +157,19 @@ $(function () {
             url: $form.attr('action'),
             data: $form.serialize() + '&prevalidate=1',
             success: function (data) {
-                console.log(data)
-                $form.submit()
+                console.log(data);
+                $form.submit();
             },
             error: function (data) {
                 var response = JSON.parse(data.responseText);
 
                 if (response && response.errors !== undefined) {
                     $.each(response.errors, function (key, value) {
-                        value.forEach(function (item, /*i, value*/) {
-                            console.log(item)
-                            lteAlert('error', item)
+                        value.forEach(function (item) {
+                            console.log(item);
+                            lteAlert('error', item);
                         });
-                    })
+                    });
                 }
             }
         });
@@ -200,20 +200,19 @@ $(function () {
             method = $this.data('method') || 'POST',
             url = $(this).data('url') || $(this).attr('href'),
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true,
-            destination = $(this).data('destination')
+            destination = $(this).data('destination');
 
         if (url && strConfirm && $form) {
-            $form.find('input[name="_method"]').val(method)
+            $form.find('input[name="_method"]').val(method);
             if (destination) {
-                $form.find('input.f-dest').val(destination)
+                $form.find('input.f-dest').val(destination);
             }
-            $form.attr('action', url).submit()
+            $form.attr('action', url).submit();
         }
     });
     $(document).on('click', '.js-click-url', function (e) {
         e.preventDefault();
         var $this = $(this),
-            method = $this.data('method') || 'GET',
             url = $(this).data('url') || $(this).attr('href'),
             strConfirm = $this.data('confirm') ? confirm($this.data('confirm')) : true;
 
@@ -236,7 +235,7 @@ $(function () {
                 data = sortableNestedVar.sortableNested("serialize").get(),
                 url = $wrap.data('url'),
                 method = $wrap.data('method') || 'POST';
-            console.log(data, url, method)
+            console.log(data, url, method);
 
             if (url) {
                 $.ajax({
@@ -248,12 +247,12 @@ $(function () {
                         lteAlert('success', data.message);
                     },
                     error: function () {
-                        lteAlert('error', 'Error SortableNested Ajax!')
+                        lteAlert('error', 'Error SortableNested Ajax!');
                     }
-                })
+                });
             }
         }
-    })
+    });
 
 
     // jQuery UI sortable
@@ -262,7 +261,7 @@ $(function () {
             distance: 5,
             placeholder: "sortable-placeholder",
             axis: 'y',
-            update: function (event, ui) {
+            update: function () {
                 var $this = $(this),
                     url = $this.data('url'),
                     inputWeightClass = $this.data('input-weight-class'),
@@ -273,8 +272,8 @@ $(function () {
 
                 if (inputWeightClass) {
                     $this.find('.' + inputWeightClass).each(function (i) {
-                        $(this).val(i)
-                    })
+                        $(this).val(i);
+                    });
                 }
 
                 if (url) {
@@ -291,11 +290,11 @@ $(function () {
                             console.log('Error Ajax!')
                             lteAlert('error', 'Error Ajax!');
                         }
-                    })
+                    });
                 }
             }
         });
-    }
+    };
     initSortableY();
 
     // Component: File
@@ -325,7 +324,7 @@ $(function () {
             $wrapItem.find('.js-lfm-input').val('')
             $wrapItem.find('.preview-block').html('')
         }
-    })
+    });
     $(document).on('click', '.f-lfm .f-wrap-item .js-btn-delete', function (e) {
         e.preventDefault();
         if (confirm('Confirm?')) {
@@ -334,12 +333,12 @@ $(function () {
             if ($this.data('id')) {
                 $wrapItem.closest('.js-input-delete').val($this.data('id'));
             }
-            $wrapItem.find('.js-lfm-input').remove()
+            $wrapItem.find('.js-lfm-input').remove();
             $wrapItem.hide()
         }
     })
     $(document).on('click', '.f-lfm .js-btn-add', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         var $wrap = $(this).closest('.f-wrap'),
             length = $wrap.find('.f-wrap-item').length,
             fieldName = $wrap.data('field-name'),
@@ -357,9 +356,9 @@ $(function () {
                 +'<td class="align-middle" style="width: 5%;">'
                 +'<a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>'
                 +'</td>'
-                +'</tr>'
+                +'</tr>';
 
-        $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item)
+        $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item);
         $wrap.find('.f-lfm-btn').filemanager();
     })
 
@@ -418,9 +417,9 @@ $(function () {
                         .prop('readonly', true)
                         .prop('disabled', true)
                 }
-            })
+            });
         }
-    }
+    };
     initJsVerificationSlugField();
 
     // Component: Colorpicker
@@ -430,9 +429,32 @@ $(function () {
             $this.colorpicker().on('colorpickerChange', function(event) {
                 $this.find('.fa-square').css('color', event.color.toString());
             });
-        })
-    }
+        });
+    };
     initColorpicker();
+
+    function toggleSelectableBlocks($val, selectBlocksMap) {
+        Pace.restart();
+        for (var keyHide in selectBlocksMap) {
+            var idHide = 0;
+
+            if ($val !== keyHide) {
+                for (idHide in selectBlocksMap[keyHide]) {
+                    $(selectBlocksMap[keyHide][idHide]).hide();
+                }
+            }
+        }
+
+        for (var keyShow in selectBlocksMap) {
+            var idShow = 0;
+
+            if ($val === keyShow) {
+                for (idShow in selectBlocksMap[keyShow]) {
+                    $(selectBlocksMap[keyShow][idShow]).show();
+                }
+            }
+        }
+    }
 
     // Component: Select2
     // https://select2.org/
@@ -447,13 +469,13 @@ $(function () {
             // Autosave after change
             if (urlSave) {
                 var fieldName = $this.data('name'),
-                    method = $this.data('method-save') || 'POST',
-                    $select2 = $this.select2({
+                    method = $this.data('method-save') || 'POST';
+                    $this.select2({
                         language: LANGUAGE,
                         tags: false
                     });
 
-                $this.on('change', function (e) {
+                $this.on('change', function () {
                     var values = $this.first(':selected').val();
 
                     $.ajax({
@@ -540,35 +562,19 @@ $(function () {
             if ($(this).find(':selected')) {
                 toggleSelectableBlocks($(this).find(':selected').val(), $(this).data('map'))
             }
-        })
+        });
         $('.f-radiogroup .js-map-blocks').each(function () {
             if ($(this).is(':checked')) {
                 toggleSelectableBlocks($(this).val(), $(this).data('map'))
             }
-        })
+        });
     }
+
     $(document).on('change', '.js-map-blocks', function () {
         if ($(this).data('map')) {
-            toggleSelectableBlocks($(this).val(), $(this).data('map'))
+            toggleSelectableBlocks($(this).val(), $(this).data('map'));
         }
     });
-
-    function toggleSelectableBlocks($val, selectBlocksMap) {
-        Pace.restart();
-        for (var key in selectBlocksMap) {
-            var id = 0;
-            if ($val === key) {
-                for (id in selectBlocksMap[key]) {
-                    //console.log(selectBlocksMap[key][id])
-                    $(selectBlocksMap[key][id]).show()
-                }
-            } else {
-                for (id in selectBlocksMap[key]) {
-                    $(selectBlocksMap[key][id]).hide()
-                }
-            }
-        }
-    }
 
     initSelect2();
 
@@ -580,7 +586,6 @@ $(function () {
             var $this = $(this),
                 url = $this.data('url-save'),
                 method = $this.data('method-save') || 'POST',
-                fieldName = $this.attr('name'),
                 rawFieldName = $this.data('raw-name'),
                 format = $this.data('format');
 
@@ -604,7 +609,7 @@ $(function () {
                         complete: function () {
                             //...
                         }
-                    })
+                    });
                 });
             }
         });
@@ -666,13 +671,13 @@ $(function () {
                 fieldName = $base.data('field-name'),
                 $inputs = $base.find('.f-treeview-inputs'),
                 getCheckedIds = function (obj) {
-                    $inputs.html('')
-                    var array = []
+                    $inputs.html('');
+                    var array = [];
                     obj.forEach(element => {
-                        $inputs.append('<input type="hidden" name="' + fieldName + '[]" value="' + element.id + '" />')
-                    })
+                        $inputs.append('<input type="hidden" name="' + fieldName + '[]" value="' + element.id + '" />');
+                    });
                     return array;
-                }
+                };
             if (url) {
                 $.ajax({
                     method: methodGet,
@@ -689,22 +694,22 @@ $(function () {
                             expandIcon: 'fas fa-plus',
                             checkedIcon: 'far fa-check-square',
                             uncheckedIcon: 'far fa-square'
-                        })
+                        });
 
-                        getCheckedIds($tree.treeview('getChecked'))
+                        getCheckedIds($tree.treeview('getChecked'));
 
                         $tree.on('nodeChecked', function (event, data) {
-                            getCheckedIds($(this).treeview('getChecked'))
-                        })
+                            getCheckedIds($(this).treeview('getChecked'));
+                        });
                         $tree.on('nodeUnchecked', function (event, data) {
-                            getCheckedIds($(this).treeview('getChecked'))
-                        })
+                            getCheckedIds($(this).treeview('getChecked'));
+                        });
                     },
                     error: function () {
-                        console.log('Error Treeview Ajax!')
+                        console.log('Error Treeview Ajax!');
                     },
                     complete: function () {
-                        $base.find('.overlay').fadeOut(200)
+                        $base.find('.overlay').fadeOut(200);
                     }
                 });
             } else if (staticData) {
@@ -716,17 +721,17 @@ $(function () {
                     expandIcon: 'fas fa-plus',
                     checkedIcon: 'far fa-check-square',
                     uncheckedIcon: 'far fa-square'
-                })
+                });
 
-                getCheckedIds($tree.treeview('getChecked'))
+                getCheckedIds($tree.treeview('getChecked'));
 
-                $tree.on('nodeChecked', function (event, data) {
-                    getCheckedIds($(this).treeview('getChecked'))
-                })
-                $tree.on('nodeUnchecked', function (event, data) {
-                    getCheckedIds($(this).treeview('getChecked'))
-                })
-                $base.find('.overlay').fadeOut(200)
+                $tree.on('nodeChecked', function () {
+                    getCheckedIds($(this).treeview('getChecked'));
+                });
+                $tree.on('nodeUnchecked', function () {
+                    getCheckedIds($(this).treeview('getChecked'));
+                });
+                $base.find('.overlay').fadeOut(200);
             }
 
         });
@@ -764,19 +769,19 @@ $(function () {
                 + '</td>'
                 + '</tr>"'
 
-        $parent.find('.item').eq(n).after(item)
-    })
+        $parent.find('.item').eq(n).after(item);
+    });
     $(document).on('click', '.f-links .js-btn-delete', function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
         var $parent = $(this).parents('.f-links'),
             length = $parent.find('.js-btn-delete').length;
         if (length > 1) {
-            var n = $parent.find('.js-btn-delete:not(.first)').index(this)
+            var n = $parent.find('.js-btn-delete:not(.first)').index(this);
 
-            $parent.find('.item').eq(n).remove()
+            $parent.find('.item').eq(n).remove();
         }
-    })
+    });
 
     // Component: Lists
     $(document).on('click', '.f-lists .js-btn-add', function (e) {
@@ -796,26 +801,26 @@ $(function () {
                 + '<button type="button" class="btn btn-danger btn-flat js-btn-delete"><i class="fas fa-minus"></i></button></span>'
                 + '</div>'
                 + '</td>'
-                + '</tr>"'
-        $parent.find('.item').eq(n).after(item)
-    })
+                + '</tr>"';
+        $parent.find('.item').eq(n).after(item);
+    });
     $(document).on('click', '.f-lists .js-btn-delete', function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
         var $parent = $(this).parents('.f-lists'),
             length = $parent.find('.js-btn-delete').length;
         if (length > 1) {
-            var n = $parent.find('.js-btn-delete:not(.first)').index(this)
+            var n = $parent.find('.js-btn-delete:not(.first)').index(this);
 
-            $parent.find('.item').eq(n).remove()
+            $parent.find('.item').eq(n).remove();
         }
-    })
+    });
 
     $('.dropdown').hover(
         function(){
             $(this).closest('.table-responsive').css('overflow-x', 'clip');
         }
-    )
+    );
 
     // Dynamic blocks
     $(document).on('click', '.f-multyblocks .js-btn-add', function (e) {
@@ -847,22 +852,19 @@ $(function () {
             }
         });
 
-        $wrap.find('.js-msg-empty').remove()
+        $wrap.find('.js-msg-empty').remove();
 
         if (initFunctionsStr) {
-            console.log(initFunctionsStr)
+            console.log(initFunctionsStr);
             initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
                 console.log('Init function: ' + str);
                 window[str]();
             });
         }
-
-        //initLfmBtn();
-        //initCKEditors()
     });
 
     $(document).on('click', '.f-wrap .js-btn-delete', function (e) {
         e.preventDefault();
-        $(this).closest('.f-item').remove()
-    })
+        $(this).closest('.f-item').remove();
+    });
 });

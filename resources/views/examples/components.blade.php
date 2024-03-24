@@ -229,7 +229,7 @@
                         {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
 
                         {!! Lte3::url('url', null, [
-                                'default' => 'https://stackoverflow.com/',
+                            'default' => 'https://stackoverflow.com/',
                         ]) !!}
 
                         {!! Lte3::email('email', 'fom@app.com', [
@@ -373,14 +373,15 @@
                             'empty_value' => '--',
                             'map' => [
                                 'smtp' => ['.block-smtp'],
-                                'log' => ['.block-log'],
-                                'sendmail' => ['.block-sendmail'],
+                                'log' => ['.block-log', '.block-log-sendmail'],
+                                'sendmail' => ['.block-sendmail', '.block-log-sendmail'],
                             ],
                             'help' => '* Change for show block'
                         ]) !!}
                         <div class="block-smtp" style="display:none"><h2>SMTP Block</h2></div>
                         <div class="block-sendmail" style="display: none;"><h2>SENDMAIL Block</h2></div>
                         <div class="block-log" style="display: none;"><h2>LOG Block</h2></div>
+                        <div class="block-log-sendmail" style="display: none;"><h2>Common LOG+SENDMAIL</h2></div>
 
                     </div>
                     {!! Lte3::formClose() !!}
@@ -646,15 +647,12 @@
 
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
 
-                        {!! Lte3::mediaFile('images', $model, [
+                        {!! Lte3::mediaImage('images', $model, [
                                 'label' => 'Images',
                                 'multiple' => true,
-                                'is_image' => true,
-
                         ]) !!}
 
-                        {!! Lte3::mediaFile('image', $model, [
-                                'is_image' => true,
+                        {!! Lte3::mediaImage('image', $model, [
                                 'custom_properties' => ['alt']
                         ]) !!}
 
@@ -834,7 +832,7 @@
                         {!! Lte3::lfmImage('block[photo]', isset($block) ? $block->getContent('photo') : null, ['label' => 'Photo']) !!}
 
                         {{-- MULTYPLE: --}}
-                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initEditors">
+                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initColorpicker">
                             <div class="card-body">
                                 <div class="f-items sortable-y">
 
