@@ -848,6 +848,11 @@ $(function () {
                 $(this).val(length)
             }
         });
+        // Для Select2
+        $.each($newItem.find('[id]'), function () {
+            var name = ($(this).attr('id')).replace('$i', length);
+            $(this).attr('id', name);
+        });
         // Для полів LFM
         $.each($newItem.find('[data-field-name]'), function () {
             var name = ($(this).attr('data-field-name')).replace('$i', length);
