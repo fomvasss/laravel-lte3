@@ -837,6 +837,7 @@ $(function () {
         }
 
         var $newItem = $wrap.find('.f-items>.f-item').last();
+        // Імена для полів ітема блоку
         $.each($newItem.find('[name]'), function () {
             var name = ($(this).attr('name')).replace('$i', length);
             $(this).attr('name', name);
@@ -846,6 +847,11 @@ $(function () {
             if ($(this).hasClass('js-input-weight')) {
                 $(this).val(length)
             }
+        });
+        // Для полів LFM
+        $.each($newItem.find('[data-field-name]'), function () {
+            var name = ($(this).attr('data-field-name')).replace('$i', length);
+            $(this).attr('data-field-name', name);
         });
 
         $wrap.find('.js-msg-empty').remove();
