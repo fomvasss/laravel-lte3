@@ -303,41 +303,37 @@ $(function () {
         if (confirm('Confirm?')) {
             var $this = $(this);
             $this.siblings('.js-input-delete').val($this.data('id'));
-            $this.closest('.f-file-item').hide()
+            $this.closest('.f-file-item').hide();
         }
-    })
+    });
     $(document).on('click', '.f-media-file .f-file-item .js-btn-delete', function (e) {
         e.preventDefault();
         if (confirm('Confirm?')) {
             var $this = $(this);
             $this.siblings('.js-input-delete').val($this.data('id'));
-            $this.closest('.f-file-item').hide()
+            $this.closest('.f-file-item').hide();
         }
-    })
+    });
 
     // LFM
     $(document).on('click', '.f-lfm .f-wrap-item .js-btn-clear', function (e) {
         e.preventDefault();
-        if (confirm('Confirm?')) {
-            var $this = $(this),
-                $wrapItem = $this.closest('.f-wrap-item');
-            $wrapItem.find('.js-lfm-input').val('')
-            $wrapItem.find('.preview-block').html('')
-        }
+        var $this = $(this),
+            $wrapItem = $this.closest('.f-wrap-item');
+        $wrapItem.find('.js-lfm-input').val('');
+        $wrapItem.find('.preview-block').html('');
     });
     $(document).on('click', '.f-lfm .f-wrap-item .js-btn-delete', function (e) {
         e.preventDefault();
-        if (confirm('Confirm?')) {
-            var $this = $(this),
-                $wrapItem = $this.closest('.f-wrap-item');
-            if ($this.data('id')) {
-                $wrapItem.closest('.js-input-delete').val($this.data('id'));
-            }
-            $wrapItem.find('.js-lfm-input').remove();
-            $wrapItem.hide()
+        var $this = $(this),
+            $wrapItem = $this.closest('.f-wrap-item');
+        if ($this.data('id')) {
+            $wrapItem.closest('.js-input-delete').val($this.data('id'));
         }
-    })
-    $(document).on('click', '.f-lfm .js-btn-add', function (e) {
+        $wrapItem.find('.js-lfm-input').remove();
+        $wrapItem.hide();
+    });
+    $(document).on('click', '.f-lfm .js-lfm-btn-add', function (e) {
         e.preventDefault();
         var $wrap = $(this).closest('.f-wrap'),
             length = $wrap.find('.f-wrap-item').length,
@@ -360,7 +356,7 @@ $(function () {
 
         $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item);
         $wrap.find('.f-lfm-btn').filemanager();
-    })
+    });
 
     // Show info about input chuse file
     $(document).on('change', '.js-files-input', function () {
@@ -823,7 +819,7 @@ $(function () {
     );
 
     // Dynamic blocks
-    $(document).on('click', '.f-multyblocks .js-btn-add', function (e) {
+    $(document).on('click', '.f-multyblocks>*>.js-btn-add', function (e) {
         e.preventDefault();
         var $this = $(this),
             $wrap = $this.closest('.f-wrap'),
@@ -862,8 +858,7 @@ $(function () {
             });
         }
     });
-
-    $(document).on('click', '.f-wrap .js-btn-delete', function (e) {
+    $(document).on('click', '.f-wrap .f-item>.js-btn-delete', function (e) {
         e.preventDefault();
         $(this).closest('.f-item').remove();
     });

@@ -19,7 +19,7 @@
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $input_name }}">{!! $label !!}</label>
     @endif
-    @if($multimpe) <a href="#" class="btn btn-success btn-xs js-btn-add"><i class="fas fa-plus"></i></a> @endif
+    @if($multimpe) <a href="#" class="btn btn-success btn-xs js-lfm-btn-add"><i class="fas fa-plus"></i></a> @endif
 
     <table class="table table-sm" style="position: relative;">
         <tbody class="f-wrap-items @if($multimpe) sortable-y @endif">
@@ -55,10 +55,10 @@
 
                 <td class="align-middle" style="width: 5%;">
                     @if($multimpe)
-                        <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
+                        <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
                         {{--<input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">--}} {{--TODO--}}
                     @else
-                        <a href="#" class="btn btn-warning btn-xs js-btn-clear"><i class="fas fa-broom"></i></a>
+                        <a href="#" class="btn btn-warning btn-xs js-lfm-btn-clear"><i class="fas fa-broom"></i></a>
                     @endif
                 </td>
             </tr>
@@ -85,9 +85,9 @@
                     <td style="width: 15%;" class="preview-block"></td>
                     <td class="align-middle" style="width: 5%;">
                         @if($multimpe)
-                            <a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>
+                            <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete"><i class="fas fa-times"></i></a>
                         @else
-                            <a href="#" class="btn btn-warning btn-xs js-btn-clear"><i class="fas fa-broom"></i></a>
+                            <a href="#" class="btn btn-warning btn-xs js-lfm-btn-clear"><i class="fas fa-broom"></i></a>
                         @endif
                     </td>
                 </tr>
