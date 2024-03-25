@@ -316,14 +316,14 @@ $(function () {
     });
 
     // LFM
-    $(document).on('click', '.f-lfm .f-wrap-item .js-btn-clear', function (e) {
+    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-clear', function (e) {
         e.preventDefault();
         var $this = $(this),
             $wrapItem = $this.closest('.f-wrap-item');
         $wrapItem.find('.js-lfm-input').val('');
         $wrapItem.find('.preview-block').html('');
     });
-    $(document).on('click', '.f-lfm .f-wrap-item .js-btn-delete', function (e) {
+    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-delete', function (e) {
         e.preventDefault();
         var $this = $(this),
             $wrapItem = $this.closest('.f-wrap-item');
@@ -350,7 +350,7 @@ $(function () {
                 +'</td>'
                 +'<td style="width: 15%;" class="preview-block"></td>'
                 +'<td class="align-middle" style="width: 5%;">'
-                +'<a href="#" class="btn btn-danger btn-xs js-btn-delete"><i class="fas fa-times"></i></a>'
+                +'<a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete"><i class="fas fa-times"></i></a>'
                 +'</td>'
                 +'</tr>';
 
