@@ -35,8 +35,8 @@
                         <div class="input-group input-group-sm">
                             <input name="{{ $name }}[{{$loop->index}}][{{$key_key}}]"
                                    value="{{ $item[$key_key] ?? '' }}" placeholder="{{ $placeholder_key }}"
-                                   type="{{$input_type_key}}" @isset ($item['safe']) readonly
-                                   @endisset class="form-control">
+                                   type="{{$input_type_key}}" @if(!empty($item['safe'])) readonly
+                                   @endif class="form-control">
                             <input name="{{ $name }}[{{ $loop->index }}][{{ $key_value }}]"
                                    value="{!! $item[$key_value] ?? '' !!}" type="{{$input_type_value}}"
                                    class="form-control" placeholder="{{ $placeholder_value }}">
