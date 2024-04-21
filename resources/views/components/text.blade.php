@@ -4,7 +4,7 @@
     }
 @endphp
 
-<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
+<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || isset($attrs['checkbox'])  || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif
@@ -44,7 +44,7 @@
     @endisset
 
     @isset($attrs['checkbox'])
-        <div class="input-group-prepend"
+        <div class="input-group-append"
              @isset($attrs['checkbox']['title']) title="{{$attrs['checkbox']['title']}}" @endisset>
         <span class="input-group-text">
             <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="0" checked type="hidden">

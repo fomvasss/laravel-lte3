@@ -4,7 +4,7 @@
     $raw_name = $attrs['raw_name'] ?? Str::replaceLast('[]', '', $name);
 @endphp
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
-    <div class="custom-control {{ $attrs['wrap_class'] ?? '' }}">
+    <div class="custom-control {{ $attrs['class_control'] ?? null }}">
         @if($unchecked_value !== '')
             <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
         @endif

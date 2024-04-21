@@ -120,7 +120,7 @@
                             <td>
                                 <div class="btn-actions dropdown">
                                     <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu" role="menu">
+                                    <div class="dropdown-menu  'is_image' => false," role="menu">
                                         <a href="#" class="dropdown-item">Edit</a>
                                         <a href="#" class="dropdown-item"
                                            data-confirm="Clone?">Clone</a>
@@ -262,7 +262,7 @@
                                 'label' => 'Accept <a href="#">Terms</a>',
                                 'checked_value' => 2,
                                 'unchecked_value' => 0,
-                                'wrap_class' => 'custom-switch'
+                                'class_control' => 'custom-switch'
                         ]) !!}
                         <div class="row">
                             <div class="col-md-12">
@@ -560,6 +560,7 @@
                             AJAX Large Modal
                         </button>
                         <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl"
+                                data-fn-inits="initSelect2"
                                 data-url="{{route('lte3.data.modal-content')}}">
                             AJAX Xl Modal
                         </button>
@@ -690,9 +691,8 @@
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
                             <div class="row">
                                 <div class="col-md-6">
-                                    {!! Lte3::lfmFile('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
-                                        'is_image' => true,
-                                        'lfm_category' => 'image',
+                                    {!! Lte3::lfmImage('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                        'lfm_category' => 'image',  // see configs/lfm.php folder_categories
                                     ]) !!}
 
                                 </div>
@@ -703,7 +703,7 @@
                                           'lfm_category' => 'file',
                                           'trim_host' => true,
                                           'multiple' => 1,
-                                      ]) !!}
+                                    ]) !!}
                                 </div>
                             </div>
                             <br>
