@@ -316,6 +316,7 @@
                     <div class="card-footer text-right">
                         {!! Lte3::btnReset('Reset', ['url' => '']) !!}
                         {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
+                        {!! Lte3::btnSubmit('Submit', null, null, ['before_title' => '<i class="fa fa-check"></i>', 'after_title' => '<i class="fa fa-cogs"></i>', 'class' => 'btn-success']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
                 </div>
