@@ -460,7 +460,8 @@ $(function () {
 
                 urlSave = $this.data('url-save'),
                 urlSuggest = $this.data('url-suggest'),
-                urlTags = $this.data('url-tags');
+                urlTags = $this.data('url-tags'),
+                closeOnSelect = $this.data('close-on-select') || true;
 
             // Autosave after change
             if (urlSave) {
@@ -468,7 +469,8 @@ $(function () {
                     method = $this.data('method-save') || 'POST';
                     $this.select2({
                         language: LANGUAGE,
-                        tags: false
+                        tags: false,
+                        closeOnSelect: closeOnSelect
                     });
 
                 $this.on('change', function () {
@@ -503,6 +505,7 @@ $(function () {
                 $this.select2({
                     language: LANGUAGE,
                     tags: true,
+                    closeOnSelect: closeOnSelect,
                     tokenSeparators: tokenSeparators,
 
                     ajax: urlTags ? {
@@ -539,6 +542,7 @@ $(function () {
                 $this.select2({
                     language: LANGUAGE,
                     tags: false,
+                    closeOnSelect: closeOnSelect,
                     ajax: {
                         delay: 250,
                         url: urlSuggest,
@@ -548,7 +552,8 @@ $(function () {
             } else {
                 $this.select2({
                     language: LANGUAGE,
-                    tags: false
+                    tags: false,
+                    closeOnSelect: closeOnSelect
                 });
             }
         });

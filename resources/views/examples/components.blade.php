@@ -349,6 +349,7 @@
                             'multiple' => 1,
                             'url_save' => route('lte3.data.save'),
                             'url_suggest' => route('lte3.data.tags'),
+                            'close_on_select' => 1,
                         ]) !!}
 
                         {!! Lte3::select2('domain', 'canceled', ['canceled' => 'Canceled'], [

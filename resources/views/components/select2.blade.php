@@ -35,6 +35,7 @@
     @if(!empty($attrs['url_suggest'])) data-url-suggest={{$attrs['url_suggest']}} @endif
     @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
     @if(!empty($attrs['method_save'])) data-method-save={{$attrs['method_save']}} @endif
+    @isset($attrs['close_on_select']) data-close-on-select={{$attrs['close_on_select']}} @endisset
     @if(!empty($attrs['max'])) data-max={{$attrs['max']}} @endif
     @if(!empty($attrs['url_tags'])) data-url-tags={{$attrs['url_tags']}} @endif
     @if(!empty($attrs['new_tag_label'])) data-new-tag-label={{$attrs['new_tag_label']}} @endif
