@@ -250,6 +250,8 @@
 
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
 
+                        {!! Lte3::checkbox('archived', null, ['label' => 'Archived', 'is_simple' => true]) !!}
+
                         {!! Lte3::checkbox('publish', null, ['label' => 'Publish']) !!}
 
                         {!! Lte3::checkbox('allowed', 1, [
