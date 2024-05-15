@@ -97,7 +97,16 @@
         $(".f-x-editable").editable({
             mode:"inline",inputclass:"form-control-sm",
             success: function(response, newValue) {
-                if (response.message) toastr.success(response.message);
+                if (response.message) {
+                    if (response.status === 'error') {
+                        toastr.error(response.message)
+                    } else {
+                        toastr.success(response.message);
+                    }
+                }
+                if (response.operation === 'reload') {
+                    window.location.reload()
+                }
             }
         })
         $.fn.editableform.buttons =

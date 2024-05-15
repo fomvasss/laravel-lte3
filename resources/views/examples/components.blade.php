@@ -14,8 +14,8 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <a href="#" class="btn btn-flat btn-success mt-1"><i class="fa fa-plus"></i> Create</a>
-                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal</a>
-                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Ajax</a>
+                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal static</a>
+                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Modal Ajax</a>
             </div>
             <div class="col-md-6 text-right">
                 <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-search"></i></a>
@@ -331,8 +331,9 @@
                     {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                     <div class="card-body">
 
-                        {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
+                        {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'pending' => 'Pending', 'canceled' => 'Canceled', 'delivered' => 'Delivered',], [
                             'label' => 'Status',
+                            'disableds' => ['pending']
                         ]) !!}
 
                         {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [
