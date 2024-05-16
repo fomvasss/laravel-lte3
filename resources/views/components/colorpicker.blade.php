@@ -8,8 +8,10 @@
                @if(Arr::get($attrs, 'transparent'))
                data-color="transparent"
                @endif
+               @if($url = Arr::get($attrs, 'url_save')) data-url-save="{{$url}}" @endif
                value="{{ $value }}"
                data-original-title=""
+               autocomplete="off"
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach

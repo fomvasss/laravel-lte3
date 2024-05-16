@@ -248,6 +248,8 @@
 
                         {!! Lte3::colorpicker('colorpicker2', null, ['label' => 'Color2', 'transparent' => true]) !!}
 
+                        {!! Lte3::colorpicker('colorpicker3', null, ['label' => 'Color3', 'url_save' => route('lte3.data.save')]) !!}
+
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
 
                         {!! Lte3::checkbox('archived', null, ['label' => 'Archived', 'is_simple' => true]) !!}

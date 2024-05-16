@@ -421,12 +421,43 @@ $(function () {
     // Component: Colorpicker
     initColorpicker = function () {
         $('.f-colorpicker').colorpicker().each(function () {
-            var $this = $(this)
+            var $this = $(this), delayTimer;
+
             $this.colorpicker().on('colorpickerChange', function(event) {
-                $this.find('.fa-square').css('color', event.color.toString());
+                var $input = $(this).find('input'),
+                    fieldName = $input.attr('name'),
+                    urlSave = $input.data('url-save'),
+                    value = event.color.toString();
+                $this.find('.fa-square').css('color', value);
+                clearTimeout(delayTimer);
+                if (urlSave) {
+                    delayTimer = setTimeout(function() {
+                        sendColorpicker(urlSave, fieldName, value);
+                    }, 500);
+                }
             });
         });
     };
+    function sendColorpicker(urlSave, fieldName, value) {
+        $.ajax({
+            url: urlSave,
+            method: 'POST',
+            dataType: 'json',
+            data: {name: fieldName, value: value},
+            success: function (data) {
+                if (data.message) {
+                    lteAlert('success', data.message);
+                }
+            },
+            error: function () {
+                console.log('Error Ajax!');
+                lteAlert('error', 'Error Ajax!');
+            },
+            complete: function () {
+                //
+            }
+        });
+    }
     initColorpicker();
 
     function toggleSelectableBlocks($val, selectBlocksMap) {
