@@ -120,7 +120,7 @@
                             <td>
                                 <div class="btn-actions dropdown">
                                     <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu  'is_image' => false," role="menu">
+                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
                                         <a href="#" class="dropdown-item">Edit</a>
                                         <a href="#" class="dropdown-item"
                                            data-confirm="Clone?">Clone</a>
@@ -175,7 +175,7 @@
                                             data-toggle="dropdown" aria-expanded="false">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
-                                    <div class="dropdown-menu" role="menu">
+                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
                                         <a href="#" class="dropdown-item">Clone</a>
                                         <a href="#" class="dropdown-item">Notify</a>
                                         <div class="dropdown-divider"></div>
@@ -437,8 +437,9 @@
                     <div class="card-body">
                         @isset($terms)
                             {!! Lte3::nestedset($terms, [
-                                    'label' => 'Models',
+                                    'label' => 'Categories',
                                     'has_nested' => true,
+                                    'root_btn_create' => 'Create',
                                     'routes' => [
                                         'edit' => 'lte3.data.save',
                                         'create' => 'lte3.data.save',

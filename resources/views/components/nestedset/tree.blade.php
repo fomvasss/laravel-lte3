@@ -13,9 +13,9 @@
         @endisset
 
         <div class="card-tools">
-            @isset($attrs['routes']['create'])
+            @if($attrs['routes']['create'] ?? '' && $attrs['root_btn_create'] ?? '')
                 <a href="{{ route($attrs['routes']['create'], $attrs['routes']['params']) }}"
-                   class="btn btn-success btn-xs" data-toggle="tooltip"><i class="fas fa-plus"></i> Create</a>
+                   class="btn btn-success btn-xs" data-toggle="tooltip"><i class="fas fa-plus"></i> {{ $attrs['root_create_btn'] }}</a>
             @endisset
         </div>
     </div>
