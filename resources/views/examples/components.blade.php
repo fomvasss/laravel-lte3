@@ -13,6 +13,17 @@
         <!-- TOP BUTTONS -->
         <div class="row mb-3">
             <div class="col-md-6">
+                <div class="btn-group margin-bottom mt-1">
+                    <button type="button" class="btn btn-flat btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-plus"></i> Add
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu" style="max-height: 500px; overflow-y: scroll">
+                        <a href="#" data-target="#modal-xl" class="dropdown-item js-modal-fill-html">Article</a>
+                        <a href="#" data-target="#modal-xl" class="dropdown-item js-modal-fill-html">Product</a>
+                    </div>
+                </div>
+
                 <a href="#" class="btn btn-flat btn-success mt-1"><i class="fa fa-plus"></i> Create</a>
                 <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal static</a>
                 <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Modal Ajax</a>
@@ -475,10 +486,10 @@
                         </div>
                         <div>
                             Textarea:
-                            {!! Lte3::xEditable('comment', 'Interstellar', [
+                            {!! Lte3::xEditable('comment', 'A film that explores the psychological and emotional state of a man whose life revolves around his family, Interstellar is a thrilling and thought-provoking', [
+                                //'limit_title' => 10,
                                 'type' => 'textarea',
                                 'field_name' => 'data[comment]',
-                                'pk' => 2,
                                 'url_save' => route('lte3.data.save'),
                             ]) !!}
                         </div>
@@ -489,7 +500,6 @@
                                 'type' => 'select',
                                 'field_name' => 'data[is_show]',
                                 'source' => [["value" => "1", "text" => "Show"], ["value" => "0", "text" => "Hide"]],
-                                'pk' => 3,
                                 'url_save' => route('lte3.data.save'),
                             ]) !!}
                         </div>
