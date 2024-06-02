@@ -237,7 +237,7 @@
 
                         {!! Lte3::password('Password') !!}
 
-                        {!! Lte3::text('password_new', null, [
+                        {!! Lte3::password('password_new', null, [
                             'label' => 'Password Generator',
                             'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>'
                         ]) !!}

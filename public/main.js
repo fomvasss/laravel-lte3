@@ -942,6 +942,7 @@ $(function () {
 
         if ($inputRecipient && $inputRecipient.length) {
             const password = generateRandomPassword(length, complexity);
+            $inputRecipient.attr('type', 'text');
             $inputRecipient.val(password);
         }
     });
