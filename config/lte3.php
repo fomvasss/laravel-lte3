@@ -38,6 +38,7 @@ return [
 
         'sidebar' => [
             'search' => true,
+            'auth' => false,
         ],
 
         'components' => [

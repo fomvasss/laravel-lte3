@@ -11,6 +11,10 @@ var initJsVerificationSlugField = function () {
     initSelect2Tree = function () {
     },
     initTreeview = function () {
+    },
+    initInputCalc = function () {
+    },
+    initPassfield = function () {
     };
 
 $(function () {
@@ -516,6 +520,9 @@ $(function () {
                             if (data.message) {
                                 lteAlert('success', data.message);
                             }
+                            if (data.operation === 'reload') {
+                                window.location.reload();
+                            }
                         },
                         error: function () {
                             console.log('Error Ajax!');
@@ -858,6 +865,87 @@ $(function () {
             $(this).closest('.table-responsive').css('overflow-x', 'clip');
         }
     );
+
+    initInputCalc = function() {
+        $('.js-input-calc').on('blur keypress', function(event) {
+            if (event.type === 'blur' || (event.which === 13 && event.type === 'keypress')) {
+                var expression = $(this).val();
+                var result = eval(expression);
+                $(this).val(result);
+            }
+        });
+        $('.js-input-calc').on('input', function() {
+            var sanitized = $(this).val().replace(/[^0-9()+\-*\/\.\s]/g, '');
+            $(this).val(sanitized);
+        });
+    }
+    initInputCalc();
+
+    $(document).on('keyup keypress', 'input.js-input-calc', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+
+    function generateRandomPassword(length, complexity) {
+        let charset = "abcdefghijklmnopqrstuvwxyz";
+
+        if (complexity >= 2) {
+            charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        }
+        if (complexity >= 3) {
+            charset += "0123456789";
+        }
+        if (complexity >= 4) {
+            charset += "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+        }
+        if (complexity >= 5) {
+            charset += "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+        }
+
+        let password = "";
+        for (let i = 0, n = charset.length; i < length; ++i) {
+            password += charset.charAt(Math.floor(Math.random() * n));
+        }
+        return password;
+    }
+
+    function getRandomLength(min, max) {
+        if (!min && !max) {
+            return 12; // Значення за замовчуванням, якщо не вказано довжину
+        }
+        if (min && !max) {
+            return min;
+        }
+        if (!min && max) {
+            return max;
+        }
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    $(document).on('click', '.js-passgen', function() {
+        const lengthFrom = parseInt($(this).data('length-from')) || 8;
+        const lengthTo = parseInt($(this).data('length-to')) || 8;
+        const length = getRandomLength(lengthFrom, lengthTo);
+        const complexity = parseInt($(this).data('complexity'));
+        const inputRecipientSelector = $(this).data('input-recipient');
+
+        let $inputRecipient = null;
+        if (inputRecipientSelector && $(inputRecipientSelector).length) {
+            $inputRecipient = $(inputRecipientSelector);
+        } else {
+            $inputRecipient = $(this).closest('.form-group').find('input');
+        }
+
+        if ($inputRecipient && $inputRecipient.length) {
+            const password = generateRandomPassword(length, complexity);
+            $inputRecipient.val(password);
+        }
+    });
+
 
     // Dynamic blocks
     $(document).on('click', '.f-multyblocks>*>.js-btn-add', function (e) {

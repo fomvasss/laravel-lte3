@@ -237,7 +237,14 @@
 
                         {!! Lte3::password('Password') !!}
 
+                        {!! Lte3::text('password_new', null, [
+                            'label' => 'Password Generator',
+                            'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>'
+                        ]) !!}
+
                         {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
+
+                        {!! Lte3::text('Calculator', '3+4*2', ['class' => 'js-input-calc', 'help' => '* Press Enter for calc']) !!}
 
                         {!! Lte3::url('url', null, [
                             'default' => 'https://stackoverflow.com/',
