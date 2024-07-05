@@ -598,7 +598,7 @@ $(function () {
 
         // https://stackoverflow.com/questions/68030101/why-is-jquery-select2-autofocus-not-working-and-how-do-i-fix-it
         $(document).on('select2:open', () => {
-            document.querySelector('.select2-search__field').focus();
+            $(this).find('.select2-search__field').focus();
         });
 
         // Displaying blocks depending on the selection in the selection
