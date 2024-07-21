@@ -595,24 +595,21 @@ $(function () {
                 });
             }
         });
-
-        // https://stackoverflow.com/questions/68030101/why-is-jquery-select2-autofocus-not-working-and-how-do-i-fix-it
-        $(document).on('select2:open', () => {
-            $(this).find('.select2-search__field').focus();
-        });
-
+        
         // Displaying blocks depending on the selection in the selection
         $('.f-select2-wrap .js-map-blocks').each(function () {
             if ($(this).find(':selected')) {
-                toggleSelectableBlocks($(this).find(':selected').val(), $(this).data('map'))
+                toggleSelectableBlocks($(this).find(':selected').val(), $(this).data('map'));
             }
         });
         $('.f-radiogroup .js-map-blocks').each(function () {
             if ($(this).is(':checked')) {
-                toggleSelectableBlocks($(this).val(), $(this).data('map'))
+                toggleSelectableBlocks($(this).val(), $(this).data('map'));
             }
         });
     }
+    
+    
 
     $(document).on('change', '.js-map-blocks', function () {
         if ($(this).data('map')) {
@@ -620,8 +617,16 @@ $(function () {
         }
     });
 
+    $(document).on('click', '.select2', function (e) {
+        let el = document.querySelector('.select2-container.select2-container--default.select2-container--open .select2-dropdown.select2-dropdown--below .select2-search.select2-search--dropdown  .select2-search__field');
+        if (el) {
+            el.focus();
+        }
+    });
+
     initSelect2();
 
+    // TODO
     //$(document).on('change', '.f-radiogroup')
 
     // Component: checkbox
