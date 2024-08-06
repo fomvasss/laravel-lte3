@@ -139,15 +139,13 @@ $(function () {
         $.get(url, function (data) {
             $(`${target} .modal-content`).html(data.html);
             $(`${target}`).modal();
-
-            if (initFunctionsStr) {
-                console.log(initFunctionsStr)
-                initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
-                    console.log('Init function: ' + str);
-                    window[str]();
-                });
-            }
+            
             return true;
+        });
+    }).done(function () {
+        initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
+            console.log('Init function: ' + str);
+            window[str]();
         });
     });
 
@@ -505,7 +503,8 @@ $(function () {
                     $this.select2({
                         language: LANGUAGE,
                         tags: false,
-                        closeOnSelect: closeOnSelect
+                        closeOnSelect: closeOnSelect,
+                        dropdownParent: $this.closest('.f-select2-wrap'),
                     });
 
                 $this.on('change', function () {
@@ -545,7 +544,7 @@ $(function () {
                     tags: true,
                     closeOnSelect: closeOnSelect,
                     tokenSeparators: tokenSeparators,
-
+                    dropdownParent: $this.closest('.f-select2-wrap'),
                     ajax: urlTags ? {
                         delay: 250,
                         url: urlTags,
@@ -581,6 +580,7 @@ $(function () {
                     language: LANGUAGE,
                     tags: false,
                     closeOnSelect: closeOnSelect,
+                    dropdownParent: $this.closest('.f-select2-wrap'),
                     ajax: {
                         delay: 250,
                         url: urlSuggest,
@@ -591,7 +591,8 @@ $(function () {
                 $this.select2({
                     language: LANGUAGE,
                     tags: false,
-                    closeOnSelect: closeOnSelect
+                    closeOnSelect: closeOnSelect,
+                    dropdownParent: $this.closest('.f-select2-wrap')
                 });
             }
         });
@@ -608,8 +609,6 @@ $(function () {
             }
         });
     }
-    
-    
 
     $(document).on('change', '.js-map-blocks', function () {
         if ($(this).data('map')) {
