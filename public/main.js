@@ -141,11 +141,11 @@ $(function () {
             $(`${target}`).modal();
             
             return true;
-        });
-    }).done(function () {
-        initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
-            console.log('Init function: ' + str);
-            window[str]();
+        }).done(function () {
+            initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
+                console.log('Init function: ' + str);
+                window[str]();
+            });
         });
     });
 
