@@ -214,6 +214,7 @@
             plugins: 'anchor code table lists autolink emoticons image link visualblocks media preview fullscreen wordcount',
             toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | blockquote | bullist numlist | code | table | link | image | media | preview | wordcount',
             link_assume_external_targets: true,
+            entity_encoding : "raw",
 
             // URL & file paths
             document_base_url: pathAbsolute,
