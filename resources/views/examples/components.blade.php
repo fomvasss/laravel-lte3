@@ -353,7 +353,8 @@
 
                         {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'pending' => 'Pending', 'canceled' => 'Canceled', 'delivered' => 'Delivered',], [
                             'label' => 'Status',
-                            'disableds' => ['pending']
+                            'disableds' => ['pending'],
+                            'data' => ['sum' => 1234],
                         ]) !!}
 
                         {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [

@@ -67,6 +67,11 @@
     @if(isset($attrs['map']) && is_array($attrs['map']))
         data-map='@json($attrs['map'])'
     @endif
+    @if(isset($attrs['data']) && is_array($attrs['data']))
+        @foreach($attrs['data'] as $dataKey => $dataVal)
+            data-{{$dataKey}}="{{$dataVal}}"
+        @endforeach
+    @endif
     @empty($attrs['id'])
         id="{{ $field_name_input }}"
     @endempty
