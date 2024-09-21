@@ -123,6 +123,12 @@
         return ui;
     }
 
+    if ($('.f-highlight').length) {
+        $('.f-highlight').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    }
+
 </script>
 
 {{--
