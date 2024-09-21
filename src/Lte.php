@@ -50,6 +50,28 @@ class Lte
     }
 
     /**
+     * @param array $params
+     * @return string
+     * @throws Exception
+     */
+    public function field(array $params = [])
+    {
+        $fieldType = \Arr::get($params, 'type', 'text');
+        $componentParams = config("lte3.view.components.{$fieldType}");
+
+        $attrs = [];
+        foreach (\Arr::get($componentParams, 'vars', []) as $var) {
+            if (in_array($var, ['attrs', 'type'])) {
+                continue;
+            }
+            $attrs[] = $params[$var] ?? '';
+        }
+        $attrs[] = $params;
+
+        return $this->__call($fieldType, $attrs);
+    }
+
+    /**
      * @param array $attrs
      * @return string
      */

@@ -1,6 +1,7 @@
 @php
     if ($attrs['type'] === 'password') {
         $value = '';
+        $attrs['placeholder'] = \Illuminate\Support\Arr::get($attrs, 'placeholder', '******');
     }
 @endphp
 
@@ -34,6 +35,11 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @if(isset($attrs['data']) && is_array($attrs['data']))
+        @foreach($attrs['data'] as $dataKey => $dataVal)
+            data-{{$dataKey}}="{{$dataVal}}"
+        @endforeach
+    @endif
     >
     @isset($attrs['append'])
         <div class="input-group-append">

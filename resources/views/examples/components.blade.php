@@ -478,6 +478,32 @@
             </div>
 
             <div class="col-md-6">
+                <!-- FIELD -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Field</h3>
+                    </div>
+                    <div class="card-body">
+                        {!! Lte3::field([
+                            'type' => 'text',
+                            'name' => 'nickname',
+                            'value' => 'Nik',
+                            'label' => 'Nickname',
+                            'class' => 'some-class',
+                            'data' => ['rr' => 'qq']
+                        ]) !!}
+                        {!! Lte3::field([
+                            'type' => 'select2',
+                            'name' => 'gender',
+                            'multiple' => true,
+                            'selected' => 'male',
+                            'options' => ['male' => 'Male', 'female' => 'Female'],
+                            'label' => 'Gender',
+                            'data' => ['tt' => 'yy']
+                        ]) !!}
+                    </div>
+                </div>
+
                 <!-- X-EDITABLE -->
                 <div class="card card-primary">
                     <div class="card-header">
@@ -752,6 +778,36 @@
 
                     <div class="card card-info card-outline">
                         <div class="card-header">
+                            <h3 class="card-title">highlight.js</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="f-highlight language-html">
+                                {{ "<h3>Hello highlight</h3><p>This example text</p>" }}
+                            </div>
+                            <hr>
+                            <div class="f-highlight language-php">
+                                $a = 5;
+                                phpInfo();
+                                $request->input('name');
+                            </div>
+                            <hr>
+                            <div class="f-highlight language-javascript">
+                                hljs = require('highlight.js');
+                                html = hljs.highlightAuto('<h1>Hello World!</h1>').value
+                            </div>
+
+
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://highlightjs.org/" target="_blank">highlight.js</a> documentation for
+                            more examples and information about the plugin.
+                            Github <a href="https://github.com/highlightjs/highlight.js">repo</a>
+                        </div>
+                    </div>
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
                             <h3 class="card-title">TinyMce</h3>
                         </div>
 
@@ -908,19 +964,28 @@
 @push('styles')
     <!-- summernote -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
+
     <!-- CodeMirror -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/codemirror.css">
     <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/theme/monokai.css">
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/highlightjs/styles/default.min.css">
 @endpush
 
 @push('scripts')
     <!-- Summernote -->
     <script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+
     <!-- CodeMirror -->
     <script src="/vendor/adminlte/plugins/codemirror/codemirror.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/css/css.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/xml/xml.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+    <!-- highlight.js -->
+    <script src="/vendor/lte3/plugins/highlightjs/highlight.min.js"></script>
+    <script src="/vendor/lte3/plugins/highlightjs/languages/php.min.js"></script>
 @endpush
 
 @push('modals')
