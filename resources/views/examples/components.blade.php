@@ -483,7 +483,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Field</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body"
                         {!! Lte3::field([
                             'type' => 'text',
                             'name' => 'nickname',

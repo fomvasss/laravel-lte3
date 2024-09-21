@@ -54,8 +54,10 @@ class Lte
      * @return string
      * @throws Exception
      */
-    public function field(array $params = [])
+    public function field(array $params = [], array $params2 = [])
     {
+        $params = array_merge($params, $params2);
+        
         $fieldType = \Arr::get($params, 'type', 'text');
         $componentParams = config("lte3.view.components.{$fieldType}");
 
