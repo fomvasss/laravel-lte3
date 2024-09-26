@@ -97,7 +97,16 @@
         $(".f-x-editable").editable({
             mode:"inline",inputclass:"form-control-sm",
             success: function(response, newValue) {
-                if (response.message) toastr.success(response.message);
+                if (response.message) {
+                    if (response.status === 'error') {
+                        toastr.error(response.message)
+                    } else {
+                        toastr.success(response.message);
+                    }
+                }
+                if (response.operation === 'reload') {
+                    window.location.reload()
+                }
             }
         })
         $.fn.editableform.buttons =
@@ -112,6 +121,12 @@
             $(this).width($(this).width());
         });
         return ui;
+    }
+
+    if ($('.f-highlight').length) {
+        $('.f-highlight').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
     }
 
 </script>
@@ -205,13 +220,15 @@
             plugins: 'anchor code table lists autolink emoticons image link visualblocks media preview fullscreen wordcount',
             toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | blockquote | bullist numlist | code | table | link | image | media | preview | wordcount',
             link_assume_external_targets: true,
+            entity_encoding : "raw",
 
+            // URL & file paths
             document_base_url: pathAbsolute,
             remove_script_host : false,
             relative_urls: false,
-
-            relative_urls: false,
             path_absolute : pathAbsolute,
+
+            // LFM integration
             file_picker_callback : function(callback, value, meta) {
                 var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
                 var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
@@ -234,7 +251,27 @@
                         callback(message.content);
                     }
                 });
-            }
+            },
+
+            // Register the cite format
+            formats: {
+                cite: {block: 'cite'}
+            },
+            // Populate the styleselect menu
+            style_formats: [
+                { title: 'Cite', format: 'cite' },
+                { title: 'Blocks', items: [
+                        { title: 'Black', block: 'div', wrapper: true, classes: 'black-block' },
+                        { title: 'Green', block: 'div', wrapper: true, classes: 'green-block' },
+                        { title: 'Blue', block: 'div', wrapper: true, classes: 'blue-block' },
+                        { title: 'Yellow', block: 'div', wrapper: true, classes: 'yellow-block' },
+                    ]
+                }
+            ],
+            // This removes the WYSIWYG formatting within the styleselect menu
+            preview_styles: false,
+            content_style: 'div.black-block { background: black; color: white; } div.green-block { background: green; color: white; } div.blue-block { background: blue; color: white; } div.yellow-block { background: yellow; color: black; }',
+
 
         };
         var initTinyMce = function () {

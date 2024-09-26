@@ -2,7 +2,7 @@
 
 {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
 <div class="card @if($collapsed) collapsed-card @endif">
-    <div class="card-header">
+    <div class="card-header" data-card-widget="collapse">
         <h3 class="card-title lte-pointer" data-card-widget="collapse">Filter <i class="fas fa-angle-down"></i></h3>
 
         <div class="card-tools">

@@ -9,7 +9,7 @@
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach
->{!! $title !!}</button>
+>{!!$attrs['before_title'] ?? ''!!} {!! $title !!} {!!$attrs['after_title'] ?? ''!!}</button>
 
 @if(\Illuminate\Support\Arr::get($attrs, 'add') === 'fixed')
     <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="{!! $title !!}"><i class="fa fa-save"></i></button>

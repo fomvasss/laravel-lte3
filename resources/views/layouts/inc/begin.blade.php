@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="noindex, nofollow" />
+
     <title>{{ config('app.name') }} | Dashboard</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/vendor/lte3/img/favicons/apple-touch-icon.png">

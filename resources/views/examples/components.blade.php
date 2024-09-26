@@ -13,9 +13,20 @@
         <!-- TOP BUTTONS -->
         <div class="row mb-3">
             <div class="col-md-6">
+                <div class="btn-group margin-bottom mt-1">
+                    <button type="button" class="btn btn-flat btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-plus"></i> Add
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu" style="max-height: 500px; overflow-y: scroll">
+                        <a href="#" data-target="#modal-xl" class="dropdown-item js-modal-fill-html">Article</a>
+                        <a href="#" data-target="#modal-xl" class="dropdown-item js-modal-fill-html">Product</a>
+                    </div>
+                </div>
+
                 <a href="#" class="btn btn-flat btn-success mt-1"><i class="fa fa-plus"></i> Create</a>
-                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal</a>
-                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Ajax</a>
+                <a href="#" class="btn btn-flat btn-warning mt-1" data-toggle="modal" data-target="#my-modal-lg"><i class="far fa-calendar-plus"></i> Modal static</a>
+                <a href="#" class="btn btn-flat btn-primary mt-1 js-modal-fill-html" data-target="#modal-lg" data-url="{{route('lte3.data.modal-content', ['modal' => 'lg'])}}" data-fn-inits="initSelect2"><i class="fas fa-sync-alt"></i></i> Modal Ajax</a>
             </div>
             <div class="col-md-6 text-right">
                 <a href="#" class="btn btn-flat btn-default mt-1"><i class="fa fa-search"></i></a>
@@ -120,7 +131,7 @@
                             <td>
                                 <div class="btn-actions dropdown">
                                     <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu" role="menu">
+                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
                                         <a href="#" class="dropdown-item">Edit</a>
                                         <a href="#" class="dropdown-item"
                                            data-confirm="Clone?">Clone</a>
@@ -175,7 +186,7 @@
                                             data-toggle="dropdown" aria-expanded="false">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
-                                    <div class="dropdown-menu" role="menu">
+                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
                                         <a href="#" class="dropdown-item">Clone</a>
                                         <a href="#" class="dropdown-item">Notify</a>
                                         <div class="dropdown-divider"></div>
@@ -226,10 +237,17 @@
 
                         {!! Lte3::password('Password') !!}
 
+                        {!! Lte3::password('password_new', null, [
+                            'label' => 'Password Generator',
+                            'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>'
+                        ]) !!}
+
                         {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
 
+                        {!! Lte3::text('Calculator', '3+4*2', ['class' => 'js-input-calc', 'help' => '* Press Enter for calc']) !!}
+
                         {!! Lte3::url('url', null, [
-                                'default' => 'https://stackoverflow.com/',
+                            'default' => 'https://stackoverflow.com/',
                         ]) !!}
 
                         {!! Lte3::email('email', 'fom@app.com', [
@@ -248,7 +266,11 @@
 
                         {!! Lte3::colorpicker('colorpicker2', null, ['label' => 'Color2', 'transparent' => true]) !!}
 
+                        {!! Lte3::colorpicker('colorpicker3', null, ['label' => 'Color3', 'url_save' => route('lte3.data.save')]) !!}
+
                         {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
+
+                        {!! Lte3::checkbox('archived', null, ['label' => 'Archived', 'is_simple' => true]) !!}
 
                         {!! Lte3::checkbox('publish', null, ['label' => 'Publish']) !!}
 
@@ -262,7 +284,7 @@
                                 'label' => 'Accept <a href="#">Terms</a>',
                                 'checked_value' => 2,
                                 'unchecked_value' => 0,
-                                'wrap_class' => 'custom-switch'
+                                'class_control' => 'custom-switch'
                         ]) !!}
                         <div class="row">
                             <div class="col-md-12">
@@ -316,6 +338,7 @@
                     <div class="card-footer text-right">
                         {!! Lte3::btnReset('Reset', ['url' => '']) !!}
                         {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
+                        {!! Lte3::btnSubmit('Submit', null, null, ['before_title' => '<i class="fa fa-check"></i>', 'after_title' => '<i class="fa fa-cogs"></i>', 'class' => 'btn-success']) !!}
                     </div>
                     {!! Lte3::formClose() !!}
                 </div>
@@ -328,8 +351,10 @@
                     {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'method' => 'post']) !!}
                     <div class="card-body">
 
-                        {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'canceled' => 'Canceled', 'delivered' => 'Delivered'], [
+                        {!! Lte3::select2('status', 'canceled', ['new' => 'New', 'pending' => 'Pending', 'canceled' => 'Canceled', 'delivered' => 'Delivered',], [
                             'label' => 'Status',
+                            'disableds' => ['pending'],
+                            'data' => ['sum' => 1234],
                         ]) !!}
 
                         {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [
@@ -348,6 +373,7 @@
                             'multiple' => 1,
                             'url_save' => route('lte3.data.save'),
                             'url_suggest' => route('lte3.data.tags'),
+                            'close_on_select' => 0,
                         ]) !!}
 
                         {!! Lte3::select2('domain', 'canceled', ['canceled' => 'Canceled'], [
@@ -373,14 +399,15 @@
                             'empty_value' => '--',
                             'map' => [
                                 'smtp' => ['.block-smtp'],
-                                'log' => ['.block-log'],
-                                'sendmail' => ['.block-sendmail'],
+                                'log' => ['.block-log', '.block-log-sendmail'],
+                                'sendmail' => ['.block-sendmail', '.block-log-sendmail'],
                             ],
                             'help' => '* Change for show block'
                         ]) !!}
                         <div class="block-smtp" style="display:none"><h2>SMTP Block</h2></div>
                         <div class="block-sendmail" style="display: none;"><h2>SENDMAIL Block</h2></div>
                         <div class="block-log" style="display: none;"><h2>LOG Block</h2></div>
+                        <div class="block-log-sendmail" style="display: none;"><h2>Common LOG+SENDMAIL</h2></div>
 
                     </div>
                     {!! Lte3::formClose() !!}
@@ -429,8 +456,9 @@
                     <div class="card-body">
                         @isset($terms)
                             {!! Lte3::nestedset($terms, [
-                                    'label' => 'Models',
+                                    'label' => 'Categories',
                                     'has_nested' => true,
+                                    'root_btn_create' => 'Create',
                                     'routes' => [
                                         'edit' => 'lte3.data.save',
                                         'create' => 'lte3.data.save',
@@ -450,6 +478,32 @@
             </div>
 
             <div class="col-md-6">
+                <!-- FIELD -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Field</h3>
+                    </div>
+                    <div class="card-body"
+                        {!! Lte3::field([
+                            'type' => 'text',
+                            'name' => 'nickname',
+                            'value' => 'Nik',
+                            'label' => 'Nickname',
+                            'class' => 'some-class',
+                            'data' => ['rr' => 'qq']
+                        ]) !!}
+                        {!! Lte3::field([
+                            'type' => 'select2',
+                            'name' => 'gender',
+                            'multiple' => true,
+                            'selected' => 'male',
+                            'options' => ['male' => 'Male', 'female' => 'Female'],
+                            'label' => 'Gender',
+                            'data' => ['tt' => 'yy']
+                        ]) !!}
+                    </div>
+                </div>
+
                 <!-- X-EDITABLE -->
                 <div class="card card-primary">
                     <div class="card-header">
@@ -466,10 +520,10 @@
                         </div>
                         <div>
                             Textarea:
-                            {!! Lte3::xEditable('comment', 'Interstellar', [
+                            {!! Lte3::xEditable('comment', 'A film that explores the psychological and emotional state of a man whose life revolves around his family, Interstellar is a thrilling and thought-provoking', [
+                                //'limit_title' => 10,
                                 'type' => 'textarea',
                                 'field_name' => 'data[comment]',
-                                'pk' => 2,
                                 'url_save' => route('lte3.data.save'),
                             ]) !!}
                         </div>
@@ -480,7 +534,6 @@
                                 'type' => 'select',
                                 'field_name' => 'data[is_show]',
                                 'source' => [["value" => "1", "text" => "Show"], ["value" => "0", "text" => "Hide"]],
-                                'pk' => 3,
                                 'url_save' => route('lte3.data.save'),
                             ]) !!}
                         </div>
@@ -559,6 +612,7 @@
                             AJAX Large Modal
                         </button>
                         <button type="button" class="btn btn-default js-modal-fill-html" data-target="#modal-xl"
+                                data-fn-inits="initSelect2"
                                 data-url="{{route('lte3.data.modal-content')}}">
                             AJAX Xl Modal
                         </button>
@@ -646,15 +700,12 @@
 
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
 
-                        {!! Lte3::mediaFile('images', $model, [
+                        {!! Lte3::mediaImage('images', $model, [
                                 'label' => 'Images',
                                 'multiple' => true,
-                                'is_image' => true,
-
                         ]) !!}
 
-                        {!! Lte3::mediaFile('image', $model, [
-                                'is_image' => true,
+                        {!! Lte3::mediaImage('image', $model, [
                                 'custom_properties' => ['alt']
                         ]) !!}
 
@@ -692,9 +743,8 @@
                             {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
                             <div class="row">
                                 <div class="col-md-6">
-                                    {!! Lte3::lfmFile('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
-                                        'is_image' => true,
-                                        'lfm_category' => 'image',
+                                    {!! Lte3::lfmImage('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                        'lfm_category' => 'image',  // see configs/lfm.php folder_categories
                                     ]) !!}
 
                                 </div>
@@ -705,7 +755,7 @@
                                           'lfm_category' => 'file',
                                           'trim_host' => true,
                                           'multiple' => 1,
-                                      ]) !!}
+                                    ]) !!}
                                 </div>
                             </div>
                             <br>
@@ -725,6 +775,36 @@
                         </div>
                     </div>
 
+
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">highlight.js</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="f-highlight language-html">
+                                {{ "<h3>Hello highlight</h3><p>This example text</p>" }}
+                            </div>
+                            <hr>
+                            <div class="f-highlight language-php">
+                                $a = 5;
+                                phpInfo();
+                                $request->input('name');
+                            </div>
+                            <hr>
+                            <div class="f-highlight language-javascript">
+                                hljs = require('highlight.js');
+                                html = hljs.highlightAuto('<h1>Hello World!</h1>').value
+                            </div>
+
+
+                        </div>
+                        <div class="card-footer">
+                            Visit <a href="https://highlightjs.org/" target="_blank">highlight.js</a> documentation for
+                            more examples and information about the plugin.
+                            Github <a href="https://github.com/highlightjs/highlight.js">repo</a>
+                        </div>
+                    </div>
 
                     <div class="card card-info card-outline">
                         <div class="card-header">
@@ -834,7 +914,7 @@
                         {!! Lte3::lfmImage('block[photo]', isset($block) ? $block->getContent('photo') : null, ['label' => 'Photo']) !!}
 
                         {{-- MULTYPLE: --}}
-                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initEditors">
+                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initColorpicker">
                             <div class="card-body">
                                 <div class="f-items sortable-y">
 
@@ -878,26 +958,34 @@
                 </div>
             </div>
         </div>
-
     </section>
 @endsection
 
 @push('styles')
     <!-- summernote -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
+
     <!-- CodeMirror -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/codemirror.css">
     <link rel="stylesheet" href="/vendor/adminlte/plugins/codemirror/theme/monokai.css">
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/highlightjs/styles/default.min.css">
 @endpush
 
 @push('scripts')
     <!-- Summernote -->
     <script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+
     <!-- CodeMirror -->
     <script src="/vendor/adminlte/plugins/codemirror/codemirror.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/css/css.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/xml/xml.js"></script>
     <script src="/vendor/adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+    <!-- highlight.js -->
+    <script src="/vendor/lte3/plugins/highlightjs/highlight.min.js"></script>
+    <script src="/vendor/lte3/plugins/highlightjs/languages/php.min.js"></script>
 @endpush
 
 @push('modals')

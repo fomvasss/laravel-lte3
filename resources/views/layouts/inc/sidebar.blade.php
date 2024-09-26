@@ -9,7 +9,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        @auth
+        @if(config('lte3.view.sidebar.auth') && auth()->check())
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -19,7 +19,7 @@
                 <a href="/admin/profile" class="d-block"> {{ Lte3::user('name') }} </a>
             </div>
         </div>
-        @endauth
+        @endif
         @if(config('lte3.view.sidebar.search'))
         <!-- SidebarSearch Form -->
         <div class="form-inline">

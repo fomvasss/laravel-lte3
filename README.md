@@ -6,6 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/fomvasss/laravel-lte3.svg?style=for-the-badge)](https://packagist.org/packages/fomvasss/laravel-lte3)
 
 Create easily and quickly a convenient and functional dashboard for web-site, blogs, shops, crm, apps with the help of a template and a powerful system for building fields and forms.
+To learn all about it, head over to [the extensive documentation](https://fomvasss.github.io/laravel-lte3-docs/).
 
 ![screenshot](public/img/screen.gif)
 

@@ -38,6 +38,7 @@ return [
 
         'sidebar' => [
             'search' => true,
+            'auth' => false,
         ],
 
         'components' => [
@@ -86,6 +87,9 @@ return [
             'required',
             'disabled',
             'readonly',
+            'maxlength',
+            'minlength',
+            'pattern',
             'max',
             'min',
             'step',

@@ -1,10 +1,11 @@
 @php
     if ($attrs['type'] === 'password') {
         $value = '';
+        $attrs['placeholder'] = \Illuminate\Support\Arr::get($attrs, 'placeholder', '******');
     }
 @endphp
 
-<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
+<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || isset($attrs['checkbox'])  || $attrs['type'] === 'url') input-group @endif form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif
@@ -34,6 +35,11 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @if(isset($attrs['data']) && is_array($attrs['data']))
+        @foreach($attrs['data'] as $dataKey => $dataVal)
+            data-{{$dataKey}}="{{$dataVal}}"
+        @endforeach
+    @endif
     >
     @isset($attrs['append'])
         <div class="input-group-append">
@@ -44,7 +50,7 @@
     @endisset
 
     @isset($attrs['checkbox'])
-        <div class="input-group-prepend"
+        <div class="input-group-append"
              @isset($attrs['checkbox']['title']) title="{{$attrs['checkbox']['title']}}" @endisset>
         <span class="input-group-text">
             <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="0" checked type="hidden">
