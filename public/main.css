@@ -153,3 +153,7 @@ details[open] summary {
 .btn-actions.dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.lte-sort-link {
+    color: #2124B9;
+}
