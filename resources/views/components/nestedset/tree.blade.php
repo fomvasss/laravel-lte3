@@ -7,7 +7,7 @@
      @isset($attrs['routes']['order']) data-url="{{ route($attrs['routes']['order'], $attrs['routes']['params']) }}" @endisset
 >
 
-    @empty($attrs['label'])
+    @isset($attrs['label'])
     <div class="card-header">
         @isset($attrs['label'])
             <h3 class="card-title">{!! $attrs['label'] !!}: {{ $terms->count() }}</h3>
@@ -20,7 +20,7 @@
             @endif
         </div>
     </div>
-    @endempty
+    @endisset
 
     <div class="card-body">
         <div class="row">
