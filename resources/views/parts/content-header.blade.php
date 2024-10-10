@@ -17,6 +17,23 @@
             </div>
             <div class="col-sm-6">
                 <div class="float-sm-right">
+                    @if($btn_search ?? false)
+                        <div style="display: inline-block " class="mb-0" >
+                            {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
+                            <div class="input-group">
+                                <input type="text" value="{{ request('q') }}" name="q" class="form-control">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default btn-flat"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            {!! Lte3::formClose() !!}
+                        </div>
+                    @endif
+
+                    @if($btn_filter ?? false)
+                        <a href="#collapseFilter" class="btn btn-flat btn-default mb-1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseFilter"><i class="fa fa-filter"></i></a>
+                    @endif
+
                     @yield('btn-content-header')
                 </div>
             </div>
