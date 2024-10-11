@@ -21,11 +21,13 @@
 
         <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-               class="nav-link dropdown-toggle">Domain: Laravel</a>
+               class="nav-link dropdown-toggle"><i class="fas fa-database"></i> <span class="nav-item-title">Laravel</span></a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                 style="left: 0px; right: inherit;">
-                <li><a href="#" class="dropdown-item">Laravel</a></li>
-                <li><a href="#" class="dropdown-item">Vue.js</a></li>
+                <li><a href="#" class="dropdown-item">Pithon</a></li>
+                <li><a href="#" class="dropdown-item text-bold">Laravel</a></li>
+                <li><a href="#" class="dropdown-item">VueJS</a></li>
+                <li><a href="#" class="dropdown-item">React</a></li>
             </ul>
         </li>
 

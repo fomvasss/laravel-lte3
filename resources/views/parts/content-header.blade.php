@@ -2,7 +2,7 @@
 <div class="content-header pb-0">
     <div class="container-fluid pl-0">
         <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <h1 class="m-0">
                     @isset($url_back)
                         <a href="{{ $url_back }}" class="btn btn-flat btn-secondary"><i
@@ -15,10 +15,10 @@
                     @endif
                 </h1>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div class="float-sm-right">
                     @if($btn_search ?? false)
-                        <div style="display: inline-block " class="mb-0" >
+                        <div class="content-header-search">
                             {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
                             <div class="input-group">
                                 <input type="text" value="{{ request('q') }}" name="q" class="form-control">
