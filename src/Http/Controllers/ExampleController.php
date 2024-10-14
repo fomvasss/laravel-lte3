@@ -65,6 +65,10 @@ class ExampleController extends Controller
         if (($model = $this->modelData()) && $model instanceof HasMedia) {
             $model->mediaManage($request);
         }
+        
+        if ($request->key) {
+            session()->put($request->key, $request->value);
+        }
 
         if ($request->ajax()) {
             return response()->json([

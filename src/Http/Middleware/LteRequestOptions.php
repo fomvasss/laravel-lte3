@@ -64,6 +64,10 @@ class LteRequestOptions
             session()->flash('_modal', $modal);
         }
 
+        // set Lte theme
+        $defaultTheme = config('lte3.view.dark_mode') ? 'dark' : 'light';
+        config()->set('lte3.view.dark_mode', session('lte_theme', $defaultTheme) === 'dark');
+
         $response = $next($request);
 
         $this->afterHandle($response);

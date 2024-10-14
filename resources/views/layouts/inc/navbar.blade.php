@@ -24,7 +24,7 @@
                class="nav-link dropdown-toggle"><i class="fas fa-database"></i> <span class="nav-item-title">Laravel</span></a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                 style="left: 0px; right: inherit;">
-                <li><a href="#" class="dropdown-item">Pithon</a></li>
+                <li><a href="#" class="dropdown-item">Python</a></li>
                 <li><a href="#" class="dropdown-item text-bold">Laravel</a></li>
                 <li><a href="#" class="dropdown-item">VueJS</a></li>
                 <li><a href="#" class="dropdown-item">React</a></li>
@@ -52,6 +52,14 @@
                     <i class="flag-icon flag-icon-es mr-2"></i> Spanish
                 </a>
             </div>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" title="Theme">
+            @if(session('lte_theme') === 'dark' || config('lte3.view.dark_mode'))
+                <a href="{{ route('lte3.data.save', ['key' => 'lte_theme', 'value' => 'light']) }}" class="nav-link"> <i class="fas fa-sun"></i></a>
+            @else
+                <a href="{{ route('lte3.data.save', ['key' => 'lte_theme', 'value' => 'dark']) }}" class="nav-link"> <i class="fas fa-moon"></i></a>
+            @endif
         </li>
 
         <li class="nav-item d-none d-sm-inline-block" data-toggle="tooltip" title="Visit">
