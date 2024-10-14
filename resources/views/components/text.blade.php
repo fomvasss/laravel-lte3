@@ -1,7 +1,7 @@
 @php
     if ($attrs['type'] === 'password') {
         $value = '';
-        $attrs['placeholder'] = \Illuminate\Support\Arr::get($attrs, 'placeholder', '******');
+        $attrs['placeholder'] = \Illuminate\Support\Arr::get($attrs, 'placeholder', '********');
     }
 @endphp
 

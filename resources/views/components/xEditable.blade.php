@@ -7,7 +7,7 @@
 <a href="#"
    class="f-x-editable {{ $attrs['class'] ?? null }} {{ $attrs['class_wrap'] ?? null }}"
    data-value="{{ $value }}"
-   data-type="{{ isset($attrs['type']) ? $attrs['type'] : 'text' }}"
+   data-type="{{ $attrs['data_type'] ?? $attrs['type'] ?? 'text' }}"
    data-name="{{ $name }}"
    @isset($attrs['mode'])data-mode="{{$attrs['type']}}" @endisset
    @isset($attrs['inputclass'])data-mode="{{$attrs['inputclass']}}" @endisset

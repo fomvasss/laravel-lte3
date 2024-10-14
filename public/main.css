@@ -153,3 +153,38 @@ details[open] summary {
 .btn-actions.dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.lte-sort-link {
+    color: #2124B9;
+}
+.dark-mode .lte-sort-link, .dark-mode .navbar-nav a {
+    color: cornflowerblue;
+}
+
+.lte-table-tr-bg {
+    background-color: azure;
+    height: 42px
+}
+.dark-mode .lte-table-tr-bg {
+    background-color: dimgrey;
+}
+
+.content-header .content-header-search {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+    .content-header .content-header-search {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .navbar-expand .navbar-nav .nav-link {
+        padding-right: 5px;
+        padding-left: 15px;
+    }
+    .navbar-expand .navbar-nav .nav-link .nav-item-title {
+        display: none;
+    }
+}

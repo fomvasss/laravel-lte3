@@ -1,10 +1,19 @@
 @extends('lte3::layouts.app')
+{{--
+
+@section('btn-content-header')
+    <a href="#" class="btn btn-flat btn-default mb-1" data-toggle="tooltip" title="Export"><i class="fa fa-upload"></i> </a>
+    <a href="#" class="btn btn-flat btn-success mb-1"><i class="fa fa-plus"></i></a>
+@endsection
+--}}
 
 @section('content')
     @include('lte3::parts.content-header', [
-        'page_title' => 'Components',
+        'page_title' => 'Components: 42',
         'url_back' => '#',
-        'url_create' => '#'
+        'url_create' => '#',
+//        'btn_filter' => true,
+//        'btn_search' => true,
     ])
 
     <!-- Main content -->
@@ -80,6 +89,7 @@
 
         <!-- FILTER -->
         @include('lte3::examples.inc.filter')
+        @include('lte3::examples.inc.filter2')
 
         <!-- LIST/TABLE -->
         <div class="card">
@@ -212,6 +222,7 @@
 
         <!-- COMPONENTS -->
         <div class="row">
+
             <div class="col-md-6">
                 <!-- BASE -->
                 <div class="card card-warning">
@@ -474,7 +485,6 @@
                         @endisset
                     </div>
                 </div>
-
             </div>
 
             <div class="col-md-6">
@@ -483,7 +493,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Field</h3>
                     </div>
-                    <div class="card-body"
+                    <div class="card-body">
                         {!! Lte3::field([
                             'type' => 'text',
                             'name' => 'nickname',
@@ -494,7 +504,7 @@
                         ]) !!}
                         {!! Lte3::field([
                             'type' => 'select2',
-                            'name' => 'gender',
+                            'name' => 'gender22',
                             'multiple' => true,
                             'selected' => 'male',
                             'options' => ['male' => 'Male', 'female' => 'Female'],
@@ -725,176 +735,177 @@
                         plugin.
                     </div>
                 </div>
+
             </div>
+
         </div>
 
         <!-- EDITORS -->
         <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12">
 
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Laravel File Manager</h3>
-                        </div>
-
-                        <div class="card-body">
-
-                            @if(is_dir(public_path('vendor/laravel-filemanager')))
-                            {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {!! Lte3::lfmImage('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
-                                        'lfm_category' => 'image',  // see configs/lfm.php folder_categories
-                                    ]) !!}
-
-                                </div>
-                                <div class="col-md-6">
-                                    {!! Lte3::lfmFile('instruction', null, [
-                                          'label' => 'Instruction',
-                                          'is_image' => false,
-                                          'lfm_category' => 'file',
-                                          'trim_host' => true,
-                                          'multiple' => 1,
-                                    ]) !!}
-                                </div>
-                            </div>
-                            <br>
-                            {!! Lte3::btnSubmit('Submit', 'action', 'save-dd') !!}
-                            {!! Lte3::formClose() !!}
-
-                            <br>
-                            <iframe src="/filemanager?type=Images" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
-                            @else
-                                LFM is not installed! See <a href="https://unisharp.github.io/laravel-filemanager/installation">docs</a>
-                            @endif
-
-                        </div>
-                        <div class="card-footer">
-                            Visit <a href="https://unisharp.github.io/laravel-filemanager/installation" target="_blank">LFM</a>
-                            documentation.
-                        </div>
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Laravel File Manager</h3>
                     </div>
 
+                    <div class="card-body">
 
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">highlight.js</h3>
-                        </div>
+                        @if(is_dir(public_path('vendor/laravel-filemanager')))
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Lte3::lfmImage('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    'lfm_category' => 'image',  // see configs/lfm.php folder_categories
+                                ]) !!}
 
-                        <div class="card-body">
-                            <div class="f-highlight language-html">
-                                {{ "<h3>Hello highlight</h3><p>This example text</p>" }}
                             </div>
-                            <hr>
-                            <div class="f-highlight language-php">
-                                $a = 5;
-                                phpInfo();
-                                $request->input('name');
+                            <div class="col-md-6">
+                                {!! Lte3::lfmFile('instruction', null, [
+                                      'label' => 'Instruction',
+                                      'is_image' => false,
+                                      'lfm_category' => 'file',
+                                      'trim_host' => true,
+                                      'multiple' => 1,
+                                ]) !!}
                             </div>
-                            <hr>
-                            <div class="f-highlight language-javascript">
-                                hljs = require('highlight.js');
-                                html = hljs.highlightAuto('<h1>Hello World!</h1>').value
-                            </div>
-
-
                         </div>
-                        <div class="card-footer">
-                            Visit <a href="https://highlightjs.org/" target="_blank">highlight.js</a> documentation for
-                            more examples and information about the plugin.
-                            Github <a href="https://github.com/highlightjs/highlight.js">repo</a>
-                        </div>
+                        <br>
+                        {!! Lte3::btnSubmit('Submit', 'action', 'save-dd') !!}
+                        {!! Lte3::formClose() !!}
+
+                        <br>
+                        <iframe src="/filemanager?type=Images" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+                        @else
+                            LFM is not installed! See <a href="https://unisharp.github.io/laravel-filemanager/installation">docs</a>
+                        @endif
+
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://unisharp.github.io/laravel-filemanager/installation" target="_blank">LFM</a>
+                        documentation.
+                    </div>
+                </div>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">highlight.js</h3>
                     </div>
 
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">TinyMce</h3>
+                    <div class="card-body">
+                        <div class="f-highlight language-html">
+                            {{ "<h3>Hello highlight</h3><p>This example text</p>" }}
+                        </div>
+                        <hr>
+                        <div class="f-highlight language-php">
+                            $a = 5;
+                            phpInfo();
+                            $request->input('name');
+                        </div>
+                        <hr>
+                        <div class="f-highlight language-javascript">
+                            hljs = require('highlight.js');
+                            html = hljs.highlightAuto('<h1>Hello World!</h1>').value
                         </div>
 
-                        <div class="card-body">
-                            {!! Lte3::textarea('message_tinymce', 'f-tinymce - add class to textarea', [
-                                'label' => 'Message',
-                                'class' => 'f-tinymce',
-                            ]) !!}
-                            {{--<textarea class="f-tinymce"></textarea>--}}
-                        </div>
-                        <div class="card-footer">
-                            Visit <a href="https://www.tiny.cloud/docs/tinymce/6/php-projects/" target="_blank">TinyMce</a>
-                            documentation for more examples and information about the plugin.
-                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://highlightjs.org/" target="_blank">highlight.js</a> documentation for
+                        more examples and information about the plugin.
+                        Github <a href="https://github.com/highlightjs/highlight.js">repo</a>
+                    </div>
+                </div>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">TinyMce</h3>
                     </div>
 
+                    <div class="card-body">
+                        {!! Lte3::textarea('message_tinymce', 'f-tinymce - add class to textarea', [
+                            'label' => 'Message',
+                            'class' => 'f-tinymce',
+                        ]) !!}
+                        {{--<textarea class="f-tinymce"></textarea>--}}
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://www.tiny.cloud/docs/tinymce/6/php-projects/" target="_blank">TinyMce</a>
+                        documentation for more examples and information about the plugin.
+                    </div>
+                </div>
 
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Summernote</h3>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Summernote</h3>
+                    </div>
+
+                    <div class="card-body">
+                        {!! Lte3::textarea('message_tinymce', 'f-summernote - add class to textarea', [
+                             'label' => 'Message',
+                             'class' => 'f-summernote',
+                         ]) !!}
+                        {{--<textarea class="f-summernote"></textarea>--}}
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://github.com/summernote/summernote/" target="_blank">Summernote</a>
+                        documentation for more examples and information about the plugin.
+                    </div>
+                </div>
+
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Codemirror</h3>
+                    </div>
+
+                    <div class="card-body">
+                        {!! Lte3::textarea('message_tinymce', '<p><strong>f-codeMirror</strong> - add class to textarea</p>', [
+                             'label' => 'HTML',
+                             'class' => 'f-codeMirror',
+                         ]) !!}
+                        {{--<textarea class="f-codeMirror" class="p-3"></textarea>--}}
+
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://codemirror.net/" target="_blank">CodeMirror</a> documentation for
+                        more examples and information about the plugin.
+                    </div>
+                </div>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">CKEditor 4</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">Message</label>
+                            <textarea class="form-control f-cke-mini">f-cke-mini - add class to textarea</textarea>
                         </div>
-
-                        <div class="card-body">
-                            {!! Lte3::textarea('message_tinymce', 'f-summernote - add class to textarea', [
+                        <div class="form-group">
+                            <label for="">Message</label>
+                            <textarea class="form-control f-cke-small">f-cke-small - add class to textarea</textarea>
+                        </div>
+                        <div class="form-group">
+                            {!! Lte3::textarea('message_cke_full', 'f-cke-full - add class to textarea', [
                                  'label' => 'Message',
                                  'class' => 'f-summernote',
                              ]) !!}
-                            {{--<textarea class="f-summernote"></textarea>--}}
-                        </div>
-                        <div class="card-footer">
-                            Visit <a href="https://github.com/summernote/summernote/" target="_blank">Summernote</a>
-                            documentation for more examples and information about the plugin.
                         </div>
                     </div>
-
-
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Codemirror</h3>
-                        </div>
-
-                        <div class="card-body">
-                            {!! Lte3::textarea('message_tinymce', '<p><strong>f-codeMirror</strong> - add class to textarea</p>', [
-                                 'label' => 'HTML',
-                                 'class' => 'f-codeMirror',
-                             ]) !!}
-                            {{--<textarea class="f-codeMirror" class="p-3"></textarea>--}}
-
-                        </div>
-                        <div class="card-footer">
-                            Visit <a href="https://codemirror.net/" target="_blank">CodeMirror</a> documentation for
-                            more examples and information about the plugin.
-                        </div>
-                    </div>
-
-                    <div class="card card-info card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">CKEditor 4</h3>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="">Message</label>
-                                <textarea class="form-control f-cke-mini">f-cke-mini - add class to textarea</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Message</label>
-                                <textarea class="form-control f-cke-small">f-cke-small - add class to textarea</textarea>
-                            </div>
-                            <div class="form-group">
-                                {!! Lte3::textarea('message_cke_full', 'f-cke-full - add class to textarea', [
-                                     'label' => 'Message',
-                                     'class' => 'f-summernote',
-                                 ]) !!}
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <ul>
-                                <li>Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
-                                        4</a> documentation for more examples and information about the plugin.</li>
-                                <li><a href="https://ckeditor.com/ckeditor-4/download/" target="_blank">Download</a> actual version CKEditor (in <code>public/vendor/ckeditor</code> directory)</li>
-                                <li>Install <a href="https://unisharp.github.io/laravel-filemanager/installation">Laravel Filemanager</a></li>
-                            </ul>
-                        </div>
+                    <div class="card-footer">
+                        <ul>
+                            <li>Visit <a href="https://ckeditor.com/docs/ckeditor4/latest/index.html" target="_blank">CKEditor
+                                    4</a> documentation for more examples and information about the plugin.</li>
+                            <li><a href="https://ckeditor.com/ckeditor-4/download/" target="_blank">Download</a> actual version CKEditor (in <code>public/vendor/ckeditor</code> directory)</li>
+                            <li>Install <a href="https://unisharp.github.io/laravel-filemanager/installation">Laravel Filemanager</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
 
 
         <!-- Dynamic blocks -->
