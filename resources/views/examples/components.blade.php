@@ -246,6 +246,8 @@
                             'append' => ['<i class="fas fa-fingerprint"></i>', '<a href="#"><i class="fas fa-qrcode"></i></a>']
                         ]) !!}
 
+                        {!! Lte3::search('search', null, ['placeholder' => 'Enter text...']) !!}
+
                         {!! Lte3::password('Password') !!}
 
                         {!! Lte3::password('password_new', null, [
