@@ -169,6 +169,13 @@ details[open] summary {
     background-color: dimgrey;
 }
 
+.lte-filter-searched {
+    background-color: yellow;
+}
+.dark-mode .lte-filter-searched {
+    background-color: darkorange;
+}
+
 .content-header .content-header-search {
     display: inline-block;
     margin-bottom: 0;

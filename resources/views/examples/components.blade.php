@@ -12,8 +12,8 @@
         'page_title' => 'Components: 42',
         'url_back' => '#',
         'url_create' => '#',
-//        'btn_filter' => true,
-//        'btn_search' => true,
+        'btn_filter' => true,
+        'btn_search' => true,
     ])
 
     <!-- Main content -->

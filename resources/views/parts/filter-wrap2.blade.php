@@ -3,9 +3,6 @@
 {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
 <div class="collapse @if(!$collapsed) show @endif" id="collapseFilter">
     <div class="card">
-        <div class="card-header" data-toggle="collapse" href="#collapseFilter">
-            <h3 class="card-title " data-card-widget="collapse">Filter</h3>
-        </div>
         <div class="card-body">
             <input type="hidden" name="_f" value="1">
             @yield('body')
@@ -34,7 +31,7 @@
                     var text = this.nodeValue.trim();
                     if (searchRegExp.test(text)) {
                         var highlightedText = text.replace(searchRegExp, function(match) {
-                            return '<span style="background-color: yellow;">' + match + '</span>';
+                            return '<span class="lte-filter-searched">' + match + '</span>';
                         });
                         $(this).replaceWith(highlightedText);
                     }
