@@ -51,6 +51,7 @@ return [
             'number' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'number', 'default' => 0,]],
             'email' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'email']],
             'url' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'url']],
+            'search' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'search']],
             'password' => ['blade' => 'lte3::components.text', 'vars' => ['name', 'value', 'attrs'], 'default' => ['type' => 'password']],
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],
             'textarea' => ['blade' => 'lte3::components.textarea', 'vars' => ['name', 'value', 'attrs']],

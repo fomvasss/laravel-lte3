@@ -12,8 +12,8 @@
         'page_title' => 'Components: 42',
         'url_back' => '#',
         'url_create' => '#',
-//        'btn_filter' => true,
-//        'btn_search' => true,
+        'btn_filter' => true,
+        'btn_search' => true,
     ])
 
     <!-- Main content -->
@@ -245,6 +245,8 @@
                             'default' => 'Default value',
                             'append' => ['<i class="fas fa-fingerprint"></i>', '<a href="#"><i class="fas fa-qrcode"></i></a>']
                         ]) !!}
+
+                        {!! Lte3::search('search', null, ['placeholder' => 'Enter text...']) !!}
 
                         {!! Lte3::password('Password') !!}
 

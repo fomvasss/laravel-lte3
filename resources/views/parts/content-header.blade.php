@@ -21,7 +21,7 @@
                         <div class="content-header-search">
                             {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
                             <div class="input-group">
-                                <input type="text" value="{{ request('q') }}" name="q" class="form-control">
+                                <input type="search" value="{{ request('q') }}" name="q" class="form-control">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default btn-flat"><i class="fas fa-search"></i></button>
                                 </div>
