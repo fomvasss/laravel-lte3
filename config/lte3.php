@@ -78,6 +78,8 @@ return [
             'lfmImage' => ['blade' => 'lte3::components.lfmFile', 'vars' => ['name', 'path', 'attrs'], 'default' => ['lfm_category' => 'image', 'is_image' => 1]],
             'mediaFile' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs']],
             'mediaImage' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs'], 'default' => ['is_image' => true, 'accept' => 'image/*']],
+
+            'tableOptions' => ['blade' => 'lte3::components.tableOptions', 'vars' => ['columns', 'options', 'attrs']],
         ],
 
         'field_attrs' => [
