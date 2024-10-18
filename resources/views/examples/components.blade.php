@@ -119,17 +119,18 @@
             </div>
 
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                @php($options = session()->get('table-options', [])['columns'] ?? [])
+                <table class="table table-hover js-options-columns" data-options=@json($options)>
                     <thead>
                     <tr>
                         <th style="width: 1%">#</th>
-                        <th style="width: 10px;"></th>
-                        <th></th>
-                        <th style="width: 15%">Name</th>
-                        <th style="width: 20%">Members</th>
-                        <th>Sum</th>
-                        <th>Progress</th>
-                        <th style="width: 8%">Status</th>
+                        <th class="js-options-dropdown" style="width: 10px;"></th>
+                        <th class="js-options-img"></th>
+                        <th class="js-options-name" style="width: 15%">Name</th>
+                        <th class="js-options-members" style="width: 20%">Members</th>
+                        <th class="js-options-sum">Sum</th>
+                        <th class="js-options-progress">Progress</th>
+                        <th class="js-options-status" style="width: 8%">Status</th>
                         <th></th>
                         <th style="width: 20%"></th>
                     </tr>
@@ -215,6 +216,42 @@
                     </tbody>
                 </table>
             </div>
+            {!! Lte3::tableOptions([
+                [
+                    'key' => 'dropdown',
+                    'name' => 'Кнопки dropdown',
+                ],
+                [
+                    'key' => 'img',
+                    'name' => 'Фото',
+                ],
+                [
+                    'key' => 'name',
+                    'name' => 'Назва',
+                ],
+                [
+                    'key' => 'members',
+                    'name' => 'Учасники',
+                ],
+                [
+                    'key' => 'sum',
+                    'name' => 'Сума',
+                ],
+                [
+                    'key' => 'progress',
+                    'name' => 'Прогрес',
+                ],
+                [
+                    'key' => 'status',
+                    'name' => 'Статус',
+                ],
+            ], $options, [
+                'action' => route('lte3.data.save'),
+                'method' => 'post',
+                'table' => 'columns',
+                'name' => 'table-options',
+                'preloader' => true,
+            ]) !!}
             <div class="card-footer clearfix">
                 {!! Lte3::pagination($terms ?? null) !!}
             </div>

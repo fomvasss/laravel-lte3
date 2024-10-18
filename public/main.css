@@ -88,15 +88,27 @@ ul.js-sortable-nested li.placeholder:before {
 }
 
 .btn-lte-fixed {
+    font-size: 14px;
     position: fixed;
     top: 95px;
-    right: 7px;
-    border-radius: 100%;
+    right: 0;
+    border-radius: 5px 0 0 5px;
     opacity: .4;
-    z-index: 3;
+    z-index: 100;
 }
+
 .btn-lte-fixed:hover {
-    opacity: .8;
+    display: flex;
+    align-items: center;
+}
+
+.btn-lte-fixed:hover .table__options-text {
+    display: block;
+    opacity: .9;
+}
+
+.btn-lte-fixed:hover {
+    opacity: .9;
 }
 
 .lte-pointer:hover {
@@ -179,6 +191,54 @@ details[open] summary {
 .content-header .content-header-search {
     display: inline-block;
     margin-bottom: 0;
+}
+
+.table__options-wrapper {
+    position: fixed;
+    top: 140px;
+    right: 0;
+    z-index: 100;
+}
+
+.table__options-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    transition: width 0.3s ease;
+    opacity: .4;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.table__options-text {
+    display: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.table__options-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
+
+.table__options-wrapper:hover .table__options-text {
+    display: block;
+    opacity: .9;
+}
+
+.table__options-wrapper:hover .table__options-button {
+    color: #fff;
+}
+
+.table__options-button:hover {
+    opacity: .9;
+    background-color: #007bff;
 }
 
 @media (max-width: 640px) {
