@@ -100,6 +100,7 @@ return [
             'style',
             'id',
             'data-name',
+            'x-model',
         ],
 
         'next_destination_key' => '_destination',

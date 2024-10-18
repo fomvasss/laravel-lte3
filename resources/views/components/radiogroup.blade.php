@@ -29,13 +29,21 @@
                    value="{{$value}}"
                    id="{{ $name.$loop->index }}"
                    @isset($attrs['submit_method'])data-method={{$attrs['submit_method']}}@endisset
-                   @if($val['disabled'] ?? 0) disabled @endisset
+                   
                    @if($url)data-url={{$url}}@endif
                    @if($selected == $value) checked @endif
                    @if(isset($attrs['map']) && is_array($attrs['map']))
-                   data-map='@json($attrs['map'])'
+                       data-map='@json($attrs['map'])'
                    @endif
                    type="radio"
+            @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+                {{$key}}="{{$val}}"
+            @endforeach
+            @if(isset($attrs['data']) && is_array($attrs['data']))
+                @foreach($attrs['data'] as $dataKey => $dataVal)
+                    data-{{$dataKey}}="{{$dataVal}}"
+                @endforeach
+            @endif
             >
             <label class="custom-control-label" for="{{ $name.$loop->index }}">{{ $label }}</label>
         </div>

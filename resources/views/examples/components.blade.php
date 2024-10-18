@@ -304,6 +304,7 @@
                                 {!! Lte3::radiogroup('payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
                                     'default' => 'liqpay',
                                     'class_wrap' => 'row',
+                                    'x-model' => 'testPayment'
                                 ]) !!}
                             </div>
                             <div class="col-md-3">
