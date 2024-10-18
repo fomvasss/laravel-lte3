@@ -8,7 +8,7 @@
     </div>
 
     <div class="modal fade" id="table__options-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-        <div class="modal-dialog" style="position: fixed; margin: auto; width: 320px; height: 100%; right: 0px;" role="document">
+        <div class="modal-dialog" style="position: fixed; margin: auto; width: 320px; height: 100%; right: 0;" role="document">
             <div class="modal-content" style="height: 100%;">
                 <div class="modal-header">
                     <h5>Обрати стовпчики</h5>
@@ -52,6 +52,8 @@
     {!! Lte3::formClose() !!}
 </div>
 
-<div class="overlay @if(session('lte_theme') === 'dark' || config('lte3.view.dark_mode')) dark @endif" style="backdrop-filter: blur(7px);" id="table-preloader">
-    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-</div>
+@if($attrs['preloader'] ?? true)
+    <div class="overlay @if(session('lte_theme') === 'dark' || config('lte3.view.dark_mode')) dark @endif" style="backdrop-filter: blur(7px);" id="{{ $attrs['preloader_id'] ?? 'table-preloader' }}">
+        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+    </div>
+@endif

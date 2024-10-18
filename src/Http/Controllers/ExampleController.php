@@ -70,6 +70,10 @@ class ExampleController extends Controller
             session()->put($request->key, $request->value);
         }
 
+        if ($tableOptions = $request->input('table-options')) {
+            session()->put('table-options', $tableOptions);
+        }
+
         if ($request->ajax()) {
             return response()->json([
                 'status' => 'ok',

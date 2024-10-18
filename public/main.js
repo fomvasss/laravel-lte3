@@ -1037,4 +1037,7 @@ $(function () {
             }
         }
     });
+
+    // Preloader
+    $('#table-preloader').fadeOut(250);
 });
