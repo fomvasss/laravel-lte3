@@ -4,14 +4,15 @@
     @endif
     <div class="input-group f-colorpicker colorpicker-element" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
         <input type="text" class="form-control {{ $attrs['class'] ?? '' }}"
+               value="{{ $value }}"
+               data-original-title=""
+               autocomplete="off"
                name="{{ $name }}"
+               @if(Arr::get($attrs, 'disabled')) disabled @endif
                @if(Arr::get($attrs, 'transparent'))
                data-color="transparent"
                @endif
                @if($url = Arr::get($attrs, 'url_save')) data-url-save="{{$url}}" @endif
-               value="{{ $value }}"
-               data-original-title=""
-               autocomplete="off"
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach

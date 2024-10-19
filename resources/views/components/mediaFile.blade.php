@@ -26,6 +26,7 @@
                         class="js-files-input @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                         style="display: none;"
                         @if($multimpe) multiple @endif
+                        @if(Arr::get($attrs, 'disabled')) disabled @endif
                         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                         {{$key}}="{{$val}}"
                         @endforeach

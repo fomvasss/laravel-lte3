@@ -32,6 +32,7 @@
            type="{{ $attrs['type'] }}"
            value="{{ $value }}"
            data-toggle="tooltip"
+    @if(Arr::get($attrs, 'disabled')) disabled @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
@@ -53,10 +54,12 @@
         <div class="input-group-append"
              @isset($attrs['checkbox']['title']) title="{{$attrs['checkbox']['title']}}" @endisset>
         <span class="input-group-text">
-            <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="0" checked type="hidden">
-            <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="1"
-                   @if(!empty($attrs['checkbox']['value'])) checked
-                   @endif @if(!empty($attrs['checkbox']['readonly'])) readonly @endif type="checkbox">
+            <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="0" type="hidden" checked @if(Arr::get($attrs, 'checkbox.disabled')) disabled @endif>
+            <input name="{{ $attrs['checkbox']['name'] ?? '' }}" value="1" type="checkbox"
+                   @if(!empty($attrs['checkbox']['value'])) checked @endif
+                   @if(Arr::get($attrs, 'checkbox.readonly')) onclick="return false;" @endif
+                   @if(Arr::get($attrs, 'checkbox.disabled')) disabled @endif
+            >
         </span>
         </div>
     @endisset

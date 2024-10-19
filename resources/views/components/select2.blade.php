@@ -30,6 +30,7 @@
         style="width: 100%;"
         autocomplete="off"
         data-toggle="tooltip"
+    @if(Arr::get($attrs, 'disabled')) disabled @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
@@ -60,7 +61,6 @@
     @if(!empty($attrs['separators']))
         data-separators={{$attrs['separators']}}
     @endif
-    style="width: 100%;"
     @if(count($options) < 6 && empty($attrs['url_suggest']))
         data-minimum-results-for-search="-1"
     @endif {{-- TODO --}}

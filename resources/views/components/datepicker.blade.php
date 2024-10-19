@@ -18,6 +18,7 @@
             value="{{ $value }}"
             class="form-control f-datepicker @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
             type="text" autocomplete="off"
+            @if(Arr::get($attrs, 'disabled')) disabled @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

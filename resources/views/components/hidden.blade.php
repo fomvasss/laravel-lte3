@@ -6,6 +6,7 @@
     @endif
 
     <input type="hidden" name="{{ $name }}" value="{{ $value }}" class="{{ $attrs['class'] ?? '' }}"
+    @if(Arr::get($attrs, 'disabled')) disabled @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

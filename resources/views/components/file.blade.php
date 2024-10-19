@@ -19,6 +19,7 @@
             type="file"
             @if($multimpe) multiple @endif
             data-toggle="tooltip"
+            @if(Arr::get($attrs, 'disabled')) disabled @endif
             @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                 {{$key}}="{{$val}}"
             @endforeach

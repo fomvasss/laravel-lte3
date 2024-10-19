@@ -305,6 +305,7 @@
                             'help' => '* Enter Email',
                             'prepend' => '<i class="fas fa-envelope"></i>',
                             'append' => '<i class="fas fa-check"></i>',
+                            'disabled' => 2,
                             'checkbox' => ['name' => 'verify', 'title' => 'Verify', 'value' => 0, 'readonly' => 1,]
                         ]) !!}
 
@@ -318,11 +319,11 @@
 
                         {!! Lte3::colorpicker('colorpicker3', null, ['label' => 'Color3', 'url_save' => route('lte3.data.save')]) !!}
 
-                        {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1,]) !!}
+                        {!! Lte3::range('age', 18, ['min' => 12, 'max' => 100, 'step' => 1]) !!}
 
-                        {!! Lte3::checkbox('archived', null, ['label' => 'Archived', 'is_simple' => true]) !!}
+                        {!! Lte3::checkbox('archived', null, ['label' => 'Archived', 'is_simple' => true, 'readonly' => 1]) !!}
 
-                        {!! Lte3::checkbox('publish', null, ['label' => 'Publish']) !!}
+                        {!! Lte3::checkbox('publish', null, ['label' => 'Publish', 'readonly' => 0]) !!}
 
                         {!! Lte3::checkbox('allowed', 1, [
                             'label' => 'Allowed',
@@ -351,7 +352,7 @@
                                 {!! Lte3::radiogroup('brand', 'samsung', [
                                         'apple' => ['label' => 'Apple', 'url' => route('lte3.data.save', ['brand' => 'apple'])],
                                         'samsung' => ['label' => 'Samsung', 'url' => route('lte3.data.save', ['brand' => 'samsung'])],
-                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi']), 'disabled' => 1],
+                                        'xiaomi' => ['label' => 'Xiaomi', 'url' => route('lte3.data.save', ['brand' => 'xiaomi']), 'disabled' => true],
                                     ], ['label' => 'Submit to URL:', 'submit_methor' => 'POST'])
                                 !!}
                             </div>
@@ -387,7 +388,8 @@
 
                     </div>
                     <div class="card-footer text-right">
-                        {!! Lte3::btnReset('Reset', ['url' => '']) !!}
+                        {!! Lte3::btnReset('Reset', ['url' => '', 'disabled' => true]) !!}
+                        {!! Lte3::btnSubmit('Cancel', 'action', 'cancel', ['disabled' => true]) !!}
                         {!! Lte3::btnSubmit('Submit', 'action', 'save', ['add' => 'fixed']) !!}
                         {!! Lte3::btnSubmit('Submit', null, null, ['before_title' => '<i class="fa fa-check"></i>', 'after_title' => '<i class="fa fa-cogs"></i>', 'class' => 'btn-success']) !!}
                     </div>
@@ -406,6 +408,11 @@
                             'label' => 'Status',
                             'disableds' => ['pending'],
                             'data' => ['sum' => 1234],
+                        ]) !!}
+
+                        {!! Lte3::select2('city', 'City', ['London', 'Kyiv', 'Warszawa'], [
+                            'label' => 'City',
+                            'disabled' => '--',
                         ]) !!}
 
                         {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [
@@ -566,6 +573,15 @@
                                 'type' => 'text',
                                 'pk' => 1,
                                 'url_save' => route('lte3.data.save'),
+                            ]) !!}
+                        </div>
+                        <div>
+                            Disabled Text:
+                            {!! Lte3::xEditable('name', 'Space Odyssey 2001', [
+                                'type' => 'text',
+                                'pk' => 1,
+                                'url_save' => route('lte3.data.save'),
+                                'disabled' => 1,
                             ]) !!}
                         </div>
                         <div>
@@ -733,7 +749,7 @@
                         {!! Lte3::file('varfavicons', [
                             '/vendor/lte3/img/favicons/android-chrome-512x512.png',
                             '/vendor/lte3/img/favicons/android-chrome-192x192.png',
-                        ], ['label' => '']) !!}
+                        ], ['label' => '',]) !!}
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                         {!! Lte3::formClose() !!}
@@ -748,7 +764,7 @@
                     </div>
                     <div class="card-body">
 
-                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
+                        {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true,]) !!}
 
                         {!! Lte3::mediaImage('images', $model, [
                                 'label' => 'Images',

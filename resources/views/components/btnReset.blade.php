@@ -5,7 +5,7 @@
     }
 @endphp
 
-<a href="{{ $url }}"
+<a @empty(Arr::get($attrs, 'disabled')) href="{{ $url }}" @endempty
    class="btn btn-default {{ $attrs['class'] ?? '' }}"
    data-toggle="tooltip"
 @isset($attrs['confirm'])

@@ -9,6 +9,7 @@
                name="{{ $name }}"
                value="{{ $value }}"
                data-toggle="tooltip"
+        @if(Arr::get($attrs, 'disabled')) disabled @endif
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach

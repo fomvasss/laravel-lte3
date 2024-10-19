@@ -5,6 +5,7 @@
         @if(!empty($attrs['files'])) enctype="multipart/form-data" @endif
         @if(!empty($attrs['style'])) style="{{$attrs['style']}}" @endif
         accept-charset="UTF-8"
+        @if(Arr::get($attrs, 'disabled')) disabled @endif
         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
             {{$key}}="{{$val}}"
         @endforeach

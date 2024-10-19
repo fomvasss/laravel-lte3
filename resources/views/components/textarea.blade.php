@@ -6,6 +6,7 @@
     <textarea class="form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
               name="{{ $name }}"
               data-toggle="tooltip"
+    @if(Arr::get($attrs, 'disabled')) disabled @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

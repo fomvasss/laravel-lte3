@@ -4,12 +4,13 @@
     $title = ($limit = \Illuminate\Support\Arr::get($attrs, 'limit_title')) ? \Illuminate\Support\Str::limit($title, $limit, $limitEnd) : $title;
 @endphp
 
-<a href="#"
+<a @empty(Arr::get($attrs, 'disabled'))) href="#" @endempty
    class="f-x-editable {{ $attrs['class'] ?? null }} {{ $attrs['class_wrap'] ?? null }}"
    data-value="{{ $value }}"
    data-type="{{ $attrs['data_type'] ?? $attrs['type'] ?? 'text' }}"
    data-name="{{ $name }}"
-   @isset($attrs['mode'])data-mode="{{$attrs['type']}}" @endisset
+   @if(Arr::get($attrs, 'disabled')) data-disabled="1" @endif
+   @isset($attrs['mode']) data-mode="{{$attrs['type']}}" @endisset
    @isset($attrs['inputclass'])data-mode="{{$attrs['inputclass']}}" @endisset
    @isset($attrs['viewformat'])data-viewformat="{{$attrs['viewformat']}}" @endisset
    @isset($attrs['source'])data-source="{{ json_encode($attrs['source']) }}" @endisset

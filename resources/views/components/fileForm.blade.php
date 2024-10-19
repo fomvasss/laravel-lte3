@@ -19,6 +19,7 @@
            style="display: none;"
            name="{{ $input_name }}"
            @if(!empty($attrs['multiple'])) multiple @endif
+           @if(Arr::get($attrs, 'disabled')) disabled @endif
            @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
            {{$key}}="{{$val}}"
             @endforeach
