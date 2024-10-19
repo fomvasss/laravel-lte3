@@ -12,5 +12,8 @@
 >{!!$attrs['before_title'] ?? ''!!} {!! $title !!} {!!$attrs['after_title'] ?? ''!!}</button>
 
 @if(\Illuminate\Support\Arr::get($attrs, 'add') === 'fixed')
-    <button type="submit" class="btn btn-primary btn-lte-fixed" data-toggle="tooltip" title="{!! $title !!}"><i class="fa fa-save"></i></button>
+    <button type="submit" class="btn btn-primary btn-lte-fixed">
+        <i class="fa fa-save"></i>
+        <span class="table__options-text">{!! $title !!}</span>
+    </button>
 @endif

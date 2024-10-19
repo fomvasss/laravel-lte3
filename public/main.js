@@ -1007,4 +1007,37 @@ $(function () {
         e.preventDefault();
         $(this).closest('.f-item').remove();
     });
+
+    // Налаштування стовбців таблиці
+    const $table = $('.js-options-columns');
+    const userOptions = $table.data('options') || {};
+
+    const sortedKeys = Object.keys(userOptions).sort((a, b) => {
+        return userOptions[a].weight - userOptions[b].weight;
+    });
+
+    sortedKeys.forEach((key, index) => {
+        const $th = $table.find(`th.js-options-${key}`);
+        if ($th.length) {
+            const thIndex = $th.index() + 1;
+
+            $th.insertBefore($th.parent().children().eq(index + 1));
+
+            $table.find('tbody tr').each(function() {
+                const $row = $(this);
+                const $td = $row.find(`td:nth-child(${thIndex})`);
+                if ($td.length) {
+                    $td.insertBefore($row.children().eq(index + 1));
+                }
+            });
+
+            if (userOptions[key].active === "0") {
+                $th.hide();
+                $table.find(`td:nth-child(${index + 2})`).hide();
+            }
+        }
+    });
+
+    // Preloader
+    $('#table-preloader').fadeOut(250);
 });
