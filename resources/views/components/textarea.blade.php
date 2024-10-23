@@ -10,6 +10,11 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @if(isset($attrs['data']) && is_array($attrs['data']))
+        @foreach($attrs['data'] as $dataKey => $dataVal)
+          data-{{$dataKey}}="{{$dataVal}}"
+        @endforeach
+    @endif
     >{!! $value !!}</textarea>
 
     @error($name)
