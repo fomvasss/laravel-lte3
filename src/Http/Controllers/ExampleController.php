@@ -57,6 +57,12 @@ class ExampleController extends Controller
      */
     public function save(Request $request)
     {
+        if ($request->key && $request->value_key) {
+            session()->put($request->key, $request->{$request->value_key});
+            session()->save();
+        } elseif ($request->key) {
+            session()->put($request->key, $request->value);
+        }
 
         if ($request->action === 'save-dd') {
             dd($request->all());
@@ -64,14 +70,6 @@ class ExampleController extends Controller
 
         if (($model = $this->modelData()) && $model instanceof HasMedia) {
             $model->mediaManage($request);
-        }
-        
-        if ($request->key) {
-            session()->put($request->key, $request->value);
-        }
-
-        if ($tableOptions = $request->input('table-options')) {
-            session()->put('table-options', $tableOptions);
         }
 
         if ($request->ajax()) {

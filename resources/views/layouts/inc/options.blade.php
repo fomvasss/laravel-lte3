@@ -293,3 +293,215 @@
         initLfmBtn();
     </script>
 @endif
+
+@if(is_dir(public_path('vendor/editorjs')))
+    <!-- Editor.js Плагін для заголовків -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <!-- Editor.js Плагін для списків -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <!-- Editor.js Плагін для checklist -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <!-- Editor.js Плагін для quote -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <!-- Editor.js Плагін для embed -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <!-- Editor.js Плагін для table -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <!-- Editor.js Плагін для image -->
+{{--    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>--}}
+    <!-- Editor.js Плагін для simple-image -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <!-- Editor.js Плагін для raw -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <!-- Editor.js Плагін для marker -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <!-- Editor.js Плагін для warning -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
+    <!-- Editor.js Плагін для text-variant-tune -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/text-variant-tune@latest"></script>
+    <!-- Editor.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="/vendor/editorjs/editorjs.mjs" referrerpolicy="origin"></script>
+
+    <script>
+        var lfmImageFolder = $('#editorjs').data('lfm-image-folder') ?? 'images';
+        var lfmFileFolder = $('#editorjs').data('lfm-file-folder') ?? 'files';
+
+        class Lfm {
+            static get toolbox() {
+                return {
+                    title: 'LFM',
+                    icon: '<svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 3v6h6M12 18v-6M9 15l3-3 3 3" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                };
+            }
+
+            constructor({ data, api }) {
+                this.data = data || {};
+                this.api = api;
+                this.wrapper = null;
+            }
+
+            render() {
+                this.wrapper = document.createElement('div');
+
+                if (this.data && this.data.url) {
+                    this._displayContent(this.data.url, this.data.type);
+                } else {
+                    const imageButton = document.createElement('button');
+                    imageButton.type = 'button';
+                    imageButton.innerText = 'Select Image';
+                    imageButton.addEventListener('click', () => {
+                        this.openFileManager('image');
+                    });
+
+                    const fileButton = document.createElement('button');
+                    fileButton.type = 'button';
+                    fileButton.innerText = 'Select File';
+                    fileButton.addEventListener('click', () => {
+                        this.openFileManager('file');
+                    });
+
+                    this.wrapper.appendChild(imageButton);
+                    this.wrapper.appendChild(fileButton);
+                }
+
+                return this.wrapper;
+            }
+
+            _displayContent(url, type) {
+                this.wrapper.innerHTML = '';
+
+                if (type === 'image') {
+                    const image = document.createElement('img');
+                    image.src = url;
+                    image.style.cursor = 'pointer';
+                    image.style.maxWidth = '100%';
+                    image.addEventListener('click', () => {
+                        this.openFileManager('image');
+                    });
+                    this.wrapper.appendChild(image);
+                } else {
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.innerText = 'Open file';
+                    link.target = '_blank';
+                    link.style.cursor = 'pointer';
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        this.openFileManager('file');
+                    });
+                    this.wrapper.appendChild(link);
+                }
+            }
+
+            openFileManager(type) {
+                var folder = type === 'image' ? lfmImageFolder : lfmFileFolder;
+                window.open(`/filemanager?type=${folder}`, 'File', 'width=900,height=600');
+                window.SetUrl = (url) => {
+                    if (Array.isArray(url) && url.length > 0 && url[0].url) {
+                        const fileUrl = url[0].url;
+                        this._displayContent(fileUrl, type);
+                        this.data = { url: fileUrl, type: type };
+                    } else {
+                        console.error('Invalid data format for file');
+                    }
+                };
+            }
+
+            save(blockContent) {
+                return this.data;
+            }
+        }
+
+        var initEditorJS = function() {
+            const editorjsDataElement = document.getElementById('editorjs_data');
+            if (editorjsDataElement) {
+                const savedData = JSON.parse(editorjsDataElement.value || '{}');
+
+                let tools = {};
+                let tunes = [];
+
+                if (typeof Lfm !== 'undefined') {
+                    tools.lfm = {
+                        class: Lfm,
+                        shortcut: 'CMD+SHIFT+F',
+                    };
+                }
+
+                if (typeof Header !== 'undefined') {
+                    tools.header = {
+                        class: Header,
+                        shortcut: 'CMD+SHIFT+H',
+                    };
+                }
+
+                if (typeof List !== 'undefined') {
+                    tools.list = List;
+                }
+
+                if (typeof Checklist !== 'undefined') {
+                    tools.checklist = Checklist;
+                }
+
+                if (typeof Quote !== 'undefined') {
+                    tools.quote = Quote;
+                }
+
+                if (typeof TextVariantTune !== 'undefined') {
+                    tunes.push('textVariant');
+                    tools.textVariant = TextVariantTune;
+                }
+
+                if (typeof Embed !== 'undefined') {
+                    tools.embed = Embed;
+                }
+
+                if (typeof RawTool !== 'undefined') {
+                    tools.raw = RawTool;
+                }
+
+                if (typeof Marker !== 'undefined') {
+                    tools.marker = {
+                        class: Marker,
+                        shortcut: 'CMD+SHIFT+M',
+                    };
+                }
+
+                if (typeof Warning !== 'undefined') {
+                    tools.warning = {
+                        class: Warning,
+                        inlineToolbar: true,
+                        config: {
+                            titlePlaceholder: 'Title',
+                            messagePlaceholder: 'Message',
+                        },
+                    };
+                }
+
+                if (typeof Table !== 'undefined') {
+                    tools.table = Table;
+                }
+
+                const editor = new EditorJS({
+                    holder: 'editorjs',
+                    tools: tools,
+                    tunes: tunes,
+                    data: savedData
+                });
+
+                editorjsDataElement.closest('form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    editor.save().then((outputData) => {
+                        editorjsDataElement.value = JSON.stringify(outputData);
+                        this.submit();
+                    }).catch((error) => {
+                        console.error('Saving failed: ', error);
+                    });
+                });
+            }
+        };
+
+        initEditorJS();
+    </script>
+@endif

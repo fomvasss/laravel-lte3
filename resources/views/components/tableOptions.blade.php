@@ -3,7 +3,7 @@
     <div class="table__options-wrapper">
         <button type="button" class="btn table__options-button" data-toggle="modal" data-target="#table__options-modal">
             <i class="fas fa-sliders-h table__options-icon"></i>
-            <span class="table__options-text">Обрати стовпчики</span>
+            <span class="table__options-text">{!! $attrs['btn_modal_title'] ?? 'Select columns' !!}</span>
         </button>
     </div>
 
@@ -11,7 +11,7 @@
         <div class="modal-dialog" style="position: fixed; margin: auto; width: 320px; height: 100%; right: 0;" role="document">
             <div class="modal-content" style="height: 100%;">
                 <div class="modal-header">
-                    <h5>Обрати стовпчики</h5>
+                    <h5>{!! $attrs['btn_modal_title'] ?? 'Select columns' !!}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {!! Lte3::btnSubmit('Зберегти') !!}
+                    {!! Lte3::btnSubmit($attrs['btn_save_title'] ?? 'Submit') !!}
                 </div>
             </div>
         </div>
