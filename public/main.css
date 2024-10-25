@@ -214,6 +214,19 @@ details[open] summary {
     cursor: pointer;
 }
 
+.dark-mode .table__options-button {
+    color: #fff;
+    background-color: #3f6791;
+    border-color: #3f6791;
+    box-shadow: none;
+}
+
+.dark-mode .table__options-button:hover {
+    color: #fff;
+    background-color: #335476;
+    border-color: #304e6d;
+}
+
 .table__options-text {
     display: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;

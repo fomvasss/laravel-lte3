@@ -246,10 +246,10 @@
                     'name' => 'Статус',
                 ],
             ], $options, [
-                'action' => route('lte3.data.save'),
+                'action' => route('lte3.data.save', ['key' => 'table-options', 'value_key' => 'table_options']),
                 'method' => 'post',
                 'table' => 'columns',
-                'name' => 'table-options',
+                'name' => 'table_options',
                 'preloader' => true,
             ]) !!}
             <div class="card-footer clearfix">
@@ -963,6 +963,26 @@
             </div>
         </div>
 
+        <div class="card card-info card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Editor.js</h3>
+            </div>
+
+            <div class="card-body">
+                {!! Lte3::formOpen(['action' => route('lte3.data.save', ['action' => 'save-dd', 'key' => 'editorjs-data', 'value_key' => 'editorjs_data']), null, 'method' => 'POST']) !!}
+                <div id="editorjs" data-lfm-image-folder="images" data-lfm-file-folder="files" style="border: 1px solid #ddd; border-radius: .25rem" class="mb-3"></div>
+                {!! Lte3::hidden('editorjs_data', session()->get('editorjs-data') ?: '{"time":1729844966856,"blocks":[{"id":"tCGreiYH5q","type":"header","data":{"text":"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Editor.js","level":2},"tunes":{"textVariant":""}},{"id":"qOmb7csMW2","type":"list","data":{"style":"ordered","items":["add div with id -&nbsp;editorjs","add hidden input with any name (ex. editorjs_data) and id -&nbsp;editorjs_data"]},"tunes":{"textVariant":""}}],"version":"2.30.6"}', [
+                    'id' => 'editorjs_data',
+                ]) !!}
+
+                {!! Lte3::btnSubmit('Submit') !!}
+                {!! Lte3::formClose() !!}
+            </div>
+            <div class="card-footer">
+                Visit <a href="https://editorjs.io/" target="_blank">Editor.js</a>
+                documentation for more examples and information about the plugin.
+            </div>
+        </div>
 
         <!-- Dynamic blocks -->
         <div class="row">
