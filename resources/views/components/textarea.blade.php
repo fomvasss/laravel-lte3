@@ -1,4 +1,4 @@
-<div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
+<div class="form-group position-relative {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $name }}">{!! $label !!}</label>
     @endif
@@ -16,6 +16,19 @@
         @endforeach
     @endif
     >{!! $value !!}</textarea>
+
+    @if(Arr::get($attrs, 'tokens'))
+        <div class="btn-group btn-group-tokens dropleft">
+            <button type="button" class="btn btn-default p-0 border-0 bg-transparent" data-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-caret-square-down"></i>
+            </button>
+            <div class="dropdown-menu" role="menu">
+                @foreach(Arr::get($attrs, 'tokens', []) as $key => $name)
+                    <a class="dropdown-item js-clipboard" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
     @error($name)
     <div class="error invalid-feedback"> {{ $message }} </div>@enderror
