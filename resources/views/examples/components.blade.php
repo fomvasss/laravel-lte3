@@ -276,6 +276,8 @@
                             'readonly' => 1,
                         ]) !!}
 
+                        {!! Lte3::text('tokens', 'Example tokens ', ['tokens' => ['[user:name]' => 'Name', '[user:phone]' => 'Phone']]) !!}
+
                         {!! Lte3::text('city', 'Lutsk', ['hidden_wrap' => 1]) !!}
 
                         {!! Lte3::text('default', null, [
