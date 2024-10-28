@@ -111,6 +111,13 @@ ul.js-sortable-nested li.placeholder:before {
     opacity: .9;
 }
 
+.btn-group-tokens {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    background-color: transparent !important;
+}
+
 .lte-pointer:hover {
     cursor: pointer;
 }
