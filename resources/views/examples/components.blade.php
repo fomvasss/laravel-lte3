@@ -274,6 +274,7 @@
 
                         {!! Lte3::text('lastname', 'Mann', [
                             'readonly' => 1,
+                            'attrs' => ['custom-attrs' => 'custom-val'],
                         ]) !!}
 
                         {!! Lte3::text('tokens', 'Example tokens ', ['tokens' => ['[user:name]' => 'Name', '[user:phone]' => 'Phone']]) !!}
