@@ -10,6 +10,9 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @foreach(Arr::get($attrs, 'attrs') ?? [] as $key => $val)
+        {{$key}}="{{$val}}"
+    @endforeach
     >
     @error($name)<div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset

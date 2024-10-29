@@ -28,6 +28,9 @@
                 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                     {{$key}}="{{$val}}"
                 @endforeach
+                @foreach(Arr::get($attrs, 'attrs') ?? [] as $key => $val)
+                    {{$key}}="{{$val}}"
+                @endforeach
         >
         @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
             <label for="{{ $attrs['id'] ?? $name }}" class="@if($is_simple) form-check-label @else custom-control-label @endif">{!! $label !!}</label>
