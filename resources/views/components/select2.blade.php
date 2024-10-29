@@ -78,6 +78,9 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @foreach(Arr::get($attrs, 'attrs') ?? [] as $key => $val)
+        {{$key}}="{{$val}}"
+    @endforeach
     >
     @if(empty($attrs['multiple']) && empty($attrs['empty_value']) && count($options) > 6)
         <option value="" disabled selected> ---</option>

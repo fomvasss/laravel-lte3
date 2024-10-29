@@ -21,6 +21,9 @@
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
+    @foreach(Arr::get($attrs, 'attrs') ?? [] as $key => $val)
+        {{$key}}="{{$val}}"
+    @endforeach
     >
     </select>
     @error($name)
