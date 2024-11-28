@@ -5,7 +5,7 @@
     $is_simple = \Illuminate\Support\Arr::get($attrs, 'is_simple') ? true : false;
 @endphp
 
-<div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
+<div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif @if($title = Arr::get($attrs, 'title')) data-toggle="tooltip" title="{{$title}}" @endif>
     <div class="@if($is_simple) form-check @else custom-control @endif {{ $attrs['class_control'] ?? null }}">
         @if($unchecked_value !== '')
             <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
