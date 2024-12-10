@@ -19,6 +19,7 @@
             class="f-timepicker form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
             type="text" autocomplete="off"
             @if(Arr::get($attrs, 'disabled')) disabled @endif
+            @if(Arr::get($attrs, 'readonly')) readonly @endif
             data-toggle="tooltip"
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"

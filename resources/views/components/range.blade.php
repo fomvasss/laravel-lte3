@@ -9,6 +9,7 @@
            data-toggle="tooltip"
            oninput="this.nextElementSibling.value = this.value"
         @if(Arr::get($attrs, 'disabled')) disabled @endif
+        @if(Arr::get($attrs, 'readonly')) readonly @endif
         @isset($attrs['min']) min="{{$attrs['min']}}" @endisset
         @isset($attrs['max']) max="{{$attrs['max']}}" @endisset
         @isset($attrs['step']) step="{{$attrs['step']}}" @endisset

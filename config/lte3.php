@@ -88,7 +88,6 @@ return [
             'accept',
             'placeholder',
             'required',
-            'readonly',
             'maxlength',
             'minlength',
             'pattern',

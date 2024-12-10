@@ -9,6 +9,7 @@
                autocomplete="off"
                name="{{ $name }}"
                @if(Arr::get($attrs, 'disabled')) disabled @endif
+               @if(Arr::get($attrs, 'readonly')) readonly @endif
                @if(Arr::get($attrs, 'transparent'))
                data-color="transparent"
                @endif
