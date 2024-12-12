@@ -4,7 +4,7 @@
     $title = ($limit = \Illuminate\Support\Arr::get($attrs, 'limit_title')) ? \Illuminate\Support\Str::limit($title, $limit, $limitEnd) : $title;
 @endphp
 
-<a @empty(Arr::get($attrs, 'disabled'))) href="#" @endempty
+<a @empty(Arr::get($attrs, 'disabled')) href="#" @endempty
    class="f-x-editable {{ $attrs['class'] ?? null }} {{ $attrs['class_wrap'] ?? null }}"
    data-value="{{ $value }}"
    data-type="{{ $attrs['data_type'] ?? $attrs['type'] ?? 'text' }}"
