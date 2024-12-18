@@ -275,3 +275,10 @@ details[open] summary {
         display: none;
     }
 }
+
+.dark-mode .lte-text, .dark-mode .lte-text a {
+    color: white;
+}
+.lte-text, .lte-text a {
+    color: #212529;
+}

@@ -139,7 +139,7 @@ $(function () {
         $.get(url, function (data) {
             $(`${target} .modal-content`).html(data.html);
             $(`${target}`).modal();
-            
+
             return true;
         }).done(function () {
             initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
@@ -596,7 +596,7 @@ $(function () {
                 });
             }
         });
-        
+
         // Displaying blocks depending on the selection in the selection
         $('.f-select2-wrap .js-map-blocks').each(function () {
             if ($(this).find(':selected')) {
@@ -627,7 +627,7 @@ $(function () {
 
     // TODO
     //$(document).on('change', '.f-radiogroup')
-
+    
     // Component: checkbox
     initCheckbox = function () {
         $('.f-checkbox-ajax').each(function () {
