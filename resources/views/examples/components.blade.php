@@ -11,7 +11,7 @@
     @include('lte3::parts.content-header', [
         'page_title' => 'Components: 42',
         'url_back' => '#',
-        'url_create' => '#',
+        'url_create' => Lte3::backUrl('admin.components.index'), // add _back to GET params or set route name admin.components.index
         'btn_filter' => true,
         'btn_search' => true,
     ])

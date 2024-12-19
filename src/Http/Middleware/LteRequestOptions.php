@@ -80,6 +80,10 @@ class LteRequestOptions
      */
     protected function putIndexPageRouteNamesForBackAction(Request $request)
     {
+        if ($back = $request->get('_back')) {
+            $request->session()->put('_back', $back);
+        }
+        
         if (Str::is($this->indexPageRouteNamesForBackAction, $request->route()->getName())) {
             $request->session()->put($request->route()->getName(), $request->fullUrl());
         }

@@ -142,6 +142,15 @@ class Lte
     }
 
     /**
+     * @param string|null $key
+     * @return string
+     */
+    public function backUrl(string $key = null): string
+    {
+        return request('_back') ?: session()->flash('_back') ?: session($key) ?: '';
+    }
+
+    /**
      * @param $name
      * @param null $value
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Request|mixed|string|void|null
