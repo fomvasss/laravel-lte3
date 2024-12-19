@@ -282,3 +282,11 @@ details[open] summary {
 .lte-text, .lte-text a {
     color: #212529;
 }
+
+.dark-mode img.avatar-border {
+    border: 2px solid #394046;
+}
+img.avatar-border {
+    border: 2px solid #f7f7f7;
+    border-radius: 50%;
+}
