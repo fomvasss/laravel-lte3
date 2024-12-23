@@ -3,8 +3,10 @@
 
     } elseif (!empty($model)) {
         $selected = $model->{$name};
+    } elseif (old($name)) {
+        $selected = old($name);
     } else {
-        $selected = old($name, $selected);
+        $selected = \Arr::get($attrs, 'default');
     }
 
     $selected = !is_null($selected) ? \Arr::wrap($selected) : [];

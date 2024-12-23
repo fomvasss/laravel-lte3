@@ -489,7 +489,7 @@
                     data: savedData
                 });
 
-                editorjsDataElement.closest('form').addEventListener('submit', function(e) {
+                editorjsDataElement.closest('form')?.addEventListener('submit', function(e) {
                     e.preventDefault();
 
                     editor.save().then((outputData) => {

@@ -9,7 +9,7 @@
                                     class="fa fa-chevron-left"></i> </a>
                     @endif
                     @isset($page_title) {!! $page_title !!} @endisset
-                    @isset($small_page_title)<small>{{ $small_page_title }}</small>@endisset
+                    @isset($small_page_title)<small>{!! $small_page_title !!}</small>@endisset
                     @if(!empty($url_create))
                         <a href="{{ $url_create }}" class="btn btn-flat btn-success"><i class="fa fa-plus"></i> Create</a>
                     @endif
