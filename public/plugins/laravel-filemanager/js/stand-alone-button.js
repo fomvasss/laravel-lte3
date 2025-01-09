@@ -33,7 +33,7 @@
                     // // set or change the preview image src
                     items.forEach(function (item) {
                         previewBlock.append(
-                            $('<img>').css('height', '60px').attr('src', item.thumb_url)
+                            $('<img>').css({"height": "60px", "max-width": "100%", "object-fit":"cover"}).attr('src', item.thumb_url)
                         );
                     });
                 } else {
