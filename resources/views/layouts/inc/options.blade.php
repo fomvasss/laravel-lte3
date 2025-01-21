@@ -229,6 +229,11 @@
             relative_urls: false,
             path_absolute : pathAbsolute,
 
+            target_list: [
+                { title: 'None', value: '' },
+                { title: 'Open in new tab', value: '_blank' }
+            ],
+
             // LFM integration
             file_picker_callback : function(callback, value, meta) {
                 var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;

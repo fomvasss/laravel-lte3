@@ -247,7 +247,7 @@ if (! function_exists('array_search_assoc')) {
         foreach ($haystack as $n => $item) {
             $break = false;
             foreach ($keys as $key) {
-                if ($item[$key] !== $needle[$key]) {
+                if ($item[$key] != $needle[$key]) {
                     $break = true;
                     break;
                 }
