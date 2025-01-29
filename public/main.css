@@ -90,7 +90,7 @@ ul.js-sortable-nested li.placeholder:before {
 .btn-lte-fixed {
     font-size: 14px;
     position: fixed;
-    top: 95px;
+    top: 125px;
     right: 0;
     border-radius: 5px 0 0 5px;
     opacity: .4;
