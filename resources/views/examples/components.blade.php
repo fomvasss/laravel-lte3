@@ -297,6 +297,13 @@
 
                         {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
 
+                        {!! Lte3::text('formatter', null, [
+                            'default' => 'some example formatter',
+                            'formatter' => fn($v) => \Illuminate\Support\Str::upper($v),
+                            //'formatter' => 'some_upper_helper',
+                            //'formatter' => \App\Formatters\UpperFormatter::class,
+                        ]) !!}
+
                         {!! Lte3::text('Calculator', '3+4*2', ['class' => 'js-input-calc', 'help' => '* Press Enter for calc']) !!}
 
                         {!! Lte3::url('url', null, [

@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 class Lte
@@ -32,6 +33,7 @@ class Lte
 
             if (isset($res['name']) && array_key_exists('value', $res)) {
                 $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $res['attrs']['default'] ?? $componentParams['default']['default'] ?? null);
+                $res['value'] = $this->prepareValueFormatter($res);
             }
 
             if (empty($res['model'])) {
@@ -47,6 +49,25 @@ class Lte
         }
 
         throw new Exception("Lte3 method or component '{$name}' not found!");
+    }
+
+    /**
+     * @param $res
+     * @return mixed
+     */
+    protected function prepareValueFormatter($res)
+    {
+        $value = $res['value'];
+
+        if ($formatter = Arr::get($res, 'attrs.formatter')) {
+            if (is_callable($formatter)) {
+                $value = $formatter($value, $res);
+            } elseif (class_exists($formatter)) {
+                $value = (new $formatter())->handle($value, $res);
+            }
+        }
+
+        return $value;
     }
 
     /**
