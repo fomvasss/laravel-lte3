@@ -290,3 +290,8 @@ img.avatar-border {
     border: 2px solid #f7f7f7;
     border-radius: 50%;
 }
+
+.dark-mode .navbar .input-group-append .btn.btn-navbar {
+    background: white;
+    border-color: #ced4da;
+}
