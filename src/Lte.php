@@ -78,7 +78,7 @@ class Lte
     public function field(array $params = [], array $params2 = [])
     {
         $params = array_merge($params, $params2);
-        
+
         $fieldType = \Arr::get($params, 'type', 'text');
         $componentParams = config("lte3.view.components.{$fieldType}");
 
@@ -168,7 +168,9 @@ class Lte
      */
     public function backUrl(string $key = null): string
     {
-        return request('_back') ?: session()->flash('_back') ?: session($key) ?: '';
+        return request('_back')
+            ?: session('_back')
+                ?: ($key ? session($key) : '') ?: '';
     }
 
     /**
