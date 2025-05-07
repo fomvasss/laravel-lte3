@@ -12,8 +12,9 @@
         'page_title' => 'Components: 42',
         'url_back' => '#',
         'url_create' => Lte3::backUrl('admin.components.index'), // add _back to GET params or set route name admin.components.index
-        'btn_filter' => true,
         'btn_search' => true,
+        //'btn_filter' => true,
+        'btn_filter' => [['title' => 'Tomorow', 'url' => \Illuminate\Support\Facades\URL::current() . '?_f=1&datetime_from='.now()->subDay()->toDateString() .'&'. 'datetime_to='. now()->subDay()->toDateString()]],
     ])
 
     <!-- Main content -->

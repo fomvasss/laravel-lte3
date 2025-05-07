@@ -30,8 +30,24 @@
                         </div>
                     @endif
 
-                    @if($btn_filter ?? false)
-                        <a href="#collapseFilter" class="btn btn-flat btn-default mb-1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseFilter"><i class="fa fa-filter"></i></a>
+                    @if(isset($btn_filter) && $btn_filter)
+                        @if(is_array($btn_filter))
+                            <div class="btn-group">
+                                <a href="#collapseFilter" class="btn btn-flat btn-default mb-1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseFilter"><i class="fa fa-filter"></i></a>
+                                <button type="button" class="btn btn-flat btn-default mb-1 dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu" style="">
+                                    @foreach($btn_filter as $btn)
+                                        <a class="dropdown-item" href="{{$btn['url']}}">{{$btn['title']}}</a>
+                                    @endforeach
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ Request::url() }}">Clear</a>
+                                </div>
+                            </div>
+                        @else
+                            <a href="#collapseFilter" class="btn btn-flat btn-default mb-1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseFilter"><i class="fa fa-filter"></i></a>
+                        @endif
                     @endif
 
                     @yield('btn-content-header')

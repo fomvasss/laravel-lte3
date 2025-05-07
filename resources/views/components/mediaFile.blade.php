@@ -30,6 +30,7 @@
                         @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                         {{$key}}="{{$val}}"
                         @endforeach
+                        @if(empty(Arr::only($attrs, 'accept') && Arr::get($attrs, 'is_image'))) accept="image/*" @endif
                 >
             </label>
         </div>

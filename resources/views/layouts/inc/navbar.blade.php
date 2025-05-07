@@ -35,7 +35,7 @@
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="flag-icon flag-icon-us"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right p-0" style="left: inherit; right: 0px;">
+            <div class="dropdown-menu p-0" style="left: inherit; right: 0px;">
                 <a href="#" class="dropdown-item">
                     <i class="flag-icon flag-icon-ua mr-2"></i> Ukrainian
                 </a>
