@@ -348,6 +348,14 @@
                                 'unchecked_value' => 0,
                                 'class_control' => 'custom-switch'
                         ]) !!}
+
+                        {!! Lte3::checkboxes('rd', ['morning', 'day'], [
+                            ['id' => 'night', 'name' => 'Night'],
+                            ['id' => 'morning', 'name' => 'Morning'],
+                            'day' => 'Day',
+                            'evening',
+                        ], ['help' => '* Some text', 'label' => 'Time of day']) !!}
+
                         <div class="row">
                             <div class="col-md-12">
                                 {!! Lte3::radiogroup('payment', null, ['paypal' => 'PayPal', 'fondy' => 'Fondy', 'liqpay' => 'LiqPay',], [
@@ -569,6 +577,12 @@
                             'label' => 'Gender',
                             'data' => ['tt' => 'yy']
                         ]) !!}
+                        {!! Lte3::field(['name' => 'rd', 'label' => 'Time of day', 'type' => 'checkboxes', 'selected' => ['morning', 'day'], 'help' => '* Some text', 'options' => [
+                            ['id' => 'night', 'name' => 'Night'],
+                            ['id' => 'morning', 'name' => 'Morning'],
+                            'day' => 'Day',
+                            'evening',
+                        ]]) !!}
                     </div>
                 </div>
 

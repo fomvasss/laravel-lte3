@@ -56,6 +56,7 @@ return [
             'slug' => ['blade' => 'lte3::components.slug', 'vars' => ['name', 'value', 'attrs']],
             'textarea' => ['blade' => 'lte3::components.textarea', 'vars' => ['name', 'value', 'attrs']],
             'checkbox' => ['blade' => 'lte3::components.checkbox', 'vars' => ['name', 'value', 'attrs']],
+            'checkboxes' => ['blade' => 'lte3::components.checkboxes', 'vars' => ['name', 'selected', 'options', 'attrs']],
             'radiogroup' => ['blade' => 'lte3::components.radiogroup', 'vars' => ['name', 'selected', 'options', 'attrs']],
             'links' => ['blade' => 'lte3::components.links', 'vars' => ['name', 'items', 'attrs']],
             'lists' => ['blade' => 'lte3::components.lists', 'vars' => ['name', 'items', 'attrs']],
