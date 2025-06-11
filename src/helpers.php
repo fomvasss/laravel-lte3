@@ -97,7 +97,11 @@ if (! function_exists('human_duration')) {
      */
     function human_duration(int $seconds, string $format = 'H:i:s')
     {
-        return date('H:i:s', $seconds);
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $secs = $seconds % 60;
+
+        return sprintf('%d:%02d:%02d', $hours, $minutes, $secs);
     }
 }
 

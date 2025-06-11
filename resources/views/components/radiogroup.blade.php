@@ -20,9 +20,10 @@
 
     @foreach($options ?: [] as $value => $val)
         @php
-            $label = is_array($val) ? $val['label'] ?? $val : $val;
-            $url = is_array($val) ? $val['url'] ?? '' : '';
+            $label = is_array($val) ? (Arr::get($val, 'label') ?? Arr::get($val, 'name') ?? Arr::get($val, 'title') ?? $val) : $val;
+            $url = is_array($val) ? Arr::get($val, 'url') ?? '' : '';
             $disabled = is_array($val) ? Arr::get($val, 'disabled') : false;
+            $value = is_array($val) ? (Arr::get($val, 'id') ?? Arr::get($val, 'slug') ?? Arr::get($val, 'key') ?? Arr::get($val, 'value') ?: $value) : $value;
         @endphp
         <div class="custom-control custom-radio">
             <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_method']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
