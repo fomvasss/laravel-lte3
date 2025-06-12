@@ -3,6 +3,8 @@
     $checked_value = isset($attrs['checked_value']) ? $attrs['checked_value'] : 1;
     $raw_name = $attrs['raw_name'] ?? Str::replaceLast('[]', '', $name);
     $is_simple = \Illuminate\Support\Arr::get($attrs, 'is_simple') ? true : false;
+    $field_id_prefix = $attrs['field_id_prefix'] ?? '';
+    $id = $attrs['id'] ?? "_{$field_id_prefix}_{$name}";
 @endphp
 
 <div class="form-group {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif @if($title = Arr::get($attrs, 'title')) data-toggle="tooltip" title="{{$title}}" @endif>
@@ -33,7 +35,7 @@
                 @endforeach
         >
         @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
-            <label for="{{ $attrs['id'] ?? $name }}" class="@if($is_simple) form-check-label @else custom-control-label @endif">{!! $label !!}</label>
+            <label for="{{ $id }}" class="@if($is_simple) form-check-label @else custom-control-label @endif">{!! $label !!}</label>
         @endif
     </div>
     @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror

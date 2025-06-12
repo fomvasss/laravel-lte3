@@ -10,6 +10,7 @@
     } else {
         $selected = array_key_first($options);
     }
+    $field_id_prefix = $attrs['field_id_prefix'] ?? '';
 @endphp
 
 <div class="form-group f-radiogroup {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
@@ -24,12 +25,13 @@
             $url = is_array($val) ? Arr::get($val, 'url') ?? '' : '';
             $disabled = is_array($val) ? Arr::get($val, 'disabled') : false;
             $value = is_array($val) ? (Arr::get($val, 'id') ?? Arr::get($val, 'slug') ?? Arr::get($val, 'key') ?? Arr::get($val, 'value') ?: $value) : $value;
+            $id = "_{$field_id_prefix}_{$name}_{$loop->index}";
         @endphp
         <div class="custom-control custom-radio">
             <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_method']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
                    name="{{ $name }}"
                    value="{{$value}}"
-                   id="{{ $name.$loop->index }}"
+                   id="{{$id}}"
                    type="radio"
                    @isset($attrs['submit_method'])data-method={{$attrs['submit_method']}}@endisset
                    @if(Arr::get($attrs, 'disabled') || $disabled) disabled @endif
@@ -50,7 +52,7 @@
                 @endforeach
             @endif
             >
-            <label class="custom-control-label" for="{{ $name.$loop->index }}">{{ $label }}</label>
+            <label class="custom-control-label" for="{{$id}}">{{ $label }}</label>
         </div>
     @endforeach
     @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror

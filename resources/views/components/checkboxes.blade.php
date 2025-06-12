@@ -44,7 +44,7 @@
         <input class="@if($is_simple) form-check-input @else custom-control-input @endif @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                data-toggle="tooltip"
                type="checkbox"
-               name="{{ $raw_name }}[]"
+               name="{{ $name }}[]"
                value="{{ $value }}"
                @if(Arr::get($val, 'disabled') || in_array($value, $disableds)) disabled @endif
                @if(Arr::get($val, 'readonly') || in_array($value, $readonlys)) onclick="return false;" @endif
@@ -52,9 +52,9 @@
                @if($value !== $unchecked_value && in_array($value, $selected)) checked @endif
                data-raw-name="{{$raw_name}}"
 {{--TODO--}}
-{{--               @if(!empty($attrs['method_save'])) data-method-save="{{$attrs['method_save']}}" @endif--}}
-{{--               data-format="{{ isset($attrs['format']) && $attrs['format'] === 'name,value' ? 'name,value' : 'name=value' }}"--}}
-{{--               @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif--}}
+               @if(!empty($attrs['method_save'])) data-method-save="{{$attrs['method_save']}}" @endif
+               data-format="{{ isset($attrs['format']) && $attrs['format'] === 'name,value' ? 'name,value' : 'name=value' }}"
+               @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
                id="{{$id}}"
                 @foreach(Arr::get($val, 'attrs') ?? [] as $key => $val)
                     {{$key}}="{{$val}}"

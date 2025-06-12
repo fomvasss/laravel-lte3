@@ -350,11 +350,18 @@
                         ]) !!}
 
                         {!! Lte3::checkboxes('rd', ['morning', 'day'], [
-                            ['id' => 'night', 'name' => 'Night'],
+                            ['id' => 'night', 'name' => 'Night', 'disabled' => true],
                             ['id' => 'morning', 'name' => 'Morning'],
                             'day' => 'Day',
                             'evening',
-                        ], ['help' => '* Some text', 'label' => 'Time of day']) !!}
+                            'dd',
+                        ], [
+                            'help' => '* Some text',
+                            'label' => 'Time of day',
+                            'field_id_prefix' => 'qq',
+//                            'url_save' => route('lte3.data.save'),
+//                            'method_save' => 'POST',
+                        ]) !!}
 
                         <div class="row">
                             <div class="col-md-12">
@@ -378,6 +385,7 @@
                             <div class="col-md-3">
                                 {!! Lte3::radiogroup('chanel', 'sms', ['push' => 'Push', 'email' => 'Email', 'sms' => 'SMS',], [
                                     'label' => 'Toggle Block:',
+                                    'field_id_prefix' => 'ww',
                                     'map' => [
                                         'push' => ['.js-block-push'],
                                         'email' => ['.js-block-email'],
