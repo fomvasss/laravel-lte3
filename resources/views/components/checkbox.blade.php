@@ -26,7 +26,7 @@
                data-format="{{ isset($attrs['format']) && $attrs['format'] === 'name,value' ? 'name,value' : 'name=value' }}"
                @if(!empty($attrs['url_save'])) data-url-save={{$attrs['url_save']}} @endif
 
-               @empty($attrs['id'])id="{{ $name }}"@endempty
+               id="{{ $id }}"
                 @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
                     {{$key}}="{{$val}}"
                 @endforeach
