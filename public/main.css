@@ -38,6 +38,16 @@ a.hover-edit {
     content: '✔';
 }
 
+.js-blur-text {
+    filter: blur(3px);
+    cursor: pointer;
+    transition: filter 0.4s ease;
+}
+
+.js-blur-text.revealed {
+    filter: none;
+}
+
 /* jQuery Sortable Nested */
 body.dragging, body.dragging * {
     cursor: move !important;

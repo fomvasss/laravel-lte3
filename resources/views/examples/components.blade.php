@@ -412,6 +412,7 @@
                         <a href="#" class="js-clipboard with-mark"
                            data-text="Hello!"
                            data-toggle="tooltip" title="Copy">Copy text</a>
+                        <p>Bluer text: <span class="js-blur-text">Hello World!</span></p>
 
                     </div>
                     <div class="card-footer text-right">

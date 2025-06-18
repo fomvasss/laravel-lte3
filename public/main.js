@@ -1040,4 +1040,8 @@ $(function () {
 
     // Preloader
     $('#table-preloader').fadeOut(250);
+
+    $('.js-blur-text').on('click', function () {
+        $(this).toggleClass('revealed');
+    });
 });
