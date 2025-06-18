@@ -1042,6 +1042,17 @@ $(function () {
     $('#table-preloader').fadeOut(250);
 
     $('.js-blur-text').on('click', function () {
-        $(this).toggleClass('revealed');
+        const $el = $(this);
+
+        if ($el.hasClass('revealed')) {
+            $(this).removeClass('revealed');
+            return;
+        };
+
+        $el.addClass('revealed');
+
+        setTimeout(function () {
+            $el.removeClass('revealed');
+        }, 10000);
     });
 });
