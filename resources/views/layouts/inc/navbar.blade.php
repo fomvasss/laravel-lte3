@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand {{config('lte3.view.dark_mode') ? 'dark-mode' : 'navbar-white navbar-light'}}">
+<nav class="main-header navbar navbar-expand text-sm {{config('lte3.view.dark_mode') ? 'dark-mode' : 'navbar-white navbar-light'}}">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
