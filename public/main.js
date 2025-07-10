@@ -1041,6 +1041,7 @@ $(function () {
     // Preloader
     $('#table-preloader').fadeOut(250);
 
+    // Заблюрений текст
     $('.js-blur-text').on('click', function () {
         const $el = $(this);
 
@@ -1054,5 +1055,19 @@ $(function () {
         setTimeout(function () {
             $el.removeClass('revealed');
         }, 10000);
+    });
+
+    // Приховане значення поля input (як password) з можливістю відктивання
+    $('.js-secret-value-btn').click(function() {
+        const btn = $(this),
+            input = btn.closest('.input-group').find('.js-secret-value');
+        if (input.attr('type') === 'password') {
+            const type = input.data('origin-type');
+            input.attr('type', type);
+            btn.find('i').attr('class', 'far fa-eye-slash');
+        } else {
+            input.attr('type', 'password');
+            btn.find('i').attr('class', 'far fa-eye');
+        }
     });
 });

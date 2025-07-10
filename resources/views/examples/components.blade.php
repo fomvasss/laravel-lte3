@@ -289,6 +289,8 @@
 
                         {!! Lte3::search('search', null, ['placeholder' => 'Enter text...']) !!}
 
+                        {!! Lte3::text('secret', 'Hello friend :)', ['secret' => true]) !!}
+
                         {!! Lte3::password('Password') !!}
 
                         {!! Lte3::password('password_new', null, [
@@ -296,7 +298,7 @@
                             'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>'
                         ]) !!}
 
-                        {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1]) !!}
+                        {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1, 'secret' => true]) !!}
 
                         {!! Lte3::text('formatter', null, [
                             'default' => 'some example formatter',
@@ -566,7 +568,7 @@
                 <!-- FIELD -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Field</h3>
+                        <h3 class="card-title">Lte3 Field</h3>
                     </div>
                     <div class="card-body">
                         {!! Lte3::field([
@@ -575,23 +577,37 @@
                             'value' => 'Nik',
                             'label' => 'Nickname',
                             'class' => 'some-class',
-                            'data' => ['rr' => 'qq']
+                            'data' => ['rr' => 'qq'],
                         ]) !!}
+
                         {!! Lte3::field([
                             'type' => 'select2',
-                            'name' => 'gender22',
+                            'name' => 'gender222',
                             'multiple' => true,
                             'selected' => 'male',
-                            'options' => ['male' => 'Male', 'female' => 'Female'],
                             'label' => 'Gender',
-                            'data' => ['tt' => 'yy']
+                            'data' => ['tt' => 'yy'],
+                            'options' => [
+                                ['id' => 'night', 'name' => 'Night'],
+                                ['id' => 'morning', 'name' => 'Morning'],
+                                'day' => 'Day',
+                                'evening',
+                            ],
                         ]) !!}
-                        {!! Lte3::field(['name' => 'rd', 'label' => 'Time of day', 'type' => 'checkboxes', 'selected' => ['morning', 'day'], 'help' => '* Some text', 'options' => [
-                            ['id' => 'night', 'name' => 'Night'],
-                            ['id' => 'morning', 'name' => 'Morning'],
-                            'day' => 'Day',
-                            'evening',
-                        ]]) !!}
+
+                        {!! Lte3::field([
+                            'type' => 'checkboxes',
+                            'name' => 'rd',
+                            'label' => 'Time of day',
+                            'selected' => ['morning', 'day'],
+                            'help' => '* Some help text',
+                            'options' => [
+                                ['id' => 'night', 'name' => 'Night'],
+                                ['id' => 'morning', 'name' => 'Morning'],
+                                'day' => 'Day',
+                                'evening',
+                            ],
+                        ]) !!}
                     </div>
                 </div>
 

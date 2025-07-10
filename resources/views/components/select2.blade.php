@@ -14,9 +14,21 @@
 
     $field_name_input = !empty($attrs['multiple']) && (empty($attrs['max']) || $attrs['max'] > 1) ? (Str::replaceLast('[]', '', $name) . '[]') : Str::replaceLast('[]', '', $name);
     $selected = $old + $selected;
-    $options = isset($options) ? \Arr::wrap($options) : []; // TODO: OR url_suggest
+
     $disableds = \Arr::wrap(\Arr::get($attrs, 'disableds')); // TODO: OR url_suggest
-    $options = is_array_assoc($options) ? $options : array_combine(array_map(fn($o) => Str::lower($o), $options), $options);
+
+    $optionsRaw = isset($options) ? \Arr::wrap($options) : []; // TODO: OR url_suggest
+    $options = [];
+    foreach ($optionsRaw as $key => $val) {
+        if (is_array($val)) {
+            $opt = Arr::get($val, 'id') ?? Arr::get($val, 'slug') ?? Arr::get($val, 'key') ?? Arr::get($val, 'value') ?? $key;
+            $title = Arr::get($val, 'label') ?? Arr::get($val, 'name') ?? Arr::get($val, 'title') ?? $key;
+        } else {
+            $opt = Str::lower($val);
+            $title = Str::ucfirst($val);
+        }
+        $options[$opt] = $title;
+    }
 @endphp
 
 <div class="form-group f-select2-wrap {{ $attrs['class_wrap'] ?? null }}"

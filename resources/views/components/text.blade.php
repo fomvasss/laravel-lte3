@@ -1,18 +1,31 @@
 @php
+    $originType = $attrs['type'];
     if ($attrs['type'] === 'password') {
         $value = '';
         $attrs['placeholder'] = \Illuminate\Support\Arr::get($attrs, 'placeholder', '********');
     }
+    $secret = \Illuminate\Support\Arr::get($attrs, 'secret');
+    if ($secret) {
+        $attrs['type'] = 'password';
+    }
+
+    $prepend = isset($attrs['prepend']) ? \Illuminate\Support\Arr::wrap($attrs['prepend']) : [];
+
+    $append = isset($attrs['append']) ? \Illuminate\Support\Arr::wrap($attrs['append']) : [];
+    if ($secret) {
+       $append[] = '<span class="js-secret-value-btn"><i class="far fa-eye"></i></span>';
+    }
+
 @endphp
 
-<div class="@if(isset($attrs['prepend']) || isset($attrs['append']) || isset($attrs['checkbox'])  || $attrs['type'] === 'url') input-group @endif form-group position-relative {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
+<div class="@if($prepend || $append || isset($attrs['checkbox'])  || $attrs['type'] === 'url') input-group @endif form-group position-relative {{ $attrs['class_wrap'] ?? null }}" @if(!empty($attrs['hidden_wrap'])) hidden @endif>
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div style="width: 100%;"><label for="{{ $name }}">{!! $label !!}</label></div>
     @endif
 
-    @isset($attrs['prepend'])
+    @if($prepend)
         <div class="input-group-prepend">
-            @foreach(\Illuminate\Support\Arr::wrap($attrs['prepend']) as $val)
+            @foreach($prepend as $val)
             <span class="input-group-text">{!!$val!!}</span>
             @endforeach
         </div>
@@ -27,9 +40,10 @@
         </div>
     @endif
 
-    <input class="form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+    <input class="form-control @error($name) is-invalid @enderror {{ $secret ? 'js-secret-value' : '' }} {{ $attrs['class'] ?? '' }}"
            name="{{ $name }}"
            type="{{ $attrs['type'] }}"
+           data-origin-type="{{ $originType }}"
            value="{{ $value }}"
            data-toggle="tooltip"
     @if(Arr::get($attrs, 'disabled')) disabled @endif
@@ -46,13 +60,21 @@
         @endforeach
     @endif
     >
-    @isset($attrs['append'])
+    @if($append)
         <div class="input-group-append">
-            @foreach(\Illuminate\Support\Arr::wrap($attrs['append']) as $val)
+            @foreach($append as $val)
             <span class="input-group-text">{!!$val!!}</span>
             @endforeach
         </div>
     @endisset
+{{--
+
+    @if($secret)
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="far fa-eye"></i><i class="far fa-eye-slash" hidden></i></span>
+        </div>
+    @endisset
+--}}
 
     @if(Arr::get($attrs, 'tokens'))
         <div class="btn-group btn-group-tokens dropleft">
