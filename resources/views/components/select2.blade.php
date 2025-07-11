@@ -23,6 +23,9 @@
         if (is_array($val)) {
             $opt = Arr::get($val, 'id') ?? Arr::get($val, 'slug') ?? Arr::get($val, 'key') ?? Arr::get($val, 'value') ?? $key;
             $title = Arr::get($val, 'label') ?? Arr::get($val, 'name') ?? Arr::get($val, 'title') ?? $key;
+        } elseif (is_array_assoc($optionsRaw)) {
+            $opt = $key;
+            $title = $val;
         } else {
             $opt = Str::lower($val);
             $title = Str::ucfirst($val);

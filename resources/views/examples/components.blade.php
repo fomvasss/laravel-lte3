@@ -582,10 +582,10 @@
 
                         {!! Lte3::field([
                             'type' => 'select2',
-                            'name' => 'gender222',
+                            'name' => 'rd2',
                             'multiple' => true,
                             'selected' => 'male',
-                            'label' => 'Gender',
+                            'label' => 'Time of day',
                             'data' => ['tt' => 'yy'],
                             'options' => [
                                 ['id' => 'night', 'name' => 'Night'],
