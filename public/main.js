@@ -1007,6 +1007,7 @@ $(function () {
         e.preventDefault();
         $(this).closest('.f-item').remove();
     });
+    
 
     // Налаштування стовбців таблиці
     const $table = $('.js-options-columns');

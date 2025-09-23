@@ -1095,6 +1095,15 @@
                 </div>
             </div>
         </div>
+
+
+        {{-- ChartJS 4--}}
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
     </section>
 @endsection
 
@@ -1111,6 +1120,9 @@
 @endpush
 
 @push('scripts')
+    <!-- ChartJS 4 -->
+    <script src="/vendor/lte3/plugins/chartjs4/chart.js"></script>
+
     <!-- Summernote -->
     <script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
 
@@ -1145,4 +1157,29 @@
             </div>
         </div>
     </div>
+@endpush
+
+@push('scripts')
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 @endpush

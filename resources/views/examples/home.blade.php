@@ -345,9 +345,9 @@
                                 <li>
                                     <!-- drag handle -->
                                     <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <!-- checkbox -->
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo1" id="todoCheck1">
@@ -364,10 +364,10 @@
                                     </div>
                                 </li>
                                 <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                    <span class="handle">
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
                                         <label for="todoCheck2"></label>
@@ -380,10 +380,10 @@
                                     </div>
                                 </li>
                                 <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                    <span class="handle">
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo3" id="todoCheck3">
                                         <label for="todoCheck3"></label>
@@ -396,10 +396,10 @@
                                     </div>
                                 </li>
                                 <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                    <span class="handle">
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo4" id="todoCheck4">
                                         <label for="todoCheck4"></label>
@@ -412,10 +412,10 @@
                                     </div>
                                 </li>
                                 <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                    <span class="handle">
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo5" id="todoCheck5">
                                         <label for="todoCheck5"></label>
@@ -428,10 +428,10 @@
                                     </div>
                                 </li>
                                 <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                                    <span class="handle">
+                                      <i class="fas fa-ellipsis-v"></i>
+                                      <i class="fas fa-ellipsis-v"></i>
+                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo6" id="todoCheck6">
                                         <label for="todoCheck6"></label>
@@ -629,6 +629,8 @@
 @push('scripts')
     <!-- ChartJS -->
     <script src="/vendor/adminlte/plugins/chart.js/Chart.min.js"></script>
+    <!-- ChartJS 4 -->
+    <script src="/vendor/lte3/plugins/chartjs4/chart.js"></script>
     <!-- Sparkline -->
     <script src="/vendor/adminlte/plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
