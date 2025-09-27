@@ -982,6 +982,21 @@
 
                 <div class="card card-info card-outline">
                     <div class="card-header">
+                        <h3 class="card-title">EasyMDE</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Easy MD Editor -->
+                        {!! Lte3::textarea('body_md', null, ['class' => 'f-md-editor']) !!}
+                    </div>
+                    <div class="card-footer">
+                        Visit <a href="https://github.com/Ionaru/easy-markdown-editor" target="_blank">EasyMDE</a> documentation for
+                        more examples and information about the plugin.
+                    </div>
+                </div>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
                         <h3 class="card-title">CKEditor 4</h3>
                     </div>
 
@@ -1097,7 +1112,7 @@
         </div>
 
 
-        {{-- ChartJS 4--}}
+        <!-- ChartJS 4 -->
         <div class="row">
             <div class="col-md-12">
                 <canvas id="myChart"></canvas>
@@ -1108,6 +1123,9 @@
 @endsection
 
 @push('styles')
+    <!-- EasyMDE -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/easy-markdown-editor/easymde.min.css">
+
     <!-- summernote -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
 
@@ -1122,6 +1140,9 @@
 @push('scripts')
     <!-- ChartJS 4 -->
     <script src="/vendor/lte3/plugins/chartjs4/chart.js"></script>
+
+    <!-- EasyMDE -->
+    <script src="/vendor/lte3/plugins/easy-markdown-editor/easymde.min.js"></script>
 
     <!-- Summernote -->
     <script src="/vendor/adminlte/plugins/summernote/summernote-bs4.min.js"></script>

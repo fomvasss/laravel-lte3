@@ -18,7 +18,7 @@
 @endif
 
 <script>
-    const LANGUAGE = $('html').attr('lang') || 'en';
+    const LANGUAGE = $('html').attr('lang') || '{{ app()->getLocale() }}' || 'en';
 
     $.ajaxSetup({
         headers: {
@@ -27,13 +27,35 @@
         }
     });
 
-    var initEditors = function () {
-        },
-        initDatetimepickerOptions = function () {
-        },
-        initPopupImage = function () {
-        }
+    var initSummernote = function () {},
+        initCodeMirror = function () {},
+        initDatetimepickerOptions = function () {},
+        initPopupImage = function () {},
+        initEasyMdEditor = function () {};
 
+    // Summernote
+    initSummernote = function() {
+        $('.f-summernote').summernote({
+            height: 300,
+            lang: 'uk-UA'
+        })
+    }
+    initSummernote();
+
+    // CodeMirror
+    initCodeMirror = function () {
+        $('.f-codeMirror').each(function(index, elem){
+            CodeMirror.fromTextArea(elem, {
+                mode: "htmlmixed",
+                lineNumbers: true,
+                theme: "monokai",
+                tabMode: "indent",
+            });
+        });
+    }
+    initCodeMirror();
+
+    // Datetimepicker
     initDatetimepickerOptions = function() {
         // Component: datetimepicker
         // https://xdsoft.net/jqplugins/datetimepicker/
@@ -51,28 +73,9 @@
         });
 
         https://xdsoft.net/jqplugins/datetimepicker/#lang
-        $.datetimepicker.setLocale('uk');
+            $.datetimepicker.setLocale('uk');
     }
     initDatetimepickerOptions();
-
-    initEditors = function() {
-        // Summernote
-        $('.f-summernote').summernote({
-            height: 300,
-            lang: 'uk-UA'
-        })
-
-        // CodeMirror
-        $('.f-codeMirror').each(function(index, elem){
-            CodeMirror.fromTextArea(elem, {
-                mode: "htmlmixed",
-                lineNumbers: true,
-                theme: "monokai",
-                tabMode: "indent",
-            });
-        });
-    }
-    initEditors();
 
     // Popup Image
     initPopupImage = function () {
@@ -90,7 +93,19 @@
     }
     initPopupImage();
 
-    // Component: xEditable
+    // Easy Markdown Editor
+    initEasyMdEditor = function () {
+        $('.f-md-editor').each(function () {
+            new EasyMDE({
+                element: this,
+                spellChecker: false,    // перевірка правопису
+                forceSync: true         // щоб markdown потрапляв у textarea при сабміті
+            });
+        });
+    }
+    initEasyMdEditor();
+
+    // xEditable
     // https://vitalets.github.io/x-editable/docs.html
     // https://coderthemes.com/moltran/layouts/red-vertical/form-xeditable.html
     if ($(".f-x-editable").length) {
@@ -200,7 +215,6 @@
 </script>
 @endif
 
-
 {{--
     TinyMce
     See official docs
@@ -289,6 +303,9 @@
     </script>
 @endif
 
+{{--
+    LFM
+--}}
 @if(is_dir(public_path('vendor/laravel-filemanager')))
     <script src="/vendor/lte3/plugins/laravel-filemanager/js/stand-alone-button.js" referrerpolicy="origin"></script>
     <script>
@@ -299,6 +316,9 @@
     </script>
 @endif
 
+{{--
+    EditorJS & plugins
+--}}
 @if(is_dir(public_path('vendor/editorjs')))
     <!-- Editor.js Плагін для заголовків -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
