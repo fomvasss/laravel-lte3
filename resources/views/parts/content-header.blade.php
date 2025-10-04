@@ -18,7 +18,7 @@
             <div class="col-sm-7">
                 <div class="float-sm-right">
                     @if($btn_search ?? false)
-                        <div class="content-header-search">
+                        <div class="content-header-search d-none d-md-inline-block">
                             {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
                             <div class="input-group">
                                 <input type="search" value="{{ request('q') }}" name="q" class="form-control">

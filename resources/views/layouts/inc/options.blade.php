@@ -29,7 +29,8 @@
 
     var initSummernote = function () {},
         initCodeMirror = function () {},
-        initDatetimepickerOptions = function () {},
+        initDatetimepicker = function () {},
+        initDatetimepickerOptions = function () {}, // Deprecated, use initDatetimepicker
         initPopupImage = function () {},
         initEasyMdEditor = function () {};
 
@@ -56,7 +57,7 @@
     initCodeMirror();
 
     // Datetimepicker
-    initDatetimepickerOptions = function() {
+    initDatetimepicker = function() {
         // Component: datetimepicker
         // https://xdsoft.net/jqplugins/datetimepicker/
         $('.f-datetimepicker').datetimepicker({
@@ -72,8 +73,14 @@
             format: 'H:i:s'
         });
 
-        https://xdsoft.net/jqplugins/datetimepicker/#lang
-            $.datetimepicker.setLocale('uk');
+        // https://xdsoft.net/jqplugins/datetimepicker/#lang
+        $.datetimepicker.setLocale('uk');
+    }
+    initDatetimepicker();
+
+    // Deprecated, use initDatetimepicker
+    initDatetimepickerOptions = function() { // Deprecated
+        initDatetimepicker();
     }
     initDatetimepickerOptions();
 
@@ -99,7 +106,8 @@
             new EasyMDE({
                 element: this,
                 spellChecker: false,    // перевірка правопису
-                forceSync: true         // щоб markdown потрапляв у textarea при сабміті
+                forceSync: true,         // щоб markdown потрапляв у textarea при сабміті
+                sideBySideFullscreen: false
             });
         });
     }
@@ -297,6 +305,13 @@
         var initTinyMce = function () {
             if ($(tinymceSelector).length) {
                 tinymce.init(tinymceOptions);
+
+                // фікс при відкритті в модалці редактора, а в редакторі свої модалки з полями
+                $(document).on('focusin', function(e) {
+                    if ($(e.target).closest(".tox").length) {
+                        e.stopImmediatePropagation();
+                    }
+                });
             }
         }
         initTinyMce();

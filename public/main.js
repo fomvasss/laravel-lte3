@@ -1,21 +1,13 @@
-var initJsVerificationSlugField = function () {
-    },
-    initColorpicker = function () {
-    },
-    initSortableY = function () {
-    },
-    initSelect2 = function () {
-    },
-    initCheckbox = function () {
-    },
-    initSelect2Tree = function () {
-    },
-    initTreeview = function () {
-    },
-    initInputCalc = function () {
-    },
-    initPassfield = function () {
-    };
+var initJsVerificationSlugField = function () {},
+    initColorpicker = function () {},
+    initSortableY = function () {},
+    initSelect2 = function () {},
+    initCheckbox = function () {},
+    initSelect2Tree = function () {},
+    initTreeview = function () {},
+    initInputCalc = function () {},
+    initTooltip = function () {}
+;
 
 $(function () {
     'use strict';
@@ -28,6 +20,11 @@ $(function () {
     $(document).ajaxStart(function () {
         Pace.restart();
     });
+
+    initTooltip = function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    };
+    initTooltip();
 
     // Show message
     function lteAlert(status, msg) {
@@ -222,8 +219,6 @@ $(function () {
             window.location = url;
         }
     });
-
-    $('[data-toggle="tooltip"]').tooltip()
 
     var sortableNestedVar = $('.js-sortable-nested').sortableNested({
         delay: 500,
@@ -1070,5 +1065,199 @@ $(function () {
             input.attr('type', 'password');
             btn.find('i').attr('class', 'far fa-eye');
         }
+    });
+
+    /**
+     * дії на кнопки (відправка, ajax, submit, actions)
+     */
+    $(document).on('click', '.js-ajax-send', function (e) {
+        e.preventDefault();
+
+        const $btn = $(this);
+        const url = $btn.data('url') || $btn.attr('href');
+        const method = ($btn.data('method') || 'POST').toUpperCase();
+
+        // 🔸 підтвердження
+        const confirmText = $btn.data('confirm');
+        if (confirmText && !window.confirm(confirmText)) {
+            return;
+        }
+
+
+        // 🔹 Якщо потрібен звичайний submit / перезавантаження
+        if ($btn.data('submit') === true) {
+            const dataAttr = $btn.data('data');
+            let data = {};
+
+            try {
+                if (typeof dataAttr === 'string' && dataAttr.trim() !== '') {
+                    data = JSON.parse(dataAttr);
+                } else if (typeof dataAttr === 'object') {
+                    data = dataAttr;
+                }
+            } catch (err) {
+                console.error('Invalid JSON in data-data attribute', err);
+            }
+
+            // 🔹 Створюємо форму і сабмітимо
+            const $form = $('<form>', {
+                method: method === 'GET' ? 'GET' : 'POST',
+                action: url
+            }).appendTo('body');
+
+            // Додаємо поля input
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    $('<input>', {
+                        type: 'hidden',
+                        name: key,
+                        value: data[key]
+                    }).appendTo($form);
+                }
+            }
+
+            // Якщо метод DELETE або PUT → додаємо _method для Laravel
+            if (['PUT', 'PATCH', 'DELETE'].includes(method)) {
+                $('<input>', {
+                    type: 'hidden',
+                    name: '_method',
+                    value: method
+                }).appendTo($form);
+            }
+
+            // Якщо POST → додаємо CSRF токен для Laravel
+            if (method !== 'GET') {
+                const csrf = $btn.data('csrf') || $('meta[name="csrf-token"]').attr('content');
+                $('<input>', {
+                    type: 'hidden',
+                    name: '_token',
+                    value: csrf
+                }).appendTo($form);
+            }
+
+            $form.submit();
+            return; // припиняємо подальший AJAX
+        }
+
+        // Приховуємо tooltip кнопки перед виконанням
+        if ($btn.data('toggle') === 'tooltip') {
+            $btn.tooltip('hide');
+        }
+
+        let data = $btn.data('data');
+
+        // 🔸 обробка JSON у data-data (дані)
+        if (typeof data === 'string' && data.trim().startsWith('{')) {
+            try {
+                data = JSON.parse(data);
+            } catch (err) {
+                console.error('Помилка парсингу JSON у data-data:', err);
+                return;
+            }
+        }
+
+        $btn.prop('disabled', true).addClass('loading');
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            success: function (response) {
+                // ✅ toastr повідомлення
+                if (response.message) {
+                    const type = response.status || response.type || 'success';
+                    if (toastr[type]) toastr[type](response.message);
+                    else toastr.info(response.message);
+                }
+
+                // ✅ оновлення html
+                if (response.html) {
+                    if (typeof response.html === 'object') {
+                        // 🔸 якщо html — об’єкт {selector: html}
+                        for (const key in response.html) {
+                            if (!response.html.hasOwnProperty(key)) continue;
+
+                            const selector =
+                                key.startsWith('#') || key.startsWith('.')
+                                    ? key
+                                    : '.' + key;
+
+                            const html = response.html[key];
+                            const $el = $(selector);
+
+                            if ($el.length) {
+                                $el.html(html);
+                            } else {
+                                console.warn(`Елемент ${selector} не знайдено`);
+                            }
+                        }
+                    } else if (typeof response.html === 'string') {
+                        // 🔸 якщо html — просто рядок
+                        const $container = $btn.closest('.js-html-container');
+                        if ($container.length) {
+                            $container.html(response.html);
+                        } else {
+                            console.warn('Контейнер .js-html-container не знайдено для вставки html');
+                        }
+                    }
+                }
+
+                // ✅ дії після успіху
+                if (response.action) {
+                    switch (response.action) {
+                        case 'reload':
+                            setTimeout(() => location.reload(), 800);
+                            break;
+                        case 'redirect':
+                            if (response.redirect_url)
+                                window.location.href = response.redirect_url;
+                            break;
+                        case 'remove':
+                            if (response.selector)
+                                $(response.selector).remove();
+                            else
+                                $btn.closest('.item, tr, .card').remove();
+                            break;
+                    }
+                }
+
+                // ✅ кастомний callback
+                // https://chatgpt.com/s/t_68e12fe06a688191ab80d831823e4b41
+                if (typeof window.onAjaxSuccess === 'function') {
+                    window.onAjaxSuccess(response, $btn);
+                }
+
+                // перевиконувалися JS-ініціалізації (наприклад, tooltips чи редактори)
+                // https://chatgpt.com/s/t_68e1302e89988191afc2385de2f81966
+                if (typeof window.onHtmlUpdated === 'function') {
+                    window.onHtmlUpdated(response.html);
+                }
+            },
+            error: function (xhr) {
+                const msg = xhr.responseJSON?.message || 'Request error';
+                toastr.error(msg);
+                console.error('AJAX Error:', xhr);
+            },
+            complete: function () {
+                $btn.prop('disabled', false).removeClass('loading');
+
+                let initFunctionsStr = $btn.data('fn-inits');
+                if (initFunctionsStr) {
+                    initFunctionsStr.split(/\s*,\s*/).forEach(function (fnName) {
+                        fnName = fnName.trim();
+                        if (fnName && typeof window[fnName] === 'function') {
+                            console.log('Calling post-AJAX init:', fnName);
+                            try {
+                                window[fnName]($btn); // можна передати елемент, якщо треба
+                            } catch (e) {
+                                console.error('Error in fn-inits:', fnName, e);
+                            }
+                        } else {
+                            console.warn('No such function:', fnName);
+                        }
+                    });
+                }
+            }
+        });
     });
 });
