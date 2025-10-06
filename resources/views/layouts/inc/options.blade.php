@@ -312,6 +312,11 @@
                         e.stopImmediatePropagation();
                     }
                 });
+
+                // приховати панель існтрументів редактора при закритті бутстрап модалки
+                $('.modal').on('hidden.bs.modal', function () {
+                    document.querySelector('.tox-tbtn--enabled')?.click();
+                });
             }
         }
         initTinyMce();
