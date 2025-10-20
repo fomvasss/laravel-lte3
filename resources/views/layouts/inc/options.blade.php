@@ -527,17 +527,23 @@
                     tools.table = Table;
                 }
 
+                const isReadOnly = $editorJs.attr('readonly') === 'readonly';
                 const editor = new EditorJS({
                     holder: 'editorjs',
                     tools: tools,
                     tunes: tunes,
-                    data: savedData
+                    data: savedData,
+                    readOnly: isReadOnly
                 });
 
                 editorjsDataElement.closest('form')?.addEventListener('submit', function(e) {
                     e.preventDefault();
 
                     editor.save().then((outputData) => {
+
+                        delete outputData.time;     // видалити time (timestamp)
+                        delete outputData.version;  // видалити version (редактора)
+
                         editorjsDataElement.value = JSON.stringify(outputData);
                         this.submit();
                     }).catch((error) => {

@@ -1172,6 +1172,7 @@ $(function () {
 
                 // ✅ оновлення html
                 if (response.html) {
+                    const htmlAppends = response.htmlAppends || [];
                     if (typeof response.html === 'object') {
                         // 🔸 якщо html — об’єкт {selector: html}
                         for (const key in response.html) {
@@ -1186,7 +1187,11 @@ $(function () {
                             const $el = $(selector);
 
                             if ($el.length) {
-                                $el.html(html);
+                                if (htmlAppends.includes(selector)) {
+                                    $el.append(html);
+                                } else {
+                                    $el.html(html);
+                                }
                             } else {
                                 console.warn(`Елемент ${selector} не знайдено`);
                             }
@@ -1195,7 +1200,12 @@ $(function () {
                         // 🔸 якщо html — просто рядок
                         const $container = $btn.closest('.js-html-container');
                         if ($container.length) {
-                            $container.html(response.html);
+                            if (htmlAppends.includes('.js-html-container')) {
+                                $container.append(html);
+                            } else {
+                                $container.html(response.html);
+                            }
+                            //$container.html(response.html);
                         } else {
                             console.warn('Контейнер .js-html-container не знайдено для вставки html');
                         }
