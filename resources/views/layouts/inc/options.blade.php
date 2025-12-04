@@ -63,14 +63,17 @@
         $('.f-datetimepicker').datetimepicker({
             timepicker:true,
             format:'Y-m-d H:i:s',
+            scrollInput: false,
         });
         $('.f-datepicker').datetimepicker({
             timepicker:false,
-            format:'Y-m-d'
+            format:'Y-m-d',
+            scrollInput: false,
         });
         $('.f-timepicker').datetimepicker({
             datepicker:false,
-            format: 'H:i:s'
+            format: 'H:i:s',
+            scrollInput: false,
         });
 
         // https://xdsoft.net/jqplugins/datetimepicker/#lang
@@ -242,6 +245,8 @@
             plugins: 'anchor code table lists autolink emoticons image link visualblocks media preview fullscreen wordcount',
             toolbar: 'fullscreen | undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | blockquote | bullist numlist | code | table | link | image | media | preview | wordcount',
             link_assume_external_targets: true,
+            image_caption: true,
+            image_title: true,
             entity_encoding : "raw",
             skin: '{{ config('lte3.view.dark_mode') ? "oxide-dark" : "oxide" }}',
 
