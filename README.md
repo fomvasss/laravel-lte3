@@ -66,7 +66,7 @@ manually cleaned so as not to take up disk space.
 Of course, you can published partial for customize:
 
 - views:
-`lte-view-components`, `lte-view-examples`, `lte-view-auth`, `lte-view-parts`, `lte-view-layouts`
+`lte3-view-components`, `lte3-view-examples`, `lte3-view-auth`, `lte3-view-parts`, `lte3-view-layouts`
 
 - other:
 `lte-config`, `lte-assets`, `lte-lang`
@@ -74,7 +74,7 @@ Of course, you can published partial for customize:
 For Example:
 
 ```bash
-php artisan vendor:publish --tag=lte-view-components
+php artisan vendor:publish --tag=lte3-view-components
 ```
 
 

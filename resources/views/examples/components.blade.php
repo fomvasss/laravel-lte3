@@ -148,8 +148,8 @@
                                         <a href="#" class="dropdown-item"
                                            data-confirm="Clone?">Clone</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="#"
-                                           class="dropdown-item js-click-submit" data-method="delete"
+                                        <a href="{{ route('lte3.data.save') }}"
+                                           class="dropdown-item js-ajax-send" data-method="delete"
                                            data-confirm="Remove?">Remove</a>
                                     </div>
                                 </div>
@@ -209,7 +209,7 @@
                             <td class="text-right">
                                 <a href="#" class="btn btn-default btn-sm"><i class="fas fa-eye"></i></a>
                                 <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-click-submit"
+                                <a href="{{ route('lte3.data.save') }}" class="btn btn-danger btn-sm js-ajax-send"
                                    data-confirm="Delete?"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
@@ -284,18 +284,21 @@
 
                         {!! Lte3::text('default', null, [
                             'default' => 'Default value',
-                            'append' => ['<i class="fas fa-fingerprint"></i>', '<a href="#"><i class="fas fa-qrcode"></i></a>']
+                            'append' => ['<i class="fas fa-fingerprint"></i>', '<a href="https://www.google.com/" target="_blank"><i class="fab fa-google"></i></a>']
                         ]) !!}
 
                         {!! Lte3::search('search', null, ['placeholder' => 'Enter text...']) !!}
 
-                        {!! Lte3::text('secret', 'Hello friend :)', ['secret' => true]) !!}
+                        {!! Lte3::text('secret', 'Some secret string :)', ['secret' => true]) !!}
+                        {{-- OR --}}
+                        {!! Lte3::secret('token', 'some-secret-token') !!}
 
                         {!! Lte3::password('Password') !!}
 
                         {!! Lte3::password('password_new', null, [
                             'label' => 'Password Generator',
-                            'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>'
+                            'append' => '<i class="fas fa-sync js-passgen" data-complexity="4" data-length-from="8" data-length-to="16"></i>',
+                            'help' => '* Complexity from 1 to 5, length from 4 to 128',
                         ]) !!}
 
                         {!! Lte3::number('Age', null, ['default' => 18, 'max' => '100', 'min' => 1, 'secret' => true]) !!}
@@ -351,19 +354,34 @@
                                 'class_control' => 'custom-switch'
                         ]) !!}
 
-                        {!! Lte3::checkboxes('rd', ['morning', 'day'], [
-                            ['id' => 'night', 'name' => 'Night', 'disabled' => true],
-                            ['id' => 'morning', 'name' => 'Morning'],
-                            'day' => 'Day',
-                            'evening',
-                            'dd',
-                        ], [
-                            'help' => '* Some text',
-                            'label' => 'Time of day',
-                            'field_id_prefix' => 'qq',
-//                            'url_save' => route('lte3.data.save'),
-//                            'method_save' => 'POST',
-                        ]) !!}
+                        <div class="row">
+                            <div class="col-md">
+                                {!! Lte3::checkboxes('rd', ['morning', 'day'], [
+                                    ['id' => 'night', 'name' => 'Night', 'disabled' => true],
+                                    ['id' => 'morning', 'name' => 'Morning'],
+                                    'day' => 'Day',
+                                    'evening',
+                                    'dd',
+                                ], [
+                                    'help' => '* Some text',
+                                    'label' => 'Time of day',
+                                    'field_id_prefix' => 'qq',
+                                ]) !!}
+                            </div>
+                            <div class="col-md">
+                                {!! Lte3::checkboxes('car', ['audi', 'tesla'], [
+                                    ['id' => 'audi', 'name' => 'Audi',],
+                                    ['id' => 'tesla', 'name' => 'Tesla',],
+                                    ['id' => 'bmw', 'name' => 'BMW',],
+                                    ['id' => 'mercedes', 'name' => 'Mercedes',],
+                                    ['id' => 'ford', 'name' => 'Ford', 'disabled' => true,],
+                                ], [
+                                    'label' => 'Cars',
+                                    'url_save' => route('lte3.data.save'),
+                                    'method_save' => 'POST',
+                                ]) !!}
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">

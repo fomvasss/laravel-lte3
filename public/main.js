@@ -191,7 +191,8 @@ $(function () {
         return false;
     })
 
-    // Click submit
+    // TODO: Deprecated 
+    //  Click submit
     $(document).on('click', '.js-click-submit', function (e) {
         e.preventDefault();
         var $form = $('#js-action-form'),

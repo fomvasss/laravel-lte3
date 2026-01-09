@@ -32,6 +32,8 @@
         initDatetimepicker = function () {},
         initDatetimepickerOptions = function () {}, // Deprecated, use initDatetimepicker
         initPopupImage = function () {},
+        initLivePatternValidation = function () {},
+        initSummaryTable = function () {},
         initEasyMdEditor = function () {};
 
     // Summernote
@@ -154,6 +156,65 @@
             hljs.highlightBlock(block);
         });
     }
+
+    initLivePatternValidation = function () {
+        $('input[pattern], textarea[pattern]').each(function () {
+            $(this).on('input change', function () {
+                const $field = $(this);
+                const patternAttr = $field.attr('pattern');
+                const value = $field.val();
+
+                if (!patternAttr) return;
+
+                const pattern = new RegExp(patternAttr);
+                const isValid = pattern.test(value);
+
+                // Встановити кастомну валідацію
+                if (isValid || value === '') {
+                    this.setCustomValidity('');
+                    $field.removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    this.setCustomValidity('Forman is not valid.');
+                    $field.removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+        });
+    }
+    initLivePatternValidation();
+
+    initSummaryTable = function () {
+        $('table').each(function () {
+            const $table = $(this);
+
+            // Беремо summary-рядок з THEAD
+            const $summaryHead = $table.find('thead tr.t-summary').first();
+            if (!$summaryHead.length) return;
+
+            // Якщо в TFOOT вже є summary — нічого не робимо
+            if ($table.find('tfoot tr.t-summary').length) return;
+
+            // Беремо/створюємо tfoot
+            let $tfoot = $table.children('tfoot');
+            if (!$tfoot.length) {
+                $tfoot = $('<tfoot/>');
+
+                // Вставляємо tfoot в таблицю (краще перед/після tbody — браузер сам нормалізує)
+                const $tbody = $table.children('tbody').last();
+                if ($tbody.length) $tfoot.insertAfter($tbody);
+                else $table.append($tfoot);
+            }
+
+            // Клонуємо рядок (щоб залишити його і в thead)
+            const $summaryFoot = $summaryHead.clone(true, true);
+
+            // (опційно) прибрати дублікати id, якщо вони є всередині
+            // $summaryFoot.find('[id]').removeAttr('id');
+
+            // Додаємо в tfoot (в кінець)
+            $tfoot.append($summaryFoot);
+        });
+    }
+    initSummaryTable();
 
 </script>
 
