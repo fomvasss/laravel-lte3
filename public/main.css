@@ -91,6 +91,12 @@ ul.js-sortable-nested li.placeholder:before {
 .dark-mode .node-:not(.node-disabled):hover {
     background-color: #3f6791;
 }
+.f-sortable-nested-wrap li div:hover {
+    background-color: #eee;
+}
+.dark-mode .f-sortable-nested-wrap li div:hover {
+    background-color: #343a40;
+}
 
 .content-header h1>small {
     font-size: 1rem;
