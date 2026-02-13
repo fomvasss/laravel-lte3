@@ -44,6 +44,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    {!! Lte3::btnSubmit($attrs['btn_reset_title'] ?? 'Reset', $name, '[]', ['class' => 'btn-dark btn-default']) !!}
+
                     {!! Lte3::btnSubmit($attrs['btn_save_title'] ?? 'Submit') !!}
                 </div>
             </div>

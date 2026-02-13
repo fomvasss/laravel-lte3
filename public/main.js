@@ -1006,34 +1006,50 @@ $(function () {
     
 
     // Налаштування стовбців таблиці
-    const $table = $('.js-options-columns');
-    const userOptions = $table.data('options') || {};
+    function applyColumnOptions($table, userOptions) {
 
-    const sortedKeys = Object.keys(userOptions).sort((a, b) => {
-        return userOptions[a].weight - userOptions[b].weight;
-    });
+        if (!userOptions) return;
 
-    sortedKeys.forEach((key, index) => {
-        const $th = $table.find(`th.js-options-${key}`);
-        if ($th.length) {
-            const thIndex = $th.index() + 1;
+        const sortedKeys = Object.keys(userOptions)
+            .sort((a, b) => userOptions[a].weight - userOptions[b].weight);
 
-            $th.insertBefore($th.parent().children().eq(index + 1));
+        sortedKeys.forEach((key, index) => {
+            const columnClass = `js-table-options-${key}`;
 
-            $table.find('tbody tr').each(function() {
+            $table.find('tr').each(function () {
                 const $row = $(this);
-                const $td = $row.find(`td:nth-child(${thIndex})`);
-                if ($td.length) {
-                    $td.insertBefore($row.children().eq(index + 1));
+                const $cell = $row.children(`.${columnClass}`);
+
+                if (!$cell.length) return;
+
+                const $children = $row.children();
+                const targetIndex = index;
+
+                if ($children.eq(targetIndex)[0] !== $cell[0]) {
+                    if (targetIndex >= $children.length) {
+                        $row.append($cell);
+                    } else {
+                        $cell.insertBefore($children.eq(targetIndex));
+                    }
                 }
             });
+        });
+
+        Object.keys(userOptions).forEach(key => {
+            const columnClass = `js-table-options-${key}`;
 
             if (userOptions[key].active === "0") {
-                $th.hide();
-                $table.find(`td:nth-child(${index + 2})`).hide();
+                $table.find(`.${columnClass}`).addClass('d-none');
+            } else {
+                $table.find(`.${columnClass}`).removeClass('d-none');
             }
-        }
-    });
+        });
+    }
+
+    const $table = $('.table');
+    const options = $table.data('options');
+
+    applyColumnOptions($table, options);
 
     // Preloader
     $('#table-preloader').fadeOut(250);
