@@ -122,26 +122,77 @@
             </div>
 
             <div class="card-body table-responsive p-0">
-                @php($tableOptions = session()->get('table-options', [])['orders'] ?? [])
-                <table class="table table-hover js-table-options-columns" data-options=@json($tableOptions)>
+                @php
+                    $tableOptions = session()->get('table-options', [])['orders'] ?? [];
+                    $columns = [
+                        [
+                            'key' => 'sort',
+                            'name' => 'Sort',
+                        ],
+                        [
+                            'key' => 'actions',
+                            'name' => 'Actions Btn',
+                        ],
+                        [
+                            'key' => 'actions2',
+                            'name' => 'Actions 2',
+                            'default' => false
+                        ],
+                        [
+                            'key' => 'secret',
+                            'name' => 'Secret',
+                            'hidden' => true
+                        ],
+                        [
+                            'key' => 'img',
+                            'name' => 'Photo',
+                        ],
+                        [
+                            'key' => 'name',
+                            'name' => 'Name',
+                        ],
+                        [
+                            'key' => 'members',
+                            'name' => 'Members',
+                        ],
+                        [
+                            'key' => 'sum',
+                            'name' => 'Sum',
+                        ],
+                        [
+                            'key' => 'progress',
+                            'name' => 'Progress',
+                        ],
+                        [
+                            'key' => 'status',
+                            'name' => 'Status',
+                        ],
+                        [
+                            'key' => 'buttons',
+                            'name' => 'Buttons',
+                        ],
+                    ];
+                @endphp
+                <table class="table table-hover js-table-options-columns" data-options='@json($tableOptions)' data-columns='@json($columns)'>
                     <thead>
                     <tr>
-                        <th style="width: 1%">#</th>
+                        <th class="js-table-options-sort" style="width: 1%">#</th>
                         <th class="js-table-options-actions" style="width: 10px;"></th>
+                        <th class="js-table-options-actions2"></th>
+                        <th class="js-table-options-secret">Secret</th>
                         <th class="js-table-options-img"></th>
                         <th class="js-table-options-name" style="width: 15%">Name</th>
                         <th class="js-table-options-members" style="width: 20%">Members</th>
                         <th class="js-table-options-sum">Sum</th>
                         <th class="js-table-options-progress">Progress</th>
                         <th class="js-table-options-status" style="width: 8%">Status</th>
-                        <th class="js-table-options-actions2"></th>
                         <th class="js-table-options-buttons" style="width: 20%"></th>
                     </tr>
                     </thead>
                     <tbody class="sortable-y" data-url="{{ route('lte3.data.save') }}">
                     @foreach($progects as $progect)
                         <tr id="{{ $loop->index }}" class="va-center">
-                            <td><i class="fas fa-sort"></i></td>
+                            <td class="js-table-options-sort"><i class="fas fa-sort"></i></td>
                             <td class="js-table-options-actions">
                                 <div class="btn-actions dropdown">
                                     <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
@@ -156,6 +207,22 @@
                                     </div>
                                 </div>
                             </td>
+                            <td class="text-right js-table-options-actions2">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default">Action</button>
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
+                                        <a href="#" class="dropdown-item">Clone</a>
+                                        <a href="#" class="dropdown-item">Notify</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="js-table-options-secret">Secret</td>
                             <td class="js-table-options-img">
                                 <a href="/vendor/lte3/img/no-image.png" class="js-popup-image">
                                     <img src="/vendor/lte3/img/no-image.png" class="img-thumbnail" style="max-width: 100px">
@@ -193,21 +260,6 @@
                                     <span class="btn btn-sm bg-gradient-warning btn-flat">{{ $progect['status'] }}</span>
                                 </a>
                             </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-default js-table-options-actions2">Action</button>
-                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon"
-                                            data-toggle="dropdown" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="top: 93%;">
-                                        <a href="#" class="dropdown-item">Clone</a>
-                                        <a href="#" class="dropdown-item">Notify</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">Delete</a>
-                                    </div>
-                                </div>
-                            </td>
                             <td class="text-right js-table-options-buttons">
                                 <a href="#" class="btn btn-default btn-sm"><i class="fas fa-eye"></i></a>
                                 <a href="#" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
@@ -219,44 +271,7 @@
                     </tbody>
                 </table>
             </div>
-            {!! Lte3::tableOptions([
-                [
-                    'key' => 'actions',
-                    'name' => 'Actions Btn',
-                ],
-                [
-                    'key' => 'img',
-                    'name' => 'Photo',
-                ],
-                [
-                    'key' => 'name',
-                    'name' => 'Name',
-                ],
-                [
-                    'key' => 'members',
-                    'name' => 'Members',
-                ],
-                [
-                    'key' => 'sum',
-                    'name' => 'Sum',
-                ],
-                [
-                    'key' => 'progress',
-                    'name' => 'Progress',
-                ],
-                [
-                    'key' => 'status',
-                    'name' => 'Status',
-                ],
-                [
-                    'key' => 'actions2',
-                    'name' => 'Actions 2',
-                ],
-                [
-                    'key' => 'buttons',
-                    'name' => 'Buttons',
-                ],
-            ], $tableOptions, [
+            {!! Lte3::tableOptions($columns, $tableOptions, [
                 'action' => route('lte3.data.save', ['key' => 'table-options']),
                 'method' => 'post',
                 'table' => 'orders',

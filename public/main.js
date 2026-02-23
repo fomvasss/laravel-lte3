@@ -623,7 +623,7 @@ $(function () {
 
     // TODO
     //$(document).on('change', '.f-radiogroup')
-    
+
     // Component: checkbox
     initCheckbox = function () {
         $('.f-checkbox-ajax').each(function () {
@@ -1003,12 +1003,40 @@ $(function () {
         e.preventDefault();
         $(this).closest('.f-item').remove();
     });
-    
 
-    // Налаштування стовбців таблиці
+
+    // Налаштування стовбців таблиці tableOptions
     function applyColumnOptions($table, userOptions) {
 
-        if (!userOptions) return;
+        const columnsOptions = $table.data('columns') || [];
+
+        const hiddenKeys = columnsOptions
+            .filter(col => col.hidden)
+            .map(col => col.key);
+
+        if (!userOptions) {
+            userOptions = {};
+        }
+
+        columnsOptions
+            .filter(col => !col.hidden)
+            .forEach((col, index) => {
+
+                if (!userOptions[col.key]) {
+                    userOptions[col.key] = {
+                        weight: Object.keys(userOptions).length,
+                        active: col.default === false ? "0" : "1"
+                    };
+                }
+
+            });
+
+        Object.keys(userOptions).forEach(key => {
+            const exists = columnsOptions.find(col => col.key === key);
+            if (!exists || exists.hidden) {
+                delete userOptions[key];
+            }
+        });
 
         const sortedKeys = Object.keys(userOptions)
             .sort((a, b) => userOptions[a].weight - userOptions[b].weight);
@@ -1022,14 +1050,16 @@ $(function () {
 
                 if (!$cell.length) return;
 
-                const $children = $row.children();
-                const targetIndex = index;
+                const $children = $row.children().not(
+                    hiddenKeys.map(k => `.js-table-options-${k}`).join(',')
+                );
 
-                if ($children.eq(targetIndex)[0] !== $cell[0]) {
-                    if (targetIndex >= $children.length) {
+                if ($children.eq(index)[0] !== $cell[0]) {
+
+                    if (index >= $children.length) {
                         $row.append($cell);
                     } else {
-                        $cell.insertBefore($children.eq(targetIndex));
+                        $cell.insertBefore($children.eq(index));
                     }
                 }
             });
@@ -1043,6 +1073,10 @@ $(function () {
             } else {
                 $table.find(`.${columnClass}`).removeClass('d-none');
             }
+        });
+
+        hiddenKeys.forEach(key => {
+            $table.find(`.js-table-options-${key}`).addClass('d-none');
         });
     }
 

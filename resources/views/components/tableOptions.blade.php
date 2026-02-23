@@ -30,9 +30,11 @@
                         @endphp
 
                         @foreach($columns as $column)
+                            @if($column['hidden'] ?? false) @continue @endif
+
                             <div class="f-item d-flex align-items-center">
                                 <i class="fa fa-sort cursor-move" style="margin: 0 5px 1rem 0;"></i>
-                                {!! Lte3::checkbox("{$name}[{$table}][{$column['key']}][active]", $options[$column['key']]['active'] ?? 1, [
+                                {!! Lte3::checkbox("{$name}[{$table}][{$column['key']}][active]", $options[$column['key']]['active'] ?? $column['default'] ?? 1, [
                                     'label' => $column['name'],
                                     'class_control' => 'custom-switch'
                                 ]) !!}
