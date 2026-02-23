@@ -277,6 +277,10 @@
                 'table' => 'orders',
                 'name' => 'value',
                 'preloader' => true,
+
+                'btn_modal_title' => 'Settings columns',
+                'btn_save_title' => 'Save',
+                'btn_reset_title' => 'Cancel',
             ]) !!}
 
             <div class="card-footer clearfix">
