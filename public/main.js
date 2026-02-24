@@ -1327,7 +1327,7 @@ $(function () {
 
     // видалити посиллання з меню btn-actions на сторінці, яка відповідає поточному URL
     const currentUrl = window.location.origin + window.location.pathname;
-    $('.btn-actions a[href]').each(function () {
+    $('.btn-actions.lte-actions a[href]').each(function () {
         const linkUrl = new URL(this.href, window.location.origin);
 
         if (linkUrl.origin + linkUrl.pathname === currentUrl) {
