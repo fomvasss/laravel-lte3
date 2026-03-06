@@ -636,6 +636,8 @@ $(function () {
             // AJAX Save
             if (url) {
                 $this.on('change', function () {
+                    let checkbox = this;
+                    let oldValue = !this.checked;
                     var value = this.checked ? 1 : 0,
                         data = format === 'name,value' ? {name: rawFieldName, value: value} : {[rawFieldName]: value};
                     $.ajax({
@@ -644,10 +646,16 @@ $(function () {
                         dataType: 'json',
                         data: data,
                         success: function (data) {
-                            lteAlert('success', data.message);
+                            if (data.status === 'error') {
+                                checkbox.checked = oldValue;
+                                lteAlert('error', data.message);
+                            } else {
+                                lteAlert('success', data.message);
+                            }
                         },
                         error: function () {
                             console.log('Error Ajax!')
+                            checkbox.checked = oldValue;
                             lteAlert('success', 'Error Ajax!');
                         },
                         complete: function () {
