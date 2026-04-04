@@ -82,15 +82,20 @@
             }
 
             $this.multiDatesPicker({
-                defaultDate: defaultDate,
+                //defaultDate: defaultDate,
                 dateFormat: $this.data('format') || 'yy-mm-dd',
                 separator: ', ',
                 minDate: $this.data('min') || '',
                 maxDate: $this.data('max') || '',
                 onSelect: function (dateText, inst) {
                     // Записуємо поточний місяць та рік
-                    var month = inst.selectedMonth;
-                    var year = inst.selectedYear;
+                    // var month = inst.selectedMonth;
+                    // var year = inst.selectedYear;
+
+                    var parts = dateText.split('-');
+                    var year  = parseInt(parts[0], 10); // 2026
+                    var month = parseInt(parts[1], 10) - 1; // 6
+                    // var day   = parseInt(parts[2], 10); // 24
 
                     // Примусово встановлюємо календар на обраний місяць після вибору дати
                     setTimeout(function () {
