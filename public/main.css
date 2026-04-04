@@ -333,3 +333,12 @@ img.avatar-border {
 .codex-editor__redactor {
     padding-bottom: 0 !important;
 }
+
+
+input.f-multiDatesPicker[readonly] {
+    background: white ;
+}
+.dark-mode input.f-multiDatesPicker[readonly] {
+    background: #343a40;
+    color: #fff;
+}

@@ -19,6 +19,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/vendor/adminlte/plugins/flag-icon-css/css/flag-icon.min.css">
+    <!-- jQuery UI 1.11.4 -->
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/vendor/adminlte/plugins/jquery-ui/jquery-ui.theme.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="/vendor/adminlte/plugins/toastr/toastr.min.css">
     <!-- Sweetalert -->
@@ -33,6 +36,8 @@
     <link rel="stylesheet" href="/vendor/lte3/plugins/pace/flash.css">
     <!-- Datetimepicker -->
     <link rel="stylesheet" href="/vendor/lte3/plugins/datepicker/datetimepicker.min.css">
+    <!-- Multidatespicker -->
+    <link rel="stylesheet" href="/vendor/lte3/plugins/multidatespicker/jquery-ui.multidatespicker.min.css">
     <!-- Magnific-popup -->
     <link rel="stylesheet" href="/vendor/lte3/plugins/magnific-popup/dist/magnific-popup.css">
     <!-- X-Editable -->

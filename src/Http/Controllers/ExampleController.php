@@ -78,6 +78,7 @@ class ExampleController extends Controller
                 'message' => 'AJAX data saved!',
                 'request' => $request->all(),
                 'files' =>  $request->allFiles(),
+                '_action' => $request->_action,
             ]);
         }
 

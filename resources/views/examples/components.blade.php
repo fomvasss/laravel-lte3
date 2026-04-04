@@ -674,6 +674,14 @@
                             ]) !!}
                         </div>
                         <div>
+                            Text:
+                            {!! Lte3::xEditable('name', 'Reload page after save', [
+                                'type' => 'text',
+                                'pk' => 1,
+                                'url_save' => route('lte3.data.save', ['_action' => 'reload']),
+                            ]) !!}
+                        </div>
+                        <div>
                             Disabled Text:
                             {!! Lte3::xEditable('name', 'Space Odyssey 2001', [
                                 'type' => 'text',
@@ -813,6 +821,14 @@
                             'label' => 'Datetime',
                             'format' => 'Y-m-d H:i:s',
                             'help' => 'Now datetime',
+                        ]) !!}
+
+                        {!! Lte3::multidatespicker('multidates', [now()->addMonth()->format('Y-m-d'), now()->addMonths(2)->format('Y-m-d')], [
+                            'label' => 'Dates',
+                            // 'format' => 'yy-mm-dd',
+                            // 'min' => -1,
+                            // 'max' => 10,
+                            'help' => 'Select dates',
                         ]) !!}
 
                     </div>

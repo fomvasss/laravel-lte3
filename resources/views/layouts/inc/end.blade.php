@@ -25,6 +25,8 @@
 <script src="/vendor/lte3/plugins/jquery-sortable/jquery-sortable.js"></script>
 <!-- Datetimepicker -->
 <script src="/vendor/lte3/plugins/datepicker/datetimepicker.full.js"></script>
+<!-- Multidatespicker -->
+<script src="/vendor/lte3/plugins/multidatespicker/jquery-ui.multidatespicker.min.js"></script>
 <!-- Magnific-popup -->
 <script src="/vendor/lte3/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 <!-- X-Editable -->

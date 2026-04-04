@@ -58,6 +58,68 @@
     }
     initCodeMirror();
 
+
+
+    // https://github.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI
+    // https://dubrox.com/Multiple-Dates-Picker-for-jQuery-UI/
+    initMultiDatesPicker = function () {
+        $('.f-multiDatesPicker').each(function () {
+            $this = $(this);
+
+            // Визначаємо defaultDate з першої вже обраної дати в інпуті
+            var defaultDate = null;
+            var currentVal = $this.val();
+            if (currentVal) {
+                var firstDateStr = currentVal.split(',')[0].trim();
+                try {
+                    defaultDate = $.datepicker.parseDate(
+                        $this.data('format') || 'yy-mm-dd',
+                        firstDateStr
+                    );
+                } catch (e) {
+                    defaultDate = null;
+                }
+            }
+
+            $this.multiDatesPicker({
+                defaultDate: defaultDate,
+                dateFormat: $this.data('format') || 'yy-mm-dd',
+                separator: ', ',
+                minDate: $this.data('min') || '',
+                maxDate: $this.data('max') || '',
+                onSelect: function (dateText, inst) {
+                    // Записуємо поточний місяць та рік
+                    var month = inst.selectedMonth;
+                    var year = inst.selectedYear;
+
+                    // Примусово встановлюємо календар на обраний місяць після вибору дати
+                    setTimeout(function () {
+                        var $input = $(inst.input),
+                            inputName = $input.data('name');
+
+                        $input.datepicker('setDate', new Date(year, month, 1));
+
+                        // Оновлюємо значення інпута
+                        var selectedDates = $input.multiDatesPicker('getDates');
+                        console.log('Вибрані дати:', selectedDates);
+                        $input.val(selectedDates.join(', '));
+
+                        $input.closest('.form-group').find('input[name="' + inputName + '"]').remove();
+                        selectedDates.forEach(function (date) {
+                            $('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', inputName)
+                                .val(date)
+                                .appendTo($input.closest('.form-group'));
+                        });
+
+                    }, 0);
+                }
+            });
+        });
+    }
+
+
     // Datetimepicker
     initDatetimepicker = function() {
         // Component: datetimepicker
@@ -80,11 +142,13 @@
 
         // https://xdsoft.net/jqplugins/datetimepicker/#lang
         $.datetimepicker.setLocale('uk');
+
+        initMultiDatesPicker();
     }
     initDatetimepicker();
 
-    // Deprecated, use initDatetimepicker
-    initDatetimepickerOptions = function() { // Deprecated
+    // TODO: Deprecated, use initDatetimepicker
+    initDatetimepickerOptions = function() {
         initDatetimepicker();
     }
     initDatetimepickerOptions();
@@ -132,7 +196,7 @@
                         toastr.success(response.message);
                     }
                 }
-                if (response.operation === 'reload') {
+                if (response._action === 'reload') {
                     window.location.reload()
                 }
             }
