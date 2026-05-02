@@ -82,7 +82,7 @@
             }
 
             $this.multiDatesPicker({
-                //defaultDate: defaultDate,
+                defaultDate: defaultDate,
                 dateFormat: $this.data('format') || 'yy-mm-dd',
                 separator: ', ',
                 minDate: $this.data('min') || '',
