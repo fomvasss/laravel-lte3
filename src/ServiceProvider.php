@@ -30,8 +30,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerRoutes()
     {
-        Route::namespace('Fomvasss\Lte3\Http\Controllers')
-            ->as('lte3.')
+        Route::as('lte3.')
             ->prefix('lte3')
             ->middleware(config('lte3.middleware', []))
             ->group(function () {
