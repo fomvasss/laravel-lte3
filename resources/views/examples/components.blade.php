@@ -342,6 +342,23 @@
 
                         {!! Lte3::text('Calculator', '3+4*2', ['class' => 'js-input-calc', 'help' => '* Press Enter for calc']) !!}
 
+                        {!! Lte3::text('text', 42, [
+                            'label' => 'Comparation',
+                            'class' => 'js-compare-value',
+                            'data' => [
+                                'compare-value' => 42,
+                                'compare-equal-target' => '.js-order-sum-equal',
+                                'compare-not-equal-target' => '.js-order-sum-not-equal',
+                            ],
+                            'help' => '* Enter some value',
+                        ]) !!}
+                        <div class="callout callout-success js-order-sum-equal" style="display: none;">
+                            <h5>Value is equal 42 ✅</h5>
+                        </div>
+                        <div class="callout callout-success js-order-sum-not-equal" style="display: none;">
+                            <h5>Value is not equal 42 ❌</h5>
+                        </div>
+
                         {!! Lte3::url('url', null, [
                             'default' => 'https://stackoverflow.com/',
                         ]) !!}

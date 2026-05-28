@@ -1342,4 +1342,42 @@ $(function () {
             $(this).hide();
         }
     });
+
+
+
+
+
+    // порівняння значень в полі
+    $(function () {
+        function normalizeCompareValue(value) {
+            return String(value ?? '').trim();
+        }
+
+        function checkCompareValue($input) {
+            const currentValue = normalizeCompareValue($input.val());
+            const expectedValue = normalizeCompareValue($input.data('compare-value'));
+
+            const equalTargetSelector = $input.data('compare-equal-target');
+            const notEqualTargetSelector = $input.data('compare-not-equal-target');
+
+            const isEqual = currentValue === expectedValue;
+
+            if (equalTargetSelector) {
+                $(equalTargetSelector).toggle(isEqual);
+            }
+
+            if (notEqualTargetSelector) {
+                $(notEqualTargetSelector).toggle(!isEqual);
+            }
+        }
+        function checkAllCompareValues() {
+            $('.js-compare-value').each(function () {
+                checkCompareValue($(this));
+            });
+        }
+        checkAllCompareValues();
+        $(document).on('input change', '.js-compare-value', function () {
+            checkCompareValue($(this));
+        });
+    });
 });
