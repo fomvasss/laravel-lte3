@@ -77,7 +77,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/lte3.php', 'lte3');
 
-        $this->app->singleton(\Fomvasss\Lte3\Lte::class, function () {
+        $this->app->scoped(\Fomvasss\Lte3\Lte::class, function () {
             return new \Fomvasss\Lte3\Lte;
         });
 
