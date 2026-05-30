@@ -12,6 +12,7 @@ Route::view('forgot-password', 'lte3::auth.forgot-password');
 Route::view('reset-password', 'lte3::auth.reset-password');
 
 Route::get('components', [ExampleController::class, 'components'])->name('components');
+Route::get('mb-blocks', [ExampleController::class, 'mbBlocks'])->name('mb-blocks');
 Route::any('data/save', [ExampleController::class, 'save'])->name('data.save');
 Route::get('data/statuses', [ExampleController::class, 'statuses'])->name('data.statuses');
 Route::get('data/modal-content', [ExampleController::class, 'modalContent'])->name('data.modal-content');

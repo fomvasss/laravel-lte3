@@ -1130,69 +1130,6 @@
             </div>
         </div>
 
-        <!-- Dynamic blocks -->
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="card card-info card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">Dynamic blocks</h3>
-                    </div>
-                    <div class="card-body">
-                    {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
-
-                        {{-- STATIC: --}}
-                        {!! Lte3::text('block[title]', null, ['label' => 'Title']) !!}
-                        {!! Lte3::textarea('block[desc]', null, ['label' => 'Desc']) !!}
-                        {!! Lte3::lfmImage('block[photo]', isset($block) ? $block->getContent('photo') : null, ['label' => 'Photo']) !!}
-
-                        {{-- MULTYPLE: --}}
-                        <div class="card f-wrap f-multyblocks" data-fn-inits="initLfmBtn,initColorpicker">
-                            <div class="card-body">
-                                <div class="f-items sortable-y">
-
-                                    {{-- TEMPLATE FIELDS --}}
-                                    <template class="f-item-template">
-                                        <div class="f-item">
-                                            <a href="#" class="btn btn-xs btn-danger float-right js-btn-delete"><i
-                                                    class="fa fa-trash"></i></a>
-                                            <i class="fas fa-sort cursor-move"></i>
-                                            {!! Lte3::text('block[items][$i][question]', null, ['label' => 'Question',]) !!}
-                                            {!! Lte3::textarea('block[items][$i][answer]', null, ['label' => 'Answer',]) !!}
-                                            {!! Lte3::lfmImage('block[items][$i][img]', null, ['label' => 'Img',]) !!}
-                                            {!! Lte3::hidden('block[items][$i][weight]', null, ['class' => 'js-input-weight']) !!}
-                                        </div>
-                                    </template>
-
-                                    {{-- ALREADY SAVED MULTIPLE FIELDS --}}
-                                    @if (isset($block) && ($items = $block->getContentSort('items', [])))
-                                        @foreach ($items as $item)
-                                            <div class="f-item">
-                                                <a href="#" class="btn btn-xs btn-danger float-right js-btn-delete"><i
-                                                        class="fa fa-trash"></i></a>
-                                                <i class="fas fa-sort cursor-move"></i>
-                                                {!! Lte3::text("block[items][{$loop->index}][question]", Arr::get($item, 'question'), ['label' => 'Question']) !!}
-                                                {!! Lte3::textarea("block[items][{$loop->index}][answer]", Arr::get($item, 'answer'), ['label' => 'Answer',]) !!}
-                                                {!! Lte3::lfmImage("block[items][{$loop->index}][img]", Arr::get($item, 'img'), ['label' => 'Img'] ) !!}
-                                                {!! Lte3::hidden("block[items][{$loop->index}][weight]", Arr::get($item, 'weight'), ['class' => 'js-input-weight']) !!}
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <p class="js-msg-empty">Elements not created 😢</p>
-                                    @endisset
-                                </div>
-                                <a href="" class="btn btn-info btn-xs float-right js-btn-add"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-
-                    {!! Lte3::btnSubmit('Submit', 'action', 'save-dd') !!}
-                    {!! Lte3::formClose() !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <!-- ChartJS 4 -->
         <div class="row">
             <div class="col-md-12">

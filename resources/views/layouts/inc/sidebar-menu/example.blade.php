@@ -31,13 +31,19 @@
         <li class="nav-item">
             <a href="/lte3/#" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
-                <p>Example<span class="right badge badge-danger">Ex.</span></p>
+                <p>LTE Example<span class="right badge badge-danger">Ex.</span></p>
             </a>
         </li>
         <li class="nav-item">
             <a href="/lte3/components" class="nav-link">
                 <i class="nav-icon fas fa-cubes"></i>
                 <p>Components<span class="right badge badge-success">22</span></p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/lte3/mb-blocks" class="nav-link">
+                <i class="nav-icon fas fa-shapes"></i>
+                <p>Multy Blocks</p>
             </a>
         </li>
         <li class="nav-item">

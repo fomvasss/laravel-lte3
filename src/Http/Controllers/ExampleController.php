@@ -27,6 +27,11 @@ class ExampleController extends Controller
             //'terms' => \App\Models\Term::whereIn('vocabulary', ['brands', 'models'])->paginate(8),
         ]);
     }
+    
+    public function mbBlocks(Request $request)
+    {
+        return view('lte3::examples.mb-blocks');
+    }
 
     /**
      * @param Request $request

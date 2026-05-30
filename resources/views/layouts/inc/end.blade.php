@@ -41,6 +41,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/vendor/adminlte/dist/js/demo.js"></script> {{--TODO: customize this--}}
 <script src="/vendor/lte3/main.js"></script>
+<script src="/vendor/lte3/mb-blocks.js"></script>
+
 @stack('scripts')
 @include('lte3::layouts.inc.options')
 

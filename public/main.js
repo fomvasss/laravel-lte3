@@ -956,6 +956,8 @@ $(function () {
     });
 
 
+    // TODO: Deprecated
+    // Use md-blocks
     // Dynamic blocks
     $(document).on('click', '.f-multyblocks>*>.js-btn-add', function (e) {
         e.preventDefault();

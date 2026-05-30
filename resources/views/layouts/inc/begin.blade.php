@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css">
 
     <link rel="stylesheet" href="/vendor/lte3/main.css">
+    <link rel="stylesheet" href="/vendor/lte3/mb-block.css">
     @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">
