@@ -10,16 +10,11 @@
             "email": "fomvasss@gmail.com",
             "role": "Architect & Developer",
             "homepage": "https://github.com/fomvasss"
-        },
-        {
-            "name": "Klimovych Juriy",
-            "email": "web-west@i.ua",
-            "role": "Idea & Developer"
         }
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.0",
         "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0"
     },
     "autoload": {
