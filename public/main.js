@@ -490,6 +490,8 @@ $(function () {
                 urlSave = $this.data('url-save'),
                 urlSuggest = $this.data('url-suggest'),
                 urlTags = $this.data('url-tags'),
+                placeholder = $this.attr('placeholder') || '',
+                allowClear = $this.attr('allowClear') || false,
                 closeOnSelect = $this.data('close-on-select') || true;
 
             // Autosave after change
@@ -500,6 +502,7 @@ $(function () {
                         language: LANGUAGE,
                         tags: false,
                         closeOnSelect: closeOnSelect,
+                        placeholder: placeholder,
                         dropdownParent: $this.closest('.f-select2-wrap'),
                     });
 
@@ -541,6 +544,8 @@ $(function () {
                     closeOnSelect: closeOnSelect,
                     tokenSeparators: tokenSeparators,
                     dropdownParent: $this.closest('.f-select2-wrap'),
+                    allowClear: allowClear,
+                    placeholder: placeholder,
                     ajax: urlTags ? {
                         delay: 250,
                         url: urlTags,
@@ -576,6 +581,7 @@ $(function () {
                     language: LANGUAGE,
                     tags: false,
                     closeOnSelect: closeOnSelect,
+                    placeholder: placeholder,
                     dropdownParent: $this.closest('.f-select2-wrap'),
                     ajax: {
                         delay: 250,
@@ -588,6 +594,8 @@ $(function () {
                     language: LANGUAGE,
                     tags: false,
                     closeOnSelect: closeOnSelect,
+                    placeholder: placeholder,
+                    allowClear: allowClear,
                     dropdownParent: $this.closest('.f-select2-wrap')
                 });
             }

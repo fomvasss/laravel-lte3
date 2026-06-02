@@ -39,7 +39,6 @@
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $field_name_input }}">{!! $label !!}</label>
     @endif
-
     <select
         name="{{ $field_name_input }}"
         data-name="{{ Str::replaceLast('[]', '', $name) }}"
@@ -47,8 +46,10 @@
         style="width: 100%;"
         autocomplete="off"
         data-toggle="tooltip"
+
     @if(Arr::get($attrs, 'disabled')) disabled @endif
     @if(Arr::get($attrs, 'readonly')) readonly @endif
+    @if(Arr::get($attrs, 'allowClear')) allowClear="true" @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach

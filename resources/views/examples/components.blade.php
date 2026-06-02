@@ -507,12 +507,14 @@
 
                         {!! Lte3::select2('city', 'City', ['London', 'Kyiv', 'Warszawa'], [
                             'label' => 'City',
-                            'disabled' => '--',
+                            'disabled' => true,
                         ]) !!}
 
-                        {!! Lte3::select2('color', 'green', ['Green', 'Red', 'White'], [
+                        {!! Lte3::select2('color', null, ['Green', 'Red', 'White'], [
                             'label' => 'Color',
                             'empty_value' => '--',
+                            'placeholder' => 'Select color...',
+                            'allowClear' => true,
                         ]) !!}
 
                         {!! Lte3::select2('tag', 'auto', ['auto' => 'Auto', 'news' => 'News'], [
@@ -532,9 +534,11 @@
                         {!! Lte3::select2('domain', 'canceled', ['canceled' => 'Canceled'], [
                             'label' => 'Domain',
                             'multiple' => true,
-                            'max' => 1,
+                            'max' => 2,
+                            'placeholder' => 'Select two max domains...',
                             'url_tags' => route('lte3.data.tags'),
-                            'help' => '* Select one or create ;'
+                            'help' => '* Select one or create ;',
+                            'allowClear' => true,
                         ]) !!}
 
                         {!! Lte3::select2('tags', '4', ['4' => 'Auto'], [
