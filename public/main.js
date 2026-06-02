@@ -503,6 +503,7 @@ $(function () {
                         tags: false,
                         closeOnSelect: closeOnSelect,
                         placeholder: placeholder,
+                        allowClear: allowClear,
                         dropdownParent: $this.closest('.f-select2-wrap'),
                     });
 
@@ -544,8 +545,8 @@ $(function () {
                     closeOnSelect: closeOnSelect,
                     tokenSeparators: tokenSeparators,
                     dropdownParent: $this.closest('.f-select2-wrap'),
-                    allowClear: allowClear,
                     placeholder: placeholder,
+                    allowClear: allowClear,
                     ajax: urlTags ? {
                         delay: 250,
                         url: urlTags,
@@ -582,6 +583,7 @@ $(function () {
                     tags: false,
                     closeOnSelect: closeOnSelect,
                     placeholder: placeholder,
+                    allowClear: allowClear,
                     dropdownParent: $this.closest('.f-select2-wrap'),
                     ajax: {
                         delay: 250,
