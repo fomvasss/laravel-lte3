@@ -344,6 +344,6 @@ input.f-multiDatesPicker[readonly] {
 }
 
 .card-footer .pagination {
-    justify-content: center;
+    justify-content: right;
     margin-bottom: 0;
 }
