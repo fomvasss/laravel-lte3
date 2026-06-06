@@ -342,3 +342,8 @@ input.f-multiDatesPicker[readonly] {
     background: #343a40;
     color: #fff;
 }
+
+.card-footer .pagination {
+    justify-content: center;
+    margin-bottom: 0;
+}

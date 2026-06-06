@@ -130,7 +130,7 @@ class Lte
      */
     public function pagination($models)
     {
-        if ($models instanceof LengthAwarePaginator) {
+        if ($models instanceof LengthAwarePaginator || $models instanceof \Illuminate\Pagination\Paginator) {
             $params = config("lte3.view.pagination");
 
             Paginator::defaultView($params['view']);
