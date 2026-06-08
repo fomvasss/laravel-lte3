@@ -49,7 +49,7 @@
 
     @if(Arr::get($attrs, 'disabled')) disabled @endif
     @if(Arr::get($attrs, 'readonly')) readonly @endif
-    @if(Arr::get($attrs, 'allowClear')) allowClear="true" @endif
+    @if(Arr::get($attrs, 'allowClear') || Arr::get($attrs, 'empty_value')) allowClear="true" @endif
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
