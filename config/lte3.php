@@ -43,6 +43,7 @@ return [
 
         'components' => [
             'form' => ['blade' => 'lte3::components.form', 'default' => ['files' => true]],
+            'link' => ['blade' => 'lte3::components.link', 'vars' => ['url', 'attrs']],
             'btnSubmit' => ['blade' => 'lte3::components.btnSubmit', 'vars' => ['title', 'name', 'value', 'attrs']],
             'btnReset' => ['blade' => 'lte3::components.btnReset', 'vars' => ['title', 'attrs']],
             'btnModalClose' => ['blade' => 'lte3::components.btnModalClose', 'vars' => ['title', 'attrs']],
