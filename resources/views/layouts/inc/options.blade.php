@@ -235,15 +235,29 @@
 
                 if (!patternAttr) return;
 
-                const pattern = new RegExp(patternAttr);
-                const isValid = pattern.test(value);
+                let regex;
 
-                // Встановити кастомну валідацію
-                if (isValid || value === '') {
+                try {
+                    regex = new RegExp(patternAttr);
+                } catch (e) {
+                    console.error('Invalid pattern:', patternAttr);
+                    return;
+                }
+
+                const isEmpty = value === '';
+                const isValid = regex.test(value);
+
+                if (isEmpty) {
+                    this.setCustomValidity('');
+                    $field.removeClass('is-valid is-invalid');
+                    return;
+                }
+
+                if (isValid) {
                     this.setCustomValidity('');
                     $field.removeClass('is-invalid').addClass('is-valid');
                 } else {
-                    this.setCustomValidity('Forman is not valid.');
+                    this.setCustomValidity('Format is not valid.');
                     $field.removeClass('is-valid').addClass('is-invalid');
                 }
             });
