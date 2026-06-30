@@ -81,3 +81,31 @@
     background: #fff;
     border-color: #e2e8f0;
 }
+
+.dark-mode .mb-item {
+    background: #2d3238;
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.dark-mode .mb-item--removing {
+    background: #3d2020;
+    border-color: #dc3545;
+}
+
+.dark-mode .mb-item-controls {
+    border-bottom-color: #3d4349;
+}
+
+.dark-mode .mb-item .mb-wrap {
+    background: #343a40;
+    border-color: #4b545c;
+}
+
+.dark-mode .mb-item .mb-item {
+    background: #343a40;
+    border-color: #4b545c;
+}
+
+.dark-mode .sortable-placeholder {
+    border-color: #4b545c;
+}
