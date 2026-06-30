@@ -20,7 +20,7 @@ return [
 
     'view' => [
 
-        'dark_mode' => false,
+        'theme' => 'system', // light | dark | system
 
         'preloader' => false,
 

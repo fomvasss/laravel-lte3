@@ -55,4 +55,15 @@
 
     @stack('styles')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed {{config('lte3.view.dark_mode') ? 'dark-mode' : ''}}">
+<body class="hold-transition sidebar-mini layout-fixed">
+<script>
+(function() {
+    var stored = localStorage.getItem('lte3-theme');
+    var cfg = '{{ config('lte3.view.theme', 'system') }}';
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var effective = stored || cfg;
+    if (effective === 'dark' || (effective === 'system' && prefersDark)) {
+        document.body.classList.add('dark-mode');
+    }
+})();
+</script>

@@ -392,7 +392,7 @@
             image_caption: true,
             image_title: true,
             entity_encoding : "raw",
-            skin: '{{ config('lte3.view.dark_mode') ? "oxide-dark" : "oxide" }}',
+            skin: '{{ config('lte3.view.theme') === 'dark' ? "oxide-dark" : "oxide" }}',
 
             // URL & file paths
             document_base_url: pathAbsolute,
@@ -706,3 +706,49 @@
         initEditorJS();
     </script>
 @endif
+
+<script>
+(function() {
+    var cfgTheme = '{{ config('lte3.view.theme', 'system') }}';
+
+    function applyTheme(theme) {
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var useDark = theme === 'dark' || (theme === 'system' && prefersDark);
+        document.body.classList.toggle('dark-mode', useDark);
+        var nav = document.querySelector('nav.main-header');
+        if (nav) {
+            nav.classList.toggle('dark-mode', useDark);
+            nav.classList.toggle('navbar-white', !useDark);
+            nav.classList.toggle('navbar-light', !useDark);
+        }
+        updateIcon(theme);
+    }
+
+    function updateIcon(theme) {
+        var colors = { light: '#e08e0b', dark: '#748be0', system: '#17a2b8' };
+        document.querySelectorAll('.lte3-theme-icon').forEach(function(el) { el.style.display = 'none'; el.style.color = ''; });
+        var map = { light: 'lte3-icon-light', dark: 'lte3-icon-dark', system: 'lte3-icon-system' };
+        var el = document.getElementById(map[theme]);
+        if (el) {
+            el.style.display = '';
+            el.style.color = colors[theme] || '';
+        }
+    }
+
+    window.lte3ToggleTheme = function() {
+        var current = localStorage.getItem('lte3-theme') || cfgTheme;
+        var next = current === 'light' ? 'dark' : (current === 'dark' ? 'system' : 'light');
+        localStorage.setItem('lte3-theme', next);
+        applyTheme(next);
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        applyTheme(localStorage.getItem('lte3-theme') || cfgTheme);
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        var current = localStorage.getItem('lte3-theme') || cfgTheme;
+        if (current === 'system') applyTheme('system');
+    });
+})();
+</script>

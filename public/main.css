@@ -347,3 +347,9 @@ input.f-multiDatesPicker[readonly] {
     justify-content: right;
     margin-bottom: 0;
 }
+.dark-mode .overlay {
+    background-color: rgba(0, 0, 0, .5);
+}
+.dark-mode .overlay > .fas {
+    color: #ced4da;
+}

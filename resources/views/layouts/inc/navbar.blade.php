@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand text-sm {{config('lte3.view.dark_mode') ? 'dark-mode' : 'navbar-white navbar-light'}}">
+<nav class="main-header navbar navbar-expand text-sm navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -55,24 +55,15 @@
         </li>
 
         <li class="nav-item" data-toggle="tooltip" title="Theme">
-            @if(session('lte_theme') === 'dark' || config('lte3.view.dark_mode'))
-                <a href="{{ route('lte3.data.save', ['key' => 'lte_theme', 'value' => 'light']) }}" class="nav-link"> <i class="fas fa-sun"></i></a>
-            @else
-                <a href="{{ route('lte3.data.save', ['key' => 'lte_theme', 'value' => 'dark']) }}" class="nav-link"> <i class="fas fa-moon"></i></a>
-            @endif
+            <a href="#" class="nav-link" onclick="lte3ToggleTheme(); return false;">
+                <i class="fas fa-sun lte3-theme-icon" id="lte3-icon-light" style="display:none"></i>
+                <i class="fas fa-moon lte3-theme-icon" id="lte3-icon-dark" style="display:none"></i>
+                <i class="fas fa-desktop lte3-theme-icon" id="lte3-icon-system" style="display:none"></i>
+            </a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block" data-toggle="tooltip" title="Visit">
             <a href="#" class="nav-link"> <i class="fas fa-chevron-circle-right"></i></a>
-        </li>
-
-        <li class="nav-item" data-toggle="tooltip" title="Change">
-            <div class="theme-switch-wrapper nav-link">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox">
-                    <span class="slider round"></span>
-                </label>
-            </div>
         </li>
     </ul>
 

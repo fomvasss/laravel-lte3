@@ -57,7 +57,7 @@
 </div>
 
 @if($attrs['preloader'] ?? true)
-    <div class="overlay @if(session('lte_theme') === 'dark' || config('lte3.view.dark_mode')) dark @endif" style="backdrop-filter: blur(7px);" id="{{ $attrs['preloader_id'] ?? 'table-preloader' }}">
+    <div class="overlay" style="backdrop-filter: blur(7px);" id="{{ $attrs['preloader_id'] ?? 'table-preloader' }}">
         <i class="fas fa-2x fa-sync-alt fa-spin"></i>
     </div>
 @endif
