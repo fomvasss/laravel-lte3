@@ -191,7 +191,7 @@ $(function () {
         return false;
     })
 
-    // TODO: Deprecated 
+    // TODO: Deprecated
     //  Click submit
     $(document).on('click', '.js-click-submit', function (e) {
         e.preventDefault();
@@ -354,6 +354,42 @@ $(function () {
 
         $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item);
         $wrap.find('.f-lfm-btn').filemanager();
+    });
+
+    // LFM - AJAX save/clear
+    function sendLfmAjax(url, fieldName, value) {
+        $.ajax({
+            url: url,
+            method: 'POST',
+            dataType: 'json',
+            data: {name: fieldName, value: value},
+            success: function (data) {
+                if (data.message) {
+                    lteAlert('success', data.message);
+                }
+            },
+            error: function () {
+                console.log('Error Ajax!');
+                lteAlert('error', 'Error Ajax!');
+            }
+        });
+    }
+    $(document).on('change', '.f-lfm .js-lfm-input', function () {
+        var $input = $(this),
+            urlSave = $input.closest('.f-lfm').data('url-save');
+
+        if (urlSave) {
+            sendLfmAjax(urlSave, $input.attr('name'), $input.val());
+        }
+    });
+    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-clear', function () {
+        var $wrapItem = $(this).closest('.f-wrap-item'),
+            urlSave = $(this).closest('.f-lfm').data('url-save'),
+            $input = $wrapItem.find('.js-lfm-input');
+
+        if (urlSave) {
+            sendLfmAjax(urlSave, $input.attr('name'), $input.val());
+        }
     });
 
     // Show info about input chuse file

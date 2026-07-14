@@ -950,6 +950,10 @@
                                     'lfm_category' => 'image',  // see configs/lfm.php folder_categories
                                 ]) !!}
 
+                                {!! Lte3::lfmImage('poster_ajax', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    'url_save' => route('lte3.data.save'),
+                                ]) !!}
+
                             </div>
                             <div class="col-md-6">
                                 {!! Lte3::lfmFile('instruction', null, [

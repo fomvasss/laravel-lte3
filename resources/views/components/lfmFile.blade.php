@@ -15,6 +15,7 @@
      data-is-image="{{ $attrs['is_image'] ?? 0 }}"
      data-field-name="{{$name}}"
      data-trim-host="{{ $attrs['trim_host'] ?? 0 }}"
+     data-url-save="{{ $attrs['url_save'] ?? '' }}"
 >
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <label for="{{ $input_name }}">{!! $label !!}</label>
