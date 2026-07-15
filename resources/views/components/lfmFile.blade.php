@@ -7,6 +7,7 @@
     $input_weight_name = !empty($attrs['name_weight']) ? $attrs['name_weight'] : (Str::replaceLast('[]', '', $name) . '_weight');
     $paths = $path ? Arr::wrap($path) : [];
     $readonly = !isset($attrs['readonly']) || !empty($attrs['readonly']);
+    $hideInput = !empty($attrs['hide_input']);
 @endphp
 
 <div class="form-group f-wrap f-lfm {{ $attrs['class_wrap'] ?? null }}"
@@ -28,7 +29,7 @@
             <tr class="f-wrap-item">
                 <td class="align-middle">
                     <div class="input-group">
-                        <input class="form-control js-lfm-input"
+                        <input class="form-control js-lfm-input @if($hideInput) d-none @endif"
                                name="{{$input_name}}"
                                type="text"
                                value="{{$path}}"
@@ -49,7 +50,7 @@
                         </a>
                     @else
                         <a href="{{ $path }}" target="_blank" class="js-popup-image">
-                            <img src="{{ $path }}" style="height: 60px">
+                            <img src="{{ $path }}" style="height: 60px; max-width: 100px;">
                         </a>
                     @endempty
                 </td>
@@ -70,7 +71,7 @@
                 <tr class="f-wrap-item">
                     <td class="align-middle">
                         <div class="input-group">
-                            <input class="form-control js-lfm-input"
+                            <input class="form-control js-lfm-input @if($hideInput) d-none @endif"
                                 name="{{$input_name}}"
                                 type="text"
                                 @if($readonly) readonly @endif

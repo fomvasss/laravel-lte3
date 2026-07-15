@@ -952,6 +952,7 @@
 
                                 {!! Lte3::lfmImage('poster_ajax', '/vendor/lte3/img/favicons/favicon-32x32.png', [
                                     'url_save' => route('lte3.data.save'),
+                                    'hide_input' => true,
                                 ]) !!}
 
                             </div>
