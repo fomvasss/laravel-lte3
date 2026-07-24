@@ -166,7 +166,7 @@ class Lte
      * @param string|null $key
      * @return string
      */
-    public function backUrl(string $key = null): string
+    public function backUrl(?string $key = null): string
     {
         return request('_back')
             ?: session('_back')
