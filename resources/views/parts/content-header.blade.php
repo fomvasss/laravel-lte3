@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <div class="content-header pb-0">
     <div class="container-fluid pl-0">
-        <div class="row mb-2">
+        <div class="row">
             <div class="col-sm-5">
                 <h1 class="m-0">
                     @isset($url_back)
@@ -54,6 +54,27 @@
                 </div>
             </div>
         </div>
+
+        @if(isset($breadcrumbs) && count($breadcrumbs))
+        <div class="row mt-2">
+            <div class="col-md-12 small">
+                @foreach($breadcrumbs as $breadcrumb)
+                    @empty($breadcrumb) @continue @endempty
+                    @if(empty($breadcrumb['url']) || $loop->last)
+                        <span class="text-muted">{{ $breadcrumb['title'] }}</span>
+                    @else
+                        <a class="text-muted" href="{{ $breadcrumb['url'] }}">
+                            {{ $breadcrumb['title'] }}
+                        </a>
+                    @endempty
+                    @if(!$loop->last)
+                        <i class="fas fa-chevron-right"></i>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+        @endif
+        
     </div>
 </div>
 

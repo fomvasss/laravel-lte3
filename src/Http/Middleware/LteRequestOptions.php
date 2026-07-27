@@ -43,8 +43,8 @@ class LteRequestOptions
 
         // set Destination URL
         $destinationKey = config('lte3.view.next_destination_key', '_destination');
-        if ($request->get($destinationKey)) {
-            $request->session()->put($destinationKey, $request->get($destinationKey));
+        if ($request->input($destinationKey)) {
+            $request->session()->put($destinationKey, $request->input($destinationKey));
         }
 
         // set Back URL
@@ -60,7 +60,7 @@ class LteRequestOptions
 
         // set next open modal
         $modalKey = config('lte3.view.modal_key', '_modal');
-        if ($modal = $request->get($modalKey)) {
+        if ($modal = $request->input($modalKey)) {
             session()->flash('_modal', $modal);
         }
 
@@ -76,7 +76,7 @@ class LteRequestOptions
      */
     protected function putIndexPageRouteNamesForBackAction(Request $request)
     {
-        if ($back = $request->get('_back')) {
+        if ($back = $request->input('_back')) {
             $request->session()->put('_back', $back);
         }
         
@@ -92,7 +92,7 @@ class LteRequestOptions
     {
         foreach ($this->enabledOptionKeys as $key => $defaultValue) {
             if ($request->has($key)) {
-                $request->session()->put($key, $request->get($key));
+                $request->session()->put($key, $request->input($key));
             }
 
             if (! $request->session()->has($key) && isset($defaultValue)) {
