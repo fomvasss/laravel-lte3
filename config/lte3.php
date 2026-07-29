@@ -25,6 +25,11 @@ return [
         'preloader' => false,
 
         /**
+         * Compact size for main-header and sidebar (text-sm + nav-compact)
+         */
+        'compact' => true,
+
+        /**
          * Show next type alerts in dashboard
          * Example alert: \Session::flash('success', 'Welcome to LTE!');
          * Available types: success, info, warning, error

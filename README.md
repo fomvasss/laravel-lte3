@@ -37,6 +37,8 @@ All examples of fields and components can be viewed: `http://site.test/lte3/exsm
 
 Configuration file: `config/lte3.php`
 
+- `view.compact` (bool, default `true`) - compact size for main-header and sidebar (adds `text-sm` to the header/brand-link and `nav-compact` to the sidebar menu)
+
 For correct work navigation in dashboard, apply middleware. Add this to `App\Http\Kernel.php`:
 
 ```

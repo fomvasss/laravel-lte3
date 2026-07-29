@@ -1,6 +1,6 @@
 <!-- Sidebar Menu -->
 <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column js-activeable" data-widget="treeview" role="menu"
+    <ul class="nav nav-pills nav-sidebar flex-column {{ config('lte3.view.compact') ? 'nav-compact' : '' }} js-activeable" data-widget="treeview" role="menu"
         data-accordion="false">
         <li class="nav-item">
             <a href="#" class="nav-link">

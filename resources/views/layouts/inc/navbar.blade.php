@@ -1,22 +1,15 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand text-sm navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand {{ config('lte3.view.compact') ? 'text-sm' : '' }} navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
 
-        <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-               class="nav-link dropdown-toggle"><i class="far fa-clock"></i></a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
-                style="left: 0px; right: inherit;">
-                <li><a href="#" class="dropdown-item">UTC: {{ now()->timezone(config('app.timezone')) }} </a></li>
-                @if(config('app.timezone_client'))
-                    <li><a href="#" class="dropdown-item">{{ config('app.timezone_client') }}: {{ now()->timezone(config('app.timezone_client')) }}</a>
-                    </li>
-                @endif
-            </ul>
+        <li class="nav-item" data-toggle="tooltip" data-html="true"
+            title="UTC: {{ now()->timezone(config('app.timezone')) }}<br>
+                {{ config('app.timezone_client') ? config('app.timezone_client') .':' . now()->timezone(config('app.timezone_client')) : '' }}"
+        > <span class="nav-link"> <i class="fas fa-info-circle"></i></span>
         </li>
 
         <li class="nav-item dropdown">
