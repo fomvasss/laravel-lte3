@@ -138,7 +138,7 @@
             updateAddBtn($wrap);
             updateDeleteBtns($wrap);
             updateItemNumbers($wrap);
-        }, 2000);
+        }, 900);
 
         $item.data('mb-remove-timer', timer);
         updateDeleteBtns($wrap);
