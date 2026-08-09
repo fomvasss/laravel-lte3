@@ -3,6 +3,7 @@
 namespace Fomvasss\Lte3;
 
 use Exception;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Pagination\Paginator;
@@ -130,7 +131,11 @@ class Lte
      */
     public function pagination($models)
     {
-        if ($models instanceof LengthAwarePaginator || $models instanceof \Illuminate\Pagination\Paginator) {
+        // LengthAwarePaginator (paginate()) — повний нумерований пейджер (view/1 2 3.../total).
+        // Paginator (simplePaginate()) і CursorPaginator (cursorPaginate()) — обидва не знають total/lastPage,
+        // тому обидва рендеряться через один і той самий simple_view (лише Назад/Вперед) — render() сам
+        // падає на Paginator::$defaultSimpleView, якщо явний view не переданий, для обох випадків однаково.
+        if ($models instanceof LengthAwarePaginator || $models instanceof \Illuminate\Pagination\Paginator || $models instanceof CursorPaginator) {
             $params = config("lte3.view.pagination");
 
             Paginator::defaultView($params['view']);
@@ -139,7 +144,7 @@ class Lte
             return $models->appends(\Request::except('page'))->render();
         }
 
-        Log::error(__METHOD__ . "Argument #1 must be of type Illuminate\Contracts\Pagination\LengthAwarePaginator");
+        Log::error(__METHOD__ . "Argument #1 must be of type LengthAwarePaginator, Paginator or CursorPaginator");
 
         return '';
     }
