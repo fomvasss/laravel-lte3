@@ -49,7 +49,7 @@
                             </a>
                             @else
                             <a href="{{ $media->getUrl() }}" target="_blank" class="js-popup-image">
-                                <img src="{{ $media->getUrl('thumb') }}" alt="{{ $media->name }}">
+                                <img src="{{ \Fomvasss\Lte3\Support\MediaThumbUrlResolver::resolve($media) }}" alt="{{ $media->name }}">
                             </a>
                             @endempty
                         </td>

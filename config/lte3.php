@@ -121,5 +121,24 @@ return [
             'simple_view' => 'pagination::simple-bootstrap-5',
             'view' => 'pagination::bootstrap-5',
         ],
+
+        'media' => [
+            /**
+             * Резолвер thumb-прев'ю у mediaFile-компоненті ("Choose file" список файлів).
+             *
+             * 'conversion'  — $media->getUrl($conversion_name), стандартна Spatie MediaLibrary
+             *                 конверсія (реєструється через registerMediaConversions() моделі).
+             * 'imagepreset' — imagepreset_url($media->getUrl(), $imagepreset_params), пакет
+             *                 fomvasss/laravel-imagepresets (окрема опційна залежність проєкту,
+             *                 не входить у вимоги laravel-lte3).
+             * callable      — fn (\Spatie\MediaLibrary\MediaCollections\Models\Media $media): string —
+             *                 повний контроль, ігнорує решту нижче.
+             */
+            'thumb' => [
+                'driver' => 'conversion', // 'conversion' | 'imagepreset' | callable
+                'conversion_name' => 'thumb',
+                'imagepreset_params' => ['w' => 100, 'h' => 100, 'fit' => 'crop'],
+            ],
+        ],
     ],
 ];
