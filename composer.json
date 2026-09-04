@@ -17,6 +17,9 @@
         "php": "^8.0",
         "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0"
     },
+    "suggest": {
+        "fomvasss/laravel-imagepresets": "Потрібен для view.media.thumb.driver=imagepreset. Від ^1.16 — там з'явився $bypass-аргумент imagepreset_url(), яким thumb обходить allowed_sizes"
+    },
     "autoload": {
         "psr-4": {
             "Fomvasss\\Lte3\\": "src"

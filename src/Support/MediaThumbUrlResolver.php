@@ -38,6 +38,10 @@ class MediaThumbUrlResolver
             );
         }
 
-        return imagepreset_url($media->getUrl(), $params);
+        // bypass=true — виклик суто бекендовий (Blade-компонента адмінки, не публічний API),
+        // саме такий сценарій пакет офіційно рекомендує для _t-токена: інакше w/h/fit мають
+        // збігтись з allowed_widths/allowed_heights/allowed_sizes у конфізі проєкту (imagepresets.php),
+        // а тут ці розміри задаються окремо через lte3.view.media.thumb.imagepreset_params.
+        return imagepreset_url($media->getUrl(), $params, true);
     }
 }
