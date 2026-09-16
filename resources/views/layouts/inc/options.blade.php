@@ -226,41 +226,65 @@
         });
     }
 
-    initLivePatternValidation = function () {
-        $('input[pattern], textarea[pattern]').each(function () {
-            $(this).on('input change', function () {
-                const $field = $(this);
-                const patternAttr = $field.attr('pattern');
-                const value = $field.val();
+    // Live-валідація полів з атрибутом pattern — та сама семантика, що й у нативного pattern браузера:
+    // збіг з усім значенням, прапорець v (з фолбеком на u і без прапорців для патернів, невалідних у v-режимі).
+    // Обробник делегований — покриває й поля, додані пізніше (mb-blocks, AJAX-модалки)
+    var patternValidateOnLoad = {!! json_encode((bool) config('lte3.view.pattern_validation.validate_on_load', false)) !!},
+        patternDefaultMessage = {!! json_encode(config('lte3.view.pattern_validation.message', 'Format is not valid.'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) !!},
+        patternRegexCache = {};
 
-                if (!patternAttr) return;
+    function patternRegex(pattern) {
+        if (!patternRegexCache.hasOwnProperty(pattern)) {
+            patternRegexCache[pattern] = null;
 
-                let regex;
-
+            ['v', 'u', ''].some(function (flags) {
                 try {
-                    regex = new RegExp(patternAttr);
+                    patternRegexCache[pattern] = new RegExp('^(?:' + pattern + ')$', flags);
+                    return true;
                 } catch (e) {
-                    console.error('Invalid pattern:', patternAttr);
-                    return;
-                }
-
-                const isEmpty = value === '';
-                const isValid = regex.test(value);
-
-                if (isEmpty) {
-                    this.setCustomValidity('');
-                    $field.removeClass('is-valid is-invalid');
-                    return;
-                }
-
-                if (isValid) {
-                    this.setCustomValidity('');
-                    $field.removeClass('is-invalid').addClass('is-valid');
-                } else {
-                    this.setCustomValidity('Format is not valid.');
-                    $field.removeClass('is-valid').addClass('is-invalid');
+                    return false;
                 }
             });
+
+            if (!patternRegexCache[pattern]) {
+                console.error('Invalid pattern:', pattern);
+            }
+        }
+
+        return patternRegexCache[pattern];
+    }
+
+    // onlyMarkInvalid — перевірка без зміни поля людиною: валідне значення не знімає is-invalid,
+    // який міг поставити сервер (помилка валідації)
+    function validatePatternField(field, onlyMarkInvalid) {
+        var $field = $(field),
+            pattern = $field.attr('pattern'),
+            regex = pattern ? patternRegex(pattern) : null,
+            value = $field.val();
+
+        if (!regex) return;
+
+        if (value === '' || regex.test(value)) {
+            if (!onlyMarkInvalid) {
+                field.setCustomValidity('');
+                $field.removeClass('is-invalid');
+            }
+            return;
+        }
+
+        field.setCustomValidity($field.attr('data-pattern-message') || patternDefaultMessage);
+        $field.addClass('is-invalid');
+    }
+
+    $(document).on('input change', 'input[pattern], textarea[pattern]', function () {
+        validatePatternField(this, false);
+    });
+
+    initLivePatternValidation = function () {
+        if (!patternValidateOnLoad) return;
+
+        $('input[pattern], textarea[pattern]').each(function () {
+            validatePatternField(this, true);
         });
     }
     initLivePatternValidation();

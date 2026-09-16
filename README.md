@@ -38,6 +38,8 @@ All examples of fields and components can be viewed: `http://site.test/lte3/exsm
 Configuration file: `config/lte3.php`
 
 - `view.compact` (bool, default `true`) - compact size for main-header and sidebar (adds `text-sm` to the header/brand-link and `nav-compact` to the sidebar menu)
+- `view.pattern_validation.validate_on_load` (bool, default `false`) - check prefilled values of fields with `pattern` on page load. A saved value that does not match blocks form submit until it is fixed
+- `view.pattern_validation.message` (string, default `Format is not valid.`) - default error text for fields with `pattern`
 
 For correct work navigation in dashboard, apply middleware. Add this to `App\Http\Kernel.php`:
 
@@ -50,6 +52,25 @@ $middlewareGroups = [
 ];
 ```
 
+### Pattern validation
+
+Fields with the `pattern` attribute (`input` and `textarea`) are validated live, while typing:
+
+- the value must match the pattern entirely, like the native browser check — `\d{5}` does not accept `abc12345xyz`
+- the pattern is case-sensitive and compiled with the `v` flag (falls back to `u` and to no flags for patterns that are invalid in `v` mode, e.g. an unescaped `-` in a character class)
+- empty value is not checked — combine with `required` if the field is mandatory
+- an invalid field gets `is-invalid` and blocks form submit
+- fields added after page load (mb-blocks, AJAX modals) are covered automatically, no re-init needed
+
+Custom error text per field — `data-pattern-message`:
+
+```php
+{!! Lte3::text('options[smtp_host]', null, [
+    'label' => 'SMTP host',
+    'pattern' => '^[A-Za-z0-9.\\-]+$',
+    'data' => ['pattern-message' => 'Host only, without https:// and port'],
+]) !!}
+```
 
 ## Publishing (optional)
 

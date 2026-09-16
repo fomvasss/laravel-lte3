@@ -30,6 +30,16 @@ return [
         'compact' => true,
 
         /**
+         * Live validation of fields with the `pattern` attribute (full-value match, like the native browser check).
+         * validate_on_load — also check prefilled values on page load (a saved invalid value blocks form submit).
+         * message — default error text; per field: `data-pattern-message` attribute.
+         */
+        'pattern_validation' => [
+            'validate_on_load' => false,
+            'message' => 'Format is not valid.',
+        ],
+
+        /**
          * Show next type alerts in dashboard
          * Example alert: \Session::flash('success', 'Welcome to LTE!');
          * Available types: success, info, warning, error
