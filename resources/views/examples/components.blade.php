@@ -310,6 +310,13 @@
 
                         {!! Lte3::text('tokens', 'Example tokens ', ['tokens' => ['[user:name]' => 'Name', '[user:phone]' => 'Phone']]) !!}
 
+                        {!! Lte3::text('tokens_insert', 'Hello, ', [
+                            'label' => 'Tokens insert',
+                            'help' => '* tokens_action: copy (default), insert, none',
+                            'tokens' => ['[user:name]' => 'Name', '[user:phone]' => 'Phone'],
+                            'tokens_action' => 'insert',
+                        ]) !!}
+
                         {!! Lte3::text('city', 'Lutsk', ['hidden_wrap' => 1]) !!}
 
                         {!! Lte3::text('default', null, [
@@ -813,6 +820,11 @@
                                 data-target="#my-modal-lg">
                             Small Modal
                         </button>
+                        <button type="button" class="btn btn-default" data-toggle="modal"
+                                data-target="#my-modal-static">
+                            Static Modal
+                        </button>
+                        <p class="text-muted small mt-2 mb-0">#modal-lg і #modal-xl не закриваються кліком поза модалкою та Esc (data-backdrop="static" data-keyboard="false"), щоб не втратити дані форми. #modal-sm і Small Modal закриваються як звичайно.</p>
 
                     </div>
                     <div class="card-footer text-right">
@@ -1186,6 +1198,20 @@
 @endpush
 
 @push('modals')
+    <div class="modal fade" id="my-modal-static" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Static Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"><p>Не закривається кліком поза модалкою та Esc — лише кнопкою.</p></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="my-modal-lg">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

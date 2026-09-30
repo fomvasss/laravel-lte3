@@ -3,6 +3,7 @@
         <label for="{{ $name }}">{!! $label !!}</label>
     @endif
 
+    @if(Arr::get($attrs, 'tokens'))<div class="position-relative">@endif
     <textarea class="form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
               name="{{ $name }}"
               data-toggle="tooltip"
@@ -20,7 +21,6 @@
         @endforeach
     @endif
     >{!! $value !!}</textarea>
-
     @if(Arr::get($attrs, 'tokens'))
         <div class="btn-group btn-group-tokens dropleft">
             <button type="button" class="btn btn-default p-0 border-0 bg-transparent" data-toggle="dropdown" aria-expanded="false">
@@ -28,13 +28,24 @@
             </button>
             <div class="dropdown-menu" role="menu">
                 @foreach(Arr::get($attrs, 'tokens', []) as $key => $name)
-                    <a class="dropdown-item js-clipboard" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                    @switch(Arr::get($attrs, 'tokens_action', 'copy'))
+                        @case('insert')
+                            <a class="dropdown-item js-token-insert" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                            @break
+                        @case('none')
+                            <span class="dropdown-item-text">{{ $name }} - {{ $key }}</span>
+                            @break
+                        @default
+                            <a class="dropdown-item js-clipboard" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                    @endswitch
                 @endforeach
             </div>
         </div>
+        </div>
     @endif
 
+
     @error($name)
-    <div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    <div class="error invalid-feedback d-block"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

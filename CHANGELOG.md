@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.117.0 - 2026-09-30
+
+### Added
+- `tokens_action` option for the `text` and `textarea` components — what a click on a token does: `copy` (default, copies to the clipboard as before), `insert` (inserts the token into the field at the cursor; for a textarea with TinyMCE — into the editor), `none` (the list is only shown).
+
+### Changed
+- `#modal-lg` and `#modal-xl` in `lte3::layouts.inc.options` no longer close on a click outside the modal or on Esc (`data-backdrop="static" data-keyboard="false"`), so form data in AJAX modals is not lost by accident. They close with the close buttons. `#modal-sm` is unchanged. If you have published or copied this view, apply the change to your copy.
+
+### Fixed
+- The tokens button of `text` and `textarea` moved below the field when the field had `help` text. It now stays inside the field; the validation error text of these fields remains visible.
+
 ## 1.116.2 - 2026-09-30
 
 ### Fixed

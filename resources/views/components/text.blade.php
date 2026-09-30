@@ -40,6 +40,7 @@
         </div>
     @endif
 
+    @if(Arr::get($attrs, 'tokens'))<div class="position-relative flex-grow-1">@endif
     <input class="form-control @error($name) is-invalid @enderror {{ $secret ? 'js-secret-value' : '' }} {{ $attrs['class'] ?? '' }}"
            name="{{ $name }}"
            type="{{ $attrs['type'] }}"
@@ -60,6 +61,28 @@
         @endforeach
     @endif
     >
+    @if(Arr::get($attrs, 'tokens'))
+        <div class="btn-group btn-group-tokens dropleft">
+            <button type="button" class="btn btn-default p-0 border-0 bg-transparent" data-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-caret-square-down"></i>
+            </button>
+            <div class="dropdown-menu" role="menu">
+                @foreach(Arr::get($attrs, 'tokens', []) as $key => $name)
+                    @switch(Arr::get($attrs, 'tokens_action', 'copy'))
+                        @case('insert')
+                            <a class="dropdown-item js-token-insert" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                            @break
+                        @case('none')
+                            <span class="dropdown-item-text">{{ $name }} - {{ $key }}</span>
+                            @break
+                        @default
+                            <a class="dropdown-item js-clipboard" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
+                    @endswitch
+                @endforeach
+            </div>
+        </div>
+        </div>
+    @endif
     @if($append)
         <div class="input-group-append">
             @foreach($append as $val)
@@ -76,18 +99,6 @@
     @endisset
 --}}
 
-    @if(Arr::get($attrs, 'tokens'))
-        <div class="btn-group btn-group-tokens dropleft">
-            <button type="button" class="btn btn-default p-0 border-0 bg-transparent" data-toggle="dropdown" aria-expanded="false">
-                <i class="far fa-caret-square-down"></i>
-            </button>
-            <div class="dropdown-menu" role="menu">
-                @foreach(Arr::get($attrs, 'tokens', []) as $key => $name)
-                    <a class="dropdown-item js-clipboard" href="#" data-text="{{ $key }}">{{ $name }} - {{ $key }}</a>
-                @endforeach
-            </div>
-        </div>
-    @endif
 
     @isset($attrs['checkbox'])
         <div class="input-group-append"
@@ -102,7 +113,7 @@
         </span>
         </div>
     @endisset
-    @error($name)<div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    @error($name)<div class="error invalid-feedback d-block"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>
 

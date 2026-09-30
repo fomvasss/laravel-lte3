@@ -7,8 +7,8 @@
 @stack('modals')
 
 <div class="modal fade" id="modal-sm"><div class="modal-dialog modal-sm"><div class="modal-content"></div></div></div>
-<div class="modal fade" id="modal-lg"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
-<div class="modal fade" id="modal-xl"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
+<div class="modal fade" id="modal-lg" data-backdrop="static" data-keyboard="false"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>
+<div class="modal fade" id="modal-xl" data-backdrop="static" data-keyboard="false"><div class="modal-dialog modal-xl"><div class="modal-content"></div></div></div>
 
 @php($modalKey = config('lte3.view.modal_key', '_modal'))
 @if($modal = old($modalKey) ?: request($modalKey) ?: session()->get($modalKey))

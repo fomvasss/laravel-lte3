@@ -45,6 +45,32 @@ $(function () {
         lteAlert('success', 'Copied!');
     });
 
+    // Insert token into the field at the cursor position
+    $(document).on('click', '.js-token-insert', function (e) {
+        e.preventDefault()
+        var token = String($(this).data('text')),
+            el = $(this).closest('.position-relative').find('input.form-control, textarea.form-control').get(0);
+
+        if (!el) {
+            return;
+        }
+
+        var editor = window.tinymce ? (tinymce.get() || []).find(function (ed) { return ed.targetElm === el; }) : null;
+
+        if (editor) {
+            editor.insertContent(token);
+            return;
+        }
+
+        var start = el.selectionStart !== null ? el.selectionStart : el.value.length,
+            end = el.selectionEnd !== null ? el.selectionEnd : el.value.length;
+
+        el.value = el.value.slice(0, start) + token + el.value.slice(end);
+        el.focus();
+        el.setSelectionRange(start + token.length, start + token.length);
+        $(el).trigger('input').trigger('change');
+    });
+
     function setSidebarActiveable($naw, $item) {
         $naw.find('li>a').removeClass('active');
         $item.closest('.nav-pills>.nav-item').addClass('menu-open');
