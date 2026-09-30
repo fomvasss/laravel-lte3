@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.116.0 - 2026-09-30
+
+### Changed
+- `lte3::parts.content-header` on small screens: the search field and the buttons (filter, `btn-content-header` section) stay in one row while they fit, otherwise the buttons move to the next row as a whole. The title and the tools now stack below 768px instead of 576px.
+- The search field of `lte3::parts.content-header` is now shown on screens narrower than 768px (it used to be hidden there).
+- If you have published or copied this view, the changes do not apply until you update your copy.
+
 ## 1.115.0 - 2026-09-30
 
 ### Changed
