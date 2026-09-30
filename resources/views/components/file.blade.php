@@ -28,30 +28,32 @@
     </div>
     <div class="text-muted"><small class="js-files-info"></small></div>
     @if(count($paths))
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                <th>Path</th>
-                <th style="width: 40px">Action</th>
-                </tr>
-            </thead>
-            <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
-                @foreach($paths as $path)
-                <tr class="f-file-item">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th>Path</th>
+                    <th style="width: 40px">Action</th>
+                    </tr>
+                </thead>
+                <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
+                    @foreach($paths as $path)
+                    <tr class="f-file-item">
 
-                    <td>{{ '...' . Str::substr($path, -50) }}</td>
-                    <td>
-                        <a href="{{$path}}" class="btn btn-info btn-xs" target="_blank"><i class="fas fa-download"></i></a>
-                        <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
+                        <td>{{ '...' . Str::substr($path, -50) }}</td>
+                        <td>
+                            <a href="{{$path}}" class="btn btn-info btn-xs" target="_blank"><i class="fas fa-download"></i></a>
+                            <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
 
-                        <input name="{{ $input_deleted }}" class="js-input-delete" value="" type="hidden">
-                        <input name="{{ $input_weight_name }}[{{ $path }}]" class="js-input-weight"
-                               value="{{ $loop->index }}" type="hidden">
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            <input name="{{ $input_deleted }}" class="js-input-delete" value="" type="hidden">
+                            <input name="{{ $input_weight_name }}[{{ $path }}]" class="js-input-weight"
+                                   value="{{ $loop->index }}" type="hidden">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @else
         <div><small>Files not loaded.</small></div>
     @endif

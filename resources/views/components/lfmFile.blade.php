@@ -23,80 +23,82 @@
     @endif
     @if($multimpe) <a href="#" class="btn btn-success btn-xs js-lfm-btn-add"><i class="fas fa-plus"></i></a> @endif
 
-    <table class="table table-sm" style="position: relative;">
-        <tbody class="f-wrap-items @if($multimpe) sortable-y @endif">
-        @forelse($paths as $path)
-            <tr class="f-wrap-item">
-                <td class="align-middle">
-                    <div class="input-group">
-                        <input class="form-control js-lfm-input @if($hideInput) d-none @endif"
-                               name="{{$input_name}}"
-                               type="text"
-                               value="{{$path}}"
-                               @if($readonly) readonly @endif
-                                @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-                                {{$key}}="{{$val}}"
-                                @endforeach
-                        >
-                        <div class="input-group-append">
-                            <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
-                        </div>
-                    </div>
-                </td>
-                <td style="width: 15%;" class="preview-block">
-                    @empty($attrs['is_image'])
-                        <a href="{{ $path }}" target="_blank">
-                            {{ Str::substr($path, -4) }}
-                        </a>
-                    @else
-                        <a href="{{ $path }}" target="_blank" class="js-popup-image">
-                            <img src="{{ $path }}" style="height: 60px; max-width: 100px;">
-                        </a>
-                    @endempty
-                </td>
-
-                <td class="align-middle" style="width: 5%;">
-                    @if($multimpe)
-                        <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
-                        {{--<input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">--}} {{--TODO--}}
-                    @else
-                        <a href="#" class="btn btn-warning btn-xs js-lfm-btn-clear"><i class="fas fa-broom"></i></a>
-                    @endif
-                </td>
-            </tr>
-        @empty
-            @if($multimpe)
-                <tr class="f-wrap-item"></tr>
-            @else
+    <div class="table-responsive">
+        <table class="table table-sm" style="position: relative;">
+            <tbody class="f-wrap-items @if($multimpe) sortable-y @endif">
+            @forelse($paths as $path)
                 <tr class="f-wrap-item">
                     <td class="align-middle">
                         <div class="input-group">
                             <input class="form-control js-lfm-input @if($hideInput) d-none @endif"
-                                name="{{$input_name}}"
-                                type="text"
-                                @if($readonly) readonly @endif
-                                @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-                                {{$key}}="{{$val}}"
-                                @endforeach
+                                   name="{{$input_name}}"
+                                   type="text"
+                                   value="{{$path}}"
+                                   @if($readonly) readonly @endif
+                                    @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+                                    {{$key}}="{{$val}}"
+                                    @endforeach
                             >
                             <div class="input-group-append">
                                 <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
                             </div>
                         </div>
                     </td>
-                    <td style="width: 15%;" class="preview-block"></td>
+                    <td style="width: 15%;" class="preview-block">
+                        @empty($attrs['is_image'])
+                            <a href="{{ $path }}" target="_blank">
+                                {{ Str::substr($path, -4) }}
+                            </a>
+                        @else
+                            <a href="{{ $path }}" target="_blank" class="js-popup-image">
+                                <img src="{{ $path }}" style="height: 60px; max-width: 100px;">
+                            </a>
+                        @endempty
+                    </td>
+
                     <td class="align-middle" style="width: 5%;">
                         @if($multimpe)
-                            <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete"><i class="fas fa-times"></i></a>
+                            <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete" data-id="{{ $path }}"><i class="fas fa-times"></i></a>
+                            {{--<input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">--}} {{--TODO--}}
                         @else
                             <a href="#" class="btn btn-warning btn-xs js-lfm-btn-clear"><i class="fas fa-broom"></i></a>
                         @endif
                     </td>
                 </tr>
-            @endif
-        @endforelse
-        </tbody>
-    </table>
+            @empty
+                @if($multimpe)
+                    <tr class="f-wrap-item"></tr>
+                @else
+                    <tr class="f-wrap-item">
+                        <td class="align-middle">
+                            <div class="input-group">
+                                <input class="form-control js-lfm-input @if($hideInput) d-none @endif"
+                                    name="{{$input_name}}"
+                                    type="text"
+                                    @if($readonly) readonly @endif
+                                    @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+                                    {{$key}}="{{$val}}"
+                                    @endforeach
+                                >
+                                <div class="input-group-append">
+                                    <span class="btn btn-info btn-flat f-lfm-btn">Browse</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 15%;" class="preview-block"></td>
+                        <td class="align-middle" style="width: 5%;">
+                            @if($multimpe)
+                                <a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete"><i class="fas fa-times"></i></a>
+                            @else
+                                <a href="#" class="btn btn-warning btn-xs js-lfm-btn-clear"><i class="fas fa-broom"></i></a>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
+            @endforelse
+            </tbody>
+        </table>
+    </div>
 
 
     @error($name) <div class="error invalid-feedback" style="display: inline;"> {{ $message }} </div>@enderror

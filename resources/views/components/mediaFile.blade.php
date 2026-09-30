@@ -38,50 +38,52 @@
         @if(!empty($model) && !($model instanceof \Spatie\MediaLibrary\HasMedia))
             <div><code>Model {{ get_class($model) }} must implements \Spatie\MediaLibrary\HasMedia</code></div>
         @elseif(!empty($model) && $model->getMedia($collection_name)->count())
-            <table class="table table-sm" style="position: relative;">
-                <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
-                @foreach($model->getMedia($collection_name) as $media)
-                    <tr class="f-file-item" id="{{ $media->id }}">
-                        <td style="width: 20%;">
-                            @empty($attrs['is_image'])
-                            <a href="{{ $media->getUrl() }}" target="_blank">
-                                {{ $media->mime_type }}
-                            </a>
-                            @else
-                            <a href="{{ $media->getUrl() }}" target="_blank" class="js-popup-image">
-                                <img src="{{ \Fomvasss\Lte3\Support\MediaThumbUrlResolver::resolve($media) }}" alt="{{ $media->name }}">
-                            </a>
-                            @endempty
-                        </td>
+            <div class="table-responsive">
+                <table class="table table-sm" style="position: relative;">
+                    <tbody @if($multimpe)class="sortable-y" data-input-weight-class="js-input-weight"@endif>
+                    @foreach($model->getMedia($collection_name) as $media)
+                        <tr class="f-file-item" id="{{ $media->id }}">
+                            <td style="width: 20%;">
+                                @empty($attrs['is_image'])
+                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                    {{ $media->mime_type }}
+                                </a>
+                                @else
+                                <a href="{{ $media->getUrl() }}" target="_blank" class="js-popup-image">
+                                    <img src="{{ \Fomvasss\Lte3\Support\MediaThumbUrlResolver::resolve($media) }}" alt="{{ $media->name }}">
+                                </a>
+                                @endempty
+                            </td>
 
-                        <td class="align-middle">
-                            {{ Str::substr($media->name, -50) }}
-                            [{{ human_filesize($media->size, 1) }}]<br>
-                            @foreach($custom_properties as $prop)
-                            <input class="form-control form-control-sm"
-                                   type="text"
-                                   placeholder="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
-                                   title="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
-                                   data-toggle="tooltip"
-                                   name="{{$input_custom_name}}[{{ $media->id }}][{{$prop}}]" value="{{ $media->getCustomProperty($prop) }}"
-                            >
-                            @endforeach
+                            <td class="align-middle">
+                                {{ Str::substr($media->name, -50) }}
+                                [{{ human_filesize($media->size, 1) }}]<br>
+                                @foreach($custom_properties as $prop)
+                                <input class="form-control form-control-sm"
+                                       type="text"
+                                       placeholder="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                                       title="{{ \Illuminate\Support\Str::ucfirst($prop) }}"
+                                       data-toggle="tooltip"
+                                       name="{{$input_custom_name}}[{{ $media->id }}][{{$prop}}]" value="{{ $media->getCustomProperty($prop) }}"
+                                >
+                                @endforeach
 
-                        </td>
-                        <td class="align-middle" style="width: 10%;">
-                            <a href="{{ $media->getUrl() }}" class="btn btn-info btn-xs" target="_blank"><i
-                                        class="fas fa-download"></i></a>
-                            <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $media->id }}"><i
-                                        class="fas fa-times"></i></a>
+                            </td>
+                            <td class="align-middle" style="width: 10%;">
+                                <a href="{{ $media->getUrl() }}" class="btn btn-info btn-xs" target="_blank"><i
+                                            class="fas fa-download"></i></a>
+                                <a href="#" class="btn btn-danger btn-xs js-btn-delete" data-id="{{ $media->id }}"><i
+                                            class="fas fa-times"></i></a>
 
-                            <input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">
-                            <input name="{{ $input_weight_name }}[{{ $media->id }}]" class="js-input-weight"
-                                   value="{{ $loop->index }}" type="hidden">
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                                <input name="{{ $input_deleted_name }}" class="js-input-delete" value="" type="hidden">
+                                <input name="{{ $input_weight_name }}[{{ $media->id }}]" class="js-input-weight"
+                                       value="{{ $loop->index }}" type="hidden">
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         @else
             <div><small>Files not loaded.</small></div>
             @if(!$multimpe)

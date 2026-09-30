@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.116.2 - 2026-09-30
+
+### Fixed
+- File lists of the `mediaFile`, `file` and `lfmFile` components are wrapped in `.table-responsive`: on narrow screens a long file name or path scrolls inside the field instead of overflowing the card.
+
 ## 1.116.1 - 2026-09-30
 
 ### Fixed
