@@ -292,6 +292,15 @@ details[open] summary {
     }
 }
 
+@media (max-width: 767.98px) {
+    .table-responsive > .table > thead > tr > th {
+        white-space: nowrap;
+    }
+    .table-responsive > .table > tbody > tr > td {
+        min-width: 50px;
+    }
+}
+
 .dark-mode .lte-text, .dark-mode .lte-text a {
     color: white;
 }

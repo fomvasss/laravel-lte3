@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.115.0 - 2026-09-30
+
+### Changed
+- On screens narrower than 768px, tables inside `.table-responsive` no longer wrap header text and keep a minimal column width, so a wide table scrolls horizontally instead of squeezing columns. Applies to a `.table` that is a direct child of `.table-responsive`.
+
 ## 1.114.0 - 2026-09-16
 
 ### Added
