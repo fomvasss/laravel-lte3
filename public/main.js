@@ -914,11 +914,12 @@ $(function () {
         }
     });
 
-    $('.dropdown').hover(
-        function(){
-            $(this).closest('.table-responsive').css('overflow-x', 'clip');
-        }
-    );
+    $(document).on('mouseenter show.bs.dropdown', '.table-responsive .dropdown, .table-responsive .dropleft', function () {
+        $(this).closest('.table-responsive').css('overflow-x', 'clip');
+    });
+    $(document).on('mouseleave hidden.bs.dropdown', '.table-responsive .dropdown, .table-responsive .dropleft', function () {
+        $(this).closest('.table-responsive').css('overflow-x', '');
+    });
 
     initInputCalc = function() {
         $('.js-input-calc').on('blur keypress', function(event) {

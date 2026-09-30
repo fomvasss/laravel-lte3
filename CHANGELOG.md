@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.116.1 - 2026-09-30
+
+### Fixed
+- A table inside `.table-responsive` lost horizontal scrolling until page reload after its row actions dropdown was opened (most visible on touch devices). Scrolling is now restored when the dropdown closes. Also covers `.dropleft` menus and rows added after page load. If your project has its own copy of the `$('.dropdown').hover(...)` snippet that sets `overflow-x: clip`, remove it.
+
 ## 1.116.0 - 2026-09-30
 
 ### Changed
