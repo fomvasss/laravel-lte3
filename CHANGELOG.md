@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.118.0 - 2026-10-01
+
+### Added
+- `types` and `class` parameters for `lte3::parts.alerts.bootstrap`, so the block can be included on its own in a specific place of the page — e.g. only errors and warnings above a form: `@include('lte3::parts.alerts.bootstrap', ['types' => ['warning', 'error'], 'class' => ''])`. Without parameters it shows all types in `container-fluid p-2`, as before.
+
+### Fixed
+- The `error`/`danger` alert of `lte3::parts.alerts.bootstrap` showed `1` instead of the message text.
+- Typos in the sweetalert titles: `Warting!` → `Warning!`, `Excelent!` → `Excellent!`.
+
 ## 1.117.0 - 2026-09-30
 
 ### Added

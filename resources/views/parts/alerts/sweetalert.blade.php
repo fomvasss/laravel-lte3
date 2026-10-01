@@ -1,8 +1,8 @@
 <script>
     @php
         $flashKeys = [
-            'warning' => 'Warting!',
-            'success' => 'Excelent!',
+            'warning' => 'Warning!',
+            'success' => 'Excellent!',
             'info' => 'Information!',
             'error' => 'Failure!',
         ];

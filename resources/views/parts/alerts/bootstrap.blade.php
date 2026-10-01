@@ -1,5 +1,6 @@
-<div class="container-fluid p-2">
-@if($message = Session::get('success'))
+@php($types = $types ?? ['success', 'info', 'warning', 'error'])
+<div class="{{ $class ?? 'container-fluid p-2' }}">
+@if(in_array('success', $types) && $message = Session::get('success'))
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h5><i class="icon fas fa-check"></i> Excellent!</h5>
@@ -7,7 +8,7 @@
 </div>
 @endif
 
-@if($message = Session::get('info'))
+@if(in_array('info', $types) && $message = Session::get('info'))
 <div class="alert alert-info alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h5><i class="icon fas fa-info"></i> Information!</h5>
@@ -15,7 +16,7 @@
 </div>
 @endif
 
-@if($message = Session::get('warning'))
+@if(in_array('warning', $types) && $message = Session::get('warning'))
 <div class="alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h5><i class="icon fas fa-exclamation-triangle"></i> Warning!</h5>
@@ -23,7 +24,7 @@
 </div>
 @endif
 
-@if($message = Session::get('error') || Session::get('danger'))
+@if(in_array('error', $types) && $message = Session::get('error') ?: Session::get('danger'))
 <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h5><i class="icon fas fa-ban"></i> Failure!</h5>
@@ -31,7 +32,7 @@
 </div>
 @endif
 
-@if($errors->any())
+@if(in_array('error', $types) && $errors->any())
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h5><i class="icon fas fa-ban"></i> Failure!</h5>
