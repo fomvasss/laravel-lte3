@@ -1,8 +1,8 @@
 <!-- Content Header (Page header) -->
 <div class="content-header pb-0">
     <div class="container-fluid pl-0">
-        <div class="row">
-            <div class="col-md-5">
+        <div class="d-flex flex-wrap align-items-start" style="gap: 0 .5rem">
+            <div>
                 <h1 class="mt-0 mb-2 mb-md-0">
                     @isset($url_back)
                         <a href="{{ $url_back }}" class="btn btn-flat btn-secondary"><i
@@ -15,8 +15,8 @@
                     @endif
                 </h1>
             </div>
-            <div class="col-md-7">
-                <div class="d-flex flex-wrap justify-content-md-end align-items-start">
+            <div style="flex: 1 1 auto">
+                <div class="d-flex flex-wrap justify-content-end align-items-start">
                     @if($btn_search ?? false)
                         <div class="content-header-search flex-grow-1 flex-md-grow-0 mr-1 mb-1" style="flex-basis: 200px">
                             {!! Lte3::formOpen(['action' => Request::fullUrl(), 'method' => 'GET']) !!}
