@@ -15,6 +15,14 @@ class Lte
     protected $model = null;
 
     /**
+     * Resolver of extra hidden fields for every non-GET form opened by formOpen().
+     * Registered once on boot, so it is safe for long-running workers.
+     *
+     * @var callable|null
+     */
+    protected static $formHiddenResolver = null;
+
+    /**
      * @param $name
      * @param $attrs
      * @return string
@@ -112,7 +120,33 @@ class Lte
         $fieldAttrs = config('lte3.view.field_attrs', []);
         $res['field_attrs'] = $fieldAttrs;
 
+        $res['hidden'] = $this->formHiddenFields();
+
         return view($form['blade'], $res)->render();
+    }
+
+    /**
+     * Register extra hidden fields for every non-GET form opened by formOpen().
+     * The resolver is called on each form render and returns [name => value];
+     * fields with null or '' value are skipped.
+     *
+     * @param callable|null $resolver
+     */
+    public static function formHiddenUsing(?callable $resolver): void
+    {
+        static::$formHiddenResolver = $resolver;
+    }
+
+    /**
+     * @return array
+     */
+    public function formHiddenFields(): array
+    {
+        if (!static::$formHiddenResolver) {
+            return [];
+        }
+
+        return array_filter((array) call_user_func(static::$formHiddenResolver), fn ($value) => $value !== null && $value !== '');
     }
 
     /**

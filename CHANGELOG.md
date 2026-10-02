@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.119.0 - 2026-10-02
+
+### Added
+- `Lte3::formHiddenUsing(callable $resolver)` — extra hidden fields for every non-GET form opened by `Lte3::formOpen()`. The resolver returns `[name => value]` and is called on each form render; `null` and `''` values are skipped. Main use: send the content locale the form was opened with, so a save after the session locale was switched in another tab does not write the text into the wrong translation. If you have published or copied `components/form.blade.php`, render the `$hidden` variable next to `_token`.
+
 ## 1.118.0 - 2026-10-01
 
 ### Added

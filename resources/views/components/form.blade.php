@@ -21,6 +21,9 @@
     @if($method !== 'GET')
     <input name="_method" value="{{ $attrs['method'] ?? 'POST' }}" type="hidden">
     <input name="_token" value="{{ csrf_token() }}" type="hidden">
+    @foreach($hidden ?? [] as $hiddenName => $hiddenValue)
+    <input name="{{ $hiddenName }}" value="{{ $hiddenValue }}" type="hidden">
+    @endforeach
     @endif
 
     @isset($attrs['label'])

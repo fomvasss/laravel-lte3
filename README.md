@@ -72,6 +72,18 @@ Custom error text per field — `data-pattern-message`:
 ]) !!}
 ```
 
+### Extra hidden fields in forms
+
+`Lte3::formHiddenUsing()` adds hidden fields to every non-GET form opened by `Lte3::formOpen()`. The resolver is called on each form render and returns `[name => value]`; fields with `null` or `''` value are skipped. Register it once, e.g. in `AppServiceProvider::boot()`.
+
+Typical case — the content locale of the admin panel is stored in the session, shared by all browser tabs. A form opened in one locale and saved after the session was switched to another one (another tab, browser "back", locale switcher) writes the text into the wrong translation. Send the locale the form was opened with, and let the middleware that reads the locale from the request apply it:
+
+```php
+Lte3::formHiddenUsing(fn () => ['sLocale' => session('sLocale')]);
+```
+
+If you have published or copied `components/form.blade.php`, render the `$hidden` variable next to `_token`.
+
 ## Publishing (optional)
 
 This package require dev `almasaeed2010/adminlte` package.
