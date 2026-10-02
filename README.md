@@ -82,6 +82,14 @@ Typical case — the content locale of the admin panel is stored in the session,
 Lte3::formHiddenUsing(fn () => ['sLocale' => session('sLocale')]);
 ```
 
+The resolver receives the form model (`model` of `formOpen()`, or `null`) and the `formOpen()` attributes, so fields can depend on the edited record. E.g. a fingerprint of the record, to reject a save over changes made by someone else after the form was opened:
+
+```php
+Lte3::formHiddenUsing(fn ($model, array $attrs) => [
+    '_edit_fingerprint' => $model?->editFingerprint(),
+]);
+```
+
 If you have published or copied `components/form.blade.php`, render the `$hidden` variable next to `_token`.
 
 ## Publishing (optional)

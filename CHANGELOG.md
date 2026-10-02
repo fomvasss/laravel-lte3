@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.120.0 - 2026-10-02
+
+### Added
+- The `Lte3::formHiddenUsing()` resolver receives the form model (`model` of `formOpen()`, or `null`) and the `formOpen()` attributes, so hidden fields can depend on the edited record — e.g. a fingerprint to reject a save over changes made after the form was opened. Resolvers without parameters keep working.
+
 ## 1.119.0 - 2026-10-02
 
 ### Added

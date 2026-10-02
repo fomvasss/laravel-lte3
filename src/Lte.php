@@ -120,15 +120,15 @@ class Lte
         $fieldAttrs = config('lte3.view.field_attrs', []);
         $res['field_attrs'] = $fieldAttrs;
 
-        $res['hidden'] = $this->formHiddenFields();
+        $res['hidden'] = $this->formHiddenFields($this->model, $attrs);
 
         return view($form['blade'], $res)->render();
     }
 
     /**
      * Register extra hidden fields for every non-GET form opened by formOpen().
-     * The resolver is called on each form render and returns [name => value];
-     * fields with null or '' value are skipped.
+     * The resolver is called on each form render with the form model (or null) and the formOpen() attributes,
+     * and returns [name => value]; fields with null or '' value are skipped.
      *
      * @param callable|null $resolver
      */
@@ -138,15 +138,17 @@ class Lte
     }
 
     /**
+     * @param mixed $model
+     * @param array $attrs
      * @return array
      */
-    public function formHiddenFields(): array
+    public function formHiddenFields($model = null, array $attrs = []): array
     {
         if (!static::$formHiddenResolver) {
             return [];
         }
 
-        return array_filter((array) call_user_func(static::$formHiddenResolver), fn ($value) => $value !== null && $value !== '');
+        return array_filter((array) call_user_func(static::$formHiddenResolver, $model, $attrs), fn ($value) => $value !== null && $value !== '');
     }
 
     /**
