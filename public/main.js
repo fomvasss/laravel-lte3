@@ -31,6 +31,28 @@ var Lte3 = {
     },
 };
 
+// Select2 4.0 кешує екземпляр під ключем data-select2-id, а без нього — під id елемента. Два select з однаковим id
+// (поле на сторінці й таке саме в модалці) ділять ключ, і ініціалізація другого знищує перший.
+// Тому перед ініціалізацією select отримує унікальний ключ: якщо його немає або він збігається з чужим (розмітка скопійована)
+if ($.fn.select2) {
+    (function (select2) {
+        var uid = 0;
+
+        $.fn.select2 = function (options) {
+            if (typeof options !== 'string') {
+                this.each(function () {
+                    var key = this.getAttribute('data-select2-id');
+                    if (!$(this).data('select2') && (key === null || $('[data-select2-id="' + CSS.escape(key) + '"]').length > 1)) {
+                        this.setAttribute('data-select2-id', 'lte3-' + (++uid));
+                    }
+                });
+            }
+            return select2.apply(this, arguments);
+        };
+        $.extend($.fn.select2, select2);
+    })($.fn.select2);
+}
+
 $(function () {
     'use strict';
 

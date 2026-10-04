@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.123.1 - 2026-10-04
+
+### Fixed
+- Two select2 fields with the same `id` (a field on the page and the same field in a modal, e.g. both `name="status"`) no longer break each other. Select2 4.0 keeps its instance under the element `id`, so initializing the second one destroyed the first. Every select now gets a unique `data-select2-id` before init; it applies to any `.select2()` call, also from project code and select2-to-tree.
+
 ## 1.123.0 - 2026-10-04
 
 ### Added
