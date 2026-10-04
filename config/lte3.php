@@ -142,6 +142,10 @@ return [
              */
             'format' => 'legacy',
 
+            // мінімальна ширина плитки картинки в px у сітці mediaImage і плитки lfmImage (атрибут поля thumb_size перебиває);
+            // мініатюра imagepreset генерується 2× від неї
+            'thumb_size' => 110,
+
             /**
              * Резолвер thumb-прев'ю у mediaFile-компоненті ("Choose file" список файлів).
              *
@@ -154,10 +158,21 @@ return [
              *                 повний контроль, ігнорує решту нижче.
              */
             'thumb' => [
-                'driver' => 'conversion', // 'conversion' | 'imagepreset' | callable
+                // conversion: якщо конверсію ще не згенеровано (черга), показується оригінал
+                'driver' => 'conversion', // 'conversion' | 'imagepreset' | callable fn (Media $media, ?int $size): string
                 'conversion_name' => 'thumb',
                 'imagepreset_params' => ['w' => 100, 'h' => 100, 'fit' => 'crop'],
             ],
+        ],
+
+        'lfm' => [
+            /**
+             * Мініатюра картинки в lfmFile/lfmImage (значення поля — URL з Laravel File Manager):
+             * null          — сама картинка за URL;
+             * 'imagepreset' — як media.thumb (imagepreset_params, розмір 2× thumb_size);
+             * клас          — з __invoke(string $url, ?int $size): string. Не замикання: config:cache їх не серіалізує.
+             */
+            'thumb' => null,
         ],
     ],
 ];

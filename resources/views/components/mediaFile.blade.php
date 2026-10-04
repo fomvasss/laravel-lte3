@@ -28,6 +28,8 @@
     $hasMediaModel = !empty($model) && $model instanceof \Spatie\MediaLibrary\HasMedia;
     $items = $hasMediaModel ? $model->getMedia($collection_name) : collect();
     $uid = 'f-media-' . Str::random(8);
+    // розмір плитки картинки в px (сітка mediaImage) — атрибут thumb_size або lte3.view.media.thumb_size
+    $thumbSize = (int) ($attrs['thumb_size'] ?? config('lte3.view.media.thumb_size', 110));
 
     // custom_properties у форматі Lte3::field: 'alt' | 'alt' => 'Підпис' | ['name' => 'alt', 'label' => ..., 'type' => ...]
     $fields = collect(Arr::wrap($attrs['custom_properties'] ?? []))->map(function ($field, $key) {
@@ -73,8 +75,9 @@
     };
 @endphp
 
-<div class="card card-default f-wrap f-media {{ $attrs['class_wrap'] ?? null }}" id="{{ $uid }}"
-     data-multiple="{{ (int) $multiple }}" data-image="{{ (int) $isImage }}" data-expand="{{ (int) $expand }}" data-next="{{ $items->count() }}">
+<div class="card card-default f-wrap f-media {{ $attrs['class_wrap'] ?? null }}" id="{{ $uid }}" style="--f-media-thumb: {{ $thumbSize }}px"
+     data-multiple="{{ (int) $multiple }}" data-image="{{ (int) $isImage }}" data-expand="{{ (int) $expand }}" data-next="{{ $items->count() }}"
+     data-rejected-text="{{ __('Not allowed: :files.', ['files' => ':files']) }}">
     @if(($label = Arr::get($attrs, 'label', Str::studly($name))) !== '')
         <div class="card-header">
             <h3 class="card-title">{!! $label !!}</h3>
@@ -93,7 +96,7 @@
 
         <div class="f-media-items {{ $isImage ? 'f-media-grid' : 'f-media-list' }} {{ $multiple ? 'js-media-sortable' : '' }}">
             @foreach($items as $media)
-                @php($thumb = str_starts_with((string) $media->mime_type, 'image/') ? \Fomvasss\Lte3\Support\MediaThumbUrlResolver::resolve($media) : null)
+                @php($thumb = str_starts_with((string) $media->mime_type, 'image/') ? \Fomvasss\Lte3\Support\MediaThumbUrlResolver::resolve($media, $thumbSize) : null)
                 <div class="f-media-item {{ $withMain && $media->is_main ? 'is-main' : '' }}" data-name="{{ $media->name }}" data-thumb="{{ $thumb }}" data-icon="{{ $fileIcon($media->mime_type, $media->file_name) }}">
                     @include('lte3::components.mediaFileItem', ['url' => $media->getUrl(), 'fileName' => $media->name, 'meta' => strtoupper(pathinfo($media->file_name, PATHINFO_EXTENSION)) . ' · ' . human_filesize($media->size, 1), 'editable' => $fields->isNotEmpty()])
 
@@ -130,6 +133,8 @@
             @if($acceptLabel)
                 <small class="text-muted">{{ $acceptLabel }}</small>
             @endif
+            {{-- файли, що не підходять під accept, — скрипт пише сюди --}}
+            <small class="text-danger f-media-rejected"></small>
         </label>
 
         @error($name)

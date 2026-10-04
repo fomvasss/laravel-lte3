@@ -375,10 +375,10 @@ input.f-multiDatesPicker[readonly] {
 .f-media-drop.is-invalid { border-color: #dc3545; }
 .f-media-drop.disabled { opacity: .5; cursor: not-allowed; }
 .f-media-drop-icon { font-size: 1.75rem; color: #007bff; opacity: .8; }
-.f-media-items:empty { display: none; }
+.f-media-items:empty, .f-media-rejected:empty { display: none; }
 .f-media.has-file .f-media-drop { display: none; }
 
-.f-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: .5rem; }
+.f-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--f-media-thumb, 110px), 1fr)); gap: .5rem; }
 .f-media-grid .f-media-item { position: relative; border-radius: .5rem; overflow: hidden; background: rgba(128, 128, 128, .1); }
 .f-media-grid .f-media-thumb { display: block; aspect-ratio: 1; }
 .f-media-grid .f-media-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -410,12 +410,12 @@ input.f-multiDatesPicker[readonly] {
 .f-media-item.is-main .f-media-star { color: #ffc107; }
 .f-media-item.is-main .f-media-star i { font-weight: 900; }
 
-.f-media-new-label, .f-media-replaced, .f-media-noalt { display: none !important; }
-.f-media-item.is-new .f-media-new-label, .f-media-item.is-replaced .f-media-replaced, .f-media-item.is-noalt:not(.is-replaced):not(.is-deleted) .f-media-noalt { display: inline-block !important; }
+.f-media-new-label, .f-media-noalt { display: none !important; }
+.f-media-item.is-new .f-media-new-label, .f-media-item.is-noalt:not(.is-deleted) .f-media-noalt { display: inline-block !important; }
 .f-media-list .f-media-item.is-new { border-style: dashed; }
 .f-media-grid .f-media-item.is-new { box-shadow: inset 0 0 0 2px rgba(40, 167, 69, .6); }
-.f-media-item.is-replaced > .f-media-thumb { opacity: .45; }
-.f-media-item.is-replaced .f-media-actions, .f-media-item.is-replaced .f-media-star { display: none; }
+/* одиночне поле: файл, який замінить новий, не показуємо — × на новому повертає його */
+.f-media-item.is-replaced { display: none !important; }
 
 .f-media-deleted { display: none; }
 .f-media-item.is-deleted > :not(.f-media-deleted):not(input) { opacity: .35; pointer-events: none; }
@@ -436,3 +436,24 @@ input.f-multiDatesPicker[readonly] {
 .dark-mode .f-media-list .f-media-thumb { background: rgba(106, 176, 255, .12); color: #6ab0ff; }
 .dark-mode .f-media-drop-icon, .dark-mode .f-media-modal-preview i { color: #6ab0ff; }
 .dark-mode .f-media-grid .f-media-star { background: rgba(52, 58, 64, .85); }
+
+/* LFM file field (lte3::components.lfmFile) */
+.f-lfm .f-lfm-body { display: flex; flex-direction: column; gap: .5rem; }
+.f-lfm .f-lfm-body.has-file .f-lfm-pick { display: none; }
+.f-lfm .f-lfm-body.is-disabled { opacity: .6; pointer-events: none; }
+.f-lfm .f-lfm-pick {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .25rem .5rem; margin: 0; padding: .75rem 1rem;
+    text-align: center; cursor: pointer; border: 2px dashed rgba(128, 128, 128, .35); border-radius: .5rem; transition: border-color .15s, background-color .15s;
+}
+.f-lfm .f-lfm-pick:hover, .f-lfm .f-lfm-pick.is-dragover { border-color: #007bff; background: rgba(0, 123, 255, .06); }
+.f-lfm .f-lfm-status:empty { display: none; }
+.f-lfm .f-lfm-status { flex-basis: 100%; }
+.f-lfm .f-lfm-pick .f-media-drop-icon { font-size: 1.25rem; }
+.f-lfm .f-lfm-pick.is-uploading { opacity: .6; pointer-events: none; }
+.f-lfm .f-media-grid { grid-template-columns: repeat(auto-fill, var(--f-media-thumb, 110px)); }
+.f-lfm .f-media-grid .f-media-meta { display: flex; position: absolute; left: 0; right: 0; bottom: 0; padding: .25rem .375rem; background: rgba(0, 0, 0, .55); color: #fff; font-size: .75rem; }
+.f-lfm .f-media-grid .f-media-meta a, .f-lfm .f-media-grid .f-media-meta small { color: #fff !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.f-lfm .f-media-grid .f-media-meta small { display: none; }
+.f-lfm .f-media-list .f-media-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.f-lfm-modal .modal-body { padding: 0; }
+.f-lfm-modal iframe { display: block; width: 100%; height: 75vh; border: 0; }

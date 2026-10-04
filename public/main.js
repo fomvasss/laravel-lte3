@@ -7,7 +7,8 @@ var initJsVerificationSlugField = function () {},
     initTreeview = function () {},
     initInputCalc = function () {},
     initTooltip = function () {},
-    initMediaFile = function () {}
+    initMediaFile = function () {},
+    initLfmFile = function () {}
 ;
 
 $(function () {
@@ -340,49 +341,6 @@ $(function () {
         }
     });
 
-    // LFM
-    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-clear', function (e) {
-        e.preventDefault();
-        var $this = $(this),
-            $wrapItem = $this.closest('.f-wrap-item');
-        $wrapItem.find('.js-lfm-input').val('');
-        $wrapItem.find('.preview-block').html('');
-    });
-    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-delete', function (e) {
-        e.preventDefault();
-        var $this = $(this),
-            $wrapItem = $this.closest('.f-wrap-item');
-        if ($this.data('id')) {
-            $wrapItem.closest('.js-input-delete').val($this.data('id'));
-        }
-        $wrapItem.find('.js-lfm-input').remove();
-        $wrapItem.hide();
-    });
-    $(document).on('click', '.f-lfm .js-lfm-btn-add', function (e) {
-        e.preventDefault();
-        var $wrap = $(this).closest('.f-wrap'),
-            length = $wrap.find('.f-wrap-item').length,
-            fieldName = $wrap.data('field-name'),
-
-            item = '<tr class="f-wrap-item">'
-                +'<td class="align-middle">'
-                +'<div class="input-group">'
-                +'<input class="form-control js-lfm-input" name="' + fieldName + '[' + (length) + ']" type="text">'
-                +'<div class="input-group-append">'
-                + '<span class="btn btn-info btn-flat f-lfm-btn">Browse</span>'
-                +'</div>'
-                +'</div>'
-                +'</td>'
-                +'<td style="width: 15%;" class="preview-block"></td>'
-                +'<td class="align-middle" style="width: 5%;">'
-                +'<a href="#" class="btn btn-danger btn-xs js-lfm-btn-delete"><i class="fas fa-times"></i></a>'
-                +'</td>'
-                +'</tr>';
-
-        $wrap.find('.f-wrap-items').find('.f-wrap-item').eq(length-1).after(item);
-        $wrap.find('.f-lfm-btn').filemanager();
-    });
-
     // LFM - AJAX save/clear
     function sendLfmAjax(url, fieldName, value) {
         $.ajax({
@@ -404,15 +362,6 @@ $(function () {
     $(document).on('change', '.f-lfm .js-lfm-input', function () {
         var $input = $(this),
             urlSave = $input.closest('.f-lfm').data('url-save');
-
-        if (urlSave) {
-            sendLfmAjax(urlSave, $input.attr('name'), $input.val());
-        }
-    });
-    $(document).on('click', '.f-lfm .f-wrap-item .js-lfm-btn-clear', function () {
-        var $wrapItem = $(this).closest('.f-wrap-item'),
-            urlSave = $(this).closest('.f-lfm').data('url-save'),
-            $input = $wrapItem.find('.js-lfm-input');
 
         if (urlSave) {
             sendLfmAjax(urlSave, $input.attr('name'), $input.val());
@@ -1505,9 +1454,18 @@ $(function () {
 
     // кожен файл — у власний input name[N][file] свого рядка (DataTransfer), форма шлеться звичайним submit
     function addFiles($wrap, list) {
+        if (!$wrap.find('.f-media-input').length) {
+            return;
+        }
         var input = $wrap.find('.f-media-input')[0],
             multiple = $wrap.data('multiple') == 1,
-            files = Array.prototype.filter.call(list, function (f) { return accepts(input, f); });
+            files = Array.prototype.filter.call(list, function (f) { return accepts(input, f); }),
+            rejected = Array.prototype.filter.call(list, function (f) { return !accepts(input, f); });
+
+        // що не підійшло під accept — не мовчки: назви файлів і дозволені типи під зоною вибору
+        $wrap.find('.f-media-rejected').text(rejected.length
+            ? String($wrap.data('rejected-text')).replace(':files', rejected.map(function (f) { return f.name; }).join(', '))
+            : '');
 
         if (!multiple) {
             files = files.slice(0, 1);
@@ -1550,13 +1508,13 @@ $(function () {
         this.value = '';
     });
 
-    $(document).on('dragover dragenter', '.f-media-drop', function (e) {
+    $(document).on('dragover dragenter', '.f-media .f-media-drop', function (e) {
         e.preventDefault();
         $(this).addClass('is-dragover');
-    }).on('dragleave dragend drop', '.f-media-drop', function (e) {
+    }).on('dragleave dragend drop', '.f-media .f-media-drop', function (e) {
         e.preventDefault();
         $(this).removeClass('is-dragover');
-    }).on('drop', '.f-media-drop:not(.disabled)', function (e) {
+    }).on('drop', '.f-media .f-media-drop:not(.disabled)', function (e) {
         addFiles($(this).closest('.f-media'), e.originalEvent.dataTransfer.files);
     });
 
@@ -1648,4 +1606,147 @@ $(function () {
     }
 
     $(function () { initMediaFile(); });
+})(jQuery);
+
+// LFM file field (lte3::components.lfmFile): File Manager in a modal (LFM `callback` param), drag & drop upload to /upload,
+// card of the picked file. The value is a URL string in .js-lfm-input; `change` on it triggers url_save (below)
+(function ($) {
+    var icons = {jpg: 'fa-file-image', jpeg: 'fa-file-image', png: 'fa-file-image', gif: 'fa-file-image', webp: 'fa-file-image', svg: 'fa-file-image', pdf: 'fa-file-pdf', doc: 'fa-file-word', docx: 'fa-file-word', xls: 'fa-file-excel', xlsx: 'fa-file-excel', csv: 'fa-file-excel', zip: 'fa-file-archive', rar: 'fa-file-archive', mp4: 'fa-file-video', mp3: 'fa-file-audio'},
+        $current = null;
+
+    // перекладені тексти — з data-texts поля (main.js статичний)
+    function text($wrap, key) {
+        return ($wrap.data('texts') || {})[key] || key;
+    }
+
+    function fileNameOf(url) {
+        try { return decodeURIComponent((url || '').split('?')[0].split('/').pop()); } catch (e) { return url; }
+    }
+
+    // значення поля + картка файлу; change на input — для url_save (обробник у main.js)
+    function setValue($wrap, url, thumb) {
+        var $input = $wrap.find('.js-lfm-input'),
+            $items = $wrap.find('.f-media-items').empty(),
+            isImage = $wrap.data('is-image') == 1;
+
+        if ($wrap.data('trim-host') == 1 && url) {
+            url = url.replace(window.location.origin, '');
+        }
+        $input.val(url).trigger('change');
+        $wrap.find('.f-lfm-body').toggleClass('has-file', !!url);
+        if (!url) {
+            return;
+        }
+
+        var name = fileNameOf(url),
+            ext = name.split('.').pop().toLowerCase(),
+            $item = $($wrap.find('.f-lfm-template').html());
+
+        $item.find('.f-media-name').text(name).attr({href: url, title: name});
+        $item.find('.f-media-path').text(url).attr('title', url);
+        $item.find('.js-lfm-open').attr('href', url);
+        $item.find('.f-media-thumb').attr('href', url);
+        if (isImage) {
+            $item.find('.f-media-thumb').addClass('js-popup-image').empty().append($('<img alt="">').attr('src', thumb || url));
+        } else {
+            $item.find('.f-media-thumb i').attr('class', 'far ' + (icons[ext] || 'fa-file'));
+        }
+        $items.append($item);
+    }
+
+    // File Manager у модалці: LFM з iframe викликає parent[callback](items)
+    function modal() {
+        var $modal = $('#f-lfm-modal');
+        if (!$modal.length) {
+            $modal = $('<div class="modal fade f-lfm-modal" id="f-lfm-modal" tabindex="-1" role="dialog" aria-hidden="true">'
+                + '<div class="modal-dialog modal-xl modal-dialog-centered" role="document"><div class="modal-content">'
+                + '<div class="modal-header py-2"><h5 class="modal-title"></h5>'
+                + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+                + '<div class="modal-body"><iframe></iframe></div></div></div></div>').appendTo('body');
+                        $modal.on('hidden.bs.modal', function () { $modal.find('iframe').attr('src', 'about:blank'); });
+        }
+        return $modal;
+    }
+
+    window.lteLfmPicked = function (items) {
+        if ($current && items && items.length) {
+            setValue($current, items[0].url, items[0].thumb_url);
+        }
+        modal().modal('hide');
+    };
+
+    $(document).on('click keydown', '.f-lfm .js-lfm-pick', function (e) {
+        if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') {
+            return;
+        }
+        e.preventDefault();
+        var $wrap = $(this).closest('.f-lfm');
+        $current = $wrap;
+        modal().find('.modal-title').text(text($wrap, 'manager'));
+        modal().find('iframe').attr('src', $wrap.data('lfm-prefix') + '?type=' + encodeURIComponent($wrap.data('lfm-category')) + '&callback=lteLfmPicked');
+        modal().modal('show');
+    });
+
+    $(document).on('click', '.f-lfm .js-lfm-clear', function (e) {
+        e.preventDefault();
+        setValue($(this).closest('.f-lfm'), '');
+    });
+
+    // ручне введення URL ('editable' => true)
+    $(document).on('input', '.f-lfm input.js-lfm-input[type=text]', function () {
+        var $wrap = $(this).closest('.f-lfm'), url = $(this).val();
+        clearTimeout($wrap.data('typing'));
+        $wrap.data('typing', setTimeout(function () { setValue($wrap, url); }, 500));
+    });
+
+    // перетягнутий файл заливається в File Manager, його URL стає значенням поля
+    $(document).on('dragover dragenter', '.f-lfm .js-lfm-pick', function (e) {
+        e.preventDefault();
+        $(this).addClass('is-dragover');
+    }).on('dragleave dragend drop', '.f-lfm .js-lfm-pick', function (e) {
+        e.preventDefault();
+        $(this).removeClass('is-dragover');
+    }).on('drop', '.f-lfm .js-lfm-pick', function (e) {
+        var file = e.originalEvent.dataTransfer.files[0],
+            $pick = $(this),
+            $wrap = $pick.closest('.f-lfm'),
+            $status = $pick.find('.f-lfm-status');
+
+        if (!file) {
+            return;
+        }
+        if ($wrap.data('is-image') == 1 && (file.type || '').indexOf('image/') !== 0) {
+            $status.text(text($wrap, 'imagesOnly'));
+            return;
+        }
+
+        var data = new FormData();
+        data.append('upload', file);
+        data.append('type', $wrap.data('lfm-category'));
+        data.append('working_dir', $wrap.data('lfm-folder') || '');
+        $pick.addClass('is-uploading');
+        $status.text(text($wrap, 'uploading'));
+
+        $.ajax({
+            url: $wrap.data('lfm-prefix') + '/upload',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        }).done(function (res) {
+            if (res && res.url) {
+                $status.text('');
+                setValue($wrap, res.url);
+            } else {
+                $status.text((res && res.error && res.error.message) || text($wrap, 'failed'));
+            }
+        }).fail(function (xhr) {
+            $status.text((xhr.responseJSON && xhr.responseJSON.message) || text($wrap, 'failed'));
+        }).always(function () {
+            $pick.removeClass('is-uploading');
+        });
+    });
+    // делеговані обробники — окремої ініціалізації не треба; функція для data-fn-inits за аналогією з іншими полями
+    initLfmFile = function () {};
 })(jQuery);

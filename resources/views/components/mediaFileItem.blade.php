@@ -33,7 +33,6 @@
     @if($isImage)
         <span class="badge badge-success f-media-new-label">{{ __('New') }}</span>
     @endif
-    <span class="badge badge-warning f-media-replaced">{{ __('Will be replaced') }}</span>
     @if($fields->contains('name', 'alt'))
         <span class="badge badge-danger f-media-noalt">{{ __('No alt') }}</span>
     @endif
