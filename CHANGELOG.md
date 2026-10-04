@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.122.0 - 2026-10-04
+
+### Added
+- New UI of the `lfmFile` / `lfmImage` field (Laravel File Manager): an empty field is a drop zone, a click opens File Manager in a modal instead of a popup window (LFM `callback` param), a file dragged from the computer is uploaded to File Manager (`{lfm_prefix}/upload`) and its URL becomes the value. A picked file is a card: an image tile with a thumbnail or a document row with a type icon, with Replace / Open / Clear buttons. The value is still a URL string under the same name; `url_save`, `trim_host`, `lfm_category`, `label`, `help` work as before.
+- `lfmFile` options: `editable` (a text input for a manual URL), `thumb_size`, `lfm_prefix` (default `/filemanager`), `lfm_folder` (`working_dir` for dropped files).
+- `lfmFile` takes the value from `old()` / the form model when `path` is `null`, like `text` and other fields — before that a `null` path always showed an empty field.
+- `lte3.view.lfm.thumb` — thumbnail of the `lfmImage` tile: `null` (the image itself), `'imagepreset'` or a class with `__invoke(string $url, ?int $size): string`.
+- `thumb_size` attribute and `lte3.view.media.thumb_size` config (110) — minimal width of an image tile in px for `mediaImage` and `lfmImage`; the `imagepreset` thumbnail is generated 2× of it. `MediaThumbUrlResolver::resolve()` takes the size, the new `resolveUrl()` works with a URL (lfm), a callable driver receives `($media, $size)`.
+- `mediaFile`: files that don't match `accept` are no longer dropped silently — the drop zone shows "Not allowed: file.exe." (key `Not allowed: :files.`).
+
+### Changed
+- `lfmFile`: the `multiple` mode is removed (it was used only on example pages): with an array `path` the first item is taken. `hide_input`, `readonly`, `name_deleted`, `name_weight` are no longer used. The old `js-lfm-btn-add/delete/clear` handlers are removed from `main.js`; `stand-alone-button.js` and `initLfmBtn()` stay for layout copies in projects and don't affect the new field. If you have published or copied `components/lfmFile.blade.php`, the copy keeps the old UI.
+- `mediaFile`, single field: a file that will be replaced by a newly picked one is hidden instead of being shown faded next to it; × on the new file brings it back.
+- Thumbnails with the `conversion` driver: if the conversion is not generated yet (queue), the original is shown instead of a broken image.
+
+### Fixed
+- `mediaFile`: drag-and-drop handlers are scoped to `.f-media` — a drop on another element with the `f-media-drop` class threw an error and stopped other drop handlers.
+
 ## 1.121.0 - 2026-10-04
 
 ### Added
