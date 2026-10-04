@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.121.0 - 2026-10-04
+
+### Added
+- New UI of the `mediaFile` / `mediaImage` field: drop zone (click or drag and drop), previews of picked files before saving, thumbnail grid for images and a file list with type icons for documents, delete with restore instead of `confirm()`, drag-and-drop sorting (grid in both directions), a single field hides the drop zone while it has a file and replaces it with a "Replace" button. The `accept` attribute is shown under the drop zone in plain words (`image/*,.pdf` → "Allowed: Images, PDF") and files of other types are not added.
+- File properties are edited in a modal (pencil on a file) instead of inputs under every file. `custom_properties` accepts the `Lte3::field` format: `['alt', 'title']`, `['alt' => 'Alt text']` or `[['name' => 'caption', 'type' => 'textarea', ...]]`.
+- `format` attribute and `lte3.view.media.format` config: `legacy` (default) keeps the old form fields (`name[]`, `name_deleted`, `name_weight[id]`, `name_custom[id][prop]`); `expand` sends a row per file (`name[N][id|file|weight|delete|is_main|<property>]`) — properties and order of new files, main file (`main` attribute). `expand` needs fomvasss/laravel-medialibrary-extension 6.4.1+ and validation rules that accept an array in `name.*` (the file is in `name.*.file`).
+- `initMediaFile()` in `main.js`; for the field in an AJAX modal use `data-fn-inits="initMediaFile"`.
+- `lte3_asset('main.js')` helper — URL of an lte3 asset with `?v=<file modification time>`, so browsers load new `main.js` / `main.css` right after a package update. The package layout uses it for `main.js`, `main.css`, `mb-blocks.js`, `mb-block.css`. If you have published or copied `layouts/inc/begin.blade.php` / `end.blade.php`, replace `/vendor/lte3/main.js` (and a manual `?v=...`) with `{{ lte3_asset('main.js') }}` in your copy — otherwise browsers may keep the old cached files and the new media field works without its scripts and styles.
+
+### Changed
+- Styles and behaviour of the field are in `main.css` / `main.js`. If lte3 assets are published (copied) instead of symlinked, publish them again, otherwise the new view works without them. If you have published or copied `components/mediaFile.blade.php`, the copy keeps the old UI.
+- Field texts are English through `__()` — add translations to `lang/<locale>.json` of the project (the list of keys is in the docs, field `mediaFile`).
+- Examples: the media block shows the legacy grid with properties, a single image with alt and an `expand` field with main file and `accept`; the documents example used the `documents` collection that the example model doesn't have — now `files`.
+
 ## 1.120.0 - 2026-10-02
 
 ### Added
