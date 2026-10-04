@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.122.2 - 2026-10-04
+
+### Fixed
+- JS init functions (`initSelect2`, `initColorpicker`, `initCheckbox`, `initJsVerificationSlugField`, `initInputCalc`, `initSortableY`, `initSelect2Tree`, `initTreeview`, `initTooltip`) can be called again safely, e.g. from `data-fn-inits` of a modal: fields that are already initialized are skipped. Before, every call added one more handler, so `url_save` of select2, colorpicker and ajax checkbox sent the request N times, and select2-tree / treeview were rebuilt with a new AJAX request.
+- `data-fn-inits` with an empty value or a function name that doesn't exist no longer throws in `.js-modal-fill-html` and dynamic blocks (`.f-multyblocks`): a warning is logged and the other functions still run.
+
+### Changed
+- The init functions above take an optional `root` (element or jQuery) and look for fields only inside it; without it — in the whole document, as before.
+- `initCheckbox` and `initInputCalc` are no-ops now: the ajax checkbox and the calculator input work through delegated handlers, also in content loaded later. The functions stay for existing `data-fn-inits`.
+- `initSelect2` doesn't re-create a select2 that is already initialized. To apply new options to such a field, call `.select2('destroy')` on it first.
+- `.js-ajax-send` calls functions from `data-fn-inits` without arguments (the button was passed before).
+
 ## 1.122.1 - 2026-10-04
 
 ### Fixed

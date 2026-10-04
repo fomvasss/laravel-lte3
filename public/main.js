@@ -23,8 +23,36 @@ $(function () {
         Pace.restart();
     });
 
-    initTooltip = function () {
-        $('[data-toggle="tooltip"]').tooltip();
+    // Init-функції полів приймають root (елемент чи jQuery) — шукають лише в ньому, разом із самим root; без root — увесь документ.
+    // Повторний виклик безпечний: уже ініціалізовані поля пропускаються, обробники не дублюються.
+    function scoped(root, selector) {
+        return root ? $(root).find(selector).addBack(selector) : $(selector);
+    }
+
+    // Лишає елементи, які ще не ініціалізовані під ключем key, і позначає їх.
+    // Прапорець — у jQuery data, тож розмітка, скопійована з уже ініціалізованого поля (шаблони блоків), ініціалізується заново
+    function once($els, key) {
+        return $els.filter(function () {
+            if ($(this).data(key)) {
+                return false;
+            }
+            $(this).data(key, true);
+            return true;
+        });
+    }
+
+    function callFnInits(str) {
+        (str || '').split(/\s*,\s*/).forEach(function (fn) {
+            if (typeof window[fn] === 'function') {
+                window[fn]();
+            } else if (fn) {
+                console.warn('No such function:', fn);
+            }
+        });
+    }
+
+    initTooltip = function (root) {
+        scoped(root, '[data-toggle="tooltip"]').tooltip();
     };
     initTooltip();
 
@@ -167,10 +195,7 @@ $(function () {
 
             return true;
         }).done(function () {
-            initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
-                console.log('Init function: ' + str);
-                window[str]();
-            });
+            callFnInits(initFunctionsStr);
         });
     });
 
@@ -282,8 +307,8 @@ $(function () {
 
 
     // jQuery UI sortable
-    initSortableY = function () {
-        $(".sortable-y").sortable({
+    initSortableY = function (root) {
+        scoped(root, '.sortable-y').filter(function () { return !$(this).data('ui-sortable'); }).sortable({
             distance: 5,
             placeholder: "sortable-placeholder",
             axis: 'y',
@@ -405,32 +430,32 @@ $(function () {
     }
 
     // Component: Slug
-    initJsVerificationSlugField = function () {
-        if ($('.js-verification-slug-field').length) {
-            if ($('input.js-slug-field-change').is(':checked')) {
-                $('.js-verification-slug-field input.js-slug-field-input')
+    initJsVerificationSlugField = function (root) {
+        scoped(root, '.js-verification-slug-field').each(function () {
+            if ($(this).find('input.js-slug-field-change').is(':checked')) {
+                $(this).find('input.js-slug-field-input')
                     .prop('readonly', false)
                     .prop('disabled', false)
             }
-            $(document).on('change', '.js-verification-slug-field [type="checkbox"]', function () {
-                var $wrap = $(this).closest('.js-verification-slug-field');
-                if (this.checked) {
-                    $wrap.find('input.js-slug-field-input')
-                        .prop('readonly', false)
-                        .prop('disabled', false)
-                } else {
-                    $wrap.find('input.js-slug-field-input')
-                        .prop('readonly', true)
-                        .prop('disabled', true)
-                }
-            });
-        }
+        });
     };
+    $(document).on('change', '.js-verification-slug-field [type="checkbox"]', function () {
+        var $wrap = $(this).closest('.js-verification-slug-field');
+        if (this.checked) {
+            $wrap.find('input.js-slug-field-input')
+                .prop('readonly', false)
+                .prop('disabled', false)
+        } else {
+            $wrap.find('input.js-slug-field-input')
+                .prop('readonly', true)
+                .prop('disabled', true)
+        }
+    });
     initJsVerificationSlugField();
 
     // Component: Colorpicker
-    initColorpicker = function () {
-        $('.f-colorpicker').colorpicker().each(function () {
+    initColorpicker = function (root) {
+        once(scoped(root, '.f-colorpicker'), 'lte3Colorpicker').each(function () {
             var $this = $(this), delayTimer;
 
             $this.colorpicker().on('colorpickerChange', function(event) {
@@ -495,8 +520,8 @@ $(function () {
 
     // Component: Select2
     // https://select2.org/
-    initSelect2 = function () {
-        $('.f-select2').each(function () {
+    initSelect2 = function (root) {
+        scoped(root, '.f-select2').filter(function () { return !$(this).data('select2'); }).each(function () {
             var $this = $(this),
 
                 urlSave = $this.data('url-save'),
@@ -506,10 +531,8 @@ $(function () {
                 allowClear = $this.attr('allowClear') || false,
                 closeOnSelect = $this.data('close-on-select') || true;
 
-            // Autosave after change
+            // Autosave after change — делегований обробник нижче
             if (urlSave) {
-                var fieldName = $this.data('name'),
-                    method = $this.data('method-save') || 'POST';
                     $this.select2({
                         language: LANGUAGE,
                         tags: false,
@@ -518,32 +541,6 @@ $(function () {
                         allowClear: allowClear,
                         dropdownParent: $this.closest('.f-select2-wrap'),
                     });
-
-                $this.on('change', function () {
-                    var values = $this.first(':selected').val();
-
-                    $.ajax({
-                        method: method,
-                        url: urlSave,
-                        dataType: 'json',
-                        data: {name: fieldName, value: values},
-                        success: function (data) {
-                            if (data.message) {
-                                lteAlert('success', data.message);
-                            }
-                            if (data.operation === 'reload') {
-                                window.location.reload();
-                            }
-                        },
-                        error: function () {
-                            console.log('Error Ajax!');
-                            lteAlert('error', 'Error Ajax!');
-                        },
-                        complete: function () {
-                            //
-                        }
-                    });
-                });
             }
 
             if (urlTags) {
@@ -616,17 +613,45 @@ $(function () {
         });
 
         // Displaying blocks depending on the selection in the selection
-        $('.f-select2-wrap .js-map-blocks').each(function () {
+        scoped(root, '.f-select2-wrap .js-map-blocks').each(function () {
             if ($(this).find(':selected')) {
                 toggleSelectableBlocks($(this).find(':selected').val(), $(this).data('map'));
             }
         });
-        $('.f-radiogroup .js-map-blocks').each(function () {
+        scoped(root, '.f-radiogroup .js-map-blocks').each(function () {
             if ($(this).is(':checked')) {
                 toggleSelectableBlocks($(this).val(), $(this).data('map'));
             }
         });
     }
+
+    $(document).on('change', '.f-select2', function () {
+        var $this = $(this),
+            urlSave = $this.data('url-save');
+
+        if (!urlSave) {
+            return;
+        }
+
+        $.ajax({
+            method: $this.data('method-save') || 'POST',
+            url: urlSave,
+            dataType: 'json',
+            data: {name: $this.data('name'), value: $this.first(':selected').val()},
+            success: function (data) {
+                if (data.message) {
+                    lteAlert('success', data.message);
+                }
+                if (data.operation === 'reload') {
+                    window.location.reload();
+                }
+            },
+            error: function () {
+                console.log('Error Ajax!');
+                lteAlert('error', 'Error Ajax!');
+            }
+        });
+    });
 
     $(document).on('change', '.js-map-blocks', function () {
         if ($(this).data('map')) {
@@ -647,53 +672,48 @@ $(function () {
     //$(document).on('change', '.f-radiogroup')
 
     // Component: checkbox
-    initCheckbox = function () {
-        $('.f-checkbox-ajax').each(function () {
-            var $this = $(this),
-                url = $this.data('url-save'),
-                method = $this.data('method-save') || 'POST',
-                rawFieldName = $this.data('raw-name'),
-                format = $this.data('format');
+    // AJAX Save
+    $(document).on('change', '.f-checkbox-ajax', function () {
+        var $this = $(this),
+            url = $this.data('url-save'),
+            rawFieldName = $this.data('raw-name'),
+            format = $this.data('format');
 
-            // AJAX Save
-            if (url) {
-                $this.on('change', function () {
-                    let checkbox = this;
-                    let oldValue = !this.checked;
-                    var value = this.checked ? 1 : 0,
-                        data = format === 'name,value' ? {name: rawFieldName, value: value} : {[rawFieldName]: value};
-                    $.ajax({
-                        method: method,
-                        url: url,
-                        dataType: 'json',
-                        data: data,
-                        success: function (data) {
-                            if (data.status === 'error') {
-                                checkbox.checked = oldValue;
-                                lteAlert('error', data.message);
-                            } else {
-                                lteAlert('success', data.message);
-                            }
-                        },
-                        error: function () {
-                            console.log('Error Ajax!')
-                            checkbox.checked = oldValue;
-                            lteAlert('success', 'Error Ajax!');
-                        },
-                        complete: function () {
-                            //...
-                        }
-                    });
-                });
+        if (!url) {
+            return;
+        }
+
+        let checkbox = this;
+        let oldValue = !this.checked;
+        var value = this.checked ? 1 : 0,
+            data = format === 'name,value' ? {name: rawFieldName, value: value} : {[rawFieldName]: value};
+        $.ajax({
+            method: $this.data('method-save') || 'POST',
+            url: url,
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data.status === 'error') {
+                    checkbox.checked = oldValue;
+                    lteAlert('error', data.message);
+                } else {
+                    lteAlert('success', data.message);
+                }
+            },
+            error: function () {
+                console.log('Error Ajax!')
+                checkbox.checked = oldValue;
+                lteAlert('success', 'Error Ajax!');
             }
         });
-    }
-    initCheckbox();
+    });
+    // делегований обробник — окремої ініціалізації не треба; функція для data-fn-inits
+    initCheckbox = function () {};
 
     // Component: Select2Tree
     // https://github.com/clivezhg/select2-to-tree
-    initSelect2Tree = function () {
-        $('.f-select2-tree-wrap').each(function () {
+    initSelect2Tree = function (root) {
+        once(scoped(root, '.f-select2-tree-wrap'), 'lte3Select2Tree').each(function () {
             var $this = $(this),
                 $input = $this.find('.f-select2-tree-input'),
                 url = $input.data('url'),
@@ -733,8 +753,8 @@ $(function () {
 
     // Component: Treeview
     // https://github.com/jonmiles/bootstrap-treeview
-    initTreeview = function () {
-        $('.f-treeview-wrap').each(function () {
+    initTreeview = function (root) {
+        once(scoped(root, '.f-treeview-wrap'), 'lte3Treeview').each(function () {
             var $base = $(this),
                 $tree = $base.find('.f-treeview-data'),
                 url = $base.data('url'),
@@ -897,20 +917,19 @@ $(function () {
         $(this).closest('.table-responsive').css('overflow-x', '');
     });
 
-    initInputCalc = function() {
-        $('.js-input-calc').on('blur keypress', function(event) {
-            if (event.type === 'blur' || (event.which === 13 && event.type === 'keypress')) {
-                var expression = $(this).val();
-                var result = eval(expression);
-                $(this).val(result);
-            }
-        });
-        $('.js-input-calc').on('input', function() {
-            var sanitized = $(this).val().replace(/[^0-9()+\-*\/\.\s]/g, '');
-            $(this).val(sanitized);
-        });
-    }
-    initInputCalc();
+    $(document).on('focusout keypress', '.js-input-calc', function(event) {
+        if (event.type === 'focusout' || (event.which === 13 && event.type === 'keypress')) {
+            var expression = $(this).val();
+            var result = eval(expression);
+            $(this).val(result);
+        }
+    });
+    $(document).on('input', '.js-input-calc', function() {
+        var sanitized = $(this).val().replace(/[^0-9()+\-*\/\.\s]/g, '');
+        $(this).val(sanitized);
+    });
+    // делеговані обробники — окремої ініціалізації не треба; функція для data-fn-inits
+    initInputCalc = function () {};
 
     $(document).on('keyup keypress', 'input.js-input-calc', function(e) {
         var keyCode = e.keyCode || e.which;
@@ -1024,13 +1043,7 @@ $(function () {
 
         $wrap.find('.js-msg-empty').remove();
 
-        if (initFunctionsStr) {
-            console.log(initFunctionsStr);
-            initFunctionsStr.split(/\s*,\s*/).forEach(function (str) {
-                console.log('Init function: ' + str);
-                window[str]();
-            });
-        }
+        callFnInits(initFunctionsStr);
     });
     $(document).on('click', '.f-wrap .f-item>.js-btn-delete', function (e) {
         e.preventDefault();
@@ -1335,22 +1348,7 @@ $(function () {
             complete: function () {
                 $btn.prop('disabled', false).removeClass('loading');
 
-                let initFunctionsStr = $btn.data('fn-inits');
-                if (initFunctionsStr) {
-                    initFunctionsStr.split(/\s*,\s*/).forEach(function (fnName) {
-                        fnName = fnName.trim();
-                        if (fnName && typeof window[fnName] === 'function') {
-                            console.log('Calling post-AJAX init:', fnName);
-                            try {
-                                window[fnName]($btn); // можна передати елемент, якщо треба
-                            } catch (e) {
-                                console.error('Error in fn-inits:', fnName, e);
-                            }
-                        } else {
-                            console.warn('No such function:', fnName);
-                        }
-                    });
-                }
+                callFnInits($btn.data('fn-inits'));
             }
         });
     });
