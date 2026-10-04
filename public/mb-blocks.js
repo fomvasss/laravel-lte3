@@ -97,6 +97,7 @@
         $items.find('> .mb-empty').remove();
         $items.append(html);
 
+        window.Lte3 && Lte3.init($items.children('.mb-item').last());
         callFnInits($wrap.data('fn-inits'));
         updateAddBtn($wrap);
         updateDeleteBtns($wrap);
@@ -225,6 +226,7 @@
         $items.find('> .mb-empty').remove();
         $item.after($clone);
 
+        window.Lte3 && Lte3.init($clone);
         callFnInits(fnInits);
         updateAddBtn($wrap);
         updateDeleteBtns($wrap);

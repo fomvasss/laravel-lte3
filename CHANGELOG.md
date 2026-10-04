@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.123.0 - 2026-10-04
+
+### Added
+- Fields in HTML inserted after page load are initialized automatically: the content of `.js-modal-fill-html` modals, new items of `.f-multyblocks` and `.mb-wrap` (added and cloned), html from a `.js-ajax-send` response. `data-fn-inits` isn't needed for `initSelect2`, `initColorpicker`, `initSortableY`, `initSelect2Tree`, `initTreeview`, `initTooltip`, `initJsVerificationSlugField`, `initMediaFile` anymore; existing `data-fn-inits` keep working and run after the auto init.
+- `Lte3.register(name, fn)` — adds a project init function to the auto init. The function takes `root` (the inserted content) and must be safe to call repeatedly.
+- `Lte3.init(root)` — runs all registered init functions inside `root`, then triggers the `lte3:init` event on it, e.g. `$(document).on('lte3:init', function (e) { ... e.target ... })`.
+
 ## 1.122.2 - 2026-10-04
 
 ### Fixed

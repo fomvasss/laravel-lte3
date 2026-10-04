@@ -11,6 +11,26 @@ var initJsVerificationSlugField = function () {},
     initLfmFile = function () {}
 ;
 
+// Ініціалізація полів у HTML, вставленому після завантаження сторінки: модалка .js-modal-fill-html, блоки .f-multyblocks і .mb-wrap,
+// html з відповіді .js-ajax-send. Пакет викликає Lte3.init(root) сам, data-fn-inits потрібен лише для незареєстрованих функцій.
+// Зареєстрована функція приймає root і безпечна при повторному виклику. Після неї на root тригериться подія lte3:init
+var Lte3 = {
+    inits: {},
+    register: function (name, fn) {
+        this.inits[name] = fn;
+    },
+    init: function (root) {
+        $.each(this.inits, function (name, fn) {
+            try {
+                fn(root);
+            } catch (e) {
+                console.error('Lte3 init ' + name + ':', e);
+            }
+        });
+        $(root).trigger('lte3:init');
+    },
+};
+
 $(function () {
     'use strict';
 
@@ -195,6 +215,7 @@ $(function () {
 
             return true;
         }).done(function () {
+            Lte3.init($(`${target} .modal-content`));
             callFnInits(initFunctionsStr);
         });
     });
@@ -1043,6 +1064,7 @@ $(function () {
 
         $wrap.find('.js-msg-empty').remove();
 
+        Lte3.init($newItem);
         callFnInits(initFunctionsStr);
     });
     $(document).on('click', '.f-wrap .f-item>.js-btn-delete', function (e) {
@@ -1268,6 +1290,7 @@ $(function () {
                 }
 
                 // ✅ оновлення html
+                const $updated = [];
                 if (response.html) {
                     const htmlAppends = response.htmlAppends || [];
                     if (typeof response.html === 'object') {
@@ -1289,6 +1312,7 @@ $(function () {
                                 } else {
                                     $el.html(html);
                                 }
+                                $updated.push($el);
                             } else {
                                 console.warn(`Елемент ${selector} не знайдено`);
                             }
@@ -1303,11 +1327,13 @@ $(function () {
                                 $container.html(response.html);
                             }
                             //$container.html(response.html);
+                            $updated.push($container);
                         } else {
                             console.warn('Контейнер .js-html-container не знайдено для вставки html');
                         }
                     }
                 }
+                $updated.forEach(function ($el) { Lte3.init($el); });
 
                 // ✅ дії після успіху
                 if (response.action) {
@@ -1403,6 +1429,14 @@ $(function () {
             checkCompareValue($(this));
         });
     });
+
+    Lte3.register('initTooltip', initTooltip);
+    Lte3.register('initSortableY', initSortableY);
+    Lte3.register('initJsVerificationSlugField', initJsVerificationSlugField);
+    Lte3.register('initColorpicker', initColorpicker);
+    Lte3.register('initSelect2', initSelect2);
+    Lte3.register('initSelect2Tree', initSelect2Tree);
+    Lte3.register('initTreeview', initTreeview);
 });
 
 // Media file field (lte3::components.mediaFile): drop zone, previews, delete/restore, sorting, properties modal.
@@ -1604,6 +1638,7 @@ $(function () {
     }
 
     $(function () { initMediaFile(); });
+    Lte3.register('initMediaFile', initMediaFile);
 })(jQuery);
 
 // LFM file field (lte3::components.lfmFile): File Manager in a modal (LFM `callback` param), drag & drop upload to /upload,
