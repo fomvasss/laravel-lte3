@@ -50,8 +50,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="/vendor/lte3/main.css">
-    <link rel="stylesheet" href="/vendor/lte3/mb-block.css">
+    <link rel="stylesheet" href="{{ lte3_asset('main.css') }}">
+    <link rel="stylesheet" href="{{ lte3_asset('mb-block.css') }}">
 
     @stack('styles')
 </head>

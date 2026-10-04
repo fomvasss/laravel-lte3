@@ -315,3 +315,17 @@ if (! function_exists('url_add_params')) {
         return $newUrl;
     }
 }
+
+if (! function_exists('lte3_asset')) {
+    /**
+     * URL ресурсу lte3 (/vendor/lte3/...) з версією за часом зміни файлу: після оновлення пакета
+     * чи перепублікації асетів браузер бере новий файл, а не закешований
+     */
+    function lte3_asset(string $path): string
+    {
+        $path = ltrim($path, '/');
+        $file = public_path("vendor/lte3/{$path}");
+
+        return "/vendor/lte3/{$path}" . (is_file($file) ? '?v=' . filemtime($file) : '');
+    }
+}
