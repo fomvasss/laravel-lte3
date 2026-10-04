@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.122.1 - 2026-10-04
+
+### Fixed
+- `lfmFile`: attributes from `field_attrs` (`data-name`, `id`, `required`, ...) are rendered on the value input again, not only with `editable`. Block repeaters that rename fields by `data-name` lost the picked file in new items.
+
 ## 1.122.0 - 2026-10-04
 
 ### Added
