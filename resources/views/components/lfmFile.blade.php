@@ -65,11 +65,10 @@
            name="{{ $inputName }}"
            value="{{ $path }}"
            @if($disabled) disabled @endif
-           @if($editable)
-               @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
-                   {{ $key }}="{{ $val }}"
-               @endforeach
-           @endif>
+           {{-- атрибути field_attrs (data-name, id...) — і на прихованому полі: за ними повторювачі блоків перейменовують поля --}}
+           @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
+               {{ $key }}="{{ $val }}"
+           @endforeach>
 
     <template class="f-lfm-template">
         @include('lte3::components.lfmFileItem', ['url' => '', 'fileName' => '', 'icon' => 'fa-file', 'thumb' => null])
