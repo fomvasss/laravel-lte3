@@ -971,23 +971,33 @@
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true]) !!}
                         <div class="row">
                             <div class="col-md-6">
+                                {{-- картинка: плитка з мініатюрою (lte3.view.lfm.thumb), File Manager у модалці, перетягування заливає файл --}}
                                 {!! Lte3::lfmImage('poster', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    'label' => 'Poster',
                                     'lfm_category' => 'image',  // see configs/lfm.php folder_categories
+                                    'thumb_size' => 150,
                                 ]) !!}
 
+                                {{-- url_save: значення зберігається AJAX-ом одразу після вибору чи очищення --}}
                                 {!! Lte3::lfmImage('poster_ajax', '/vendor/lte3/img/favicons/favicon-32x32.png', [
+                                    'label' => 'Poster (AJAX save)',
                                     'url_save' => route('lte3.data.save'),
-                                    'hide_input' => true,
                                 ]) !!}
-
                             </div>
                             <div class="col-md-6">
+                                {{-- документ: рядок з іконкою типу; trim_host — зберігати шлях без домену --}}
                                 {!! Lte3::lfmFile('instruction', null, [
-                                      'label' => 'Instruction',
-                                      'is_image' => false,
-                                      'lfm_category' => 'file',
-                                      'trim_host' => true,
-                                      'multiple' => 1,
+                                    'label' => 'Instruction',
+                                    'lfm_category' => 'file',
+                                    'trim_host' => true,
+                                    'help' => 'PDF, DOC',
+                                ]) !!}
+
+                                {{-- editable: поле для ручного URL (зовнішнє посилання) --}}
+                                {!! Lte3::lfmFile('instruction_url', null, [
+                                    'label' => 'Instruction (URL)',
+                                    'editable' => true,
+                                    'placeholder' => 'https://…',
                                 ]) !!}
                             </div>
                         </div>
