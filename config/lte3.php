@@ -87,9 +87,8 @@ return [
 
             'xEditable' => ['blade' => 'lte3::components.xEditable', 'vars' => ['name', 'value', 'attrs']],
             'datepicker' => ['blade' => 'lte3::components.datepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['default' => now()->startOfDay()]],
-            'timepicker' => ['blade' => 'lte3::components.timepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['timezone' => env('APP_TIMEZONE_CLIENT', 'Europe/Kiev'), 'default' => now()->startOfHour()]],
-            'datetimepicker' => ['blade' => 'lte3::components.datetimepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['timezone' => env('APP_TIMEZONE_CLIENT', 'Europe/Kiev'), 'default' => now()->startOfHour()]],
-            'datetimepicker' => ['blade' => 'lte3::components.datetimepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['timezone' => env('APP_TIMEZONE_CLIENT', 'Europe/Kiev'), 'default' => now()->startOfHour()]],
+            'timepicker' => ['blade' => 'lte3::components.timepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['timezone' => env('APP_TIMEZONE_CLIENT', 'Europe/Kyiv'), 'default' => now()->startOfHour()]],
+            'datetimepicker' => ['blade' => 'lte3::components.datetimepicker', 'vars' => ['name', 'value', 'attrs'], 'default' => ['timezone' => env('APP_TIMEZONE_CLIENT', 'Europe/Kyiv'), 'default' => now()->startOfHour()]],
             'multidatespicker' => ['blade' => 'lte3::components.multidatespicker', 'vars' => ['name', 'value', 'attrs'], 'default' => []],
 
             'file' => ['blade' => 'lte3::components.file', 'vars' => ['name', 'path', 'attrs']],

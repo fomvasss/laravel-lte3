@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.123.2 - 2026-10-04
+
+### Fixed
+- Default timezone of the `timepicker` and `datetimepicker` components is `Europe/Kyiv` instead of `Europe/Kiev`. PHP builds with current tzdata don't know the old name and throw "Unknown or bad timezone (Europe/Kiev)", so every page with these fields failed with 500 when `APP_TIMEZONE_CLIENT` wasn't set. Check a published `config/lte3.php` and `.env` for the old name too.
+- Removed a duplicate `datetimepicker` entry in `view.components` of the config.
+
 ## 1.123.1 - 2026-10-04
 
 ### Fixed
