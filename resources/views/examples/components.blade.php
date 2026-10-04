@@ -913,18 +913,31 @@
 
                         {!! Lte3::formOpen(['action' => route('lte3.data.save'), 'files' => true,]) !!}
 
+                        {{-- legacy (за замовчуванням): images[], images_deleted[], images_weight[id], images_custom[id][prop] --}}
                         {!! Lte3::mediaImage('images', $model, [
                                 'label' => 'Images',
                                 'multiple' => true,
+                                'custom_properties' => ['alt', 'title'],
+                                'help' => 'Drag to reorder saved images; alt/title — pencil on a saved image',
                         ]) !!}
 
+                        {{-- одиночне поле: новий файл замінює наявний; alt можна задати й новому файлу --}}
                         {!! Lte3::mediaImage('image', $model, [
-                                'custom_properties' => ['alt']
+                                'label' => 'Image',
+                                'custom_properties' => ['alt' => 'Alt text'],
                         ]) !!}
 
-                        {!! Lte3::mediaFile('documents', $model, [
-                                'label' => 'Documents',
+                        {{-- expand: рядок на файл — властивості й порядок нових файлів, головний файл (зірочка) --}}
+                        {!! Lte3::mediaFile('files', $model, [
+                                'label' => 'Files (expand)',
                                 'multiple' => true,
+                                'format' => 'expand',
+                                'main' => true,
+                                'accept' => 'image/*,.pdf,.doc,.docx,.xlsx',
+                                'custom_properties' => [
+                                    'title' => 'Title',
+                                    ['name' => 'alt', 'label' => 'Description', 'type' => 'textarea', 'rows' => 2],
+                                ],
                         ]) !!}
 
                         {!! Lte3::btnSubmit('Submit', 'action', 'save') !!}

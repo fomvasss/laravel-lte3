@@ -6,7 +6,8 @@ var initJsVerificationSlugField = function () {},
     initSelect2Tree = function () {},
     initTreeview = function () {},
     initInputCalc = function () {},
-    initTooltip = function () {}
+    initTooltip = function () {},
+    initMediaFile = function () {}
 ;
 
 $(function () {
@@ -1456,3 +1457,195 @@ $(function () {
         });
     });
 });
+
+// Media file field (lte3::components.mediaFile): drop zone, previews, delete/restore, sorting, properties modal.
+// Every picked file goes into its own <input type=file> of the row, so the form is sent by a regular submit
+(function ($) {
+    var icons = {pdf: 'fa-file-pdf', doc: 'fa-file-word', docx: 'fa-file-word', xls: 'fa-file-excel', xlsx: 'fa-file-excel', csv: 'fa-file-excel', zip: 'fa-file-archive', rar: 'fa-file-archive', '7z': 'fa-file-archive', txt: 'fa-file-alt', md: 'fa-file-alt'};
+
+    function humanSize(bytes) {
+        var units = ['B', 'KB', 'MB', 'GB'], i = 0;
+        while (bytes >= 1024 && i < units.length - 1) { bytes /= 1024; i++; }
+        return (i ? bytes.toFixed(1) : bytes) + ' ' + units[i];
+    }
+
+    function accepts(input, file) {
+        var accept = (input.getAttribute('accept') || '').split(',').map(function (s) { return s.trim().toLowerCase(); }).filter(Boolean);
+        if (!accept.length) {
+            return true;
+        }
+        var name = file.name.toLowerCase(), type = (file.type || '').toLowerCase();
+        return accept.some(function (a) {
+            return a[0] === '.' ? name.endsWith(a) : (a.endsWith('/*') ? type.indexOf(a.slice(0, -1)) === 0 : type === a);
+        });
+    }
+
+    // порядок у формі = порядок на екрані
+    // одиночне поле з файлом — без зони вибору, заміна кнопкою на файлі
+    function refresh($wrap) {
+        $wrap.find('.f-media-items .js-media-weight').each(function (i) { $(this).val(i); });
+        $wrap.find('.f-media-items .f-media-item').each(function () { markProps($(this)); });
+        if ($wrap.data('multiple') != 1) {
+            $wrap.toggleClass('has-file', $wrap.find('.f-media-items .f-media-item:not(.is-deleted):not(.is-replaced)').length > 0);
+        }
+    }
+
+    // підпис під назвою — перша заповнена властивість; мітка «немає alt» — лише на картинці
+    function markProps($item) {
+        var values = $item.find('input[data-prop]').map(function () { return $(this).val(); }).get().filter(Boolean),
+            $alt = $item.find('input[data-prop="alt"]');
+        $item.find('.f-media-caption').text(values[0] || '');
+        $item.toggleClass('is-noalt', $alt.length > 0 && !$alt.val() && !!$item.data('thumb'));
+    }
+
+    function removeNew($item) {
+        $item.find('img').each(function () { URL.revokeObjectURL(this.src); });
+        $item.remove();
+    }
+
+    // кожен файл — у власний input name[N][file] свого рядка (DataTransfer), форма шлеться звичайним submit
+    function addFiles($wrap, list) {
+        var input = $wrap.find('.f-media-input')[0],
+            multiple = $wrap.data('multiple') == 1,
+            files = Array.prototype.filter.call(list, function (f) { return accepts(input, f); });
+
+        if (!multiple) {
+            files = files.slice(0, 1);
+            if (files.length) {
+                removeNew($wrap.find('.f-media-items .f-media-item.is-new'));
+            }
+        }
+
+        files.forEach(function (file) {
+            var index = +$wrap.data('next'),
+                $item = $($wrap.find('.f-media-template').html().replace(/__N__/g, index)),
+                ext = file.name.split('.').pop().toLowerCase(),
+                dt = new DataTransfer();
+
+            $wrap.data('next', index + 1);
+            dt.items.add(file);
+            $item.find('.f-media-file-input')[0].files = dt.files;
+            $item.data('name', file.name).data('icon', icons[ext] || 'fa-file');
+            $item.find('.f-media-name').text(file.name).attr('title', file.name);
+            $item.find('.f-media-meta-text').text(ext.toUpperCase() + ' · ' + humanSize(file.size));
+            if ((file.type || '').indexOf('image/') === 0) {
+                var src = URL.createObjectURL(file);
+                $item.data('thumb', src);
+                $item.find('.f-media-thumb').empty().append($('<img alt="">').attr('src', src));
+            } else {
+                $item.find('.f-media-thumb i').attr('class', 'far ' + (icons[ext] || 'fa-file'));
+            }
+            $wrap.find('.f-media-items').append($item);
+        });
+
+        // одиночне поле: новий файл замінить наявний — рядок наявного вимикаємо, щоб у формі був один рядок
+        if (!multiple && files.length) {
+            $wrap.find('.f-media-items .f-media-item:not(.is-new)').addClass('is-replaced').find('input').prop('disabled', true);
+        }
+        refresh($wrap);
+    }
+
+    $(document).on('change', '.f-media .f-media-input', function () {
+        addFiles($(this).closest('.f-media'), this.files);
+        this.value = '';
+    });
+
+    $(document).on('dragover dragenter', '.f-media-drop', function (e) {
+        e.preventDefault();
+        $(this).addClass('is-dragover');
+    }).on('dragleave dragend drop', '.f-media-drop', function (e) {
+        e.preventDefault();
+        $(this).removeClass('is-dragover');
+    }).on('drop', '.f-media-drop:not(.disabled)', function (e) {
+        addFiles($(this).closest('.f-media'), e.originalEvent.dataTransfer.files);
+    });
+
+    $(document).on('click', '.f-media .js-media-delete', function () {
+        var $item = $(this).closest('.f-media-item'), $wrap = $item.closest('.f-media');
+        if ($item.hasClass('is-new')) {
+            removeNew($item);
+            $wrap.find('.f-media-item.is-replaced').removeClass('is-replaced').find('input').prop('disabled', false);
+            refresh($wrap);
+            return;
+        }
+        $item.addClass('is-deleted').find('.js-media-delete-input').val(function () { return $(this).data('on'); });
+        refresh($wrap);
+    });
+
+    $(document).on('click', '.f-media .js-media-replace', function () {
+        $(this).closest('.f-media').find('.f-media-input').trigger('click');
+    });
+
+    $(document).on('click', '.f-media .js-media-restore', function () {
+        $(this).closest('.f-media-item').removeClass('is-deleted').find('.js-media-delete-input').val(function () { return $(this).data('off'); });
+        refresh($(this).closest('.f-media'));
+    });
+
+    // головне фото — одне на колекцію
+    $(document).on('click', '.f-media .js-media-main', function () {
+        var $item = $(this).closest('.f-media-item');
+        $item.closest('.f-media').find('.f-media-item').removeClass('is-main').find('.js-media-main-input').val(0);
+        $item.addClass('is-main').find('.js-media-main-input').val(1);
+    });
+
+    // вікно властивостей читає й пише приховані поля рядка файлу; саме вікно — поза формою
+    function fieldInput($modal, prop) {
+        return $modal.find('[name="f_media_prop[' + prop + ']"]').last();
+    }
+
+    $(document).on('click', '.f-media .js-media-edit', function () {
+        var $item = $(this).closest('.f-media-item'),
+            $wrap = $item.closest('.f-media'),
+            $modal = $wrap.data('modal') || $wrap.find('.f-media-modal').appendTo('body'),
+            $preview = $modal.find('.f-media-modal-preview').empty();
+
+        $wrap.data('modal', $modal);
+        $modal.data('item', $item).find('.f-media-modal-title').text($item.data('name'));
+        if ($item.data('thumb')) {
+            $preview.append($('<img alt="">').attr('src', $item.data('thumb')));
+        } else {
+            $preview.append($('<i class="far"></i>').addClass($item.data('icon') || 'fa-file')).append($('<span></span>').text($item.data('name')));
+        }
+
+        $item.find('input[data-prop]').each(function () {
+            var $field = fieldInput($modal, $(this).data('prop')), value = $(this).val();
+            $field.is(':checkbox') ? $field.prop('checked', !!value && value !== '0') : $field.val(value).trigger('change');
+        });
+        $modal.one('shown.bs.modal', function () { $modal.find('.modal-body :input:visible').first().trigger('focus'); }).modal('show');
+    });
+
+    $(document).on('click', '.f-media-modal .js-media-props-save', function () {
+        var $modal = $(this).closest('.f-media-modal'), $item = $modal.data('item');
+
+        $item.find('input[data-prop]').each(function () {
+            var $field = fieldInput($modal, $(this).data('prop'));
+            $(this).val($field.is(':checkbox') ? ($field.is(':checked') ? ($field.val() || 1) : '') : $field.val());
+        });
+        markProps($item);
+        $modal.modal('hide');
+    });
+
+    // повторний виклик (fn-inits модалки) безпечний: сортування вже ініціалізованих не чіпає
+    initMediaFile = function (root) {
+        root = root || document;
+        $(root).find('.f-media').each(function () { refresh($(this)); });
+        $(root).find('.f-media .js-media-sortable').each(function () {
+            if ($(this).data('ui-sortable') || !$.fn.sortable) {
+                return;
+            }
+            var isList = $(this).hasClass('f-media-list');
+            $(this).sortable({
+                // legacy задає порядок лише збереженим файлам — нові додаються в кінець
+                items: $(this).closest('.f-media').data('expand') == 1 ? '> .f-media-item' : '> .f-media-item:not(.is-new)',
+                handle: isList ? '.f-media-handle' : false,
+                cancel: '.f-media-actions, .f-media-star, .f-media-deleted',
+                placeholder: 'f-media-item f-media-sort-placeholder',
+                tolerance: 'pointer',
+                distance: 5,
+                update: function () { refresh($(this).closest('.f-media')); },
+            });
+        });
+    }
+
+    $(function () { initMediaFile(); });
+})(jQuery);

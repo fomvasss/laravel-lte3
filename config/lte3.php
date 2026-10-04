@@ -134,6 +134,15 @@ return [
 
         'media' => [
             /**
+             * Формат полів mediaFile/mediaImage для fomvasss/laravel-medialibrary-extension (атрибут поля 'format' перебиває):
+             * 'legacy' — name[] | name, name_deleted, name_weight[id], name_custom[id][prop] (як до 1.121);
+             * 'expand' — рядок на файл name[N][id|file|weight|delete|is_main|<властивість>]: властивості й порядок
+             *            нових файлів, головний файл ('main'). Потрібен medialibrary-extension >= 6.4.1 і правила
+             *            валідації, що приймають масив у name.* (файл — у name.*.file)
+             */
+            'format' => 'legacy',
+
+            /**
              * Резолвер thumb-прев'ю у mediaFile-компоненті ("Choose file" список файлів).
              *
              * 'conversion'  — $media->getUrl($conversion_name), стандартна Spatie MediaLibrary
