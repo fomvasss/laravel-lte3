@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.123.3 - 2026-10-07
+
+### Fixed
+- HTML attributes from `field_attrs` set to `false` or `null` are no longer rendered. Components printed every such key as `key="value"`, so `'required' => false` became `required=""` and the browser treated the field as required (same for `disabled`, `readonly`, `autofocus`). Values like `0` and empty strings are still rendered.
+
 ## 1.123.2 - 2026-10-04
 
 ### Fixed

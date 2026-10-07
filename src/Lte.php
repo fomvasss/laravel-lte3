@@ -50,7 +50,7 @@ class Lte
             }
 
             $defaultAttrs = $componentParams['default'] ?? [];
-            $res['attrs'] = array_merge($defaultAttrs, $res['attrs'] ?? []);
+            $res['attrs'] = $this->withoutDisabledFieldAttrs(array_merge($defaultAttrs, $res['attrs'] ?? []), $fieldAttrs);
 
             $res['field_attrs'] = $fieldAttrs;
 
@@ -58,6 +58,23 @@ class Lte
         }
 
         throw new Exception("Lte3 method or component '{$name}' not found!");
+    }
+
+    /**
+     * Drop HTML attributes set to false or null: components print every field_attrs key
+     * as key="value", so 'required' => false became required="" and made the field required.
+     *
+     * @param array $attrs
+     * @param array $fieldAttrs
+     * @return array
+     */
+    protected function withoutDisabledFieldAttrs(array $attrs, array $fieldAttrs): array
+    {
+        return array_filter(
+            $attrs,
+            fn ($val, $key) => !in_array($key, $fieldAttrs, true) || ($val !== false && $val !== null),
+            ARRAY_FILTER_USE_BOTH
+        );
     }
 
     /**
@@ -114,10 +131,11 @@ class Lte
         $this->model = $attrs['model'] ?? null;
 
         $defaultAttrs = $form['default'] ?? [];
-        $attrs = array_merge($defaultAttrs, $attrs);
+        $fieldAttrs = config('lte3.view.field_attrs', []);
+
+        $attrs = $this->withoutDisabledFieldAttrs(array_merge($defaultAttrs, $attrs), $fieldAttrs);
         $res['attrs'] = $attrs;
 
-        $fieldAttrs = config('lte3.view.field_attrs', []);
         $res['field_attrs'] = $fieldAttrs;
 
         $res['hidden'] = $this->formHiddenFields($this->model, $attrs);
