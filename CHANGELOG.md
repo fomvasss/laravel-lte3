@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.123.4 - 2026-10-07
+
+### Fixed
+- Pages without Summernote no longer break the scripts of `layouts/inc/options.blade.php`. `initSummernote()` called `.summernote()` unguarded, the TypeError stopped the rest of the script, so datetimepickers, live `pattern` validation, x-editable, CodeMirror, EasyMDE, Magnific Popup and summary tables did not work. A copied `options.blade.php` needs the same `if (!$.fn.summernote) return;` guard.
+
 ## 1.123.3 - 2026-10-07
 
 ### Fixed

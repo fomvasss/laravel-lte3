@@ -38,6 +38,9 @@
 
     // Summernote
     initSummernote = function() {
+        if (!$.fn.summernote) {
+            return;
+        }
         $('.f-summernote').summernote({
             height: 300,
             lang: 'uk-UA'
