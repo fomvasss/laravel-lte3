@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.123.5 - 2026-10-13
+
+### Fixed
+- Reordering `.sortable-y` lists saves the order again (`data-url` request, `data-input-weight-class` inputs). Since 1.122.2 `initSortableY` skipped lists that were already sortable, and `layouts/inc/options.blade.php` makes `table tbody.sortable-y` sortable (fixed-width helper) before the ready handler of `main.js` runs, so these lists got no `update` handler. `initSortableY` again applies its options to such lists; options set by the project, like `helper`, are kept.
+
 ## 1.123.4 - 2026-10-07
 
 ### Fixed

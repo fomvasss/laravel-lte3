@@ -351,7 +351,7 @@ $(function () {
 
     // jQuery UI sortable
     initSortableY = function (root) {
-        scoped(root, '.sortable-y').filter(function () { return !$(this).data('ui-sortable'); }).sortable({
+        scoped(root, '.sortable-y').sortable({
             distance: 5,
             placeholder: "sortable-placeholder",
             axis: 'y',
