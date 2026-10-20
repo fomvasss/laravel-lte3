@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.123.6 - 2026-10-20
+
+### Fixed
+- `select2` without `options` no longer renders an invisible `<option value="0" selected>` when nothing is selected. `Lte3::field()` passes a missing `selected` as `''`, which became `[0 => '']`, so such a field sent `0`: validation like `uuid` or `exists` rejected the form, and `required` was satisfied without a choice (e.g. ajax selects with `url_suggest`). Selects with options are not affected.
+
 ## 1.123.5 - 2026-10-13
 
 ### Fixed

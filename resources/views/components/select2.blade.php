@@ -117,7 +117,9 @@
             >{{ $title }}</option>
         @endforeach
     @else
-        @foreach($selected as $value => $title)
+        {{-- Lte3::field() passes a missing selected as '', Arr::wrap() makes it [0 => ''] — without the filter
+             an invisible <option value="0" selected> was rendered: the field sent 0 and satisfied required --}}
+        @foreach(array_filter($selected, fn ($title) => $title !== '' && $title !== null) as $value => $title)
             <option value="{{ $value }}" selected>{{ $title }}</option>
         @endforeach
     @endif
