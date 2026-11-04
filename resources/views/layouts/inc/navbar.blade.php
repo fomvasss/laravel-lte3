@@ -197,44 +197,21 @@
 
         @auth
         <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="/vendor/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2"
+            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown">
+                <img src="/vendor/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2 mr-0 mr-md-2"
                      alt="User Image">
                 <span class="d-none d-md-inline">{{ Lte3::user('name') }}</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <!-- User image -->
-                <li class="user-header bg-primary">
-                    <img src="/vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-                         alt="User Image">
-
-                    <p>
-                        {{ Lte3::user('name') }}
-                        <small>Created {{ Lte3::user('created_at') }}</small>
-                    </p>
-                </li>
-                <!-- Menu Body -->
-                <li class="user-body">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <a href="#">Followers</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Sales</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Friends</a>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                    <a href="/admin/profile" class="btn btn-default btn-flat">Profile</a>
-                    <a href="/logout" class="btn btn-default btn-flat float-right js-click-submit"
-                       data-confirm="Logout?">Sign out</a>
-                </li>
-            </ul>
+            <div class="dropdown-menu dropdown-menu-right user-menu-list">
+                <div class="dropdown-header">
+                    <div class="user-menu-name">{{ Lte3::user('name') }}</div>
+                    <small class="text-muted">{{ Lte3::user('email') }}</small>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="/admin/profile" class="dropdown-item"><i class="far fa-user fa-fw mr-2"></i> Profile</a>
+                <div class="dropdown-divider"></div>
+                <a href="/logout" class="dropdown-item text-danger js-click-submit" data-confirm="Logout?"><i class="fas fa-sign-out-alt fa-fw mr-2"></i> Sign out</a>
+            </div>
         </li>
         @else
         <li class="nav-item">

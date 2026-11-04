@@ -457,3 +457,11 @@ input.f-multiDatesPicker[readonly] {
 .f-lfm .f-media-list .f-media-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .f-lfm-modal .modal-body { padding: 0; }
 .f-lfm-modal iframe { display: block; width: 100%; height: 75vh; border: 0; }
+
+/* Navbar user menu as a plain list of links (.user-menu-list); AdminLTE gives .user-menu a fixed 280px and no padding */
+.navbar-nav > .user-menu > .user-menu-list { width: auto; min-width: 230px; max-width: calc(100vw - 16px); padding: .25rem 0; }
+.user-menu-list .dropdown-item { padding: .5rem 1rem; }
+.user-menu-list .dropdown-item:not(.text-danger) { color: inherit; }
+.user-menu-list .dropdown-header { text-align: left; white-space: normal; }
+.user-menu-name { font-weight: 700; font-size: 1rem; color: #212529; }
+.dark-mode .user-menu-name { color: #fff; }
