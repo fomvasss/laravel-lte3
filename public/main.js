@@ -108,13 +108,26 @@ $(function () {
     // Copy text to clipboard
     $(document).on('click', '.js-clipboard', function (e) {
         e.preventDefault()
-        var $tmp = $("<textarea>"),
-            $text = $(this).data('text') || $(this).text();
-        $("body").append($tmp);
-        $tmp.val($text).select();
-        document.execCommand("copy");
+        var text = String($(this).data('text') || $(this).text()),
+            done = function () { lteAlert('success', 'Copied!'); },
+            fail = function () { lteAlert('error', 'Copy failed'); };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done, fail);
+            return;
+        }
+
+        // Inside an open Bootstrap modal the focus trap keeps focus in the modal,
+        // so a textarea appended to body can't be selected and nothing gets copied
+        var $tmp = $('<textarea readonly>').css({position: 'fixed', top: 0, left: 0, opacity: 0}),
+            ok = false;
+        ($(this).closest('.modal').get(0) || document.body).appendChild($tmp.get(0));
+        $tmp.val(text).trigger('focus').select();
+        try {
+            ok = document.execCommand('copy');
+        } catch (err) {}
         $tmp.remove();
-        lteAlert('success', 'Copied!');
+        ok ? done() : fail();
     });
 
     // Insert token into the field at the cursor position
