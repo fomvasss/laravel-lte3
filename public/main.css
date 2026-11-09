@@ -13,6 +13,8 @@
     border-radius: 50%;
     display: inline;
     width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
 }
 
 a.hover-edit {
