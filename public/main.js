@@ -1560,7 +1560,9 @@ $(function () {
             } else {
                 $item.find('.f-media-thumb i').attr('class', 'far ' + (icons[ext] || 'fa-file'));
             }
-            $wrap.find('.f-media-items').append($item);
+            // у сітці зона вибору — остання плитка, нові файли стають перед нею
+            var $drop = $wrap.find('.f-media-items > .f-media-drop');
+            $drop.length ? $drop.before($item) : $wrap.find('.f-media-items').append($item);
         });
 
         // одиночне поле: новий файл замінить наявний — рядок наявного вимикаємо, щоб у формі був один рядок
@@ -1575,14 +1577,21 @@ $(function () {
         this.value = '';
     });
 
-    $(document).on('dragover dragenter', '.f-media .f-media-drop', function (e) {
+    // плитка в сітці мала — файли приймає вся сітка, підсвічується плитка
+    var dropTarget = '.f-media .f-media-drop, .f-media[data-multiple="1"][data-image="1"] .f-media-grid';
+    $(document).on('dragover dragenter', dropTarget, function (e) {
         e.preventDefault();
-        $(this).addClass('is-dragover');
-    }).on('dragleave dragend drop', '.f-media .f-media-drop', function (e) {
+        e.stopPropagation();
+        $(this).closest('.f-media').find('.f-media-drop').addClass('is-dragover');
+    }).on('dragleave dragend drop', dropTarget, function (e) {
         e.preventDefault();
-        $(this).removeClass('is-dragover');
-    }).on('drop', '.f-media .f-media-drop:not(.disabled)', function (e) {
-        addFiles($(this).closest('.f-media'), e.originalEvent.dataTransfer.files);
+        e.stopPropagation();
+        $(this).closest('.f-media').find('.f-media-drop').removeClass('is-dragover');
+    }).on('drop', dropTarget, function (e) {
+        var $drop = $(this).closest('.f-media').find('.f-media-drop');
+        if (!$drop.hasClass('disabled')) {
+            addFiles($(this).closest('.f-media'), e.originalEvent.dataTransfer.files);
+        }
     });
 
     $(document).on('click', '.f-media .js-media-delete', function () {

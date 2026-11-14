@@ -378,6 +378,12 @@ input.f-multiDatesPicker[readonly] {
 .f-media-drop.disabled { opacity: .5; cursor: not-allowed; }
 .f-media-drop-icon { font-size: 1.75rem; color: #007bff; opacity: .8; }
 .f-media-items:empty, .f-media-rejected:empty { display: none; }
+.f-media-drop-add { display: none; }
+/* кілька зображень: зона вибору — остання плитка сітки; поки файлів немає — на всю ширину */
+.f-media-grid > .f-media-drop:first-child { grid-column: 1 / -1; }
+.f-media .f-media-grid > label.f-media-drop:not(:first-child) { aspect-ratio: 1; padding: .5rem; }
+.f-media-grid > .f-media-drop:not(:first-child) .f-media-drop-text { display: none; }
+.f-media-grid > .f-media-drop:not(:first-child) .f-media-drop-add { display: inline; font-size: .8125rem; }
 .f-media.has-file .f-media-drop { display: none; }
 
 .f-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--f-media-thumb, 110px), 1fr)); gap: .5rem; }

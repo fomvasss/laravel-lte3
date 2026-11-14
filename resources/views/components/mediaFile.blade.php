@@ -11,6 +11,7 @@
     $isImage = !empty($attrs['is_image']);
     $expand = (Arr::get($attrs, 'format') ?: config('lte3.view.media.format', 'legacy')) === 'expand';
     $withMain = $expand && $multiple && !empty($attrs['main']);
+    $dropInGrid = $isImage && $multiple;
     $base = Str::replaceLast('[]', '', $name);
     $collection_name = !empty($attrs['collection']) ? $attrs['collection'] : $base;
     $accept = Arr::get($attrs, 'accept') ?: ($isImage ? 'image/*' : null);
@@ -116,26 +117,18 @@
                     @endforeach
                 </div>
             @endforeach
+            {{-- кілька зображень: зона вибору — остання плитка сітки, без файлів — на всю ширину --}}
+            @if($dropInGrid)
+            @include('lte3::components.mediaFileDrop')
+            @endif
         </div>
 
-        <label class="f-media-drop @error($name) is-invalid @enderror {{ $disabled ? 'disabled' : '' }}">
-            {{-- без name: кожен обраний файл переноситься у власний input рядка (див. скрипт) --}}
-            <input type="file"
-                   class="f-media-input {{ $attrs['class'] ?? '' }}"
-                   @if($multiple) multiple @endif
-                   @if($disabled) disabled @endif
-                   @if($accept) accept="{{ $accept }}" @endif>
-            <i class="fas {{ $isImage ? 'fa-image' : 'fa-cloud-upload-alt' }} f-media-drop-icon"></i>
-            <span>
-                <strong>{{ $multiple ? __('Choose files') : __('Choose file') }}</strong>
-                {{ __('or drag them here') }}
-            </span>
-            @if($acceptLabel)
-                <small class="text-muted">{{ $acceptLabel }}</small>
-            @endif
-            {{-- файли, що не підходять під accept, — скрипт пише сюди --}}
-            <small class="text-danger f-media-rejected"></small>
-        </label>
+        @unless($dropInGrid)
+        @include('lte3::components.mediaFileDrop')
+        @endunless
+        {{-- файли, що не підходять під accept, — скрипт пише сюди --}}
+        <small class="text-danger f-media-rejected"></small>
+
 
         @error($name)
             <div class="error invalid-feedback d-block">{{ $message }}</div>
