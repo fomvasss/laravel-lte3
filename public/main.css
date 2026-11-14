@@ -387,7 +387,7 @@ input.f-multiDatesPicker[readonly] {
 .f-media-grid .f-media-thumb { display: block; aspect-ratio: 1; }
 .f-media-grid .f-media-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .f-media-grid .f-media-meta, .f-media-grid .f-media-handle { display: none; }
-.f-media-grid .f-media-actions { position: absolute; top: .25rem; right: .25rem; display: flex; gap: .25rem; opacity: 0; transition: opacity .15s; }
+.f-media-grid .f-media-actions { position: absolute; top: .25rem; right: .25rem; display: flex; gap: .25rem; opacity: .6; transition: opacity .15s; }
 .f-media-grid .f-media-item:hover .f-media-actions { opacity: 1; }
 .f-media-grid.js-media-sortable .f-media-item { cursor: move; }
 .f-media-grid .f-media-badges { position: absolute; left: .25rem; bottom: .25rem; display: flex; flex-wrap: wrap; gap: .25rem; }
