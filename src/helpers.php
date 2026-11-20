@@ -329,3 +329,14 @@ if (! function_exists('lte3_asset')) {
         return "/vendor/lte3/{$path}" . (is_file($file) ? '?v=' . filemtime($file) : '');
     }
 }
+
+if (! function_exists('lte3_dot_name')) {
+    /**
+     * Ім'я поля форми → ключ Laravel для old() і помилок валідації: settings[pipelines][0][id] → settings.pipelines.0.id,
+     * tags[] → tags
+     */
+    function lte3_dot_name(string $name): string
+    {
+        return trim(str_replace(['[', ']'], ['.', ''], preg_replace('/\[\]$/', '', $name)), '.');
+    }
+}

@@ -1,5 +1,5 @@
 {{-- Зона вибору файлів для lte3::components.mediaFile: під списком або остання плитка сітки зображень --}}
-<label class="f-media-drop @error($name) is-invalid @enderror {{ $disabled ? 'disabled' : '' }}">
+<label class="f-media-drop @error(lte3_dot_name($name)) is-invalid @enderror {{ $disabled ? 'disabled' : '' }}">
     {{-- без name: кожен обраний файл переноситься у власний input рядка (див. скрипт) --}}
     <input type="file"
            class="f-media-input {{ $attrs['class'] ?? '' }}"

@@ -42,7 +42,7 @@
     <select
         name="{{ $field_name_input }}"
         data-name="{{ Str::replaceLast('[]', '', $name) }}"
-        class="form-control f-select2 select2-hidden-accessible @isset($attrs['map']) js-map-blocks @endisset {{ $attrs['class'] ?? '' }} @error($name) is-invalid @enderror"
+        class="form-control f-select2 select2-hidden-accessible @isset($attrs['map']) js-map-blocks @endisset {{ $attrs['class'] ?? '' }} @error(lte3_dot_name($name)) is-invalid @enderror"
         style="width: 100%;"
         autocomplete="off"
         data-toggle="tooltip"
@@ -126,7 +126,7 @@
 
     </select>
 
-    @error($name)<div class="error invalid-feedback"> {{ $message }} </div>@enderror
+    @error(lte3_dot_name($name))<div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])
         <span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>
     @endisset

@@ -130,7 +130,7 @@
         <small class="text-danger f-media-rejected"></small>
 
 
-        @error($name)
+        @error(lte3_dot_name($name))
             <div class="error invalid-feedback d-block">{{ $message }}</div>
         @enderror
         @isset($attrs['help'])

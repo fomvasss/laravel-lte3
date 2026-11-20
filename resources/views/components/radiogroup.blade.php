@@ -28,7 +28,7 @@
             $id = "_{$field_id_prefix}_{$name}_{$loop->index}";
         @endphp
         <div class="custom-control custom-radio">
-            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_method']) && $url) js-radio-submit @endif @error($name) is-invalid @enderror"
+            <input class="custom-control-input @isset($attrs['map']) js-map-blocks @endisset @if(isset($attrs['submit_method']) && $url) js-radio-submit @endif @error(lte3_dot_name($name)) is-invalid @enderror"
                    name="{{ $name }}"
                    value="{{$value}}"
                    id="{{$id}}"
@@ -55,7 +55,7 @@
             <label class="custom-control-label" for="{{$id}}">{{ $label }}</label>
         </div>
     @endforeach
-    @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
+    @error(lte3_dot_name($name)) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
     @isset($attrs['help'])
         <div style="width: 100%;"><small>{!! $attrs['help'] !!}</small></div>@endisset
 </div>

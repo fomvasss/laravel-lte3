@@ -41,7 +41,7 @@
     @endif
 
     @if(Arr::get($attrs, 'tokens'))<div class="position-relative flex-grow-1">@endif
-    <input class="form-control @error($name) is-invalid @enderror {{ $secret ? 'js-secret-value' : '' }} {{ $attrs['class'] ?? '' }}"
+    <input class="form-control @error(lte3_dot_name($name)) is-invalid @enderror {{ $secret ? 'js-secret-value' : '' }} {{ $attrs['class'] ?? '' }}"
            name="{{ $name }}"
            type="{{ $attrs['type'] }}"
            data-origin-type="{{ $originType }}"
@@ -113,7 +113,7 @@
         </span>
         </div>
     @endisset
-    @error($name)<div class="error invalid-feedback d-block"> {{ $message }} </div>@enderror
+    @error(lte3_dot_name($name))<div class="error invalid-feedback d-block"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>
 

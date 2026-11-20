@@ -22,7 +22,7 @@
             <span class="input-group-text"><i class="fas fa-square" style="color: {{ $value }};"></i></span>
         </div>
     </div>
-    @error($name)
+    @error(lte3_dot_name($name))
     <div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

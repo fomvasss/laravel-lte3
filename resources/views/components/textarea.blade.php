@@ -4,7 +4,7 @@
     @endif
 
     @if(Arr::get($attrs, 'tokens'))<div class="position-relative">@endif
-    <textarea class="form-control @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+    <textarea class="form-control @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
               name="{{ $name }}"
               data-toggle="tooltip"
     @if(Arr::get($attrs, 'disabled')) disabled @endif
@@ -45,7 +45,7 @@
     @endif
 
 
-    @error($name)
+    @error(lte3_dot_name($name))
     <div class="error invalid-feedback d-block"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

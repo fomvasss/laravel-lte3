@@ -50,6 +50,7 @@ Turns the nested order sent by [nestedset](../fields/nestedset.md) sorting back 
 |---|---|
 | `old_contain($key, $needle)` | Whether the old input `$key` equals `$needle`, or contains it if it is an array — for checkboxes and multiple selects |
 | `old_request($key, $default = null)` | `request($key)`, else `old($key)`, else `$default` |
+| `lte3_dot_name(string $name)` | A field name as a Laravel key for `old()` and validation errors: `settings[pipelines][0][id]` → `settings.pipelines.0.id`, `tags[]` → `tags`. Field components use it for their inline error |
 | `comparison_bool($value)` | `true` for `true`, `1`, `"1"`, `"true"`; `false` otherwise |
 
 ## URLs

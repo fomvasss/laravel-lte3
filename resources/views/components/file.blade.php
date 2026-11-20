@@ -14,7 +14,7 @@
     @endif
     <div class="custom-file">
         <input
-            class="custom-file-input js-files-input @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+            class="custom-file-input js-files-input @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
             name="{{ $input_name }}"
             type="file"
             @if($multimpe) multiple @endif
@@ -57,7 +57,7 @@
     @else
         <div><small>Files not loaded.</small></div>
     @endif
-    @error($name) <div class="error invalid-feedback" style="display: inline;"> {{ $message }} </div>@enderror
+    @error(lte3_dot_name($name)) <div class="error invalid-feedback" style="display: inline;"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<div ><small>{!! $attrs['help'] !!}</small></div>@endisset
 </div>
 

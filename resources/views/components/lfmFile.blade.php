@@ -61,7 +61,7 @@
     </div>
 
     <input type="{{ $editable ? 'text' : 'hidden' }}"
-           class="js-lfm-input {{ $editable ? 'form-control form-control-sm mt-2' : '' }} @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+           class="js-lfm-input {{ $editable ? 'form-control form-control-sm mt-2' : '' }} @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
            name="{{ $inputName }}"
            value="{{ $path }}"
            @if($disabled) disabled @endif
@@ -74,7 +74,7 @@
         @include('lte3::components.lfmFileItem', ['url' => '', 'fileName' => '', 'icon' => 'fa-file', 'thumb' => null])
     </template>
 
-    @error($name)
+    @error(lte3_dot_name($name))
         <div class="error invalid-feedback d-block">{{ $message }}</div>
     @enderror
     @isset($attrs['help'])

@@ -5,7 +5,7 @@
 
     @if($model || $value)
         <input type="text"
-               class="form-control js-slug-field-input @error($name) is-invalid @enderror @isset($attrs['class']) {{ $attrs['class'] }} @endisset"
+               class="form-control js-slug-field-input @error(lte3_dot_name($name)) is-invalid @enderror @isset($attrs['class']) {{ $attrs['class'] }} @endisset"
                name="{{ $name }}"
                value="{{ $value }}"
                data-toggle="tooltip"
@@ -27,7 +27,7 @@
     @else
 
         <input type="text"
-               class="form-control js-slug-field-input @error($name) is-invalid @enderror"
+               class="form-control js-slug-field-input @error(lte3_dot_name($name)) is-invalid @enderror"
                name="{{ $name }}"
                value="{{ $value }}"
                data-toggle="tooltip"
@@ -44,7 +44,7 @@
         </div>
 
     @endif
-    @error($name)
+    @error(lte3_dot_name($name))
     <div class="invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

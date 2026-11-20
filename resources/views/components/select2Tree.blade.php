@@ -7,7 +7,7 @@
         <label for="{{ $input_name}}">{!! $label !!}</label>
     @endif
     <select name="{{ $input_name }}"
-            class="form-control f-select2-tree-input is-invalid {{ $attrs['class'] ?? null }} @error($name) is-invalid @enderror"
+            class="form-control f-select2-tree-input is-invalid {{ $attrs['class'] ?? null }} @error(lte3_dot_name($name)) is-invalid @enderror"
             @if(!empty($attrs['multiple'])) multiple @endif
             data-url="{{ $attrs['url_tree'] ?? null }}"
             data-method-get="{{ $attrs['method_get'] ?? null }}"
@@ -26,7 +26,7 @@
     @endforeach
     >
     </select>
-    @error($name)
+    @error(lte3_dot_name($name))
     <div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

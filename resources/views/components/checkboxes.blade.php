@@ -41,7 +41,7 @@
         @endphp
     <div class="@if($is_simple) form-check @else custom-control @endif {{ $attrs['class_control'] ?? null }}">
 
-        <input class="@if($is_simple) form-check-input @else custom-control-input @endif @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+        <input class="@if($is_simple) form-check-input @else custom-control-input @endif @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                data-toggle="tooltip"
                type="checkbox"
                name="{{ $name }}[]"
@@ -66,6 +66,6 @@
     </div>
     @endforeach
 
-    @error($name) <p class="error invalid-feedback" style="display: inline;">{{ $message }}</p> @enderror
+    @error(lte3_dot_name($name)) <p class="error invalid-feedback" style="display: inline;">{{ $message }}</p> @enderror
     @isset($attrs['help'])<p style="width: 100%;"><small>{!! $attrs['help'] !!}</small></p>@endisset
 </div>

@@ -12,7 +12,7 @@
         @if($unchecked_value !== '')
             <input type="hidden" name="{{ $name }}" value="{{ $unchecked_value }}">
         @endif
-        <input class="@if($is_simple) form-check-input @else custom-control-input @endif @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+        <input class="@if($is_simple) form-check-input @else custom-control-input @endif @if(!empty($attrs['url_save'])) f-checkbox-ajax @endif @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
                data-toggle="tooltip"
                type="checkbox"
                name="{{ $name }}"
@@ -38,6 +38,6 @@
             <label for="{{ $id }}" class="@if($is_simple) form-check-label @else custom-control-label @endif">{!! $label !!}</label>
         @endif
     </div>
-    @error($name) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
+    @error(lte3_dot_name($name)) <span class="error invalid-feedback" style="display: inline;">{{ $message }}</span> @enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 </div>

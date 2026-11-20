@@ -16,14 +16,14 @@
             data-max="{{ Arr::get($attrs, 'max') }}"
             data-format="{{ Arr::get($attrs, 'format') }}"
             value="{{ implode(', ', Arr::wrap($value)) }}"
-            class="form-control f-multiDatesPicker @error($name) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
+            class="form-control f-multiDatesPicker @error(lte3_dot_name($name)) is-invalid @enderror {{ $attrs['class'] ?? '' }}"
             type="text" autocomplete="off"
             readonly
     @foreach(Arr::only($attrs, $field_attrs) as $key => $val)
         {{$key}}="{{$val}}"
     @endforeach
     >
-    @error($name)
+    @error(lte3_dot_name($name))
     <div class="error invalid-feedback"> {{ $message }} </div>@enderror
     @isset($attrs['help'])<span style="width: 100%;"><small>{!! $attrs['help'] !!}</small></span>@endisset
 
