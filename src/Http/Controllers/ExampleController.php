@@ -34,6 +34,88 @@ class ExampleController extends Controller
     }
 
     /**
+     * Форма з опису полів (Lte3::fields): POST перевіряє поля й повертає на форму з old() або з надісланими значеннями
+     */
+    public function fields(Request $request)
+    {
+        $values = [
+            'title' => 'Sales',
+            'notify' => true,
+            'pipelines' => [
+                ['id' => 'retail', 'status_id' => 'retail_new', 'hint' => 'Private customers'],
+            ],
+            'default_pipeline_id' => 'retail',
+        ];
+
+        if ($request->isMethod('post')) {
+            $values = $request->validate([
+                'settings.title' => ['required', 'string', 'max:100'],
+                'settings.pipelines' => ['required', 'array', 'min:1'],
+                'settings.pipelines.*.id' => ['required', 'string'],
+                'settings.pipelines.*.status_id' => ['nullable', 'string'],
+                'settings.pipelines.*.hint' => ['nullable', 'string'],
+                'settings.default_pipeline_id' => ['required', 'string'],
+                'settings.tags' => ['nullable', 'array'],
+                'settings.notify' => ['nullable', 'boolean'],
+            ])['settings'];
+
+            \Session::flash('success', 'Submitted: ' . json_encode($values, JSON_UNESCAPED_UNICODE));
+        }
+
+        $pipelines = collect($this->pipelinesData())->pluck('text', 'id')->all();
+
+        return view('lte3::examples.fields', [
+            'values' => $values,
+            'fields' => [
+                ['name' => 'title', 'type' => 'text', 'label' => 'Title', 'required' => true],
+                ['name' => 'pipelines', 'type' => 'list', 'label' => 'Pipelines', 'min' => 1, 'max' => 5, 'add_label' => 'Add pipeline', 'fields' => [
+                    ['name' => 'id', 'type' => 'select', 'label' => 'Pipeline', 'url' => route('lte3.data.pipelines'), 'options' => $pipelines, 'required' => true],
+                    ['name' => 'status_id', 'type' => 'select', 'label' => 'Status', 'url' => route('lte3.data.pipeline-statuses'), 'depends_on' => 'id', 'options' => $this->statusesOf(array_column($values['pipelines'] ?? [], 'id'))],
+                    ['name' => 'hint', 'type' => 'text', 'label' => 'When to choose', 'placeholder' => 'Cafes, restaurants'],
+                ]],
+                ['name' => 'default_pipeline_id', 'type' => 'select', 'label' => 'Default pipeline', 'options' => $pipelines, 'required' => true],
+                ['name' => 'tags', 'type' => 'multiselect', 'label' => 'Tags', 'options' => ['new' => 'New', 'vip' => 'VIP', 'wholesale' => 'Wholesale']],
+                ['name' => 'notify', 'type' => 'checkbox', 'label' => 'Notify on new items'],
+            ],
+        ]);
+    }
+
+    public function pipelines(Request $request)
+    {
+        $term = mb_strtolower((string) $request->input('term'));
+
+        return response()->json(['results' => array_values(array_filter($this->pipelinesData(), fn (array $item) => $term === '' || str_contains(mb_strtolower($item['text']), $term)))]);
+    }
+
+    /**
+     * Залежний вибір: статуси воронки з `?id=` (depends_on: id)
+     */
+    public function pipelineStatuses(Request $request)
+    {
+        $statuses = $this->statusesOf([(string) $request->input('id')]);
+
+        return response()->json(['results' => array_map(fn ($id, $text) => ['id' => $id, 'text' => $text], array_keys($statuses), $statuses)]);
+    }
+
+    private function pipelinesData(): array
+    {
+        return [
+            ['id' => 'retail', 'text' => 'Retail'],
+            ['id' => 'horeca', 'text' => 'HoReCa'],
+        ];
+    }
+
+    private function statusesOf(array $pipelineIds): array
+    {
+        $all = [
+            'retail' => ['retail_new' => 'Retail / New', 'retail_paid' => 'Retail / Paid'],
+            'horeca' => ['horeca_new' => 'HoReCa / New', 'horeca_contract' => 'HoReCa / Contract'],
+        ];
+
+        return array_merge(...array_map(fn ($id) => $all[$id] ?? [], $pipelineIds ?: ['']));
+    }
+
+    /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */

@@ -77,6 +77,7 @@ The repeater must be inside a `<form>`: the indexes and weights are fixed in a `
 | --- | --- | --- |
 | `data-mb-min` | `.mb-wrap` | Delete buttons are disabled while the number of items is at the minimum |
 | `data-mb-max` | `.mb-wrap` | The add button is disabled while the number of items is at the maximum. Clone is not limited |
+| `data-mb-weight` | `.mb-wrap` | `false`: no `weight` input is added on submit, see [Submitted data](#submitted-data) |
 | `data-fn-inits` | `.mb-wrap` | Global functions called after an item is added or cloned, see [Dynamic content](dynamic-content.md#data-fn-inits) |
 | `data-mb-placeholder` | `template.mb-template` | Index placeholder of this template, default `$i` |
 | `data-confirm` | `.mb-btn-delete` | Delete immediately after a `confirm()` instead of the undo flow |
@@ -123,7 +124,7 @@ content[items][1][url]=
 content[items][1][weight]=1
 ```
 
-The array keys are already in display order, so `weight` is only needed if the data is sorted again later.
+The array keys are already in display order, so `weight` is only needed if the data is sorted again later. With `data-mb-weight="false"` on `.mb-wrap` the `weight` input is not added; the items are still reindexed.
 
 ## Nested repeaters
 

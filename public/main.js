@@ -653,7 +653,18 @@ $(function () {
                     ajax: {
                         delay: 250,
                         url: urlSuggest,
-                        dataType: 'json'
+                        dataType: 'json',
+                        // depends_on: значення батьківського поля йде в запит під його коротким іменем (?pipeline_id=…)
+                        data: function (params) {
+                            var dep = $this.data('depends-on'),
+                                $parent = dependsOnParent($this);
+
+                            if (dep && $parent) {
+                                params[dep] = fieldValue($parent);
+                            }
+
+                            return params;
+                        }
                     }
                 });
             } else {
@@ -666,6 +677,11 @@ $(function () {
                     dropdownParent: $this.closest('.f-select2-wrap')
                 });
             }
+        });
+
+        // depends_on: поки батьківське поле порожнє — вибір неактивний
+        scoped(root, '.f-select2[data-depends-on]').each(function () {
+            toggleDependent($(this), false);
         });
 
         // Displaying blocks depending on the selection in the selection
@@ -705,6 +721,66 @@ $(function () {
             error: function () {
                 console.log('Error Ajax!');
                 lteAlert('error', 'Error Ajax!');
+            }
+        });
+    });
+
+    // Component: Select2, depends_on — варіанти залежать від іншого поля (воронка → статус, країна → місто).
+    // Батьківське поле — сусіднє того самого рівня: в імені замінюється останній сегмент
+    // (settings[pipelines][1][status_id] → settings[pipelines][1][id]), тож у повторюваних блоках це поле того самого рядка.
+    // Ім'я рахується щоразу, а не запам'ятовується: mb-blocks змінює індекси при додаванні, клонуванні й сабміті
+    function dependsOnParent($select) {
+        var dep = $select.data('depends-on'),
+            name = ($select.attr('name') || '').replace(/\[\]$/, '');
+
+        if (!dep || !name) {
+            return null;
+        }
+
+        var parentName = /\]$/.test(name) ? name.replace(/\[[^\[\]]*\]$/, '[' + dep + ']') : dep,
+            $scope = $select.closest('form'),
+            // checkbox має приховане поле з тим самим іменем — береться саме поле вводу
+            $parent = ($scope.length ? $scope : $(document)).find('[name="' + parentName + '"], [name="' + parentName + '[]"]').not('[type=hidden]');
+
+        return $parent.length ? $parent.first() : null;
+    }
+
+    function fieldValue($field) {
+        if ($field.is(':checkbox')) {
+            return $field.is(':checked') ? $field.val() : '';
+        }
+
+        var val = $field.val();
+
+        return Array.isArray(val) ? val.join(',') : (val || '');
+    }
+
+    // clear — батьківське поле змінилось: вибране вже може не підходити, варіанти прибираються
+    function toggleDependent($select, clear) {
+        var $parent = dependsOnParent($select);
+
+        if (!$parent) {
+            return;
+        }
+
+        // порожній варіант лишається: без нього select без вибраного не потрапляє в запит зовсім
+        if (clear) {
+            $select.find('option').filter(function () { return this.value !== ''; }).remove();
+            $select.val($select.prop('multiple') ? [] : '').trigger('change');
+        }
+
+        $select.prop('disabled', fieldValue($parent) === '');
+    }
+
+    $(document).on('change', 'select, input, textarea', function () {
+        var changed = this,
+            $scope = $(changed).closest('form');
+
+        ($scope.length ? $scope : $(document)).find('.f-select2[data-depends-on]').each(function () {
+            var $parent = dependsOnParent($(this));
+
+            if ($parent && $parent[0] === changed) {
+                toggleDependent($(this), true);
             }
         });
     });

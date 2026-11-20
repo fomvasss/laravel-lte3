@@ -45,6 +45,7 @@ export default defineConfig({
 					label: 'Fields',
 					items: [
 						'fields/overview',
+						{ label: 'fields (form from a description)', slug: 'fields/fields' },
 						{ label: 'text, number, email, url, search, password, secret', slug: 'fields/text' },
 						{ label: 'textarea', slug: 'fields/textarea' },
 						{ label: 'slug', slug: 'fields/slug' },

@@ -99,6 +99,8 @@ return [
             'mediaImage' => ['blade' => 'lte3::components.mediaFile', 'vars' => ['name', 'model', 'attrs'], 'default' => ['is_image' => true, 'accept' => 'image/*']],
 
             'tableOptions' => ['blade' => 'lte3::components.tableOptions', 'vars' => ['columns', 'options', 'attrs']],
+
+            'fields' => ['blade' => 'lte3::components.fields', 'vars' => ['fields', 'values', 'attrs']],
         ],
 
         'field_attrs' => [

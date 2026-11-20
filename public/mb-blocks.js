@@ -241,6 +241,9 @@
         });
 
         $(this).find('.mb-items').each(function () {
+            // data-mb-weight="false" на .mb-wrap — без поля weight: порядок і так задають ключі масиву
+            var withWeight = $(this).closest('.mb-wrap').data('mb-weight') !== false;
+
             $(this).find('> .mb-item').each(function (newIdx) {
                 var $item = $(this);
                 var oldIdx = parseInt($item.data('mb-idx'), 10);
@@ -263,7 +266,7 @@
                     if (m) { basePath = m[1]; return false; }
                 });
 
-                if (basePath) {
+                if (basePath && withWeight) {
                     var wName = basePath + '[weight]';
                     var $w = $item.find('> input[name="' + wName + '"]');
                     if ($w.length) {

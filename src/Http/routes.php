@@ -13,6 +13,9 @@ Route::view('reset-password', 'lte3::auth.reset-password');
 
 Route::get('components', [ExampleController::class, 'components'])->name('components');
 Route::get('mb-blocks', [ExampleController::class, 'mbBlocks'])->name('mb-blocks');
+Route::match(['get', 'post'], 'fields', [ExampleController::class, 'fields'])->name('fields');
+Route::get('data/pipelines', [ExampleController::class, 'pipelines'])->name('data.pipelines');
+Route::get('data/pipeline-statuses', [ExampleController::class, 'pipelineStatuses'])->name('data.pipeline-statuses');
 Route::any('data/save', [ExampleController::class, 'save'])->name('data.save');
 Route::get('data/statuses', [ExampleController::class, 'statuses'])->name('data.statuses');
 Route::get('data/modal-content', [ExampleController::class, 'modalContent'])->name('data.modal-content');

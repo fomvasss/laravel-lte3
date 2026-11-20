@@ -80,6 +80,7 @@ The result is wrapped into an array and merged with `old($name)` (old values win
 | `data` | array | - | `data-*` attributes of the `<select>`. |
 | `map` | array | - | Shows and hides page blocks by the selected value, see [Toggle blocks](#toggle-blocks). |
 | `url_suggest` | string | - | Loads options by AJAX while typing, see [AJAX search](#ajax-search). |
+| `data` → `depends-on` | string | - | With `url_suggest`: the options depend on another field, see [Dependent select](#dependent-select). |
 | `url_tags` | string | - | Tags mode: AJAX options plus new values typed by the user, see [Tags](#tags). |
 | `separators` | string | `[",", ";"]` | With `url_tags`: JSON array of characters that finish a tag. |
 | `new_tag_label` | string | ` (new)` | With `url_tags`: suffix shown after a not yet existing tag in the dropdown. |
@@ -158,6 +159,40 @@ public function suggest(Request $request)
     return response()->json([
         'results' => $users->map(fn ($u) => ['id' => $u->id, 'text' => $u->name]),
     ]);
+}
+```
+
+## Dependent select
+
+The options of one select can depend on the value of another field (pipeline → status, country → city). Set `depends-on` in `data` to the name of the other field and use `url_suggest`:
+
+```blade
+{!! Lte3::select2('pipeline_id', $deal->pipeline_id, $pipelines, ['label' => 'Pipeline']) !!}
+
+{!! Lte3::select2('status_id', $deal->status_id, $deal->status ? [$deal->status->id => $deal->status->name] : [], [
+    'label' => 'Status',
+    'url_suggest' => route('admin.statuses.suggest'),
+    'empty_value' => '',
+    'data' => ['depends-on' => 'pipeline_id'],
+]) !!}
+```
+
+- The other field is a **sibling of the same level**: the last segment of the select name is replaced, so `status_id` depends on `pipeline_id`, `settings[pipelines][1][status_id]` on `settings[pipelines][1][id]` with `depends-on` `id`. In [mb-blocks](../usage/mb-blocks.md) this is the field of the same item, also after adding, cloning and reindexing.
+- The value of the other field is added to the AJAX request under its short name: `GET {url_suggest}?term=...&pipeline_id=5`. A multiple select sends its values comma-separated, a checkbox its value or an empty string.
+- While the other field is empty, the select is disabled (a disabled select is not submitted).
+- When the other field changes, the selected value and the loaded options are removed, except an empty option (`empty_value`), so the field is still submitted as empty. The change event of the select fires, so a chain of dependent selects is cleared down to the end.
+- The other field is looked up in the same `<form>`, otherwise in the document.
+
+The server filters by the parameter:
+
+```php
+public function suggest(Request $request)
+{
+    $statuses = Status::where('pipeline_id', $request->input('pipeline_id'))
+        ->where('name', 'like', '%' . $request->input('term') . '%')
+        ->get();
+
+    return response()->json(['results' => $statuses->map(fn ($s) => ['id' => $s->id, 'text' => $s->name])]);
 }
 ```
 
