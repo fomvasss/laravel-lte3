@@ -8,6 +8,16 @@ The package follows semantic versioning within `1.x`: minor and patch releases d
 - Published config: compare with the package [`config/lte3.php`](https://github.com/fomvasss/laravel-lte3/blob/master/config/lte3.php) — new keys inside `view` do not appear in a published copy
 - Published or copied views: check the notes below for the versions you skip
 
+## 1.128.0
+
+- New component `fields` (form from a description). A published `config/lte3.php` needs it in `view.components`, otherwise `Lte3::fields()` throws `Lte3 method or component 'fields' not found!`:
+
+```php
+'fields' => ['blade' => 'lte3::components.fields', 'vars' => ['fields', 'values', 'attrs']],
+```
+
+- Field components show the validation error of nested names under the field: `settings[title]` now finds the error `settings.title` (before, only top-level names did). A view that prints such an error itself, after the field (`@error('settings.title')`), now shows it twice — remove the own output. Published or copied component views keep the old lookup: replace `@error($name)` with `@error(lte3_dot_name($name))`.
+
 ## 1.123.4
 
 A copied `layouts/inc/options.blade.php` must guard `initSummernote()` with `if (!$.fn.summernote) return;`. Without it, on pages that do not load Summernote the script stops at the first line and date pickers, live pattern validation, x-editable and the editors below it are not initialized.
