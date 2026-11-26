@@ -99,7 +99,7 @@ Add-ons are printed as raw HTML. With any add-on the wrapper gets the `input-gro
 
 ## number
 
-`type="number"` with `default` `0`, so a new form shows `0` instead of an empty field (inside a form with a model, the model value is used). Use `min`, `max` and `step` from `field_attrs`:
+`type="number"` with `default` `0`, so a new form shows `0` instead of an empty field (inside a form with a model, the model value is used). Pass `'default' => null` when an empty value means something else than `0` (no limit, not set). Use `min`, `max` and `step` from `field_attrs`:
 
 ```blade
 {!! Lte3::number('price', null, ['min' => 0, 'step' => '0.01', 'default' => null]) !!}

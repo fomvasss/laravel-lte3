@@ -41,7 +41,11 @@ class Lte
             }
 
             if (isset($res['name']) && array_key_exists('value', $res)) {
-                $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $res['attrs']['default'] ?? $componentParams['default']['default'] ?? null);
+                // явне 'default' => null у полі перекриває дефолт компонента (напр. 0 у number)
+                $default = array_key_exists('default', $res['attrs'] ?? [])
+                    ? $res['attrs']['default']
+                    : $componentParams['default']['default'] ?? null;
+                $res['value'] = $this->getValueAttribute($res['name'], $res['value'], $default);
                 $res['value'] = $this->prepareValueFormatter($res);
             }
 

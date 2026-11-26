@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.128.1 - 2026-11-26
+
+### Fixed
+- `'default' => null` in the attributes of a field now disables the component default instead of being ignored. `Lte3::number('limit', null, ['default' => null])` renders an empty field; before it still rendered `0` (the `number` default), so an empty value was submitted as `0`. Fields without `default` in their attributes are not affected.
+
 ## 1.123.6 - 2026-10-20
 
 ### Fixed
