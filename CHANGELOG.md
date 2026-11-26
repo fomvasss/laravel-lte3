@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.128.2 - 2026-11-26
+
+### Fixed
+- `select2` with `url_suggest` sends the search string as `q` again. Since 1.128.0 the ajax request carried only `term`, so suggest endpoints that read `q` (the usual Select2 parameter) returned nothing. Fields with `depends_on` still send the parent value as before.
+
 ## 1.128.1 - 2026-11-26
 
 ### Fixed

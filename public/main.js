@@ -657,13 +657,15 @@ $(function () {
                         // depends_on: значення батьківського поля йде в запит під його коротким іменем (?pipeline_id=…)
                         data: function (params) {
                             var dep = $this.data('depends-on'),
-                                $parent = dependsOnParent($this);
+                                $parent = dependsOnParent($this),
+                                // як у Select2 за замовчуванням: рядок пошуку — і в term, і в q (контролери читають q)
+                                data = $.extend({}, params, {q: params.term});
 
                             if (dep && $parent) {
-                                params[dep] = fieldValue($parent);
+                                data[dep] = fieldValue($parent);
                             }
 
-                            return params;
+                            return data;
                         }
                     }
                 });
